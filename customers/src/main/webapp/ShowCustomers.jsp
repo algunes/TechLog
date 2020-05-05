@@ -13,7 +13,12 @@
 <p>
 <%
 	musteri m = (musteri)request.getAttribute("musteri");
+	if (m.getAd() == null) {
+		out.println("No customers found!");
+	}
+	else {
 	out.println(m);
+	}
 %>
 </p>
 </body>

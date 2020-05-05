@@ -3,7 +3,8 @@ package com.techlog.web.model;
 public class musteri {
 	
 	private int kisiNo;
-	private String ad, soyad, kurum, departman, pozisyon, tarih, aktiflik, ekleyen, lastChange;
+	private String ad, soyad, kurum, departman, pozisyon, email, telefon, adres, ekleyen, tarih;
+	
 	
 
 	public int getKisiNo() {
@@ -54,20 +55,28 @@ public class musteri {
 		this.pozisyon = pozisyon;
 	}
 
-	public String getTarih() {
-		return tarih;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setTarih(String tarih) {
-		this.tarih = tarih;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getAktiflik() {
-		return aktiflik;
+	public String getTelefon() {
+		return telefon;
 	}
 
-	public void setAktiflik(String aktiflik) {
-		this.aktiflik = aktiflik;
+	public void setTelefon(String telefon) {
+		this.telefon = telefon;
+	}
+
+	public String getAdres() {
+		return adres;
+	}
+
+	public void setAdres(String adres) {
+		this.adres = adres;
 	}
 
 	public String getEkleyen() {
@@ -78,23 +87,19 @@ public class musteri {
 		this.ekleyen = ekleyen;
 	}
 
-	public String getLastChange() {
-		return lastChange;
+	public String getTarih() {
+		return tarih;
 	}
 
-	public void setLastChange(String lastChange) {
-		this.lastChange = lastChange;
+	public void setTarih(String tarih) {
+		this.tarih = tarih;
 	}
 
 	@Override
 	public String toString() {
 		return "musteri [kisiNo=" + kisiNo + ", ad=" + ad + ", soyad=" + soyad + ", kurum=" + kurum + ", departman="
-				+ departman + ", pozisyon=" + pozisyon + ", tarih=" + tarih + ", aktiflik=" + aktiflik + ", ekleyen="
-				+ ekleyen + ", lastChange=" + lastChange + "]";
+				+ departman + ", pozisyon=" + pozisyon + ", email=" + email + ", telefon=" + telefon + ", adres="
+				+ adres + ", ekleyen=" + ekleyen + ", tarih=" + tarih + "]";
 	}
-	
-	
-	
-	
 
 }

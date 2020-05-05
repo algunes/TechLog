@@ -3,9 +3,11 @@
 <html>
 <body>
 <h2>TechLog Customer System</h2>
+
 <form action = "searchCustomer" >
+	<label for="searchCustomer">Search by Name:</label>
 	<input type = "text" name = "ad"> 
-	<input type = "submit">
+	<input type = "submit" value = "Search">
 </form>
 </body>
 </html>

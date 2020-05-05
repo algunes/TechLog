@@ -15,7 +15,7 @@ public class MusteriDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tekniksatistakip","root","Arturo19....?");
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("call search('" + ad + "',null,null)");
+			ResultSet rs = st.executeQuery("call search('" + ad + "',null,null,null,null,null)");
 			
 			if (rs.next()) {
 			
@@ -25,14 +25,16 @@ public class MusteriDAO {
 			m.setKurum(rs.getString("musteri_kurumsal_isim"));
 			m.setDepartman(rs.getString("musteri_departman"));
 			m.setPozisyon(rs.getString("musteri_pozisyon"));
-			m.setTarih(rs.getString("musteri_kisi_tarih"));
-			m.setAktiflik(rs.getString("musteri_aktiflik"));
+			m.setEmail(rs.getString("musteri_email"));
+			m.setTelefon(rs.getString("musteri_tel"));
+			m.setAdres(rs.getString("musteri_adres"));
 			m.setEkleyen(rs.getString("ekleyen"));
-			m.setLastChange(rs.getString("last_change"));
+			m.setTarih(rs.getString("eklenme_tarihi"));
 			
 			st.close();
 			con.close();
 			}
+		
 		}
 		catch(Exception e) {
 			System.out.println(e);
