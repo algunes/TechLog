@@ -1,1 +1,1 @@
-This is an open source Java web application project which can be use by any small scale tech company for storing and managing technical sales, stock tracking, client info and technical service records. I'am developing it with servlets, JSPs and Mysql.
+This is an open source Java web application project which can be use by any small scale tech company for storing and managing technical sales, stock tracking, client info and technical service records.
