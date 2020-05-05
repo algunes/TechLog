@@ -5,20 +5,6 @@ public class musteri {
 	private int kisiNo;
 	private String ad, soyad, kurum, departman, pozisyon, tarih, aktiflik, ekleyen, lastChange;
 	
-	public musteri(int kisiNo, String ad, String soyad, String kurum, String departman, String pozisyon, String tarih,
-			String aktiflik, String ekleyen, String lastChange) {
-		super();
-		this.kisiNo = kisiNo;
-		this.ad = ad;
-		this.soyad = soyad;
-		this.kurum = kurum;
-		this.departman = departman;
-		this.pozisyon = pozisyon;
-		this.tarih = tarih;
-		this.aktiflik = aktiflik;
-		this.ekleyen = ekleyen;
-		this.lastChange = lastChange;
-	}
 
 	public int getKisiNo() {
 		return kisiNo;
