@@ -6,7 +6,7 @@ import com.techlog.web.model.musteri;
 
 public class MusteriDAO {
 	
-	public musteri getMusteri(String ad) {
+	public musteri getMusteri(String name, String surname) {
 
 		musteri m = new musteri();
 		// String s = new String("call search('emel',null,null)");
@@ -15,7 +15,7 @@ public class MusteriDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tekniksatistakip","root","Arturo19....?");
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("call search('" + ad + "',null,null,null,null,null)");
+			ResultSet rs = st.executeQuery("call search('" + name + "','" + surname + "', null, null, null, null)");
 			
 			if (rs.next()) {
 			
