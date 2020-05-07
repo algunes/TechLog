@@ -15,28 +15,40 @@ import com.techlog.web.model.musteri;
 @WebServlet("/searchCustomer")
 public class SearchCustomerNameController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	String noCustomer = "No Customer Found!";
+	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String name = request.getParameter("ad");
 		String surname = request.getParameter("soyad");
+		String company = request.getParameter("company");
+		String telNumber = request.getParameter("tel");
+		String email = request.getParameter("email");
+		String address = request.getParameter("address");
+		
 		if (name != null && surname != null && !surname.isEmpty() && !name.isEmpty()) {
 			MusteriDAO mDao = new MusteriDAO();
 			musteri searchReturning = mDao.getMusteri(name, surname);
 			
-			request.setAttribute("musteri", searchReturning);
+			if (searchReturning.getKisiNo() != 0) {
+				request.setAttribute("musteri", searchReturning);
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomers.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				request.setAttribute("warning", noCustomer);
+				RequestDispatcher rd = request.getRequestDispatcher("Warning.jsp");
+				rd.forward(request, response);
+			}
 			
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomers.jsp");
-			rd.forward(request, response);
 		}
 		else {
-			String warning = "You have to enter both name and surname!";
+			String warning = new String ("You have to enter both name and surname!");
 			request.setAttribute("warning", warning);
-			RequestDispatcher rd = request.getRequestDispatcher("Warning.jsp");
-			rd.forward(request, response);
-		}
-		
+			RequestDispatcher rd2 = request.getRequestDispatcher("Warning.jsp");
+			rd2.forward(request, response);
+		}		
 
 	}
 

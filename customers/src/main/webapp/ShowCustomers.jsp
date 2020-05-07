@@ -1,6 +1,8 @@
 <%@page import="com.techlog.web.model.musteri"%>
 <%@ page language="java" contentType="text/html; charset = UTF-8"
     pageEncoding="UTF-8" errorPage = "Error.jsp" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
     
 <!DOCTYPE html>
 <html>
@@ -26,6 +28,7 @@ tr:nth-child(even) {
 </style>
 </head>
 <body>
+
 <h2>TechLog Customer Management System</h2>
 <h3>Search Results:</h3>
 
@@ -35,6 +38,7 @@ if (m.getAd() == null) {
 	out.println("No customer found!");
 }
 %>
+
 
 <table>
 <caption>Müşteri</caption>
@@ -83,6 +87,7 @@ if (m.getAd() == null) {
     <td><%= m.getTarih()%></td>
   </tr>
 </table>
+
 
 </body>
 </html>

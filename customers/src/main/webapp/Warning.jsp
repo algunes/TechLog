@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" errorPage = "Error.jsp" %>
+	 errorPage = "Error.jsp" %> 
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,12 +11,15 @@
 <body>
 <%
 
-String warning = request.getAttribute("warning").toString();
-out.println(warning);
-
-${warning}
-
+// String warning1 = request.getAttribute("nullSearchParameter").toString();
+// out.println(warning1);
+ 
 
 %>
+
+<%-- ${nullSearchParameter} --%>
+
+<c:out value = "${warning}" />
+
 </body>
 </html>

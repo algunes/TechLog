@@ -9,7 +9,6 @@ public class MusteriDAO {
 	public musteri getMusteri(String name, String surname) {
 
 		musteri m = new musteri();
-		// String s = new String("call search('emel',null,null)");
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -31,9 +30,10 @@ public class MusteriDAO {
 			m.setEkleyen(rs.getString("ekleyen"));
 			m.setTarih(rs.getString("eklenme_tarihi"));
 			
+			
+			}
 			st.close();
 			con.close();
-			}
 		
 		}
 		catch(Exception e) {
