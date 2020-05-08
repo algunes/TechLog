@@ -15,7 +15,6 @@ import com.techlog.web.model.musteri;
 @WebServlet("/searchCustomer")
 public class SearchCustomerNameController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	String noCustomer = "No Customer Found!";
 	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,15 +36,20 @@ public class SearchCustomerNameController extends HttpServlet {
 				rd.forward(request, response);
 			}
 			else {
-				request.setAttribute("warning", noCustomer);
+				request.setAttribute("warning", "No Customer Found!!");
 				RequestDispatcher rd = request.getRequestDispatcher("Warning.jsp");
 				rd.forward(request, response);
 			}
 			
 		}
+		
+		else if (company != null) {
+			request.setAttribute("warning", company);
+			RequestDispatcher rd2 = request.getRequestDispatcher("Warning.jsp");
+			rd2.forward(request, response);
+		}
 		else {
-			String warning = new String ("You have to enter both name and surname!");
-			request.setAttribute("warning", warning);
+			request.setAttribute("warning", "You have to enter both name and surname!");
 			RequestDispatcher rd2 = request.getRequestDispatcher("Warning.jsp");
 			rd2.forward(request, response);
 		}		
