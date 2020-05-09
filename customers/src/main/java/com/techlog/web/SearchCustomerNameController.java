@@ -25,6 +25,7 @@ public class SearchCustomerNameController extends HttpServlet {
 		String telNumber = request.getParameter("tel");
 		String email = request.getParameter("email");
 		String address = request.getParameter("address");
+		String searchType = request.getParameter("searchType");
 		
 		if (name != null && surname != null && !surname.isEmpty() && !name.isEmpty()) {
 			MusteriDAO mDao = new MusteriDAO();
@@ -44,7 +45,7 @@ public class SearchCustomerNameController extends HttpServlet {
 		}
 		
 		else if (company != null) {
-			request.setAttribute("warning", company);
+			request.setAttribute("warning", searchType);
 			RequestDispatcher rd2 = request.getRequestDispatcher("Warning.jsp");
 			rd2.forward(request, response);
 		}

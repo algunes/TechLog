@@ -1,114 +1,127 @@
 <%@ page language="java" contentType="text/html; charset = UTF-8"
 	pageEncoding="UTF-8" errorPage="Error.jsp"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>TechLog Customer Management System</title>
+<script src="js/script.js"></script>
+<title>TechLog Customer Search</title>
 <style>
+table, td, th {
+  border: 0px solid black;
+}
+
 table {
-	font-family: arial, sans-serif;
-	border-collapse: collapse;
+  border-collapse: collapse;
+  width: 200px;
 }
 
-td, th {
-	border: 0px solid #dddddd;
-	text-align: left;
-	padding: 8px;
+fieldset {
+    width:200px;
 }
 
-td:nth-child(even) {
-	background-color: #dddddd;
+td {
+  height: 1px;
 }
 </style>
 </head>
 <body>
+	<h2>TechLog Customer Search</h2>
+	<fieldset>
+		<legend>Search by: </legend>
+		<table style="float:left">
 
-	<h2>TechLog Customer Management System</h2>
+			<tr style="text-align:left">
+				<th><label for="nameYes"><input type="radio"
+						id="nameYes" name="searchType" value="1" onclick="ShowHideDiv()" />Customer
+						Name </label></th>
+			</tr>
+			<tr style="text-align:left">
 
-	<!-- 	<form action="searchCustomer" method="get">
-		<fieldset>
-			<legend>Search By Name:</legend>
-			<input type="text" placeholder="Enter Name" name="ad"><br>
-			<input type="text" placeholder="Enter Surname" name="soyad"><br>
-			<br> <input type="submit" value="Search">
-		</fieldset>
-	</form> -->
+				<th><label for="companyYes"><input type="radio"
+						id="companyYes" name="searchType" value="2"
+						onclick="ShowHideDiv()" />Company Name </label></th>
+			</tr>
+			<tr style="text-align:left">
 
-	<script type="text/javascript">
-		function ShowHideDiv() {
-			var nameYes = document.getElementById("nameYes");
-			var companyYes = document.getElementById("companyYes");
+				<th><label for="telYes"><input type="radio" 
+						id="telYes"	name="searchType" value="3" 
+						onclick="ShowHideDiv()" />Telephone	Number </label></th>
+			</tr>
+			<tr style="text-align:left">
 
-			var nameBox = document.getElementById("nameBox");
-			var companyBox = document.getElementById("companyBox");
+				<th><label for="emailYes"><input type="radio" 
+						id="emailYes" name="searchType" value="4" 
+						onclick="ShowHideDiv()" />Email </label></th>
+			</tr>
+			<tr style="text-align:left">
 
-			nameBox.style.display = nameYes.checked ? "block" : "none";
-			companyBox.style.display = companyYes.checked ? "block" : "none";
-		}
-		
-		function validateForm() {
-			  var x = document.forms["nameSurname"]["ad"].value;   
-			  var y = document.forms["nameSurname"]["soyad"].value;
-			  var z = document.forms["company"]["company"].value;
-			  if (document.getElementById('nameYes').checked && (y == "" || x == "")) {
-			    alert("Name and Surname Must be Filled Out! "+document.getElementById('nameYes').checked);
-			    // document.getElementById("nameYes").checked = false;
-			    return false;
-			  }
-			  else if (document.getElementById('companyYes').checked && z == "") {
-				 alert("Company Must be Filled out! "+document.getElementById('companyYes').checked);
-				 return false;
-			  }
-			}
-		
-	</script>
-	
-	<table>
-
-		<tr>
-			<th><label for="nameYes"> <input type="radio"
-					id="nameYes" name="searchType" value="true" onclick="ShowHideDiv()" />
-					Search by Customer Name
-			</label></th>
-		</tr>
-		<tr>
-
-			<th><label for="companyYes"> <input type="radio"
-					id="companyYes" name="searchType" value="true" onclick="ShowHideDiv()" />
-					Search by Company Name
-			</label></th>
-		</tr>
-	</table>
-	<table>
+				<th><label for="addressYes"><input type="radio" 
+						id="addressYes"	name="searchType" value="5" 
+						onclick="ShowHideDiv()" />Address </label></th>
+			</tr>
+		</table>
+	</fieldset>
+	<table style="float:left">
 		<tr>
 			<td>
-				<div id="nameBox" style="display: none">
-					<form action="searchCustomer" name="nameSurname" method="get" onsubmit="return validateForm()">
+				<div id="nameDiv" style="display: none">
+					<form action="searchCustomer" name="nameSurname" id="nameBox"
+						method="get" onsubmit="return validateForm()">
 						<fieldset>
-							<legend>Search by Customer Name</legend>
 							<input type="text" placeholder="Name" name="ad"><br>
 							<input type="text" placeholder="Surname" name="soyad"><br>
+							<input type="hidden" id="searchId" name="searchType" value="1">
 							<br> <input type="submit" value="Search">
 						</fieldset>
 					</form>
 				</div>
 
-				<div id="companyBox" style="display: none">
-					<form action="searchCustomer" name="company" method="get" onsubmit="return validateForm()">
+				<div id="companyDiv" style="display: none">
+					<form action="searchCustomer" name="company" id="companyBox"
+						method="get" onsubmit="return validateForm()">
 						<fieldset>
-							<legend>Search by Company Name</legend>
 							<input type="text" placeholder="Company Name" name="company"><br>
-							<input type="submit" value="Search">
+							<input type="hidden" id="searchId" name="searchType" value="2">
+							<br> <input type="submit" value="Search">
+						</fieldset>
+					</form>
+				</div>
+
+				<div id="telDiv" style="display: none">
+					<form action="searchCustomer" name="telNum" id="telBox"
+						method="get" onsubmit="return validateForm()">
+						<fieldset>
+							<input type="text" placeholder="Tel. Number" name="tel"><br>
+							<input type="hidden" id="searchId" name="searchType" value="3">
+							<br> <input type="submit" value="Search">
+						</fieldset>
+					</form>
+				</div>
+				
+				<div id="emailDiv" style="display: none">
+					<form action="searchCustomer" name="email" id="emailBox"
+						method="get" onsubmit="return validateForm()">
+						<fieldset>
+							<input type="email" placeholder="Email" name="email"><br>
+							<input type="hidden" id="searchId" name="searchType" value="4">
+							<br> <input type="submit" value="Search">
+						</fieldset>
+					</form>
+				</div>
+				
+				<div id="addressDiv" style="display: none">
+					<form action="searchCustomer" name="address" id="addressBox"
+						method="get" onsubmit="return validateForm()">
+						<fieldset>
+							<input type="text" placeholder="Address" name="address"><br>
+							<input type="hidden" id="searchId" name="searchType" value="5">
+							<br> <input type="submit" value="Search">
 						</fieldset>
 					</form>
 				</div>
 			</td>
 		</tr>
-
 	</table>
-
-
-
-
 </body>
 </html>
