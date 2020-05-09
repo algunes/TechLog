@@ -20,45 +20,49 @@ fieldset {
     width:200px;
 }
 
+legend {
+	font-size: 18px;
+}
+
 td {
-  height: 1px;
+  height: 2px;
 }
 </style>
 </head>
 <body>
 	<h2>TechLog Customer Search</h2>
 	<fieldset>
-		<legend>Search by: </legend>
+		<legend><b>Search by: </b></legend>
 		<table style="float:left">
 
 			<tr style="text-align:left">
-				<th><label for="nameYes"><input type="radio"
+				<td><label for="nameYes"><input type="radio"
 						id="nameYes" name="searchType" value="1" onclick="ShowHideDiv()" />Customer
-						Name </label></th>
+						Name </label></td>
 			</tr>
 			<tr style="text-align:left">
 
-				<th><label for="companyYes"><input type="radio"
+				<td><label for="companyYes"><input type="radio"
 						id="companyYes" name="searchType" value="2"
-						onclick="ShowHideDiv()" />Company Name </label></th>
+						onclick="ShowHideDiv()" />Company Name </label></td>
 			</tr>
 			<tr style="text-align:left">
 
-				<th><label for="telYes"><input type="radio" 
+				<td><label for="telYes"><input type="radio" 
 						id="telYes"	name="searchType" value="3" 
-						onclick="ShowHideDiv()" />Telephone	Number </label></th>
+						onclick="ShowHideDiv()" />Telephone	Number </label></td>
 			</tr>
 			<tr style="text-align:left">
 
-				<th><label for="emailYes"><input type="radio" 
+				<td><label for="emailYes"><input type="radio" 
 						id="emailYes" name="searchType" value="4" 
-						onclick="ShowHideDiv()" />Email </label></th>
+						onclick="ShowHideDiv()" />Email </label></td>
 			</tr>
 			<tr style="text-align:left">
 
-				<th><label for="addressYes"><input type="radio" 
+				<td><label for="addressYes"><input type="radio" 
 						id="addressYes"	name="searchType" value="5" 
-						onclick="ShowHideDiv()" />Address </label></th>
+						onclick="ShowHideDiv()" />Address </label></td>
 			</tr>
 		</table>
 	</fieldset>
