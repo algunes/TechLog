@@ -1,0 +1,76 @@
+package com.techlog.web.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.*;
+
+import com.techlog.web.model.musteri;
+
+public class DBConnection {
+	
+	static Connection con = null;
+	
+	static {
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tekniksatistakip","root","Arturo19....?");
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
+	
+	static Connection getConnection() {
+		return con;
+	}
+	
+	static List<musteri> searchByname(String name, String surname) {
+		List<musteri> musteriList = new ArrayList<musteri>();
+		musteri m = new musteri();
+		
+		try {
+		
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("call search('" + name + "','" + surname + "', null, null, null, null)");
+		
+		while (rs.next()) {
+		
+		m.setKisiNo(rs.getInt("musteri_kisi_no"));
+		m.setAd(rs.getString("musteri_ad"));
+		m.setSoyad(rs.getString("musteri_soyad"));
+		m.setKurum(rs.getString("musteri_kurumsal_isim"));
+		m.setDepartman(rs.getString("musteri_departman"));
+		m.setPozisyon(rs.getString("musteri_pozisyon"));
+		m.setEmail(rs.getString("musteri_email"));
+		m.setTel(rs.getString("musteri_tel"));
+		m.setAdres(rs.getString("musteri_adres"));
+		m.setEkleyen(rs.getString("ekleyen"));
+		m.setTarih(rs.getString("eklenme_tarihi"));
+		
+		musteriList.add(m);
+		
+		st.close();
+		
+		}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return musteriList;
+		
+	}
+	
+	static void closeConnection() {
+		try {
+			con.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}
