@@ -25,16 +25,32 @@ public class SearchCustomerNameController extends HttpServlet {
 		String telNumber = request.getParameter("tel");
 		String email = request.getParameter("email");
 		String address = request.getParameter("address");
-		String searchType = request.getParameter("searchType");
+		int searchType = Integer.parseInt(request.getParameter("searchType"));
+		
+		switch (searchType) {
+		  case 1:
+			  MusteriDAO mDao = new MusteriDAO();
+			  musteri searchReturning = mDao.getMusteri(name, surname);
+			  request.setAttribute("musteri", searchReturning);
+			  RequestDispatcher rd = request.getRequestDispatcher("ShowCustomers.jsp");
+			  rd.forward(request, response);
+		    break;
+		  case 2:
+		    System.out.println("Tuesday");
+		    break;
+		  case 3:
+		    System.out.println("Wednesday");
+		    break;
+		  case 4:
+		    System.out.println("Thursday");
+		    break;
+		}
 		
 		if (name != null && surname != null && !surname.isEmpty() && !name.isEmpty()) {
-			MusteriDAO mDao = new MusteriDAO();
-			musteri searchReturning = mDao.getMusteri(name, surname);
+			
 			
 			if (searchReturning.getKisiNo() != 0) {
-				request.setAttribute("musteri", searchReturning);
-				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomers.jsp");
-				rd.forward(request, response);
+				
 			}
 			else {
 				request.setAttribute("warning", "No Customer Found!!");

@@ -1,12 +1,16 @@
 package com.techlog.web.model;
 
+import java.util.List;
+
 public class musteri {
 	
 	private int kisiNo;
-	private String ad, soyad, kurum, departman, pozisyon, email, telefon, adres, ekleyen, tarih;
-	
-	
+	private String ad, soyad, kurum, departman, pozisyon, ekleyen, tarih, last_change;
+	private List<String> tel;
+	private List<String> email;
+	private List<String> adres;
 
+	
 	public int getKisiNo() {
 		return kisiNo;
 	}
@@ -55,30 +59,6 @@ public class musteri {
 		this.pozisyon = pozisyon;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getTelefon() {
-		return telefon;
-	}
-
-	public void setTelefon(String telefon) {
-		this.telefon = telefon;
-	}
-
-	public String getAdres() {
-		return adres;
-	}
-
-	public void setAdres(String adres) {
-		this.adres = adres;
-	}
-
 	public String getEkleyen() {
 		return ekleyen;
 	}
@@ -95,11 +75,124 @@ public class musteri {
 		this.tarih = tarih;
 	}
 
-	@Override
-	public String toString() {
-		return "musteri [kisiNo=" + kisiNo + ", ad=" + ad + ", soyad=" + soyad + ", kurum=" + kurum + ", departman="
-				+ departman + ", pozisyon=" + pozisyon + ", email=" + email + ", telefon=" + telefon + ", adres="
-				+ adres + ", ekleyen=" + ekleyen + ", tarih=" + tarih + "]";
+	public String getLast_change() {
+		return last_change;
 	}
+
+	public void setLast_change(String last_change) {
+		this.last_change = last_change;
+	}
+
+	public List<String> getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel.add(tel);
+	}
+
+	public List<String> getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email.add(email);
+	}
+
+	public List<String> getAdres() {
+		return adres;
+	}
+
+	public void setAdres(String adres) {
+		this.adres.add(adres);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((ad == null) ? 0 : ad.hashCode());
+		result = prime * result + ((adres == null) ? 0 : adres.hashCode());
+		result = prime * result + ((departman == null) ? 0 : departman.hashCode());
+		result = prime * result + ((ekleyen == null) ? 0 : ekleyen.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + kisiNo;
+		result = prime * result + ((kurum == null) ? 0 : kurum.hashCode());
+		result = prime * result + ((last_change == null) ? 0 : last_change.hashCode());
+		result = prime * result + ((pozisyon == null) ? 0 : pozisyon.hashCode());
+		result = prime * result + ((soyad == null) ? 0 : soyad.hashCode());
+		result = prime * result + ((tarih == null) ? 0 : tarih.hashCode());
+		result = prime * result + ((tel == null) ? 0 : tel.hashCode());
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof musteri))
+			return false;
+		musteri other = (musteri) obj;
+		if (ad == null) {
+			if (other.ad != null)
+				return false;
+		} else if (!ad.equals(other.ad))
+			return false;
+		if (adres == null) {
+			if (other.adres != null)
+				return false;
+		} else if (!adres.equals(other.adres))
+			return false;
+		if (departman == null) {
+			if (other.departman != null)
+				return false;
+		} else if (!departman.equals(other.departman))
+			return false;
+		if (ekleyen == null) {
+			if (other.ekleyen != null)
+				return false;
+		} else if (!ekleyen.equals(other.ekleyen))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (kisiNo != other.kisiNo)
+			return false;
+		if (kurum == null) {
+			if (other.kurum != null)
+				return false;
+		} else if (!kurum.equals(other.kurum))
+			return false;
+		if (last_change == null) {
+			if (other.last_change != null)
+				return false;
+		} else if (!last_change.equals(other.last_change))
+			return false;
+		if (pozisyon == null) {
+			if (other.pozisyon != null)
+				return false;
+		} else if (!pozisyon.equals(other.pozisyon))
+			return false;
+		if (soyad == null) {
+			if (other.soyad != null)
+				return false;
+		} else if (!soyad.equals(other.soyad))
+			return false;
+		if (tarih == null) {
+			if (other.tarih != null)
+				return false;
+		} else if (!tarih.equals(other.tarih))
+			return false;
+		if (tel == null) {
+			if (other.tel != null)
+				return false;
+		} else if (!tel.equals(other.tel))
+			return false;
+		return true;
+	}
+	
+	
 
 }

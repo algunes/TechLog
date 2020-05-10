@@ -25,7 +25,7 @@ public class MusteriDAO {
 			m.setDepartman(rs.getString("musteri_departman"));
 			m.setPozisyon(rs.getString("musteri_pozisyon"));
 			m.setEmail(rs.getString("musteri_email"));
-			m.setTelefon(rs.getString("musteri_tel"));
+			m.setTel(rs.getString("musteri_tel"));
 			m.setAdres(rs.getString("musteri_adres"));
 			m.setEkleyen(rs.getString("ekleyen"));
 			m.setTarih(rs.getString("eklenme_tarihi"));
