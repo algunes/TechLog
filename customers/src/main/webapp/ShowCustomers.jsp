@@ -1,4 +1,6 @@
-<%@page import="com.techlog.web.model.musteri"%>
+<%@page import="com.techlog.web.model.Musteri"%>
+<%@page import="java.util.*"%>
+
 <%@ page language="java" contentType="text/html; charset = UTF-8"
     pageEncoding="UTF-8" errorPage = "Error.jsp" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
@@ -33,13 +35,25 @@ tr:nth-child(even) {
 <h3>Search Results:</h3>
 
 <%
-musteri m = (musteri)request.getAttribute("musteri");
-if (m.getAd() == null) {
-	out.println("No customer found!");
-}
+
+@SuppressWarnings("unchecked")
+List<Musteri> musteriListesi = (ArrayList<Musteri>) request.getAttribute("musteriListesi");
+
+Iterator<Musteri> imusteri = musteriListesi.iterator();
+Musteri musteri;
 %>
 
+<% while ( imusteri.hasNext()){ 
+	musteri = imusteri.next();%>
+	<details>
+	<summary> <%= musteri.getAd() %> <%= musteri.getSoyad() %> </summary>
+	<p> - by Refsnes Data. All Rights Reserved.</p>
+	</details>
+      <%}%>
 
+ 
+
+<%-- 
 <table>
 <caption>Müşteri</caption>
   <tr>
@@ -86,8 +100,7 @@ if (m.getAd() == null) {
     <td>Son Değişiklik: </td>
     <td><%= m.getTarih()%></td>
   </tr>
-</table>
-
+</table> --%>
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.techlog.web;
 
 import java.io.IOException;
+import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.techlog.web.dao.DBConnection;
 import com.techlog.web.dao.MusteriDAO;
-import com.techlog.web.model.musteri;
+import com.techlog.web.model.Musteri;
 
 @WebServlet("/searchCustomer")
 public class SearchCustomerNameController extends HttpServlet {
@@ -29,11 +31,17 @@ public class SearchCustomerNameController extends HttpServlet {
 		
 		switch (searchType) {
 		  case 1:
-			  MusteriDAO mDao = new MusteriDAO();
-			  musteri searchReturning = mDao.getMusteri(name, surname);
-			  request.setAttribute("musteri", searchReturning);
-			  RequestDispatcher rd = request.getRequestDispatcher("ShowCustomers.jsp");
+			  List<Musteri> musteriListesi = DBConnection.searchByName(name, surname);
+			  request.setAttribute("musteriListesi", musteriListesi);
+			  RequestDispatcher rd =request.getRequestDispatcher("ShowCustomers.jsp"); 
 			  rd.forward(request, response);
+			  
+			/*
+			 * musteri searchReturning = mDao.getMusteri(name, surname);
+			 * request.setAttribute("musteri", searchReturning); RequestDispatcher rd =
+			 * request.getRequestDispatcher("ShowCustomers.jsp"); rd.forward(request,
+			 * response);
+			 */
 		    break;
 		  case 2:
 		    System.out.println("Tuesday");
@@ -46,31 +54,26 @@ public class SearchCustomerNameController extends HttpServlet {
 		    break;
 		}
 		
-		if (name != null && surname != null && !surname.isEmpty() && !name.isEmpty()) {
-			
-			
-			if (searchReturning.getKisiNo() != 0) {
-				
-			}
-			else {
-				request.setAttribute("warning", "No Customer Found!!");
-				RequestDispatcher rd = request.getRequestDispatcher("Warning.jsp");
-				rd.forward(request, response);
-			}
-			
-		}
-		
-		else if (company != null) {
-			request.setAttribute("warning", searchType);
-			RequestDispatcher rd2 = request.getRequestDispatcher("Warning.jsp");
-			rd2.forward(request, response);
-		}
-		else {
-			request.setAttribute("warning", "You have to enter both name and surname!");
-			RequestDispatcher rd2 = request.getRequestDispatcher("Warning.jsp");
-			rd2.forward(request, response);
-		}		
-
+		/*
+		 * if (name != null && surname != null && !surname.isEmpty() && !name.isEmpty())
+		 * {
+		 * 
+		 * 
+		 * if (searchReturning.getKisiNo() != 0) {
+		 * 
+		 * } else { request.setAttribute("warning", "No Customer Found!!");
+		 * RequestDispatcher rd = request.getRequestDispatcher("Warning.jsp");
+		 * rd.forward(request, response); }
+		 * 
+		 * }
+		 * 
+		 * else if (company != null) { request.setAttribute("warning", searchType);
+		 * RequestDispatcher rd2 = request.getRequestDispatcher("Warning.jsp");
+		 * rd2.forward(request, response); } else { request.setAttribute("warning",
+		 * "You have to enter both name and surname!"); RequestDispatcher rd2 =
+		 * request.getRequestDispatcher("Warning.jsp"); rd2.forward(request, response);
+		 * }
+		 */
 	}
 
 }

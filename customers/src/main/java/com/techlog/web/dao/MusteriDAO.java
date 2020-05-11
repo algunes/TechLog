@@ -2,13 +2,13 @@ package com.techlog.web.dao;
 import java.sql.*;
 
 
-import com.techlog.web.model.musteri;
+import com.techlog.web.model.Musteri;
 
 public class MusteriDAO {
 	
-	public musteri getMusteri(String name, String surname) {
+	public Musteri getMusteri(String name, String surname) {
 
-		musteri m = new musteri();
+		Musteri m = new Musteri();
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");

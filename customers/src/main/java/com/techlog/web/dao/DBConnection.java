@@ -1,18 +1,14 @@
 package com.techlog.web.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.util.*;
 
-import com.techlog.web.model.musteri;
+import com.techlog.web.model.Musteri;
 
 public class DBConnection {
 	
 	static Connection con = null;
-	
 	static {
 		
 		try {
@@ -28,17 +24,17 @@ public class DBConnection {
 		return con;
 	}
 	
-	static List<musteri> searchByname(String name, String surname) {
-		List<musteri> musteriList = new ArrayList<musteri>();
-		musteri m = new musteri();
+	public static List<Musteri> searchByName(String name, String surname) {
+		List<Musteri> musteriList = new ArrayList<Musteri>();
+		
 		
 		try {
 		
-		Statement st = con.createStatement();
+		Statement st = getConnection().createStatement();
 		ResultSet rs = st.executeQuery("call search('" + name + "','" + surname + "', null, null, null, null)");
 		
 		while (rs.next()) {
-		
+		Musteri m = new Musteri();
 		m.setKisiNo(rs.getInt("musteri_kisi_no"));
 		m.setAd(rs.getString("musteri_ad"));
 		m.setSoyad(rs.getString("musteri_soyad"));
@@ -53,24 +49,18 @@ public class DBConnection {
 		
 		musteriList.add(m);
 		
-		st.close();
 		
 		}
+		
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 		return musteriList;
 		
 	}
-	
-	static void closeConnection() {
-		try {
-			con.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 
 }

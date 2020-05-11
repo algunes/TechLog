@@ -1,16 +1,20 @@
 package com.techlog.web.model;
 
-import java.util.List;
+import java.util.*;
 
-public class musteri {
+public class Musteri {
 	
 	private int kisiNo;
 	private String ad, soyad, kurum, departman, pozisyon, ekleyen, tarih, last_change;
-	private List<String> tel;
-	private List<String> email;
-	private List<String> adres;
-
+	private List<String> tel = new ArrayList<String>();
+	private List<String> email = new ArrayList<String>();
+	private List<String> adres = new ArrayList<String>();
 	
+		public Musteri() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getKisiNo() {
 		return kisiNo;
 	}
@@ -130,9 +134,9 @@ public class musteri {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof musteri))
+		if (!(obj instanceof Musteri))
 			return false;
-		musteri other = (musteri) obj;
+		Musteri other = (Musteri) obj;
 		if (ad == null) {
 			if (other.ad != null)
 				return false;
