@@ -12,22 +12,19 @@
 <meta charset="UTF-8">
 <title>TechLog Customer Management System</title>
 <style>
+table, td, th {
+  border: 1px solid black;
+}
+
 table {
-  font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 100%;
 }
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
+td {
+  height: 0px;
 }
 </style>
+
 </head>
 <body>
 
@@ -47,7 +44,30 @@ Musteri musteri;
 	musteri = imusteri.next();%>
 	<details>
 	<summary> <%= musteri.getAd() %> <%= musteri.getSoyad() %> </summary>
-	<p> - by Refsnes Data. All Rights Reserved.</p>
+	<table>
+	
+	<tr>
+	<td><%= musteri.getKurum() %></td>
+	<td><%= musteri.getDepartman() %></td>
+	<td><%= musteri.getPozisyon() %></td>
+	<td><% 
+	Iterator<String> itel = musteri.getTel().iterator();
+	while (itel.hasNext()) {%>
+		<p><%= itel.next() %></p><%}%></td>
+	<td><%
+	Iterator<String> iemail = musteri.getEmail().iterator();
+	while (iemail.hasNext()) {%>
+		<p><%= iemail.next() %></p><%}%></td>
+		
+	<td><%
+	Iterator<String> iadres = musteri.getAdres().iterator();
+	while (iadres.hasNext()) {%>
+		<p><%= iadres.next() %></p><%}%></td>
+	
+	<td><%= musteri.getEkleyen() %></td>
+	<td><%= musteri.getTarih() %></td>
+	
+	</table>
 	</details>
       <%}%>
 

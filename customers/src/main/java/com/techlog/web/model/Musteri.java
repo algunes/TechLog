@@ -79,14 +79,6 @@ public class Musteri {
 		this.tarih = tarih;
 	}
 
-	public String getLast_change() {
-		return last_change;
-	}
-
-	public void setLast_change(String last_change) {
-		this.last_change = last_change;
-	}
-
 	public List<String> getTel() {
 		return tel;
 	}

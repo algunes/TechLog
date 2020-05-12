@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.techlog.web.dao.DAO;
 import com.techlog.web.dao.DBConnection;
 import com.techlog.web.dao.MusteriDAO;
 import com.techlog.web.model.Musteri;
@@ -31,7 +32,7 @@ public class SearchCustomerNameController extends HttpServlet {
 		
 		switch (searchType) {
 		  case 1:
-			  List<Musteri> musteriListesi = DBConnection.searchByName(name, surname);
+			  List<Musteri> musteriListesi = DAO.searchByName(name, surname);
 			  request.setAttribute("musteriListesi", musteriListesi);
 			  RequestDispatcher rd =request.getRequestDispatcher("ShowCustomers.jsp"); 
 			  rd.forward(request, response);
