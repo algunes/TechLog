@@ -31,8 +31,8 @@ public class DAO {
 			
 			musteriList.add(m);
 		}
-		con.close();
 		st.close();
+		con.close();
 		}
 		
 		catch(Exception e) {

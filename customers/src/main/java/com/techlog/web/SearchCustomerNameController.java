@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.techlog.web.dao.DAO;
-import com.techlog.web.dao.DBConnection;
 import com.techlog.web.dao.MusteriDAO;
 import com.techlog.web.model.Musteri;
 
