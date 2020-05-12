@@ -50,8 +50,7 @@ Musteri musteri;
 	<td><%= musteri.getKurum() %></td>
 	<td><%= musteri.getDepartman() %></td>
 	<td><%= musteri.getPozisyon() %></td>
-	<td><% 
-	Iterator<String> itel = musteri.getTel().iterator();
+	<td><% 	Iterator<String> itel = musteri.getTel().iterator();
 	while (itel.hasNext()) {%>
 		<p><%= itel.next() %></p><%}%></td>
 	<td><%
@@ -70,57 +69,6 @@ Musteri musteri;
 	</table>
 	</details>
       <%}%>
-
- 
-
-<%-- 
-<table>
-<caption>Müşteri</caption>
-  <tr>
-    <td>Kişi No:</td>
-    <td><%= m.getKisiNo()%></td>
-  </tr>
-  <tr>
-    <td>Adı: </td>
-    <td><%= m.getAd()%></td>
-  </tr>
-  <tr>
-    <td>Soyadı: </td>
-    <td><%= m.getSoyad()%></td>
-    </tr>
-  <tr>
-    <td>Kurum: </td>
-    <td><%= m.getKurum()%></td>
-  </tr>
-  <tr>
-    <td>Departman: </td>
-    <td><%= m.getDepartman()%></td>
-  </tr>
-  <tr>
-    <td>Pozisyon/Ünvan: </td>
-    <td><%= m.getPozisyon()%></td>
-  </tr>
-  <tr>
-    <td>Email: </td>
-    <td><%= m.getEmail() %></td>
-  </tr>
-  <tr>
-    <td>Telefon: </td>
-    <td><%= m.getTelefon() %></td>
-  </tr>
-  <tr>
-    <td>Adres: </td>
-    <td><%= m.getAdres() %></td>
-  </tr>
-  <tr>
-    <td>Ekleyen: </td>
-    <td><%= m.getEkleyen()%></td>
-  </tr>
-  <tr>
-    <td>Son Değişiklik: </td>
-    <td><%= m.getTarih()%></td>
-  </tr>
-</table> --%>
 
 </body>
 </html>
