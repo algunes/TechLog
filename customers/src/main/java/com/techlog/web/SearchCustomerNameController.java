@@ -23,31 +23,31 @@ public class SearchCustomerNameController extends HttpServlet {
 		String name = request.getParameter("ad");
 		String surname = request.getParameter("soyad");
 		String company = request.getParameter("company");
-		String telNumber = request.getParameter("tel");
-		String email = request.getParameter("email");
-		String address = request.getParameter("address");
+		// String telNumber = request.getParameter("tel");
+		// String email = request.getParameter("email");
+		// String address = request.getParameter("address");
 		int searchType = Integer.parseInt(request.getParameter("searchType"));
+		List<Musteri> musteriListesi;
 		
 		switch (searchType) {
 		  case 1:
-			  List<Musteri> musteriListesi = DAO.searchByName(name, surname);
+			  musteriListesi = DAO.searchByName(name, surname);
 			  request.setAttribute("musteriListesi", musteriListesi);
-			  RequestDispatcher rd =request.getRequestDispatcher("ShowCustomers.jsp"); 
+			  RequestDispatcher rd = request.getRequestDispatcher("ShowCustomers.jsp"); 
 			  rd.forward(request, response);
-			  
-			/*
-			 * musteri searchReturning = mDao.getMusteri(name, surname);
-			 * request.setAttribute("musteri", searchReturning); RequestDispatcher rd =
-			 * request.getRequestDispatcher("ShowCustomers.jsp"); rd.forward(request,
-			 * response);
-			 */
 		    break;
+		    
 		  case 2:
-		    System.out.println("Tuesday");
+			  musteriListesi = DAO.searchByCompany(company);
+			  request.setAttribute("musteriListesi", musteriListesi);
+			  RequestDispatcher rd2 = request.getRequestDispatcher("ShowCustomers.jsp"); 
+			  rd2.forward(request, response);
 		    break;
+		    
 		  case 3:
 		    System.out.println("Wednesday");
 		    break;
+		    
 		  case 4:
 		    System.out.println("Thursday");
 		    break;
