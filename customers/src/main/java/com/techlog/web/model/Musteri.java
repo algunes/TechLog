@@ -9,6 +9,7 @@ public class Musteri {
 	private List<String> tel = new ArrayList<String>();
 	private List<String> email = new ArrayList<String>();
 	private List<String> adres = new ArrayList<String>();
+
 	
 		public Musteri() {
 		super();
