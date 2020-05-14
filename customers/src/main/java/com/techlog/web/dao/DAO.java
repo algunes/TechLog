@@ -83,7 +83,7 @@ public class DAO {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tekniksatistakip","root","Arturo19....?");
 		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery("call search(null, null, null,  '" + tel + "', null, null, null)");
+		ResultSet rs = st.executeQuery("call search(null, null, null,  '" + tel + "', null, null)");
 		
 		while (rs.next()) {
 			Musteri m = new Musteri();

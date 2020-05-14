@@ -31,24 +31,30 @@ public class SearchCustomerNameController extends HttpServlet {
 		
 		switch (searchType) {
 		  case 1:
+		  {
 			  musteriListesi = DAO.searchByName(name, surname);
 			  request.setAttribute("musteriListesi", musteriListesi);
 			  RequestDispatcher rd = request.getRequestDispatcher("ShowCustomers.jsp"); 
 			  rd.forward(request, response);
+		}
 		    break;
 		    
 		  case 2:
+		  {
 			  musteriListesi = DAO.searchByCompany(company);
 			  request.setAttribute("musteriListesi", musteriListesi);
-			  RequestDispatcher rd2 = request.getRequestDispatcher("ShowCustomers.jsp"); 
-			  rd2.forward(request, response);
+			  RequestDispatcher rd = request.getRequestDispatcher("ShowCustomers.jsp"); 
+			  rd.forward(request, response);
+		  }
 		    break;
 		    
 		  case 3:
+		  {
 			  musteriListesi = DAO.searchByTel(telNumber);
 			  request.setAttribute("musteriListesi", musteriListesi);
-			  RequestDispatcher rd3 = request.getRequestDispatcher("ShowCustomers.jsp"); 
-			  rd3.forward(request, response);
+			  RequestDispatcher rd = request.getRequestDispatcher("ShowCustomers.jsp"); 
+			  rd.forward(request, response);
+		  }
 		    break;
 		    
 		  case 4:
