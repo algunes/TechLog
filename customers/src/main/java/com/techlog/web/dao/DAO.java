@@ -7,38 +7,40 @@ import com.techlog.web.model.Musteri;
 
 public class DAO {
 	
+	
 	public static List<Musteri> searchByName(String name, String surname) {
 		List<Musteri> musteriList = new ArrayList<Musteri>();
 		try {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tekniksatistakip","root","Arturo19....?");
-		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery("call search('" + name + "','" + surname + "', null, null, null, null)");
-		
-		while (rs.next()) {
-			Musteri m = new Musteri();
-			m.setKisiNo(rs.getInt("musteri_kisi_no"));
-			m.setAd(rs.getString("musteri_ad"));
-			m.setSoyad(rs.getString("musteri_soyad"));
-			m.setKurum(rs.getString("musteri_kurumsal_isim"));
-			m.setDepartman(rs.getString("musteri_departman"));
-			m.setPozisyon(rs.getString("musteri_pozisyon"));
-			m.setEmail(rs.getString("musteri_email"));
-			m.setTel(rs.getString("musteri_tel"));
-			m.setAdres(rs.getString("musteri_adres"));
-			m.setEkleyen(rs.getString("ekleyen"));
-			m.setTarih(rs.getString("eklenme_tarihi"));
-			
-			musteriList.add(m);
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tekniksatistakip?useSSL=false", "root",
+					"Arturo19....?");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("call search('" + name + "','" + surname + "', null, null, null, null)");
+
+			while (rs.next()) {
+				Musteri m = new Musteri();
+				m.setKisiNo(rs.getInt("musteri_kisi_no"));
+				m.setAd(rs.getString("musteri_ad"));
+				m.setSoyad(rs.getString("musteri_soyad"));
+				m.setKurum(rs.getString("musteri_kurumsal_isim"));
+				m.setDepartman(rs.getString("musteri_departman"));
+				m.setPozisyon(rs.getString("musteri_pozisyon"));
+				m.setEmail(rs.getString("musteri_email"));
+				m.setTel(rs.getString("musteri_tel"));
+				m.setAdres(rs.getString("musteri_adres"));
+				m.setEkleyen(rs.getString("ekleyen"));
+				m.setTarih(rs.getString("eklenme_tarihi"));
+
+				musteriList.add(m);
+			}
+			st.close();
+			con.close();
 		}
-		st.close();
-		con.close();
-		}
-		
-		catch(Exception e) {
+
+		catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return musteriList;
 	}
 	
@@ -46,7 +48,7 @@ public class DAO {
 		List<Musteri> musteriList = new ArrayList<Musteri>();
 		try {
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tekniksatistakip","root","Arturo19....?");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tekniksatistakip?useSSL=false","root","Arturo19....?");
 		Statement st = con.createStatement();
 		ResultSet rs = st.executeQuery("call search(null, null, '" + company + "', null, null, null)");
 		
@@ -81,9 +83,79 @@ public class DAO {
 		List<Musteri> musteriList = new ArrayList<Musteri>();
 		try {
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tekniksatistakip","root","Arturo19....?");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tekniksatistakip?useSSL=false","root","Arturo19....?");
 		Statement st = con.createStatement();
 		ResultSet rs = st.executeQuery("call search(null, null, null,  '" + tel + "', null, null)");
+		
+		while (rs.next()) {
+			Musteri m = new Musteri();
+			m.setKisiNo(rs.getInt("musteri_kisi_no"));
+			m.setAd(rs.getString("musteri_ad"));
+			m.setSoyad(rs.getString("musteri_soyad"));
+			m.setKurum(rs.getString("musteri_kurumsal_isim"));
+			m.setDepartman(rs.getString("musteri_departman"));
+			m.setPozisyon(rs.getString("musteri_pozisyon"));
+			m.setEmail(rs.getString("musteri_email"));
+			m.setTel(rs.getString("musteri_tel"));
+			m.setAdres(rs.getString("musteri_adres"));
+			m.setEkleyen(rs.getString("ekleyen"));
+			m.setTarih(rs.getString("eklenme_tarihi"));
+			
+			musteriList.add(m);
+		}
+		st.close();
+		con.close();
+		}
+		
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return musteriList;
+	}
+	
+	public static List<Musteri> searchByEmail(String email) {
+		List<Musteri> musteriList = new ArrayList<Musteri>();
+		try {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tekniksatistakip?useSSL=false","root","Arturo19....?");
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("call search(null, null, null, null, '" + email + "', null)");
+		
+		while (rs.next()) {
+			Musteri m = new Musteri();
+			m.setKisiNo(rs.getInt("musteri_kisi_no"));
+			m.setAd(rs.getString("musteri_ad"));
+			m.setSoyad(rs.getString("musteri_soyad"));
+			m.setKurum(rs.getString("musteri_kurumsal_isim"));
+			m.setDepartman(rs.getString("musteri_departman"));
+			m.setPozisyon(rs.getString("musteri_pozisyon"));
+			m.setEmail(rs.getString("musteri_email"));
+			m.setTel(rs.getString("musteri_tel"));
+			m.setAdres(rs.getString("musteri_adres"));
+			m.setEkleyen(rs.getString("ekleyen"));
+			m.setTarih(rs.getString("eklenme_tarihi"));
+			
+			musteriList.add(m);
+		}
+		st.close();
+		con.close();
+		}
+		
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return musteriList;
+	}
+	
+	public static List<Musteri> searchByAddress(String address) {
+		List<Musteri> musteriList = new ArrayList<Musteri>();
+		try {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tekniksatistakip?useSSL=false","root","Arturo19....?");
+		Statement st = con.createStatement();
+		ResultSet rs = st.executeQuery("call search(null, null, null, null, null, '" + address + "')");
 		
 		while (rs.next()) {
 			Musteri m = new Musteri();

@@ -24,8 +24,8 @@ public class SearchCustomerNameController extends HttpServlet {
 		String surname = request.getParameter("soyad");
 		String company = request.getParameter("company");
 		String telNumber = request.getParameter("tel");
-		// String email = request.getParameter("email");
-		// String address = request.getParameter("address");
+		String email = request.getParameter("email");
+		String address = request.getParameter("address");
 		int searchType = Integer.parseInt(request.getParameter("searchType"));
 		List<Musteri> musteriListesi;
 		
@@ -36,7 +36,7 @@ public class SearchCustomerNameController extends HttpServlet {
 			  request.setAttribute("musteriListesi", musteriListesi);
 			  RequestDispatcher rd = request.getRequestDispatcher("ShowCustomers.jsp"); 
 			  rd.forward(request, response);
-		}
+		  }
 		    break;
 		    
 		  case 2:
@@ -58,7 +58,21 @@ public class SearchCustomerNameController extends HttpServlet {
 		    break;
 		    
 		  case 4:
-		    System.out.println("Thursday");
+		    {
+		    	musteriListesi = DAO.searchByEmail(email);
+				request.setAttribute("musteriListesi", musteriListesi);
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomers.jsp"); 
+				rd.forward(request, response);
+		    }
+		    break;
+		    
+		  case 5:
+		    {
+		    	musteriListesi = DAO.searchByAddress(address);
+				request.setAttribute("musteriListesi", musteriListesi);
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomers.jsp"); 
+				rd.forward(request, response);
+		    }
 		    break;
 		}
 		
