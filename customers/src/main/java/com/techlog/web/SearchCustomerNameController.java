@@ -33,7 +33,12 @@ public class SearchCustomerNameController extends HttpServlet {
 		  case 1:
 		  {
 			  musteriListesi = DAO.searchByName(name, surname);
-			  request.setAttribute("musteriListesi", musteriListesi);
+			  if (musteriListesi.isEmpty()) {
+				  request.setAttribute("warning", name + " " + surname + " not found!");
+				  RequestDispatcher rd = request.getRequestDispatcher("Warning.jsp"); 
+				  rd.forward(request, response);
+			  }
+			  request.setAttribute("musteriListesi", musteriListesi); 
 			  RequestDispatcher rd = request.getRequestDispatcher("ShowCustomers.jsp"); 
 			  rd.forward(request, response);
 		  }
