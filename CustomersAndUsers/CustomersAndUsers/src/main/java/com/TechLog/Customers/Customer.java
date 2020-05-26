@@ -5,10 +5,12 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import com.TechLog.Users.Users;
+import org.hibernate.annotations.DynamicUpdate;
+
 
 @Entity
 @Table(name="customer")
+@DynamicUpdate
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -17,13 +19,13 @@ public class Customer implements Serializable {
 	private Long customer_id;
 	
 	@Column(name="firstname", nullable = false)
-	private String fname;
+	private String firstname;
 	
 	@Column(name="lastname", nullable = false)
-	private String lname;
+	private String lastname;
 	
 	@ManyToOne
-	@JoinColumn(name="corporation", nullable = false)
+	@JoinColumn(name="corporation", unique=true, nullable = false)
 	private Corporation corporation;
 	
 	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL, orphanRemoval=true)
@@ -38,14 +40,17 @@ public class Customer implements Serializable {
 	@Column(name="address")
 	private List<Address> addresses = new ArrayList<>();
 	
-	@Column(name="user_id")
-	private Users createdBy = new Users();
+	@Column(name="created_by")
+	private Long created_by;
+	
+	@Column(name="updated_by")
+	private Long updated_by;
 	
 	@Column(name="last_update")
-	private Date lastUpdate;
+	private Date last_update;
 	
 	@Column(name="creation_date")
-	private Date creationDate;
+	private Date creation_date;
 	
 	public void addEmail(Email email) {
 		emails.add(email);
@@ -85,20 +90,20 @@ public class Customer implements Serializable {
 		this.customer_id = customer_id;
 	}
 
-	public String getFname() {
-		return fname;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setFname(String fname) {
-		this.fname = fname;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getLname() {
-		return lname;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setLname(String lname) {
-		this.lname = lname;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public Corporation getCorporation() {
@@ -133,28 +138,36 @@ public class Customer implements Serializable {
 		this.addresses = addresses;
 	}
 
-	public Users getCreatedBy() {
-		return createdBy;
+	public Long getCreated_by() {
+		return created_by;
 	}
 
-	public void setCreatedBy(Users createdBy) {
-		this.createdBy = createdBy;
+	public void setCreated_by(Long created_by) {
+		this.created_by = created_by;
 	}
 
-	public Date getLastUpdate() {
-		return lastUpdate;
+	public Long getUpdated_by() {
+		return updated_by;
 	}
 
-	public void setLastUpdate(Date lastUpdate) {
-		this.lastUpdate = lastUpdate;
+	public void setUpdated_by(Long updated_by) {
+		this.updated_by = updated_by;
 	}
 
-	public Date getCreationDate() {
-		return creationDate;
+	public Date getLast_update() {
+		return last_update;
 	}
 
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
+	public void setLast_update(Date last_update) {
+		this.last_update = last_update;
+	}
+
+	public Date getCreation_date() {
+		return creation_date;
+	}
+
+	public void setCreation_date(Date creation_date) {
+		this.creation_date = creation_date;
 	}
 
 	public static long getSerialversionuid() {
@@ -167,14 +180,15 @@ public class Customer implements Serializable {
 		int result = 1;
 		result = prime * result + ((addresses == null) ? 0 : addresses.hashCode());
 		result = prime * result + ((corporation == null) ? 0 : corporation.hashCode());
-		result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
-		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
+		result = prime * result + ((created_by == null) ? 0 : created_by.hashCode());
+		result = prime * result + ((creation_date == null) ? 0 : creation_date.hashCode());
 		result = prime * result + ((customer_id == null) ? 0 : customer_id.hashCode());
 		result = prime * result + ((emails == null) ? 0 : emails.hashCode());
-		result = prime * result + ((fname == null) ? 0 : fname.hashCode());
-		result = prime * result + ((lastUpdate == null) ? 0 : lastUpdate.hashCode());
-		result = prime * result + ((lname == null) ? 0 : lname.hashCode());
+		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
+		result = prime * result + ((last_update == null) ? 0 : last_update.hashCode());
+		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
 		result = prime * result + ((phones == null) ? 0 : phones.hashCode());
+		result = prime * result + ((updated_by == null) ? 0 : updated_by.hashCode());
 		return result;
 	}
 
@@ -195,15 +209,15 @@ public class Customer implements Serializable {
 				return false;
 		} else if (!corporation.equals(other.corporation))
 			return false;
-		if (createdBy == null) {
-			if (other.createdBy != null)
+		if (created_by == null) {
+			if (other.created_by != null)
 				return false;
-		} else if (!createdBy.equals(other.createdBy))
+		} else if (!created_by.equals(other.created_by))
 			return false;
-		if (creationDate == null) {
-			if (other.creationDate != null)
+		if (creation_date == null) {
+			if (other.creation_date != null)
 				return false;
-		} else if (!creationDate.equals(other.creationDate))
+		} else if (!creation_date.equals(other.creation_date))
 			return false;
 		if (customer_id == null) {
 			if (other.customer_id != null)
@@ -215,37 +229,41 @@ public class Customer implements Serializable {
 				return false;
 		} else if (!emails.equals(other.emails))
 			return false;
-		if (fname == null) {
-			if (other.fname != null)
+		if (firstname == null) {
+			if (other.firstname != null)
 				return false;
-		} else if (!fname.equals(other.fname))
+		} else if (!firstname.equals(other.firstname))
 			return false;
-		if (lastUpdate == null) {
-			if (other.lastUpdate != null)
+		if (last_update == null) {
+			if (other.last_update != null)
 				return false;
-		} else if (!lastUpdate.equals(other.lastUpdate))
+		} else if (!last_update.equals(other.last_update))
 			return false;
-		if (lname == null) {
-			if (other.lname != null)
+		if (lastname == null) {
+			if (other.lastname != null)
 				return false;
-		} else if (!lname.equals(other.lname))
+		} else if (!lastname.equals(other.lastname))
 			return false;
 		if (phones == null) {
 			if (other.phones != null)
 				return false;
 		} else if (!phones.equals(other.phones))
 			return false;
+		if (updated_by == null) {
+			if (other.updated_by != null)
+				return false;
+		} else if (!updated_by.equals(other.updated_by))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Customer [customer_id=" + customer_id + ", fname=" + fname + ", lname=" + lname + ", corporation="
-				+ corporation + ", emails=" + emails + ", phones=" + phones + ", addresses=" + addresses
-				+ ", createdBy=" + createdBy + ", lastUpdate=" + lastUpdate + ", creationDate=" + creationDate + "]";
+		return "Customer [customer_id=" + customer_id + ", firstname=" + firstname + ", lastname=" + lastname
+				+ ", corporation=" + corporation + ", emails=" + emails + ", phones=" + phones + ", addresses="
+				+ addresses + ", created_by=" + created_by + ", updated_by=" + updated_by + ", last_update="
+				+ last_update + ", creation_date=" + creation_date + "]";
 	}
-	
-	
-	
+
 }
 

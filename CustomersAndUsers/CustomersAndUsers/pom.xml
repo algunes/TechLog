@@ -48,7 +48,7 @@
     </dependency>
 
   </dependencies>
-  <!-- <build>
+  <build>
     <finalName>CustomersAndUsers</finalName>
     <plugins>
       <plugin>
@@ -61,5 +61,5 @@
         </configuration>
       </plugin>
     </plugins>
-  </build> -->
+  </build>
 </project>

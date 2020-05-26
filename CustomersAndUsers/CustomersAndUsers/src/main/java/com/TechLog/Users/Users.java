@@ -5,8 +5,11 @@ import java.math.BigDecimal;
 import java.util.*;
 import javax.persistence.*;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 @Entity
 @Table(name="users")
+@DynamicUpdate
 public class Users implements Serializable {
 	private static final long serialVersionUID = 1L;
 
