@@ -1,6 +1,7 @@
 package com.TechLog.Customers;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -42,10 +43,10 @@ public class Email implements Serializable {
 	private Long updated_by;
 	
 	@Column(name="last_update")
-	private Date last_update;
+	private LocalDate last_update;
 	
 	@Column(name="creation_date")
-	private Date creation_date;
+	private LocalDate creation_date;
 
 	public Long getId() {
 		return id;
@@ -95,19 +96,19 @@ public class Email implements Serializable {
 		this.updated_by = updated_by;
 	}
 
-	public Date getLast_update() {
+	public LocalDate getLast_update() {
 		return last_update;
 	}
 
-	public void setLast_update(Date last_update) {
+	public void setLast_update(LocalDate last_update) {
 		this.last_update = last_update;
 	}
 
-	public Date getCreation_date() {
+	public LocalDate getCreation_date() {
 		return creation_date;
 	}
 
-	public void setCreation_date(Date creation_date) {
+	public void setCreation_date(LocalDate creation_date) {
 		this.creation_date = creation_date;
 	}
 
