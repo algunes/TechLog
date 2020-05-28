@@ -23,7 +23,7 @@ public class Corporation implements Serializable {
 	@Column(name="corporation_name", nullable=false, unique=true)
 	private String name;
 	
-	@Column(name="activity", columnDefinition = "boolean default true", nullable = false)
+	@Column(name="activity")
 	private boolean activity;
 	
 	@OneToMany(mappedBy="corporation", cascade=CascadeType.ALL, orphanRemoval=true)

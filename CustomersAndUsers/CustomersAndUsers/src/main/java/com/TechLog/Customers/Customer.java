@@ -29,16 +29,16 @@ public class Customer implements Serializable {
 	@JoinColumn(name="corporation", unique=true, nullable = false)
 	private Corporation corporation;
 	
-	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL, orphanRemoval=true)
-	@Column(name="email")
+	@ElementCollection
+	@Column(name="emails")
 	private List<Email> emails = new ArrayList<>();
 	
-	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL, orphanRemoval=true)
-	@Column(name="phone")
+	@ElementCollection
+	@Column(name="phones")
 	private List<Phone> phones = new ArrayList<>();
 	
-	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL, orphanRemoval=true)
-	@Column(name="address")
+	@ElementCollection
+	@Column(name="addresses")
 	private List<Address> addresses = new ArrayList<>();
 	
 	@Column(name="created_by")
@@ -54,33 +54,27 @@ public class Customer implements Serializable {
 	private LocalDate creation_date;
 	
 	public void addEmail(Email email) {
-		emails.add(email);
-		email.setCustomer(this);
-	}
-	
-	public void addPhone(Phone phone) {
-		phones.add(phone);
-		phone.setCustomer(this);
-	}
-	
-	public void addAddress(Address address) {
-		addresses.add(address);
-		address.setCustomer(this);
+		this.getEmails().add(email);
 	}
 	
 	public void removeEmail(Email email) {
-		emails.remove(email);
-		email.setCustomer(null);
+		this.getEmails().remove(email);
+	}
+	
+	public void addPhone(Phone phone) {
+		this.getPhones().add(phone);
 	}
 	
 	public void removePhone(Phone phone) {
-		phones.remove(phone);
-		phone.setCustomer(null);
+		this.getPhones().remove(phone);
+	}
+	
+	public void addAddress(Address address) {
+		this.getAddresses().add(address);
 	}
 	
 	public void removeAddress(Address address) {
-		addresses.remove(address);
-		address.setCustomer(null);
+		this.getAddresses().remove(address);
 	}
 
 	public Long getCustomer_id() {

@@ -2,39 +2,19 @@ package com.TechLog.Customers;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.Embeddable;
 
-import org.hibernate.annotations.DynamicUpdate;
-
-@Entity
-@Table(name="email")
-@DynamicUpdate
+@Embeddable
 public class Email implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="email_id")
-	private Long id;
-
-	@Column(name="email", unique=true, nullable = false)
+	@Column(name="email", nullable = false)
 	private String email;
 	
-	@Column(name="email_primary_flag", columnDefinition = "boolean default true")
+	@Column(name="primary_flag")
 	private boolean primaryFlag;
-	
-	@ManyToOne
-	@JoinColumn(name="customer")
-	private Customer customer;
 	
 	@Column(name="created_by")
 	private Long created_by;
@@ -47,14 +27,6 @@ public class Email implements Serializable {
 	
 	@Column(name="creation_date")
 	private LocalDate creation_date;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getEmail() {
 		return email;
@@ -70,14 +42,6 @@ public class Email implements Serializable {
 
 	public void setPrimaryFlag(boolean primaryFlag) {
 		this.primaryFlag = primaryFlag;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
 	}
 
 	public Long getCreated_by() {
@@ -122,9 +86,7 @@ public class Email implements Serializable {
 		int result = 1;
 		result = prime * result + ((created_by == null) ? 0 : created_by.hashCode());
 		result = prime * result + ((creation_date == null) ? 0 : creation_date.hashCode());
-		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((last_update == null) ? 0 : last_update.hashCode());
 		result = prime * result + (primaryFlag ? 1231 : 1237);
 		result = prime * result + ((updated_by == null) ? 0 : updated_by.hashCode());
@@ -148,20 +110,10 @@ public class Email implements Serializable {
 				return false;
 		} else if (!creation_date.equals(other.creation_date))
 			return false;
-		if (customer == null) {
-			if (other.customer != null)
-				return false;
-		} else if (!customer.equals(other.customer))
-			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
 			return false;
 		if (last_update == null) {
 			if (other.last_update != null)
@@ -180,9 +132,8 @@ public class Email implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Email [id=" + id + ", email=" + email + ", primaryFlag=" + primaryFlag + ", customer=" + customer
-				+ ", created_by=" + created_by + ", updated_by=" + updated_by + ", last_update=" + last_update
-				+ ", creation_date=" + creation_date + "]";
+		return "Email [email=" + email + ", primaryFlag=" + primaryFlag + ", created_by=" + created_by + ", updated_by="
+				+ updated_by + ", last_update=" + last_update + ", creation_date=" + creation_date + "]";
 	}
 
 }
