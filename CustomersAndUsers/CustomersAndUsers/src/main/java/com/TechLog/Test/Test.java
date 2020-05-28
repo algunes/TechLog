@@ -74,9 +74,9 @@ public class Test {
 //			// customer.setCorporation(session.get(Corporation.class, 1L));
 //			customer.addEmails(email);
 //			customer.addEmails(email2);
-						
-			Corporation corporation = new Corporation();
-			corporation.setName("ACME");
+		// -----------------------------------------------				
+			// Corporation corporation = new Corporation();
+			// corporation.setName("ACME");
 			
 			Customer customer = new Customer();
 			customer.setFirstname("Mircae");
@@ -109,14 +109,16 @@ public class Test {
 			customer.addAddress(address2);
 			
 			corporation.addCustomer(customer);
+// -----------------------------------------------------------			
+			// session.beginTransaction();
 			
-			session.beginTransaction();
+			// session.persist(corporation);
 			
-			session.persist(corporation);
-			
-			session.getTransaction().commit();
+			// session.getTransaction().commit();
 			
 			Customer customer2 = session.get(Customer.class, 1L);
+			customer2.getEmails().
+			customer2.removeEmail(email);
 			System.out.println("Added Customer is " + 
 					customer2.getFirstname() + " "
 					+ customer2.getLastname() + " "
