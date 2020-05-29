@@ -10,15 +10,13 @@ import com.TechLog.Dao.HibernateUtil;
 public class CustomerDaoImp implements CustomerDao {
 
 	@Override
-	public boolean addCustomer(Customer customer) {
+	public void addCustomer(Customer customer) {
 		Session session = null;
-		boolean result = false;
-		Long id = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 			
-			id = (Long) session.save(customer);
+			session.save(customer);
 			session.getTransaction().commit();			
 		}
 		catch (HibernateException e) {
@@ -27,16 +25,28 @@ public class CustomerDaoImp implements CustomerDao {
 		finally {
 			if (session != null)
 			session.close();
-			if (id != null)
-				result = true;
 		}
-		return result;
+
 	}
 
 	@Override
-	public boolean deleteCustomer(Customer customer) {
-		// TODO Auto-generated method stub
-		return false;
+	public void deleteCustomer(Customer customer) {
+
+		Session session = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			session.delete(customer);
+			session.getTransaction().commit();
+		}
+		catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
 	}
 
 	@Override
@@ -46,9 +56,8 @@ public class CustomerDaoImp implements CustomerDao {
 	}
 
 	@Override
-	public boolean updateCustomer(Customer customer) {
-		// TODO Auto-generated method stub
-		return false;
+	public void updateCustomer(Customer customer) {
+		
 	}
 
 }
