@@ -1,28 +1,35 @@
 package com.TechLog.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
+import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.jpa.FullTextEntityManager;
 
 import com.TechLog.Customers.Address;
 import com.TechLog.Customers.Corporation;
 import com.TechLog.Customers.Customer;
-import com.TechLog.Customers.Customers2;
 import com.TechLog.Customers.Email;
-import com.TechLog.Customers.Emails2;
 import com.TechLog.Customers.Phone;
 import com.TechLog.Dao.HibernateUtil;
+import com.TechLog.Services.CustomerImp.CustomerServiceImp;
 
 public class Test {
 
 	public static void main(String[] args) {
 		
-		Session session = null;
-		
-		try {
-			
-			session = HibernateUtil.getSessionFactory().openSession();
-			
+//		Session session = null;
+//		
+//		try {
+//			
+//			session = HibernateUtil.getSessionFactory().openSession();
+//			
 			/*
 			 * String sql = "select version()"; String result = (String)
 			 * session.createNativeQuery(sql).getSingleResult(); System.out.println(result);
@@ -75,64 +82,194 @@ public class Test {
 //			customer.addEmails(email);
 //			customer.addEmails(email2);
 		// -----------------------------------------------				
-			// Corporation corporation = new Corporation();
-			// corporation.setName("ACME");
 			
-			Customer customer = new Customer();
-			customer.setFirstname("Mircae");
-			customer.setLastname("Ealiade");
+			// createCustomer();
+		
+//		Session session = null;
+//		Customer customer = new Customer();
+		
+//		List<Email> emails = new ArrayList<>();
+//		List<Phone> phones = new ArrayList<>();
+//		List<Address> addresses = new ArrayList<>();
+		
+//		try {
+//			session = HibernateUtil.getSessionFactory().openSession();
+//			session.beginTransaction();
+//			customer = session.get(Customer.class, 1L);	
+//			Hibernate.initialize(customer.getEmails());
+//			Hibernate.initialize(customer.getPhones());
+//			Hibernate.initialize(customer.getAddresses());
+////			emails = session.get(Customer.class, 1L).getEmails();
+////			phones = session.get(Customer.class, 1L).getPhones();
+////			addresses = session.get(Customer.class, 1L).getAddresses();
+//			session.getTransaction().commit();
+//		}
+//		catch (HibernateException e) {
+//			e.printStackTrace();
+//		}
+//		finally {
+//			if (session != null) {
+//				session.close();
+//			}
+//		}
+		// createCustomer(1L);
+		createCorporation();
 			
-			Email email1 = new Email();
-			email1.setEmail("eliade@mircae.com");
+			CustomerServiceImp cservice = new CustomerServiceImp();
+			Customer customer = cservice.getCustomer(3L, true);
 			
-			Email email2 = new Email();
-			email2.setEmail("eliade2@gmail.com");
+			List<Email> emails = customer.getEmails();
+			List<Phone> phones = customer.getPhones();
+			List<Address> addresses = customer.getAddresses();
 			
-			Phone phone1 = new Phone();
-			phone1.setNumber("123456789");
+			System.out.println("Size of the Email List is: " + emails.size());
+			System.out.println("Size of the Phone List is: " + phones.size());
+			System.out.println("Size of the Address List is: " + addresses.size());
 			
-			Phone phone2 = new Phone();
-			phone2.setNumber("1234567891011");
+			System.out.println("----------------------");
 			
-			Address address1 = new Address();
-			address1.setAddress("Falanca Sokak filanca cadde no:1");
+			ListIterator<Email> iteratorE = emails.listIterator();
+			ListIterator<Phone> iteratorP = phones.listIterator();
+			ListIterator<Address> iteratorA = addresses.listIterator();
 			
-			Address address2 = new Address();
-			address2.setAddress("Orada bir de þurada filanca adres");
+			System.out.println("Mails:");
+			while (iteratorE.hasNext()) {
+			System.out.println(iteratorE.next().getEmail());
+			}
 			
-			customer.addEmail(email1);
-			customer.addEmail(email2);
-			customer.addPhone(phone1);
-			customer.addPhone(phone2);
-			customer.addAddress(address1);
-			customer.addAddress(address1);
-			customer.addAddress(address2);
+			System.out.println("----------------------");
 			
-			corporation.addCustomer(customer);
-// -----------------------------------------------------------			
-			// session.beginTransaction();
+			System.out.println("Phones:");
+			while (iteratorP.hasNext()) {
+				System.out.println(iteratorP.next().getNumber());
+				}
 			
-			// session.persist(corporation);
+			System.out.println("----------------------");
 			
-			// session.getTransaction().commit();
-			
-			Customer customer2 = session.get(Customer.class, 1L);
-			customer2.getEmails().
-			customer2.removeEmail(email);
-			System.out.println("Added Customer is " + 
-					customer2.getFirstname() + " "
-					+ customer2.getLastname() + " "
-					+ customer2. getCorporation().getName());
-			
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			if (session != null)
-			session.close();
-		}
+			System.out.println("Addresses:");
+			while (iteratorA.hasNext()) {
+				System.out.println(iteratorA.next().getAddress());
+				}
 
+//			session.beginTransaction();
+//			
+//			session.persist(corporation);
+//			
+//			Customer customer2 = session.get(Customer.class, 1L);
+//			customer2.removeEmail(email1);
+//			
+//			session.getTransaction().commit();
+//			
+//			FullTextSession fullTextSession = Search.getFullTextSession(session);
+//			fullTextSession.createIndexer().startAndWait();
+//			
+//			
+//			System.out.println("Added Customer is " + 
+//					customer2.getFirstname() + " "
+//					+ customer2.getLastname() + " v"
+//					+ customer2. getCorporation().getName());
+//			
+//		}
+//		catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		finally {
+//			if (session != null)
+//			session.close();
+//		}
+
+			
+			
+	}
+	
+	public static void createFullCustomer() {
+		Corporation corporation = new Corporation();
+		corporation.setName("ACME");
+		
+		Customer customer = new Customer();
+		customer.setFirstname("Mircae");
+		customer.setLastname("Ealiade");
+		
+		Email email1 = new Email();
+		email1.setEmail("eliade@mircae.com");
+		
+		Email email2 = new Email();
+		email2.setEmail("eliade2@gmail.com");
+		
+		Phone phone1 = new Phone();
+		phone1.setNumber("123456789");
+		
+		Phone phone2 = new Phone();
+		phone2.setNumber("1234567891011");
+		
+		Address address1 = new Address();
+		address1.setAddress("Falanca Sokak filanca cadde no:1");
+		
+		Address address2 = new Address();
+		address2.setAddress("Orada bir de þurada filanca adres");
+		
+		customer.addEmail(email1);
+		customer.addEmail(email2);
+		customer.addPhone(phone1);
+		customer.addPhone(phone2);
+		customer.addAddress(address1);
+		customer.addAddress(address2);
+		
+		corporation.addCustomer(customer);
+		
+		CustomerServiceImp cservice = new CustomerServiceImp();
+		cservice.createCorporation(corporation);
+		// cservice.createCustomer(customer);
+	}
+	
+	public static void createCustomer(Long corpId) {
+		
+		Customer customer = new Customer();
+		customer.setFirstname("Vladimir");
+		customer.setLastname("Nabokov");
+		
+		Email email1 = new Email();
+		email1.setEmail("vlad1@nabokov.com");
+		
+		Email email2 = new Email();
+		email2.setEmail("vlad2@nabokov.com");
+		
+		Phone phone1 = new Phone();
+		phone1.setNumber("555555");
+		
+		Phone phone2 = new Phone();
+		phone2.setNumber("77777777");
+		
+		Address address1 = new Address();
+		address1.setAddress("Rua Dam Vale Cad. Lolita Sokak No:7/6 Bostancý/ÝSTANBUL");
+		
+		Address address2 = new Address();
+		address2.setAddress("Pnin Caddesi, Saydam Þeyler Sokak No:90/65 Suadiye/Ýstanbul");
+		
+		customer.addEmail(email1);
+		customer.addEmail(email2);
+		customer.addPhone(phone1);
+		customer.addPhone(phone2);
+		customer.addAddress(address1);
+		customer.addAddress(address2);
+		
+		CustomerServiceImp cservice = new CustomerServiceImp();
+		Corporation corporation = cservice.getCorporation(corpId, true);
+		corporation.addCustomer(customer);
+		cservice.createCustomer(customer);
+	}
+	
+	public static void createCorporation () {
+		Long corpId = null;
+		Corporation corporation = new Corporation();
+		corporation.setName("Alice Wonderland LLC");
+		
+		CustomerServiceImp cservice = new CustomerServiceImp();
+		corpId = cservice.createCorporation(corporation);
+		System.out.println("Your corporation ID is: " + corpId);
+		
+		Corporation corporation2 = cservice.getCorporation(corpId, true);
+		System.out.println("Corporation name is: " + corporation2.getName());
 	}
 
 }

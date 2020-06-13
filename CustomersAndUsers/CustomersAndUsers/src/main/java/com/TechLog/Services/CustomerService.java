@@ -7,11 +7,11 @@ public interface CustomerService {
 	
 	void createCustomer(Customer customer);
 	void removeCustomer(Customer customer);
-	Customer getCustomer(Long id);
+	Customer getCustomer(Long id, boolean isFull);
 	void updateCustomer(Customer customer);
-	void createCorporation(Corporation corporation);
+	Long createCorporation(Corporation corporation);
 	void removeCorporation(Corporation corporation);
-	Corporation getCorporation(Long id);
+	Corporation getCorporation(Long id, boolean isFull);
 	void updateCorporation(Corporation corporation);
 
 }

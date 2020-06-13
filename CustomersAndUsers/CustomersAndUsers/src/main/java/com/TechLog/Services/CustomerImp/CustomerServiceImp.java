@@ -2,6 +2,7 @@ package com.TechLog.Services.CustomerImp;
 
 import com.TechLog.Customers.Corporation;
 import com.TechLog.Customers.Customer;
+import com.TechLog.Dao.CorporationImp.CorporationDaoImp;
 import com.TechLog.Dao.CustomerImp.CustomerDaoImp;
 import com.TechLog.Services.CustomerService;
 
@@ -14,12 +15,16 @@ public class CustomerServiceImp implements CustomerService {
 
 	@Override
 	public void removeCustomer(Customer customer) {
-		new CustomerDaoImp().addCustomer(customer);	
+		if (customer != null)
+			new CustomerDaoImp().deleteCustomer(customer);
 	}
 
 	@Override
-	public Customer getCustomer(Long id) {
-		return new CustomerDaoImp().fetchCustomer(id);
+	public Customer getCustomer(Long id, boolean isFull) {
+		if (isFull)
+			return new CustomerDaoImp().fullFetchCustomer(id);
+		else
+			return new CustomerDaoImp().fetchCustomer(id);
 	}
 
 	@Override
@@ -29,26 +34,29 @@ public class CustomerServiceImp implements CustomerService {
 	}
 
 	@Override
-	public void createCorporation(Corporation corporation) {
-		// TODO Auto-generated method stub
+	public Long createCorporation(Corporation corporation) {
+		return new CorporationDaoImp().addCorporation(corporation);
 		
 	}
 
 	@Override
 	public void removeCorporation(Corporation corporation) {
-		// TODO Auto-generated method stub
+		if (corporation != null)
+			new CorporationDaoImp().deleteCorporation(corporation);
 		
 	}
 
 	@Override
-	public Corporation getCorporation(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Corporation getCorporation(Long id, boolean isFull) {
+		if (isFull)
+			return new CorporationDaoImp().fullFetchCorporation(id);
+		else
+			return new CorporationDaoImp().fetchCorporation(id);
 	}
 
 	@Override
 	public void updateCorporation(Corporation corporation) {
-		// TODO Auto-generated method stub
+		new CorporationDaoImp().updateCorporation(corporation);
 		
 	}
 

@@ -31,7 +31,6 @@ public class HibernateUtil {
 				dbSettings.put(Environment.HBM2DDL_AUTO, "update");
 				dbSettings.put(Environment.POOL_SIZE, "20");
 				dbSettings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-				dbSettings.put(Environment.POOL_SIZE, "20");
 
 				registryBuilder.applySettings(dbSettings);
 				standardServiceRegistry = registryBuilder.build();

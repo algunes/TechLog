@@ -7,9 +7,13 @@ import java.util.*;
 import javax.persistence.*;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.TermVector;
 
 
 @Entity
+@Indexed
 @Table(name="customer")
 @DynamicUpdate
 public class Customer implements Serializable {
@@ -19,14 +23,16 @@ public class Customer implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long customer_id;
 	
+	@Field(termVector = TermVector.YES)
 	@Column(name="firstname", nullable = false)
 	private String firstname;
 	
+	@Field(termVector = TermVector.YES)
 	@Column(name="lastname", nullable = false)
 	private String lastname;
 	
 	@ManyToOne
-	@JoinColumn(name="corporation", unique=true, nullable = false)
+	@JoinColumn(name="corporation", nullable = false)
 	private Corporation corporation;
 	
 	@ElementCollection

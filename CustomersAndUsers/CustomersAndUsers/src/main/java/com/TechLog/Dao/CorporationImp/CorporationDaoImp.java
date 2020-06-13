@@ -1,22 +1,23 @@
-package com.TechLog.Dao.CustomerImp;
+package com.TechLog.Dao.CorporationImp;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-import com.TechLog.Customers.Customer;
-import com.TechLog.Dao.CustomerDao;
+import com.TechLog.Customers.Corporation;
+import com.TechLog.Dao.CorporationDao;
 import com.TechLog.Dao.HibernateUtil;
 
-public class CustomerDaoImp implements CustomerDao {
+public class CorporationDaoImp implements CorporationDao {
 
 	@Override
-	public void addCustomer(Customer customer) {
+	public Long addCorporation(Corporation corporation) {
 		Session session = null;
+		Long result = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();		
-			session.save(customer);
+			result = (Long)session.save(corporation);
 			session.getTransaction().commit();			
 		}
 		catch (HibernateException e) {
@@ -26,16 +27,18 @@ public class CustomerDaoImp implements CustomerDao {
 			if (session != null)
 			session.close();
 		}
+		return result;
 	}
 
 	@Override
-	public void deleteCustomer(Customer customer) {
+	public Corporation fetchCorporation(Long id) {
 
 		Session session = null;
+		Corporation corporation = new Corporation();
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			session.delete(customer);
+			corporation = session.get(Corporation.class, id);		
 			session.getTransaction().commit();
 		}
 		catch (HibernateException e) {
@@ -46,41 +49,19 @@ public class CustomerDaoImp implements CustomerDao {
 				session.close();
 			}
 		}
-	}
-
-	@Override
-	public Customer fetchCustomer(Long id) {
-		Session session = null;
-		Customer customer = new Customer();
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();			
-			customer = session.get(Customer.class, id);	
-			session.getTransaction().commit();
-		}
-		catch (HibernateException e) {
-			e.printStackTrace();
-		}
-		finally {
-			if (session != null) {
-				session.close();
-			}
-		}
-		return customer;
+		return corporation;
 	}
 	
 	@Override
-	public Customer fullFetchCustomer(Long id) {
-		
+	public Corporation fullFetchCorporation(Long id) {
+
 		Session session = null;
-		Customer customer = new Customer();
+		Corporation corporation = new Corporation();
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			customer = session.get(Customer.class, id);
-			Hibernate.initialize(customer.getEmails());
-			Hibernate.initialize(customer.getPhones());
-			Hibernate.initialize(customer.getAddresses());
+			corporation = session.get(Corporation.class, id);	
+			Hibernate.initialize(corporation.getCustomers());
 			session.getTransaction().commit();
 		}
 		catch (HibernateException e) {
@@ -91,17 +72,17 @@ public class CustomerDaoImp implements CustomerDao {
 				session.close();
 			}
 		}
-		return customer;
+		return corporation;
 	}
 
 	@Override
-	public void updateCustomer(Customer customer) {
-		
+	public void updateCorporation(Corporation corporation) {
+
 		Session session = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
-			session.update(customer);		
+			session.update(corporation);		
 			session.getTransaction().commit();
 		}
 		catch (HibernateException e) {
@@ -112,7 +93,26 @@ public class CustomerDaoImp implements CustomerDao {
 				session.close();
 			}
 		}
-		
+	}
+
+	@Override
+	public void deleteCorporation(Corporation corporation) {
+		Session session = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			session.delete(corporation);
+			session.getTransaction().commit();
+		}
+		catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+
 	}
 
 }
