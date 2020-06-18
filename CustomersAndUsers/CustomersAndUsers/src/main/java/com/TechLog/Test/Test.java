@@ -37,7 +37,7 @@ public class Test {
 			
 //			Users user = new Users();
 //			user.setFirstname("Aliyar");
-//			user.setLastname("Güneþ");
+//			user.setLastname("Gï¿½neï¿½");
 //			user.setDepartment("Administration");
 //			user.setEmail("aliyargunes@gmail.com");
 			
@@ -49,7 +49,7 @@ public class Test {
 //			email.setEmail("map@cohen.com");
 //			
 //			Address address = new Address();
-//			address.setAddress("Ataþehirde bir yer");
+//			address.setAddress("Ataï¿½ehirde bir yer");
 //			
 //			Phone phone = new Phone();
 //			phone.setNumber("+90568356734");
@@ -77,7 +77,7 @@ public class Test {
 //			
 //			Customers2 customer = new Customers2();
 //			customer.setFirstname("Bilal");
-//			customer.setLastname("Adýsüper");
+//			customer.setLastname("Adï¿½sï¿½per");
 //			// customer.setCorporation(session.get(Corporation.class, 1L));
 //			customer.addEmails(email);
 //			customer.addEmails(email2);
@@ -114,9 +114,10 @@ public class Test {
 //		}
 		// createCustomer(1L);
 		// createCorporation();
+		createFullCustomer();
 			
 			CustomerServiceImp cservice = new CustomerServiceImp();
-			Customer customer = cservice.getCustomer(3L, true);
+			Customer customer = cservice.getCustomer(1L, true);
 			
 			List<Email> emails = customer.getEmails();
 			List<Phone> phones = customer.getPhones();
@@ -205,7 +206,7 @@ public class Test {
 		address1.setAddress("Falanca Sokak filanca cadde no:1");
 		
 		Address address2 = new Address();
-		address2.setAddress("Orada bir de þurada filanca adres");
+		address2.setAddress("Orada bir de ï¿½urada filanca adres");
 		
 		customer.addEmail(email1);
 		customer.addEmail(email2);
@@ -240,10 +241,10 @@ public class Test {
 		phone2.setNumber("77777777");
 		
 		Address address1 = new Address();
-		address1.setAddress("Rua Dam Vale Cad. Lolita Sokak No:7/6 Bostancý/ÝSTANBUL");
+		address1.setAddress("Rua Dam Vale Cad. Lolita Sokak No:7/6 Bostancï¿½/ï¿½STANBUL");
 		
 		Address address2 = new Address();
-		address2.setAddress("Pnin Caddesi, Saydam Þeyler Sokak No:90/65 Suadiye/Ýstanbul");
+		address2.setAddress("Pnin Caddesi, Saydam ï¿½eyler Sokak No:90/65 Suadiye/ï¿½stanbul");
 		
 		customer.addEmail(email1);
 		customer.addEmail(email2);
