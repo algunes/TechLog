@@ -36,14 +36,17 @@ public class Customer implements Serializable {
 	private Corporation corporation;
 	
 	@ElementCollection
+	@Field
 	@Column(name="emails")
 	private List<Email> emails = new ArrayList<>();
 	
 	@ElementCollection
+	@Field
 	@Column(name="phones")
 	private List<Phone> phones = new ArrayList<>();
 	
 	@ElementCollection
+	@Field
 	@Column(name="addresses")
 	private List<Address> addresses = new ArrayList<>();
 	

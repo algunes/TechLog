@@ -113,7 +113,7 @@ public class Test {
 //			}
 //		}
 		// createCustomer(1L);
-		createCorporation();
+		// createCorporation();
 			
 			CustomerServiceImp cservice = new CustomerServiceImp();
 			Customer customer = cservice.getCustomer(3L, true);
@@ -160,8 +160,7 @@ public class Test {
 //			
 //			session.getTransaction().commit();
 //			
-//			FullTextSession fullTextSession = Search.getFullTextSession(session);
-//			fullTextSession.createIndexer().startAndWait();
+			
 //			
 //			
 //			System.out.println("Added Customer is " + 
