@@ -9,6 +9,8 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
+import org.hibernate.search.Search;
+import org.hibernate.search.*;
 
 public class HibernateUtil {
 	private static StandardServiceRegistry standardServiceRegistry;
@@ -43,7 +45,8 @@ public class HibernateUtil {
 			    settings.put(Environment.C3P0_TIMEOUT, 1800);       //Connection idle time
 				
 			    // Search Configuration 
-				settings.put(INDEX_BASE_PROP_NAME, "/var/lucene/indexes");
+				settings.put(INDEX_BASE_PROP_NAME, "/lucene/indexes");
+				settings.put(LUCENE_CURRENT, "/lucene/indexes");
 
 				registryBuilder.applySettings(settings);
 				standardServiceRegistry = registryBuilder.build();

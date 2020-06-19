@@ -18,6 +18,7 @@ import com.TechLog.Customers.Customer;
 import com.TechLog.Customers.Email;
 import com.TechLog.Customers.Phone;
 import com.TechLog.Dao.HibernateUtil;
+import com.TechLog.Services.SearchService;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
 
 public class Test {
@@ -112,45 +113,11 @@ public class Test {
 //				session.close();
 //			}
 //		}
-		// createCustomer(1L);
 		// createCorporation();
-		createFullCustomer();
+		// createFullCustomer();
+		// createCustomer(1L);
 			
-			CustomerServiceImp cservice = new CustomerServiceImp();
-			Customer customer = cservice.getCustomer(1L, true);
 			
-			List<Email> emails = customer.getEmails();
-			List<Phone> phones = customer.getPhones();
-			List<Address> addresses = customer.getAddresses();
-			
-			System.out.println("Size of the Email List is: " + emails.size());
-			System.out.println("Size of the Phone List is: " + phones.size());
-			System.out.println("Size of the Address List is: " + addresses.size());
-			
-			System.out.println("----------------------");
-			
-			ListIterator<Email> iteratorE = emails.listIterator();
-			ListIterator<Phone> iteratorP = phones.listIterator();
-			ListIterator<Address> iteratorA = addresses.listIterator();
-			
-			System.out.println("Mails:");
-			while (iteratorE.hasNext()) {
-			System.out.println(iteratorE.next().getEmail());
-			}
-			
-			System.out.println("----------------------");
-			
-			System.out.println("Phones:");
-			while (iteratorP.hasNext()) {
-				System.out.println(iteratorP.next().getNumber());
-				}
-			
-			System.out.println("----------------------");
-			
-			System.out.println("Addresses:");
-			while (iteratorA.hasNext()) {
-				System.out.println(iteratorA.next().getAddress());
-				}
 
 //			session.beginTransaction();
 //			
@@ -177,9 +144,72 @@ public class Test {
 //			if (session != null)
 //			session.close();
 //		}
+		
+		SearchService search = new SearchService();
+		
+		List<Customer> list = search.searchByCustomerName("eliade2@");
+		
+		System.out.println("Number of Customers: " + list.size());
+		
+		if (!list.isEmpty()) {
+		ListIterator<Customer> iteratorC = list.listIterator();
+		
+		System.out.println("Customers: ");
+		while (iteratorC.hasNext()) {
+			
+			Customer customer = iteratorC.next();
+			System.out.println(customer.getFirstname());
+			System.out.println(customer.getLastname());
+			System.out.println(customer.getCorporation().getName());
+			System.out.println("Number of Emails: " + customer.getEmails().size());
+		}
+		}
+		else {
+			System.out.println("No results!");
+		}
 
 			
 			
+	}
+	
+	public static void justChecked() {
+		
+		CustomerServiceImp cservice = new CustomerServiceImp();
+		Customer customer = cservice.getCustomer(1L, true);
+		
+		List<Email> emails = customer.getEmails();
+		List<Phone> phones = customer.getPhones();
+		List<Address> addresses = customer.getAddresses();
+		
+		System.out.println("Size of the Email List is: " + emails.size());
+		System.out.println("Size of the Phone List is: " + phones.size());
+		System.out.println("Size of the Address List is: " + addresses.size());
+		
+		System.out.println("----------------------");
+		
+		ListIterator<Email> iteratorE = emails.listIterator();
+		ListIterator<Phone> iteratorP = phones.listIterator();
+		ListIterator<Address> iteratorA = addresses.listIterator();
+		
+		System.out.println("Mails:");
+		while (iteratorE.hasNext()) {
+		System.out.println(iteratorE.next().getEmail());
+		}
+		
+		System.out.println("----------------------");
+		
+		System.out.println("Phones:");
+		while (iteratorP.hasNext()) {
+			System.out.println(iteratorP.next().getNumber());
+			}
+		
+		System.out.println("----------------------");
+		
+		System.out.println("Addresses:");
+		while (iteratorA.hasNext()) {
+			System.out.println(iteratorA.next().getAddress());
+			}
+		
 	}
 	
 	public static void createFullCustomer() {

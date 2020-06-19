@@ -29,6 +29,7 @@ public class Customer implements Serializable {
 	private String firstname;
 	
 	@Column(name="lastname", nullable = false)
+	@Field
 	private String lastname;
 	
 	@ManyToOne
