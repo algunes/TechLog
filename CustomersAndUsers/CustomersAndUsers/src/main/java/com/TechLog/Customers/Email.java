@@ -6,11 +6,14 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import org.hibernate.search.annotations.Field;
+
 @Embeddable
 public class Email implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name="email", nullable = false)
+	@Field
 	private String email;
 	
 	@Column(name="primary_flag")

@@ -9,6 +9,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.TermVector;
 
 
@@ -35,6 +36,7 @@ public class Customer implements Serializable {
 	private Corporation corporation;
 	
 	@ElementCollection
+	@IndexedEmbedded
 	@Column(name="emails")
 	private List<Email> emails = new ArrayList<>();
 	
