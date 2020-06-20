@@ -147,7 +147,7 @@ public class Test {
 		
 		SearchService search = new SearchService();
 		
-		List<Customer> list = search.searchByCustomerName("eliade2@");
+		List<Customer> list = search.searchByCustomerName("aliyar");
 		
 		System.out.println("Number of Customers: " + list.size());
 		

@@ -7,6 +7,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
@@ -34,6 +35,7 @@ public class Customer implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="corporation", nullable = false)
+	@ContainedIn
 	private Corporation corporation;
 	
 	@ElementCollection

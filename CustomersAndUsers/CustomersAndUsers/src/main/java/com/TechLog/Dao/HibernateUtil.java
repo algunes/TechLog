@@ -1,7 +1,5 @@
 package com.TechLog.Dao;
 
-import static org.hibernate.search.cfg.Environment.INDEX_BASE_PROP_NAME;
-
 import java.util.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -9,8 +7,6 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
-import org.hibernate.search.Search;
-import org.hibernate.search.*;
 
 public class HibernateUtil {
 	private static StandardServiceRegistry standardServiceRegistry;
@@ -45,8 +41,10 @@ public class HibernateUtil {
 			    settings.put(Environment.C3P0_TIMEOUT, 1800);       //Connection idle time
 				
 			    // Search Configuration 
-				settings.put(INDEX_BASE_PROP_NAME, "/lucene/indexes");
-				settings.put(LUCENE_CURRENT, "/lucene/indexes");
+			    settings.put("hibernate.search.lucene_version", "latest");
+				settings.put("hibernate.search.default.directory_provider", "filesystem");
+	            settings.put("hibernate.search.default.indexBase", "C:/Users/aliya/Desktop/software/TechLog/CustomersAndUsers/CustomersAndUsers/luceneindexes");
+	            settings.put("hibernate.search.default.indexwriter.infostream", true);
 
 				registryBuilder.applySettings(settings);
 				standardServiceRegistry = registryBuilder.build();
