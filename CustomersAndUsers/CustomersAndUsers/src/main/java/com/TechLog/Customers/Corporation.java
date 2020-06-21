@@ -9,10 +9,10 @@ import javax.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import org.hibernate.search.annotations.TermVector;
 
 
 @Entity
+@Indexed
 @Table(name="corporation")
 @DynamicUpdate
 public class Corporation implements Serializable {
@@ -23,6 +23,7 @@ public class Corporation implements Serializable {
 	@Column(name="corporation_id")
 	private Long id;
 
+	@Field
 	@Column(name="corporation_name", nullable=false, unique=true)
 	private String name;
 	

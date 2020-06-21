@@ -1,23 +1,13 @@
 package com.TechLog.Test;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-
-import org.hibernate.Hibernate;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
-import org.hibernate.search.jpa.FullTextEntityManager;
 
 import com.TechLog.Customers.Address;
 import com.TechLog.Customers.Corporation;
 import com.TechLog.Customers.Customer;
 import com.TechLog.Customers.Email;
 import com.TechLog.Customers.Phone;
-import com.TechLog.Dao.HibernateUtil;
 import com.TechLog.Services.SearchService;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
 
@@ -147,7 +137,7 @@ public class Test {
 		
 		SearchService search = new SearchService();
 		
-		List<Customer> list = search.searchByCustomerName("aliyar");
+		List<Customer> list = search.searchByCustomerName("vladimir");
 		
 		System.out.println("Number of Customers: " + list.size());
 		
@@ -161,7 +151,9 @@ public class Test {
 			System.out.println(customer.getFirstname());
 			System.out.println(customer.getLastname());
 			System.out.println(customer.getCorporation().getName());
-			System.out.println("Number of Emails: " + customer.getEmails().size());
+			System.out.println("Number of emails:" + new CustomerServiceImp().getCustomer(customer.getCustomer_id(), true).getEmails().size());
+			// System.out.println("Number of Emails: " + customer.getEmails().size());
+			
 		}
 		}
 		else {

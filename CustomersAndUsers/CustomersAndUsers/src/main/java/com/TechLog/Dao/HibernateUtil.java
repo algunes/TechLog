@@ -28,10 +28,7 @@ public class HibernateUtil {
 				settings.put(Environment.PASS, "1234");
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
 				settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-				settings.put(Environment.SHOW_SQL, "true");
-				settings.put(Environment.FORMAT_SQL, "true");
 				settings.put(Environment.HBM2DDL_AUTO, "update");
-				settings.put(Environment.POOL_SIZE, "20");
 				settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 				
 				// c3p0 Configuration

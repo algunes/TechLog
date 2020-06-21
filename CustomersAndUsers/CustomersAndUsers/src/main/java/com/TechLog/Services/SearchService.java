@@ -17,26 +17,34 @@ public class SearchService {
 
 		FullTextSession fullTextSession = SearchDao.getFullTextSession();
 		Transaction tx = fullTextSession.beginTransaction();
+		
+		try {
+			
+			QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(Customer.class).get();
 
-		// create native Lucene query using the query DSL
-		// alternatively you can write the Lucene query using the Lucene query parser
-		// or the Lucene programmatic API. The Hibernate Search DSL is recommended
-		// though
-		QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(Customer.class).get();
+			org.apache.lucene.search.Query query = qb.keyword().onFields("firstname", "lastname", "emails.email")
+					.matching(key).createQuery();
 
-		org.apache.lucene.search.Query query = qb.keyword().onFields("firstname", "lastname", "emails.email")
-				.matching(key).createQuery();
+			// wrap Lucene query in a org.hibernate.Query
+			org.hibernate.search.jpa.FullTextQuery hibQuery = fullTextSession.createFullTextQuery(query, Customer.class);
 
-		// wrap Lucene query in a org.hibernate.Query
-		org.hibernate.search.jpa.FullTextQuery hibQuery = fullTextSession.createFullTextQuery(query, Customer.class);
+			// hibQuery.setProjection("firstname", "lastname", "emails.email");
 
-		// hibQuery.setProjection("firstname", "lastname", "emails.email");
+			// execute search
+			if (!hibQuery.getResultList().isEmpty()) 
+				results = hibQuery.getResultList();
 
-		// execute search
-		if (!hibQuery.getResultList().isEmpty()) 
-			results = hibQuery.getResultList();
-
-		tx.commit();
+			tx.commit();				
+		}
+		
+		catch (Exception e) {			
+			e.printStackTrace();			
+		}
+		
+		finally {		
+			if(fullTextSession != null)
+				fullTextSession.close();
+		}
 
 		return results;
 

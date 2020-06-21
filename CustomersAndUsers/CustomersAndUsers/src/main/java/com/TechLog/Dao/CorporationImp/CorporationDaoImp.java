@@ -21,6 +21,8 @@ public class CorporationDaoImp implements CorporationDao {
 			session.getTransaction().commit();			
 		}
 		catch (HibernateException e) {
+			if(session.getTransaction() != null)
+				session.beginTransaction().rollback();
 			e.printStackTrace();
 		}
 		finally {
@@ -86,6 +88,8 @@ public class CorporationDaoImp implements CorporationDao {
 			session.getTransaction().commit();
 		}
 		catch (HibernateException e) {
+			if(session.getTransaction() != null)
+				session.beginTransaction().rollback();
 			e.printStackTrace();
 		}
 		finally {
@@ -105,6 +109,8 @@ public class CorporationDaoImp implements CorporationDao {
 			session.getTransaction().commit();
 		}
 		catch (HibernateException e) {
+			if(session.getTransaction() != null)
+				session.beginTransaction().rollback();
 			e.printStackTrace();
 		}
 		finally {

@@ -10,7 +10,7 @@ public class SearchDao {
 	private static FullTextSession fullTextSession = null;
 	private static Session session = null;
 
-	static {
+	public static FullTextSession getFullTextSession() {
 		if (fullTextSession == null) {
 			try {
 				session = HibernateUtil.getSessionFactory().openSession();
@@ -27,9 +27,6 @@ public class SearchDao {
 					session.close();
 			}
 		}
-	}
-
-	public static FullTextSession getFullTextSession() {
 		return fullTextSession;
 	}
 
