@@ -11,12 +11,13 @@ import com.TechLog.Dao.HibernateUtil;
 public class CustomerDaoImp implements CustomerDao {
 
 	@Override
-	public void addCustomer(Customer customer) {
+	public Long addCustomer(Customer customer) {
 		Session session = null;
+		Long id = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();		
-			session.save(customer);
+			id = (Long)session.save(customer);
 			session.getTransaction().commit();			
 		}
 		catch (HibernateException e) {
@@ -28,6 +29,7 @@ public class CustomerDaoImp implements CustomerDao {
 			if (session != null)
 			session.close();
 		}
+		return id;
 	}
 
 	@Override

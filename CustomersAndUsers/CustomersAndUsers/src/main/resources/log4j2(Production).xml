@@ -31,6 +31,9 @@
         <Logger name="org.apache" level="error" additivity="false">
             <AppenderRef ref="errors"/>
         </Logger>
+        <Logger name="org.javax.persistence" level="error" additivity="false">
+            <AppenderRef ref="errors"/>
+        </Logger>
         <Root level="info">
             <AppenderRef ref="errors"/>
         </Root>

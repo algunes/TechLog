@@ -1,5 +1,7 @@
 package com.TechLog.Services.CustomerImp;
 
+import java.util.List;
+
 import com.TechLog.Customers.Corporation;
 import com.TechLog.Customers.Customer;
 import com.TechLog.Dao.CorporationImp.CorporationDaoImp;
@@ -9,8 +11,8 @@ import com.TechLog.Services.CustomerService;
 public class CustomerServiceImp implements CustomerService {
 
 	@Override
-	public void createCustomer(Customer customer) {
-		new CustomerDaoImp().addCustomer(customer);		
+	public Long createCustomer(Customer customer) {
+		return new CustomerDaoImp().addCustomer(customer);		
 	}
 
 	@Override
@@ -52,6 +54,11 @@ public class CustomerServiceImp implements CustomerService {
 			return new CorporationDaoImp().fullFetchCorporation(id);
 		else
 			return new CorporationDaoImp().fetchCorporation(id);
+	}
+	
+	@Override
+	public List<Corporation> getAllCorporations() {
+		return new CorporationDaoImp().fetchAllCorporations();	
 	}
 
 	@Override

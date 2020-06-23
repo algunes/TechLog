@@ -1,8 +1,12 @@
 package com.TechLog.Dao.CorporationImp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import javax.persistence.criteria.CriteriaQuery;
 
 import com.TechLog.Customers.Corporation;
 import com.TechLog.Dao.CorporationDao;
@@ -75,6 +79,34 @@ public class CorporationDaoImp implements CorporationDao {
 			}
 		}
 		return corporation;
+	}
+	
+	@Override
+	public List<Corporation> fetchAllCorporations() {
+		
+		Session session = null;
+		List<Corporation> corporations = new ArrayList<>();
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+				
+			CriteriaQuery<Corporation> criteriaQuery = session.getCriteriaBuilder().createQuery(Corporation.class);
+	        criteriaQuery.from(Corporation.class);
+
+	        corporations = session.createQuery(criteriaQuery).getResultList();
+			
+			session.getTransaction().commit();
+		}
+		catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return corporations;
+		
 	}
 
 	@Override
