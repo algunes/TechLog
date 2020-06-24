@@ -16,8 +16,16 @@
 
 <% Corporation corporation = (Corporation) request.getAttribute("corporation"); %>
  <% Customer customer = (Customer)request.getAttribute("customer"); %>
- <p><%= customer.getFirstname() %> <%= customer.getLastname() %> from <%= customer.getCorporation().getName() %></p>
- <p>added succesfully!</p>
+ <%! String str = null; %>
+ 
+ <p><% if (customer != null){
+	 str = customer.getFirstname() +" "+customer.getLastname()+" from "+customer.getCorporation().getName();
+ }
+ else if (corporation != null) {
+	 str = corporation.getName();
+ } %>
+
+ <p> <%= str %> added succesfully!</p>
 
 </body>
 </html>

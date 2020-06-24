@@ -29,7 +29,7 @@
 		</td>
 		
 		<td>
-		<a href=".<%request.getContextPath();%>/searchCustomer.jsp" target="iframe_a">Search Customer</a>
+		<a href=".<%request.getContextPath();%>/searchCustomer" target="iframe_a">Search Customer</a>
 		</td>
 		
 		</table>
