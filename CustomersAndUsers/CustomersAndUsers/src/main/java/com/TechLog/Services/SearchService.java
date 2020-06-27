@@ -22,10 +22,16 @@ public class SearchService {
 		
 		try {
 			
-			QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(Customer.class).get();
+			QueryBuilder qb = fullTextSession.getSearchFactory().
+					buildQueryBuilder().
+					forEntity(Customer.class).get();
 
-			Query query = qb.keyword().onFields("firstname", "lastname", "emails.email", "phones.number")
-					.matching(key).createQuery();
+			Query query = qb.keyword().
+					fuzzy().
+					withEditDistanceUpTo(2).
+					withPrefixLength(0).
+					onFields("firstname", "lastname", "emails.email", "phones.number").
+					matching(key).createQuery();
 
 			// wrap Lucene query in a org.hibernate.Query
 			org.hibernate.search.jpa.FullTextQuery hibQuery = fullTextSession.createFullTextQuery(query, Customer.class);

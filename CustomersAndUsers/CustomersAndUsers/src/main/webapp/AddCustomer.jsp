@@ -5,7 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css"
+	href=".<%request.getContextPath();%>/css/default.css" />
+<link rel="stylesheet" type="text/css"
+	href=".<%request.getContextPath();%>/css/syntax.css" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>Add Customer</title>
 
 </head>
@@ -29,7 +35,12 @@
 			corporation = iteratorC.next(); %>
 			<option value="<%= corporation.getId() %>"><%= corporation.getName() %></option>
 			<% } %>
-		</select><br> <input value="Submit" type="submit">
+		</select><br> 
+		<input type="email" placeholder="Email" name="email"><br>
+		<input type="tel" placeholder="Telephone Number" name="telNumber"><br>
+		<input type="text" placeholder="Address" name="address"><br>
+		
+		<input value="Submit" type="submit">
 
 	</form>
 </body>
