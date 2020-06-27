@@ -3,9 +3,11 @@ package com.TechLog.Services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.lucene.search.Query;
 import org.hibernate.Transaction;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.query.dsl.QueryBuilder;
+
 import com.TechLog.Customers.Customer;
 import com.TechLog.Dao.Search.SearchDao;
 
@@ -22,7 +24,7 @@ public class SearchService {
 			
 			QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(Customer.class).get();
 
-			org.apache.lucene.search.Query query = qb.keyword().onFields("firstname", "lastname", "emails.email")
+			Query query = qb.keyword().onFields("firstname", "lastname", "emails.email", "phones.number")
 					.matching(key).createQuery();
 
 			// wrap Lucene query in a org.hibernate.Query
@@ -39,11 +41,6 @@ public class SearchService {
 		
 		catch (Exception e) {			
 			e.printStackTrace();			
-		}
-		
-		finally {		
-			if(fullTextSession != null)
-				fullTextSession.close();
 		}
 
 		return results;

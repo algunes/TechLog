@@ -43,10 +43,12 @@ public class Customer implements Serializable {
 	private List<Email> emails = new ArrayList<>();
 	
 	@ElementCollection
+	@IndexedEmbedded
 	@Column(name="phones")
 	private List<Phone> phones = new ArrayList<>();
 	
 	@ElementCollection
+	@IndexedEmbedded
 	@Column(name="addresses")
 	private List<Address> addresses = new ArrayList<>();
 	

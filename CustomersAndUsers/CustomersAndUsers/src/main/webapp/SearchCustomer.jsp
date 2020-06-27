@@ -8,12 +8,12 @@
 </head>
 <body>
 
-	<form action="addCustomer" method="post">
+	<form action="searchCustomer" method="post">
 
-		<input type="text" placeholder="Enter a Search Parameter" name="search"><br>
+		<input type="text" placeholder="Enter a Customer" name="searchCustomer"><br>
 
 		<input type="submit" value="Search">
 
 	</form>
-</body
+</body>
 </html>

@@ -11,7 +11,7 @@
 
 		<input type="text" placeholder="Corporation Name" name="corporationName"><br>
 
-		<br> <input type="submit">
+		<input value="Submit" type="submit">
 
 	</form>
 </body>

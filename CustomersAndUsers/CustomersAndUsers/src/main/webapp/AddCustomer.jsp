@@ -16,7 +16,6 @@
 	<% Corporation corporation = new Corporation(); %>
 
 
-	<p>Now you can add a Customer.</p>
 	<form action="addCustomer" method="post">
 
 		<input type="text" placeholder="Firstname" name="firstname"><br>
@@ -30,8 +29,8 @@
 			corporation = iteratorC.next(); %>
 			<option value="<%= corporation.getId() %>"><%= corporation.getName() %></option>
 			<% } %>
-		</select><br> <input type="submit">
+		</select><br> <input value="Submit" type="submit">
 
 	</form>
-</body>>
+</body>
 </html>

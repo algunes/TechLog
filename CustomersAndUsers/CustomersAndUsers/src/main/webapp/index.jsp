@@ -25,7 +25,7 @@
 		</td>
 		
 		<td>
-		<a href=".<%request.getContextPath();%>/addCorporation" target="iframe_a">Add Company</a>
+		<a href=".<%request.getContextPath();%>/addCorporation" target="iframe_a">Add Corporation</a>
 		</td>
 		
 		<td>
