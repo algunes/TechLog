@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" %>
+<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.TechLog.Customers.Corporation"%>
 <!DOCTYPE html>
@@ -16,13 +17,13 @@
 
 </head>
 <body>
-
+	
 	<% List<Corporation> corporations = (List<Corporation>)request.getAttribute("corporations"); %>
 	<% ListIterator<Corporation> iteratorC = corporations.listIterator(); %>
 	<% Corporation corporation = new Corporation(); %>
 
 
-	<form action="addCustomer" method="post">
+	<form accept-charset="utf-8" action="addCustomer" method="post">
 
 		<input type="text" placeholder="Firstname" name="firstname"><br>
 		<input type="text" placeholder="Lastname" name="lastname"><br>

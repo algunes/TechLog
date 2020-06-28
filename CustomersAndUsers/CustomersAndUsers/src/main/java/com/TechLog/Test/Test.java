@@ -14,154 +14,7 @@ import com.TechLog.Services.CustomerImp.CustomerServiceImp;
 public class Test {
 
 	public static void main(String[] args) {
-		
-//		Session session = null;
-//		
-//		try {
-//			
-//			session = HibernateUtil.getSessionFactory().openSession();
-//			
-			/*
-			 * String sql = "select version()"; String result = (String)
-			 * session.createNativeQuery(sql).getSingleResult(); System.out.println(result);
-			 */
-			
-//			Users user = new Users();
-//			user.setFirstname("Aliyar");
-//			user.setLastname("G�ne�");
-//			user.setDepartment("Administration");
-//			user.setEmail("aliyargunes@gmail.com");
-			
-//			Corporation corporation = new Corporation();
-//			corporation.setName("Mocon Ametek Dansensor");
-//			corporation.setCreation_date(LocalDate.now());
-//			
-//			Email email = new Email();
-//			email.setEmail("map@cohen.com");
-//			
-//			Address address = new Address();
-//			address.setAddress("Ata�ehirde bir yer");
-//			
-//			Phone phone = new Phone();
-//			phone.setNumber("+90568356734");
-//						
-//			Customer customer = new Customer();
-//			customer.setFirstname("Jesse");
-//			customer.setLastname("James");
-//			
-//			customer.addEmail(email);
-//			customer.addAddress(address);
-//			customer.addPhone(phone);
-//			
-//			corporation.addCustomer(customer);
-//							
-//			session.beginTransaction();
-			
-//			session.persist(user);
-//			session.persist(corporation); //its enough to only persist this object
-//			session.persist(customer);
-			
-//			Emails2 email = new Emails2();
-//			email.setEmail("aliyarguness@gmail.com");
-//			Emails2 email2 = new Emails2();
-//			email2.setEmail("aliyarguness2@gmail.com");
-//			
-//			Customers2 customer = new Customers2();
-//			customer.setFirstname("Bilal");
-//			customer.setLastname("Ad�s�per");
-//			// customer.setCorporation(session.get(Corporation.class, 1L));
-//			customer.addEmails(email);
-//			customer.addEmails(email2);
-		// -----------------------------------------------				
-			
-			// createCustomer();
-		
-//		Session session = null;
-//		Customer customer = new Customer();
-		
-//		List<Email> emails = new ArrayList<>();
-//		List<Phone> phones = new ArrayList<>();
-//		List<Address> addresses = new ArrayList<>();
-		
-//		try {
-//			session = HibernateUtil.getSessionFactory().openSession();
-//			session.beginTransaction();
-//			customer = session.get(Customer.class, 1L);	
-//			Hibernate.initialize(customer.getEmails());
-//			Hibernate.initialize(customer.getPhones());
-//			Hibernate.initialize(customer.getAddresses());
-////			emails = session.get(Customer.class, 1L).getEmails();
-////			phones = session.get(Customer.class, 1L).getPhones();
-////			addresses = session.get(Customer.class, 1L).getAddresses();
-//			session.getTransaction().commit();
-//		}
-//		catch (HibernateException e) {
-//			e.printStackTrace();
-//		}
-//		finally {
-//			if (session != null) {
-//				session.close();
-//			}
-//		}
-		// createCorporation();
-		// createFullCustomer();
-		// createCustomer(1L);
-			
-			
-
-//			session.beginTransaction();
-//			
-//			session.persist(corporation);
-//			
-//			Customer customer2 = session.get(Customer.class, 1L);
-//			customer2.removeEmail(email1);
-//			
-//			session.getTransaction().commit();
-//			
-			
-//			
-//			
-//			System.out.println("Added Customer is " + 
-//					customer2.getFirstname() + " "
-//					+ customer2.getLastname() + " v"
-//					+ customer2. getCorporation().getName());
-//			
-//		}
-//		catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		finally {
-//			if (session != null)
-//			session.close();
-//		}
-		
-		SearchService search = new SearchService();
-		
-		List<Customer> list = search.searchByCustomerName("vladimir");
-		
-		System.out.println("Number of Customers: " + list.size());
-		
-		if (!list.isEmpty()) {
-		ListIterator<Customer> iteratorC = list.listIterator();
-		
-		System.out.println("Customers: ");
-		while (iteratorC.hasNext()) {
-			
-			Customer customer = iteratorC.next();
-			System.out.println(customer.getFirstname());
-			System.out.println(customer.getLastname());
-			System.out.println(customer.getCorporation().getName());
-			System.out.println("Number of emails:" + new CustomerServiceImp().getCustomer(customer.getCustomer_id(), true).getEmails().size());
-			// System.out.println("Number of Emails: " + customer.getEmails().size());
-			
-		}
-		}
-		else {
-			System.out.println("No results!");
-		}
-
-			
-			
+		createFullCustomer();
 	}
 	
 	public static void justChecked() {
@@ -225,10 +78,10 @@ public class Test {
 		phone2.setNumber("1234567891011");
 		
 		Address address1 = new Address();
-		address1.setAddress("Falanca Sokak filanca cadde no:1");
+		address1.setAddress("üğüğüğüğüğşşişçöçö");
 		
 		Address address2 = new Address();
-		address2.setAddress("Orada bir de �urada filanca adres");
+		address2.setAddress("işişüğüğ.ç.ç");
 		
 		customer.addEmail(email1);
 		customer.addEmail(email2);

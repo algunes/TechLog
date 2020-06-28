@@ -1,68 +1,75 @@
-<!DOCTYPE web-app PUBLIC
+<!DOCTYPE web-app PUBLIC 
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
-
+ "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
-  <display-name>Customer Card Rack</display-name>
-  <servlet>
-  	<servlet-name>CustomerController</servlet-name>
-  	<display-name>CustomerController</display-name>
-  	<description></description>
-  	<servlet-class>com.CustomerController.CustomerController</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>AddCustomer</servlet-name>
-  	<display-name>AddCustomer</display-name>
-  	<description></description>
-  	<servlet-class>com.CustomerController.AddCustomer</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>AddCorporation</servlet-name>
-  	<display-name>AddCorporation</display-name>
-  	<description></description>
-  	<servlet-class>com.CustomerController.AddCorporation</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>SearchCustomer</servlet-name>
-  	<display-name>SearchCustomer</display-name>
-  	<description></description>
-  	<servlet-class>com.CustomerController.SearchCustomer</servlet-class>
-  </servlet>
-  <servlet>
-  	<servlet-name>GetCustomer</servlet-name>
-  	<display-name>GetCustomer</display-name>
-  	<description></description>
-  	<servlet-class>com.CustomerController.GetCustomer</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>CustomerController</servlet-name>
-  	<url-pattern>/CustomerController</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>AddCustomer</servlet-name>
-  	<url-pattern>/AddCustomer</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>AddCorporation</servlet-name>
-  	<url-pattern>/AddCorporation</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>SearchCustomer</servlet-name>
-  	<url-pattern>/SearchCustomer</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-  	<servlet-name>GetCustomer</servlet-name>
-  	<url-pattern>/GetCustomer</url-pattern>
-  </servlet-mapping>
-  
-  <welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
+
+	<servlet>
+		<servlet-name>AddCorporation</servlet-name>
+		<display-name>AddCorporation</display-name>
+		<description></description>
+		<servlet-class>com.CustomerController.AddCorporation</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AddCustomer</servlet-name>
+		<display-name>AddCustomer</display-name>
+		<description></description>
+		<servlet-class>com.CustomerController.AddCustomer</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CharacterEncodingFilter</servlet-name>
+		<display-name>CharacterEncodingFilter</display-name>
+		<description></description>
+		<servlet-class>com.CustomerController.CharacterEncodingFilter</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GetCorporation</servlet-name>
+		<display-name>GetCorporation</display-name>
+		<description></description>
+		<servlet-class>com.CustomerController.GetCorporation</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>GetCustomer</servlet-name>
+		<display-name>GetCustomer</display-name>
+		<description></description>
+		<servlet-class>com.CustomerController.GetCustomer</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SearchCustomer</servlet-name>
+		<display-name>SearchCustomer</display-name>
+		<description></description>
+		<servlet-class>com.CustomerController.SearchCustomer</servlet-class>
+	</servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>AddCorporation</servlet-name>
+		<url-pattern>/AddCorporation</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddCustomer</servlet-name>
+		<url-pattern>/AddCustomer</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CharacterEncodingFilter</servlet-name>
+		<url-pattern>/CharacterEncodingFilter</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetCorporation</servlet-name>
+		<url-pattern>/GetCorporation</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetCustomer</servlet-name>
+		<url-pattern>/GetCustomer</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SearchCustomer</servlet-name>
+		<url-pattern>/SearchCustomer</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>home.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-  
+	<error-page>
+		<error-code>500</error-code>
+		<location>/Error.jsp</location>
+	</error-page>
 </web-app>

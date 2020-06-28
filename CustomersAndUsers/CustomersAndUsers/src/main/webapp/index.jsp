@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset = UTF-8"
-	pageEncoding="UTF-8" errorPage="Error.jsp"%>
+<%@ page language="java" errorPage="Error.jsp"%>
+<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html" %>
 <%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
@@ -26,6 +27,10 @@
 		
 		<td>
 		<a href=".<%request.getContextPath();%>/addCorporation" target="iframe_a">Add Corporation</a>
+		</td>
+		
+		<td>
+		<a href=".<%request.getContextPath();%>/getCorporation" target="iframe_a">Show Customers</a>
 		</td>
 		
 		<td>

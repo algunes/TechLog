@@ -47,14 +47,16 @@ public class AddCustomer extends HttpServlet {
 		customer.addPhone(telNumber);
 		customer.addAddress(address);		
 		
-		Long id = new CustomerServiceImp().createCustomer(customer);
+		// Long id = new CustomerServiceImp().createCustomer(customer);
 		
-		customer = new CustomerServiceImp().getCustomer(id, false);
+		// customer = new CustomerServiceImp().getCustomer(id, false);
 		
 		
 		request.setAttribute("customer", customer); 
 		  RequestDispatcher rd = request.getRequestDispatcher("SuccessScreen.jsp"); 
 		  rd.forward(request, response);
 	}
+    	
+
 
 }

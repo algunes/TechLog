@@ -23,9 +23,9 @@ public class HibernateUtil {
 				Map<Object, Object> settings = new HashMap<>();
 				
 				// DB Configuration
-				settings.put(Environment.URL, "jdbc:mysql://localhost:3306/hibernatetest");
+				settings.put(Environment.URL, "jdbc:mysql://localhost:3306/techlog");
 				settings.put(Environment.USER, "root");
-				settings.put(Environment.PASS, "Driver8..?");
+				settings.put(Environment.PASS, "Driver8..?");				
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
 				settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
 				settings.put(Environment.HBM2DDL_AUTO, "update");
@@ -40,9 +40,9 @@ public class HibernateUtil {
 			    // Search Configuration 
 			    settings.put("hibernate.search.lucene_version", "latest");
 				settings.put("hibernate.search.default.directory_provider", "filesystem");
-	            settings.put("hibernate.search.default.indexBase", "C:/Users/aliya/Desktop/software/TechLog/CustomersAndUsers/CustomersAndUsers/luceneindexes");
+	            settings.put("hibernate.search.default.indexBase", "/home/aliyar/eclipse-workspace/GitProjects/techlog/CustomersAndUsers/CustomersAndUsers/luceneindexes");
 	            settings.put("hibernate.search.default.indexwriter.infostream", true);
-
+				
 				registryBuilder.applySettings(settings);
 				standardServiceRegistry = registryBuilder.build();
 

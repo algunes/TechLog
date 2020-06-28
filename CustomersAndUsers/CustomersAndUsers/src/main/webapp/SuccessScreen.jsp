@@ -19,7 +19,6 @@
 </head>
 <body>
 
-
 <% Corporation corporation = (Corporation) request.getAttribute("corporation"); %>
  <% Customer customer = (Customer)request.getAttribute("customer"); %>
  <%! String str = null; %>

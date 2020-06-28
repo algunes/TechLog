@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ page import="java.util.*"%>
-	<%@ page import="com.TechLog.Customers.Customer"%>
+<%@ page language="java" %>
+<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html" %>
+<%@ page import="java.util.*"%>
+<%@ page import="com.TechLog.Customers.Customer"%>
 <!DOCTYPE html>
 <html>
 <head>

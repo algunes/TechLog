@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" %>
+<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html" %>
     <%@ page import="com.TechLog.Customers.Customer"%>
     <%@ page import="com.TechLog.Customers.Corporation"%>
     <%@ page import="com.TechLog.Customers.Email"%>
@@ -9,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css"
 	href=".<%request.getContextPath();%>/css/default.css" />
 <link rel="stylesheet" type="text/css"
@@ -47,7 +48,7 @@ Corporation:
 </td>
 <% %>
 <td>
-<%= customer.getCorporation().getName() %> 
+<%= customer.getCorporation().getName() %> <a class="external" href="<%request.getContextPath();%>GetCorporation?id=<%= customer.getCorporation().getId() %>"> </a>
 </td>
 </tr>
 

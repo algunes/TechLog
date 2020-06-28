@@ -11,7 +11,7 @@
 	href=".<%request.getContextPath();%>/css/syntax.css" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>Customer Card Rack</title>
+<title>Customer Cards Home</title>
 </head>
 
 <h2>Hi,</h2>
