@@ -16,31 +16,29 @@ import com.TechLog.Services.CustomerImp.CustomerServiceImp;
 @WebServlet("/getCorporation")
 public class GetCorporation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-      
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		if (request.getParameter("id") == null) {
-		List<Corporation> corporations = new CustomerServiceImp().getAllCorporations();
-		request.setAttribute("corporations", corporations);
-		RequestDispatcher rd = request.getRequestDispatcher("CorporationList.jsp");
-		rd.forward(request, response);
-		}
-		else {
+			List<Corporation> corporations = new CustomerServiceImp().getAllCorporations();
+			request.setAttribute("corporations", corporations);
+			RequestDispatcher rd = request.getRequestDispatcher("CorporationList.jsp");
+			rd.forward(request, response);
+		} else {
 			Long id = Long.parseLong(request.getParameter("id"));
 			Corporation corporation = new Corporation();
-			
+
 			corporation = new CustomerServiceImp().getCorporation(id, true);
 			request.setAttribute("corporation", corporation);
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
 			rd.forward(request, response);
 		}
-	
+
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		
-	
 	}
 
 }
