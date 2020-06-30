@@ -23,7 +23,7 @@
 	<% Corporation corporation = new Corporation(); %>
 
 
-	<form accept-charset="utf-8" action="addCustomer" method="post">
+	<form action="addCustomer" method="post">
 
 		<input type="text" placeholder="Firstname" name="firstname"><br>
 		<input type="text" placeholder="Lastname" name="lastname"><br>

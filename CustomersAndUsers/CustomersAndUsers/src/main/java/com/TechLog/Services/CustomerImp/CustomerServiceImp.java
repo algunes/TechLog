@@ -66,5 +66,13 @@ public class CustomerServiceImp implements CustomerService {
 		new CorporationDaoImp().updateCorporation(corporation);
 		
 	}
+	
+	public void updateEmail(Long customerId, int index, String email) {
+		
+		Customer customer = getCustomer(customerId, true);	
+		customer.getEmails().get(index).setEmail(email);
+		updateCustomer(customer);
+		
+	}
 
 }

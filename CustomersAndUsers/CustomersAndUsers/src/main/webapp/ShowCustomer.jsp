@@ -22,15 +22,22 @@
 <body>
 
 <% Customer customer = (Customer)request.getAttribute("customer");
+String message = (String)request.getAttribute("message");
 List<Email> emails = customer.getEmails(); 
 List<Phone> phones = customer.getPhones();
 List<Address> addresses = customer.getAddresses(); 
+Email email = new Email();
+Phone phone = new Phone();
+Address address = new Address();
+int indexCounter = 0; 
 
 ListIterator<Email> iteratorE = emails.listIterator();
 ListIterator<Phone> iteratorP = phones.listIterator();
 ListIterator<Address> iteratorA = addresses.listIterator(); %>
 
-
+<% if(message != null) { %>
+<i><%= message %></i><br>
+<% } %>
 <Table>
 
 <tr>
@@ -58,9 +65,12 @@ Corporation:
 Email:  
 </td>
 <td>
-<% 	while (iteratorE.hasNext()) {  %>
-<%= iteratorE.next().getEmail() %><br>
-<% } %>
+<% indexCounter = 0; 
+while (iteratorE.hasNext()) {  
+email = iteratorE.next(); %>
+<%= email.getEmail() %> <a href="<%= request.getContextPath() %>CustomerUpdate?id=<%= customer.getCustomer_id() %>&job=1&email=<%= email.getEmail() %>&emailIndex=<%= indexCounter %>"> edit</a><br>
+<% indexCounter++; 
+} %>
 </td>
 </tr>
 
@@ -69,9 +79,12 @@ Email:
 Tel:  
 </td>
 <td>
-<% 	while (iteratorP.hasNext()) {  %>
-<%= iteratorP.next().getNumber() %><br>
-<% } %>
+<% indexCounter = 0; 	
+while (iteratorP.hasNext()) {  
+phone = iteratorP.next(); %>
+<%= phone.getNumber() %> <a href="<%= request.getContextPath()%>CustomerUpdate?id=<%= customer.getCustomer_id() %>&job=2&phone=<%= phone.getNumber() %>&phoneIndex=<%= indexCounter %>"> edit</a><br>
+<% indexCounter++;
+} %>
 </td>
 </tr>
 
@@ -80,9 +93,12 @@ Tel:
 Address:  
 </td>
 <td>
-<% 	while (iteratorA.hasNext()) {  %>
-<%= iteratorA.next().getAddress() %><br>
-<% } %>
+<% 	indexCounter = 0;
+while (iteratorA.hasNext()) {  
+address = iteratorA.next();%>
+<%= address.getAddress() %><a href="<%= request.getContextPath()%>CustomerUpdate?id=<%= customer.getCustomer_id() %>&job=3&address=<%= address.getAddress() %>&addressIndex=<%= indexCounter %>"> edit</a><br>
+<% indexCounter++;
+} %>
 </td>
 </tr>
 
