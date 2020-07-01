@@ -14,16 +14,38 @@
 <title>Input</title>
 </head>
 <body>
-<% Long id = (Long)request.getAttribute("id");
-String defaultValue = (String)request.getAttribute("value");
-int index = (int)request.getAttribute("index");
-int job = (int) request.getAttribute("job"); %>
+<% 
+Long id = (Long)request.getAttribute("id");
+String defaultValue = "";
+if(request.getAttribute("value") != null) {
+defaultValue = (String)request.getAttribute("value");
+}
+int index = 0;
+if(request.getAttribute("index") != null) {
+index = (int)request.getAttribute("index");
+}
+int job = 0;
+if(request.getAttribute("job") != null) {
+job = (int) request.getAttribute("job");
+}
+String message = "";
+if(request.getAttribute("message") != null) {
+message = (String) request.getAttribute("message"); 
+}
+String placeholder = "";
+if(request.getAttribute("placeholder") != null) {
+placeholder = (String) request.getAttribute("placeholder");
+}
+%>
+
+<%= message %>
+
 
 <form action="customerUpdate" method="post">
 <input type="hidden" value="<%= index %>" name="index"><br>
 <input type="hidden" value="<%= job %>" name="job"><br>
 <input type="hidden" value="<%= id %>" name="id"><br>
-<input type="text" value="<%= defaultValue %>" name="output"><br>
+<input type="text" value="<%= defaultValue %>" placeHolder="<%= placeholder %>" name="output"><br>
 <input value="Submit" type="submit">
 </form>
 

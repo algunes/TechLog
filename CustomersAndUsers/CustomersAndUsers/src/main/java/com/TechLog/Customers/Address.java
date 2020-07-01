@@ -2,7 +2,6 @@ package com.TechLog.Customers;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -29,7 +28,7 @@ public class Address implements Serializable {
 	private LocalDate last_update;
 	
 	@Column(name="creation_date")
-	private Date creation_date;
+	private LocalDate creation_date;
 
 	public String getAddress() {
 		return address;
@@ -71,11 +70,11 @@ public class Address implements Serializable {
 		this.last_update = last_update;
 	}
 
-	public Date getCreation_date() {
+	public LocalDate getCreation_date() {
 		return creation_date;
 	}
 
-	public void setCreation_date(Date creation_date) {
+	public void setCreation_date(LocalDate creation_date) {
 		this.creation_date = creation_date;
 	}
 
