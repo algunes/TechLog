@@ -39,21 +39,22 @@ public class AddCustomer extends HttpServlet {
 		Address address = new Address();
 		address.setAddress(request.getParameter("address"));
 		
+		CustomerServiceImp cs = new CustomerServiceImp();
+		
 		Customer customer = new Customer();
 		customer.setFirstname(firstname);
 		customer.setLastname(lastname);
-		customer.setCorporation(new CustomerServiceImp().getCorporation(corpID, false));
+		customer.setCorporation(cs.getCorporation(corpID, false));
 		customer.addEmail(email);
 		customer.addPhone(telNumber);
-		customer.addAddress(address);		
+		customer.addAddress(address);	
 		
-		// Long id = new CustomerServiceImp().createCustomer(customer);
-		
-		// customer = new CustomerServiceImp().getCustomer(id, false);
+		cs.createCustomer(customer);
 		
 		
 		request.setAttribute("customer", customer); 
-		  RequestDispatcher rd = request.getRequestDispatcher("SuccessScreen.jsp"); 
+		request.setAttribute("message", customer.getFirstname() + " " + customer.getLastname() + " created succesfully!");
+		  RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp"); 
 		  rd.forward(request, response);
 	}
     	

@@ -17,10 +17,25 @@
 <title>Corporation Details</title>
 </head>
 <body>
+<% String message = "";
+if(request.getAttribute("message") != null) {
+message = (String)request.getAttribute("message");
+	} %>
+<% String hr = "<hr>"; %>
+<% String br = "<br>"; %>
 <% Corporation corporation = (Corporation)request.getAttribute("corporation"); %>
 <% List<Customer> customers = corporation.getCustomers(); %>
 <% ListIterator<Customer> iteratorC = customers.listIterator(); %>
 <% Customer customer = new Customer(); %>
+
+<% if(!message.isEmpty()) { 
+
+	out.print(message);
+	out.print(br);
+	out.print(hr);
+	
+ } %>
+ 
 <p><%= corporation.getName() %></p>
 <Table>
 <% while(iteratorC.hasNext()) { 

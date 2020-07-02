@@ -17,7 +17,7 @@
 
 	<form action="searchCustomer" method="post">
 
-		<input type="text" placeholder="Enter a Customer" name="searchCustomer"><br>
+		<input type="text" placeholder="Enter a Customer" name="searchCustomer" maxlength="255"><br>
 
 		<input type="submit" value="Search">
 

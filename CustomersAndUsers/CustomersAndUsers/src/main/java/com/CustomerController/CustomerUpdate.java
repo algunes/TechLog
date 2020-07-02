@@ -22,12 +22,11 @@ public class CustomerUpdate extends HttpServlet {
 		Long id = Long.parseLong(request.getParameter("id"));
 		int job = Integer.parseInt(request.getParameter("job"));
 
+		switch (job) {
 		/*
 		 * 1- Email Update 2- Phone Update 3- Address Update 4- Email Add 5- Phone
 		 * Number Add 6- Address Add 7- Email Remove 8- Phone Remove 9- Address Remove
 		 */
-
-		switch (job) {
 		case 1: {
 			int emailIndex = Integer.parseInt(request.getParameter("emailIndex"));
 			String email = request.getParameter("email");
@@ -86,13 +85,13 @@ public class CustomerUpdate extends HttpServlet {
 
 			request.setAttribute("id", id);
 			request.setAttribute("job", job);
-			request.setAttribute("placeholder", "Enter a Phone");
+			request.setAttribute("placeholder", "Enter a Phone Number");
 
 			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 			rd.forward(request, response);
 			break;
 		}
-		
+
 		case 6: {
 
 			request.setAttribute("id", id);
@@ -103,12 +102,12 @@ public class CustomerUpdate extends HttpServlet {
 			rd.forward(request, response);
 			break;
 		}
-		
+
 		case 7: {
-			
+
 			int emailIndex = Integer.parseInt(request.getParameter("emailIndex"));
 			String email = request.getParameter("email");
-			
+
 			CustomerServiceImp cservice = new CustomerServiceImp();
 			cservice.removeEmail(id, emailIndex);
 			Customer customer = cservice.getCustomer(id, true);
@@ -119,12 +118,12 @@ public class CustomerUpdate extends HttpServlet {
 			rd.forward(request, response);
 			break;
 		}
-		
-case 8: {
-			
+
+		case 8: {
+
 			int phoneIndex = Integer.parseInt(request.getParameter("phoneIndex"));
 			String phone = request.getParameter("phone");
-			
+
 			CustomerServiceImp cservice = new CustomerServiceImp();
 			cservice.removePhone(id, phoneIndex);
 			Customer customer = cservice.getCustomer(id, true);
@@ -136,22 +135,46 @@ case 8: {
 			break;
 		}
 
-case 9: {
-	
-	int addressIndex = Integer.parseInt(request.getParameter("addressIndex"));
-	String address = request.getParameter("address");
-	
-	CustomerServiceImp cservice = new CustomerServiceImp();
-	cservice.removeAddress(id, addressIndex);
-	Customer customer = cservice.getCustomer(id, true);
+		case 9: {
 
-	request.setAttribute("customer", customer);
-	request.setAttribute("message", address + " succesfully removed!");
-	RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-	rd.forward(request, response);
-	break;
-}
+			int addressIndex = Integer.parseInt(request.getParameter("addressIndex"));
+			String address = request.getParameter("address");
+
+			CustomerServiceImp cservice = new CustomerServiceImp();
+			cservice.removeAddress(id, addressIndex);
+			Customer customer = cservice.getCustomer(id, true);
+
+			request.setAttribute("customer", customer);
+			request.setAttribute("message", address + " succesfully removed!");
+			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+			rd.forward(request, response);
+			break;
+		}
 		
+		case 10: {
+			Customer customer = new CustomerServiceImp().getCustomer(id, true);
+			
+			request.setAttribute("id", customer.getCustomer_id());
+			request.setAttribute("value", customer.getFirstname());
+			request.setAttribute("job", 7);
+			
+			
+			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
+			rd.forward(request, response);
+		}
+		
+		case 11: {
+			Customer customer = new CustomerServiceImp().getCustomer(id, true);
+			
+			request.setAttribute("id", customer.getCustomer_id());
+			request.setAttribute("value", customer.getLastname());
+			request.setAttribute("job", 8);
+			
+			
+			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
+			rd.forward(request, response);
+		}
+
 		}
 
 	}
@@ -160,10 +183,16 @@ case 9: {
 			throws ServletException, IOException {
 
 		int job = Integer.parseInt(request.getParameter("job"));
+		Long id = Long.parseLong(request.getParameter("id"));
 
 		switch (job) {
+		
+		/*
+		 * 1- Update Email 2- Update Phone Number 3- Update Address Number 4- Add Email
+		 * 5- Add Phone Number 6- Add Address 7- Update Firstname
+		 */
+		
 		case 1: {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String email = request.getParameter("output");
 			int index = Integer.parseInt(request.getParameter("index"));
 
@@ -172,7 +201,7 @@ case 9: {
 			Customer customer = cservice.getCustomer(id, true);
 
 			request.setAttribute("customer", customer);
-			request.setAttribute("message", email + " succesfully modified!");
+			request.setAttribute("message", email + " succesfully updated!");
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 			rd.forward(request, response);
 
@@ -180,7 +209,6 @@ case 9: {
 		}
 
 		case 2: {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String phone = request.getParameter("output");
 			int index = Integer.parseInt(request.getParameter("index"));
 
@@ -189,7 +217,7 @@ case 9: {
 			Customer customer = cservice.getCustomer(id, true);
 
 			request.setAttribute("customer", customer);
-			request.setAttribute("message", phone + " succesfully modified!");
+			request.setAttribute("message", phone + " succesfully updated!");
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 			rd.forward(request, response);
 
@@ -197,7 +225,6 @@ case 9: {
 		}
 
 		case 3: {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String address = request.getParameter("output");
 			int index = Integer.parseInt(request.getParameter("index"));
 
@@ -206,7 +233,7 @@ case 9: {
 			Customer customer = cservice.getCustomer(id, true);
 
 			request.setAttribute("customer", customer);
-			request.setAttribute("message", address + " succesfully modified!");
+			request.setAttribute("message", address + " succesfully updated!");
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 			rd.forward(request, response);
 
@@ -214,7 +241,6 @@ case 9: {
 		}
 
 		case 4: {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String email = request.getParameter("output");
 
 			CustomerServiceImp cservice = new CustomerServiceImp();
@@ -230,7 +256,6 @@ case 9: {
 		}
 
 		case 5: {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String phone = request.getParameter("output");
 
 			CustomerServiceImp cservice = new CustomerServiceImp();
@@ -244,9 +269,8 @@ case 9: {
 
 			break;
 		}
-		
+
 		case 6: {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String address = request.getParameter("output");
 
 			CustomerServiceImp cservice = new CustomerServiceImp();
@@ -254,11 +278,33 @@ case 9: {
 			Customer customer = cservice.getCustomer(id, true);
 
 			request.setAttribute("customer", customer);
-			request.setAttribute("message", address+ " succesfully added!");
+			request.setAttribute("message", address + " succesfully added!");
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 			rd.forward(request, response);
 
 			break;
+		}
+		
+		case 7: {
+			String firstname = request.getParameter("output");
+			Customer customer = new CustomerServiceImp().updateCustomerFirstname(id, firstname);
+
+			request.setAttribute("customer", customer);
+			request.setAttribute("message", customer.getFirstname() + " is updated successfully!");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+			rd.forward(request, response);
+		}
+		
+		case 8: {
+			String lastname = request.getParameter("output");
+			Customer customer = new CustomerServiceImp().updateCustomerLastname(id, lastname);
+
+			request.setAttribute("customer", customer);
+			request.setAttribute("message", customer.getLastname() + " is updated successfully!");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+			rd.forward(request, response);
 		}
 
 		}

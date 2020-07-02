@@ -46,12 +46,11 @@
 		<servlet-class>com.CustomerController.CustomerUpdate</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>TextBoxInputService</servlet-name>
-		<display-name>TextBoxInputService</display-name>
+		<servlet-name>DeleteCustomer</servlet-name>
+		<display-name>DeleteCustomer</display-name>
 		<description></description>
-		<servlet-class>com.CustomerController.TextBoxInputService</servlet-class>
+		<servlet-class>com.CustomerController.DeleteCustomer</servlet-class>
 	</servlet>
-
 
 	<servlet-mapping>
 		<servlet-name>AddCorporation</servlet-name>
@@ -82,8 +81,8 @@
 		<url-pattern>/CustomerUpdate</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>TextBoxInputService</servlet-name>
-		<url-pattern>/TextBoxInputService</url-pattern>
+		<servlet-name>DeleteCustomer</servlet-name>
+		<url-pattern>/DeleteCustomer</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

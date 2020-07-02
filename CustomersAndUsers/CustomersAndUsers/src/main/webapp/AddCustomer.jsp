@@ -25,8 +25,8 @@
 
 	<form action="addCustomer" method="post">
 
-		<input type="text" placeholder="Firstname" name="firstname"><br>
-		<input type="text" placeholder="Lastname" name="lastname"><br>
+		<input type="text" placeholder="Firstname" name="firstname" maxlength="255"><br>
+		<input type="text" placeholder="Lastname" name="lastname" maxlength="255"><br>
 
 		<select name="corporation">
 		<option value="">Select a Corporation</option>
@@ -37,9 +37,9 @@
 			<option value="<%= corporation.getId() %>"><%= corporation.getName() %></option>
 			<% } %>
 		</select><br> 
-		<input type="email" placeholder="Email" name="email"><br>
-		<input type="tel" placeholder="Telephone Number" name="telNumber"><br>
-		<input type="text" placeholder="Address" name="address"><br>
+		<input type="email" placeholder="Email" name="email" maxlength="255"><br>
+		<input type="tel" placeholder="Telephone Number" name="telNumber" maxlength="255"><br>
+		<input type="text" placeholder="Address" name="address" maxlength="255"><br>
 		
 		<input value="Submit" type="submit">
 

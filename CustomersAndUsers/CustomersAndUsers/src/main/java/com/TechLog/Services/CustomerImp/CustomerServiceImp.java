@@ -35,6 +35,7 @@ public class CustomerServiceImp implements CustomerService {
 
 	@Override
 	public void updateCustomer(Customer customer) {
+		customer.setLast_update(LocalDate.now());
 		new CustomerDaoImp().updateCustomer(customer);
 
 	}
@@ -69,6 +70,20 @@ public class CustomerServiceImp implements CustomerService {
 	public void updateCorporation(Corporation corporation) {
 		new CorporationDaoImp().updateCorporation(corporation);
 
+	}
+	
+	public Customer updateCustomerFirstname(Long id, String firstname) {
+		Customer customer = getCustomer(id, false);
+		customer.setFirstname(firstname);
+		updateCustomer(customer);
+		return customer;
+	}
+	
+	public Customer updateCustomerLastname(Long id, String lastname) {
+		Customer customer = getCustomer(id, false);
+		customer.setLastname(lastname);
+		updateCustomer(customer);
+		return customer;
 	}
 
 	public void updateEmail(Long customerId, int index, String email) {
