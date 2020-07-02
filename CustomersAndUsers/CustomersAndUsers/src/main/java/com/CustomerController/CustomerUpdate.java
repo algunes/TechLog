@@ -189,7 +189,7 @@ public class CustomerUpdate extends HttpServlet {
 		
 		/*
 		 * 1- Update Email 2- Update Phone Number 3- Update Address Number 4- Add Email
-		 * 5- Add Phone Number 6- Add Address 7- Update Firstname
+		 * 5- Add Phone Number 6- Add Address 7- Update Firstname 8- Update Lastname
 		 */
 		
 		case 1: {

@@ -10,12 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.TechLog.Customers.Address;
 import com.TechLog.Customers.Corporation;
 import com.TechLog.Customers.Customer;
-import com.TechLog.Customers.Email;
-import com.TechLog.Customers.Phone;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
+import com.TechLog.Users.Users;
 
 @WebServlet("/addCustomer")
 public class AddCustomer extends HttpServlet {
@@ -31,25 +29,15 @@ public class AddCustomer extends HttpServlet {
     	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String firstname = request.getParameter("firstname");
 		String lastname =request.getParameter("lastname");
-		Long corpID = Long.parseLong(request.getParameter("corporation"));
-		Email email = new Email();
-		email.setEmail(request.getParameter("email"));
-		Phone telNumber = new Phone();
-		telNumber.setNumber(request.getParameter("telNumber"));
-		Address address = new Address();
-		address.setAddress(request.getParameter("address"));
+		String department = request.getParameter("department");
+		String email = request.getParameter("email");
+		String telNum = request.getParameter("telNum");
+		String address = request.getParameter("address");
+		Long corpId = Long.parseLong(request.getParameter("corporation"));
+		Users user = new Users();
 		
 		CustomerServiceImp cs = new CustomerServiceImp();
-		
-		Customer customer = new Customer();
-		customer.setFirstname(firstname);
-		customer.setLastname(lastname);
-		customer.setCorporation(cs.getCorporation(corpID, false));
-		customer.addEmail(email);
-		customer.addPhone(telNumber);
-		customer.addAddress(address);	
-		
-		cs.createCustomer(customer);
+		Customer customer = cs.createCustomer(firstname, lastname, corpId, department, email, telNum, address, user);
 		
 		
 		request.setAttribute("customer", customer); 

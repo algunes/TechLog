@@ -37,6 +37,7 @@
 			<option value="<%= corporation.getId() %>"><%= corporation.getName() %></option>
 			<% } %>
 		</select><br> 
+		<input type="text" placeholder="Department" name="department" maxlength="255"><br>
 		<input type="email" placeholder="Email" name="email" maxlength="255"><br>
 		<input type="tel" placeholder="Telephone Number" name="telNumber" maxlength="255"><br>
 		<input type="text" placeholder="Address" name="address" maxlength="255"><br>

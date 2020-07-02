@@ -1,5 +1,6 @@
 package com.TechLog.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -14,7 +15,12 @@ import com.TechLog.Services.CustomerImp.CustomerServiceImp;
 public class Test {
 
 	public static void main(String[] args) {
-		createFullCustomer();
+		List<String> strs = new ArrayList<>();
+		strs.add("a");
+		strs.add("b");
+		strs.add("c");
+		
+		System.out.println("A's index number is " + strs.indexOf("c"));
 	}
 	
 	public static void justChecked() {
@@ -28,7 +34,7 @@ public class Test {
 		
 		System.out.println("Size of the Email List is: " + emails.size());
 		System.out.println("Size of the Phone List is: " + phones.size());
-		System.out.println("Size of the Address List is: " + addresses.size());
+		System.out.println("Size of the Address List is: " + addresses.size()));
 		
 		System.out.println("----------------------");
 		
@@ -55,6 +61,10 @@ public class Test {
 			System.out.println(iteratorA.next().getAddress());
 			}
 		
+	}
+	
+	public static void removeCorporation(Corporation corporation) {
+		new CustomerServiceImp().removeCorporation(corporation);
 	}
 	
 	public static void createFullCustomer() {

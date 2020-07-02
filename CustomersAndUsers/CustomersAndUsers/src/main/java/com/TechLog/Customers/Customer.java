@@ -12,6 +12,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
+import com.TechLog.Users.Users;
+
 
 @Entity
 @Indexed
@@ -37,26 +39,47 @@ public class Customer implements Serializable {
 	@ContainedIn
 	private Corporation corporation;
 	
-	@ElementCollection
-	@IndexedEmbedded
-	@Column(name="emails")
-	private List<Email> emails = new ArrayList<>();
+	@Column(name="department")
+	private String department;
+	
+	@Column(name="position")
+	private String position;
+	
+//	@ElementCollection
+//	@IndexedEmbedded
+//	@Column(name="emails")
+//	private List<Email> emails = new ArrayList<>();
 	
 	@ElementCollection
 	@IndexedEmbedded
-	@Column(name="phones")
-	private List<Phone> phones = new ArrayList<>();
+	@Column(name="emails")
+	private List<String> emails = new ArrayList<>();
+	
+//	@ElementCollection
+//	@IndexedEmbedded
+//	@Column(name="phones")
+//	private List<Phone> phones = new ArrayList<>();
+	
+	@ElementCollection
+	@IndexedEmbedded
+	@Column(name="telNums")
+	private List<String> telNums = new ArrayList<>();
+	
+//	@ElementCollection
+//	@IndexedEmbedded
+//	@Column(name="addresses")
+//	private List<Address> addresses = new ArrayList<>();
 	
 	@ElementCollection
 	@IndexedEmbedded
 	@Column(name="addresses")
-	private List<Address> addresses = new ArrayList<>();
+	private List<String> addresses = new ArrayList<>();
 	
 	@Column(name="created_by")
-	private Long created_by;
+	private Users created_by;
 	
 	@Column(name="updated_by")
-	private Long updated_by;
+	private Users updated_by;
 	
 	@Column(name="last_update")
 	private LocalDate last_update;
@@ -64,28 +87,26 @@ public class Customer implements Serializable {
 	@Column(name="creation_date")
 	private LocalDate creation_date;
 	
-	public void addEmail(Email email) {
-		this.getEmails().add(email);
+	public Customer() {
+		super();
 	}
-	
-	public void removeEmail(Email email) {
-		this.getEmails().remove(email);
-	}
-	
-	public void addPhone(Phone phone) {
-		this.getPhones().add(phone);
-	}
-	
-	public void removePhone(Phone phone) {
-		this.getPhones().remove(phone);
-	}
-	
-	public void addAddress(Address address) {
-		this.getAddresses().add(address);
-	}
-	
-	public void removeAddress(Address address) {
-		this.getAddresses().remove(address);
+
+	public Customer(String firstname, String lastname, Corporation corporation, String department,
+			String position, List<String> emails, List<String> telNums, List<String> addresses, Users created_by,
+			Users updated_by, LocalDate last_update, LocalDate creation_date) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.corporation = corporation;
+		this.department = department;
+		this.position = position;
+		this.emails = emails;
+		this.telNums = telNums;
+		this.addresses = addresses;
+		this.created_by = created_by;
+		this.updated_by = updated_by;
+		this.last_update = last_update;
+		this.creation_date = creation_date;
 	}
 
 	public Long getCustomer_id() {
@@ -120,43 +141,59 @@ public class Customer implements Serializable {
 		this.corporation = corporation;
 	}
 
-	public List<Email> getEmails() {
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public List<String> getEmails() {
 		return emails;
 	}
 
-	public void setEmails(List<Email> emails) {
+	public void setEmails(List<String> emails) {
 		this.emails = emails;
 	}
 
-	public List<Phone> getPhones() {
-		return phones;
+	public List<String> getTelNums() {
+		return telNums;
 	}
 
-	public void setPhones(List<Phone> phones) {
-		this.phones = phones;
+	public void setTelNums(List<String> telNums) {
+		this.telNums = telNums;
 	}
 
-	public List<Address> getAddresses() {
+	public List<String> getAddresses() {
 		return addresses;
 	}
 
-	public void setAddresses(List<Address> addresses) {
+	public void setAddresses(List<String> addresses) {
 		this.addresses = addresses;
 	}
 
-	public Long getCreated_by() {
+	public Users getCreated_by() {
 		return created_by;
 	}
 
-	public void setCreated_by(Long created_by) {
+	public void setCreated_by(Users created_by) {
 		this.created_by = created_by;
 	}
 
-	public Long getUpdated_by() {
+	public Users getUpdated_by() {
 		return updated_by;
 	}
 
-	public void setUpdated_by(Long updated_by) {
+	public void setUpdated_by(Users updated_by) {
 		this.updated_by = updated_by;
 	}
 
@@ -176,10 +213,6 @@ public class Customer implements Serializable {
 		this.creation_date = creation_date;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -189,11 +222,13 @@ public class Customer implements Serializable {
 		result = prime * result + ((created_by == null) ? 0 : created_by.hashCode());
 		result = prime * result + ((creation_date == null) ? 0 : creation_date.hashCode());
 		result = prime * result + ((customer_id == null) ? 0 : customer_id.hashCode());
+		result = prime * result + ((department == null) ? 0 : department.hashCode());
 		result = prime * result + ((emails == null) ? 0 : emails.hashCode());
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
 		result = prime * result + ((last_update == null) ? 0 : last_update.hashCode());
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result + ((phones == null) ? 0 : phones.hashCode());
+		result = prime * result + ((position == null) ? 0 : position.hashCode());
+		result = prime * result + ((telNums == null) ? 0 : telNums.hashCode());
 		result = prime * result + ((updated_by == null) ? 0 : updated_by.hashCode());
 		return result;
 	}
@@ -202,7 +237,9 @@ public class Customer implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Customer))
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
 		if (addresses == null) {
@@ -230,6 +267,11 @@ public class Customer implements Serializable {
 				return false;
 		} else if (!customer_id.equals(other.customer_id))
 			return false;
+		if (department == null) {
+			if (other.department != null)
+				return false;
+		} else if (!department.equals(other.department))
+			return false;
 		if (emails == null) {
 			if (other.emails != null)
 				return false;
@@ -250,10 +292,15 @@ public class Customer implements Serializable {
 				return false;
 		} else if (!lastname.equals(other.lastname))
 			return false;
-		if (phones == null) {
-			if (other.phones != null)
+		if (position == null) {
+			if (other.position != null)
 				return false;
-		} else if (!phones.equals(other.phones))
+		} else if (!position.equals(other.position))
+			return false;
+		if (telNums == null) {
+			if (other.telNums != null)
+				return false;
+		} else if (!telNums.equals(other.telNums))
 			return false;
 		if (updated_by == null) {
 			if (other.updated_by != null)
@@ -266,10 +313,11 @@ public class Customer implements Serializable {
 	@Override
 	public String toString() {
 		return "Customer [customer_id=" + customer_id + ", firstname=" + firstname + ", lastname=" + lastname
-				+ ", corporation=" + corporation + ", emails=" + emails + ", phones=" + phones + ", addresses="
-				+ addresses + ", created_by=" + created_by + ", updated_by=" + updated_by + ", last_update="
-				+ last_update + ", creation_date=" + creation_date + "]";
+				+ ", corporation=" + corporation + ", department=" + department + ", position=" + position + ", emails="
+				+ emails + ", telNums=" + telNums + ", addresses=" + addresses + ", created_by=" + created_by
+				+ ", updated_by=" + updated_by + ", last_update=" + last_update + ", creation_date=" + creation_date
+				+ "]";
 	}
-
+	
 }
 

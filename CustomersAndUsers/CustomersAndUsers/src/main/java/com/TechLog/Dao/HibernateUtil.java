@@ -49,10 +49,8 @@ public class HibernateUtil {
 				MetadataSources sources = new MetadataSources(standardServiceRegistry)
 						.addAnnotatedClass(com.TechLog.Users.Users.class)
 						.addAnnotatedClass(com.TechLog.Customers.Corporation.class)
-						.addAnnotatedClass(com.TechLog.Customers.Customer.class)
-						.addAnnotatedClass(com.TechLog.Customers.Email.class)
-						.addAnnotatedClass(com.TechLog.Customers.Phone.class)
-						.addAnnotatedClass(com.TechLog.Customers.Address.class);
+						.addAnnotatedClass(com.TechLog.Customers.Customer.class);
+
 				Metadata metadata = sources.getMetadataBuilder().build();
 
 				sessionFactory = metadata.getSessionFactoryBuilder().build();

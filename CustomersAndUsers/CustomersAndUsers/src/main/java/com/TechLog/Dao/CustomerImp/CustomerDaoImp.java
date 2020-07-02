@@ -85,7 +85,7 @@ public class CustomerDaoImp implements CustomerDao {
 			session.beginTransaction();
 			customer = session.get(Customer.class, id);
 			Hibernate.initialize(customer.getEmails());
-			Hibernate.initialize(customer.getPhones());
+			Hibernate.initialize(customer.getTelNums());
 			Hibernate.initialize(customer.getAddresses());
 			session.getTransaction().commit();
 		}

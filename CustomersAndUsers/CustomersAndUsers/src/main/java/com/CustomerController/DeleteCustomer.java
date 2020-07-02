@@ -23,22 +23,15 @@ public class DeleteCustomer extends HttpServlet {
 		switch(job) {
 		
 		case 1:
-			CustomerServiceImp cs = new CustomerServiceImp();
-			Customer customer = new Customer();
-			customer = cs.getCustomer(id, true);
-			cs.removeCustomer(customer);
-			
+			Customer customer = new CustomerServiceImp().removeCustomer(id);	
 			request.setAttribute("message", customer.getFirstname() + " " + customer.getLastname() + " from " + customer.getCorporation().getName() +" deleted succesfully!");
-			request.setAttribute("corporation", customer.getCorporation());
-			
+			request.setAttribute("corporation", customer.getCorporation());			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
 			rd.forward(request, response);
 			break;
 		
 		}
-		
-		
-		
+			
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
