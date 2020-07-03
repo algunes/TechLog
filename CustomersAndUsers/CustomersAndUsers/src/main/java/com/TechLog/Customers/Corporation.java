@@ -10,6 +10,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
+import com.TechLog.Users.Users;
+
 
 @Entity
 @Indexed
@@ -27,18 +29,22 @@ public class Corporation implements Serializable {
 	@Column(name="corporation_name", nullable=false, unique=true)
 	private String name;
 	
-	@Column(name="activity")
-	private boolean activity;
+	@Field
+	@Column(name="sector")
+	private String sector;
+	
+	@Column(name="isActive")
+	private boolean isActive;
 	
 	@OneToMany(mappedBy="corporation", cascade=CascadeType.ALL, orphanRemoval=true)
 	@Column(name="customers", unique=true)
 	private List<Customer> customers = new ArrayList<>();
 
 	@Column(name="created_by")
-	private Long created_by;
+	private Users created_by;
 	
 	@Column(name="updated_by")
-	private Long updated_by;
+	private Users updated_by;
 	
 	@Column(name="last_update")
 	private LocalDate last_update;
@@ -46,6 +52,25 @@ public class Corporation implements Serializable {
 	@Column(name="creation_date")
 	private LocalDate creation_date;
 	
+	
+	
+	public Corporation() {
+		super();
+	}
+
+	public Corporation(String name, String sector, boolean isActive, List<Customer> customers, Users created_by,
+			Users updated_by, LocalDate last_update, LocalDate creation_date) {
+		super();
+		this.name = name;
+		this.sector = sector;
+		this.isActive = isActive;
+		this.customers = customers;
+		this.created_by = created_by;
+		this.updated_by = updated_by;
+		this.last_update = last_update;
+		this.creation_date = creation_date;
+	}
+
 	public void addCustomer(Customer customer) {
 		customers.add(customer);
 		customer.setCorporation(this);
@@ -72,12 +97,20 @@ public class Corporation implements Serializable {
 		this.name = name;
 	}
 
-	public boolean isActivity() {
-		return activity;
+	public String getSector() {
+		return sector;
 	}
 
-	public void setActivity(boolean activity) {
-		this.activity = activity;
+	public void setSector(String sector) {
+		this.sector = sector;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	public List<Customer> getCustomers() {
@@ -88,19 +121,19 @@ public class Corporation implements Serializable {
 		this.customers = customers;
 	}
 
-	public Long getCreated_by() {
+	public Users getCreated_by() {
 		return created_by;
 	}
 
-	public void setCreated_by(Long created_by) {
+	public void setCreated_by(Users created_by) {
 		this.created_by = created_by;
 	}
 
-	public Long getUpdated_by() {
+	public Users getUpdated_by() {
 		return updated_by;
 	}
 
-	public void setUpdated_by(Long updated_by) {
+	public void setUpdated_by(Users updated_by) {
 		this.updated_by = updated_by;
 	}
 
@@ -116,25 +149,22 @@ public class Corporation implements Serializable {
 		return creation_date;
 	}
 
-	public void setCreation_date(LocalDate localDate) {
-		this.creation_date = localDate;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public void setCreation_date(LocalDate creation_date) {
+		this.creation_date = creation_date;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (activity ? 1231 : 1237);
 		result = prime * result + ((created_by == null) ? 0 : created_by.hashCode());
 		result = prime * result + ((creation_date == null) ? 0 : creation_date.hashCode());
 		result = prime * result + ((customers == null) ? 0 : customers.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + (isActive ? 1231 : 1237);
 		result = prime * result + ((last_update == null) ? 0 : last_update.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((sector == null) ? 0 : sector.hashCode());
 		result = prime * result + ((updated_by == null) ? 0 : updated_by.hashCode());
 		return result;
 	}
@@ -143,11 +173,11 @@ public class Corporation implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Corporation))
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
 			return false;
 		Corporation other = (Corporation) obj;
-		if (activity != other.activity)
-			return false;
 		if (created_by == null) {
 			if (other.created_by != null)
 				return false;
@@ -168,6 +198,8 @@ public class Corporation implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (isActive != other.isActive)
+			return false;
 		if (last_update == null) {
 			if (other.last_update != null)
 				return false;
@@ -177,6 +209,11 @@ public class Corporation implements Serializable {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
+			return false;
+		if (sector == null) {
+			if (other.sector != null)
+				return false;
+		} else if (!sector.equals(other.sector))
 			return false;
 		if (updated_by == null) {
 			if (other.updated_by != null)
@@ -188,9 +225,9 @@ public class Corporation implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Corporation [id=" + id + ", name=" + name + ", activity=" + activity + ", customers=" + customers
-				+ ", created_by=" + created_by + ", updated_by=" + updated_by + ", last_update=" + last_update
-				+ ", creation_date=" + creation_date + "]";
+		return "Corporation [id=" + id + ", name=" + name + ", sector=" + sector + ", isActive=" + isActive
+				+ ", customers=" + customers + ", created_by=" + created_by + ", updated_by=" + updated_by
+				+ ", last_update=" + last_update + ", creation_date=" + creation_date + "]";
 	}
 
 }

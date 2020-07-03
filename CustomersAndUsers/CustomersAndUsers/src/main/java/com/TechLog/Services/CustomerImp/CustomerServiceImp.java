@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.TechLog.Customers.Corporation;
+import com.TechLog.Customers.CorporationBuilder;
 import com.TechLog.Customers.Customer;
 import com.TechLog.Customers.CustomerBuilder;
 import com.TechLog.Dao.CorporationImp.CorporationDaoImp;
@@ -28,7 +29,7 @@ public class CustomerServiceImp implements CustomerService {
 				.setAddress(address)
 				.setCreatedBy(user)
 				.setCreationDate(LocalDate.now())
-				.getCustomer();
+				.build();
 			
 		return getCustomer(new CustomerDaoImp().addCustomer(customer), true);
 	}
@@ -58,8 +59,19 @@ public class CustomerServiceImp implements CustomerService {
 	}
 
 	@Override
-	public Long createCorporation(Corporation corporation) {
-		return new CorporationDaoImp().addCorporation(corporation);
+	public Corporation createCorporation(String name, String sector, boolean isActive, Customer customer,
+			Users user) {
+		
+		Corporation corporation = new CorporationBuilder()
+				.setName(name)
+				.setSector(sector)
+				.setIsActive(isActive)
+				.setCustomers(customer)
+				.setCreated_by(user)
+				.setCreationDate(LocalDate.now())
+				.build();
+		
+		return getCorporation(new CorporationDaoImp().addCorporation(corporation), true);
 
 	}
 
@@ -84,9 +96,12 @@ public class CustomerServiceImp implements CustomerService {
 	}
 
 	@Override
-	public void updateCorporation(Corporation corporation) {
-		new CorporationDaoImp().updateCorporation(corporation);
-
+	public Corporation updateCorporation(Corporation corporation, Users user) {
+		CorporationDaoImp cdimp = new CorporationDaoImp();
+		corporation.setUpdated_by(user);
+		corporation.setLast_update(LocalDate.now());
+		cdimp.updateCorporation(corporation);
+		return cdimp.fullFetchCorporation(corporation.getId());
 	}
 
 	public Customer updateCustomerFirstname(Long id, String firstname, Users user) {

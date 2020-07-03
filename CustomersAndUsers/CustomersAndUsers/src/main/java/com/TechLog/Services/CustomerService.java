@@ -13,10 +13,11 @@ public interface CustomerService {
 	Customer removeCustomer(Long customerId);
 	Customer getCustomer(Long id, boolean isFull);
 	Customer updateCustomer(Customer customer, Users user);
-	Long createCorporation(Corporation corporation, Users user);
+	Corporation createCorporation(String name, String sector, boolean isActive, Customer customer,
+			Users user);
 	void removeCorporation(Corporation corporation);
 	Corporation getCorporation(Long id, boolean isFull);
 	List<Corporation> getAllCorporations();
-	void updateCorporation(Corporation corporation, Users user);
+	Corporation updateCorporation(Corporation corporation, Users user);
 
 }

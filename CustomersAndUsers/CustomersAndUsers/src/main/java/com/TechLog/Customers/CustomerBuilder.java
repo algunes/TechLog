@@ -80,7 +80,7 @@ public class CustomerBuilder {
 		return this;
 	}
 	
-	public Customer getCustomer() {
+	public Customer build() {
 		return new Customer(firstname, lastname, corporation, department, position,
 				emails, telNums, addresses, created_by, updated_by, 
 				last_update, creation_date);
