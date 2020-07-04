@@ -25,7 +25,7 @@ function deleteMsg() {
 
 <% Customer customer = (Customer)request.getAttribute("customer");
 String message = "";
-if((String)request.getAttribute("message")!=null) {
+if(request.getAttribute("message")!=null) {
 	message = (String)request.getAttribute("message");
 }
 String hr = "<hr>";
@@ -85,7 +85,7 @@ Department:
 </td>
 <% %>
 <td>
-<%= customer.getDepartment() %><a href="<%= request.getContextPath() %>/CustomerUpdate?id=<%= customer.getCustomer_id() %>&job=2"> edit</a><br>
+<%= customer.getDepartment() %><a href="<%= request.getContextPath() %>/CustomerUpdate?id=<%= customer.getCustomer_id() %>&job=3"> edit</a><br>
 </td>
 </tr>
 
@@ -95,7 +95,7 @@ Position:
 </td>
 <% %>
 <td>
-<%= customer.getLastname() %><a href="<%= request.getContextPath() %>/CustomerUpdate?id=<%= customer.getCustomer_id() %>&job=2"> edit</a><br>
+<%= customer.getPosition() %><a href="<%= request.getContextPath() %>/CustomerUpdate?id=<%= customer.getCustomer_id() %>&job=4"> edit</a><br>
 </td>
 </tr>
 
@@ -107,7 +107,7 @@ Email:
 <td>
 <% while (iteratorE.hasNext()) {  
 email = iteratorE.next(); %>
-<%= email %><a href="<%= request.getContextPath() %>/CustomerUpdate?id=<%= customer.getCustomer_id() %>&job=5&index=<%= emails.indexOf(email) %>"> edit</a> | <a href="<%= request.getContextPath() %>/CustomerDelete?id=<%= customer.getCustomer_id() %>&job=2&index=<%= emails.indexOf(email) %>" onclick="deleteMsg()"> remove </a><br>
+<%= email %><a href="<%= request.getContextPath() %>/CustomerUpdate?id=<%= customer.getCustomer_id() %>&job=5&index=<%= emails.indexOf(email) %>"> edit</a> | <a href="<%= request.getContextPath() %>/DeleteCustomer?id=<%= customer.getCustomer_id() %>&job=2&index=<%= emails.indexOf(email) %>" onclick="deleteMsg()"> remove </a><br>
 <% } %>
 <a href="<%= request.getContextPath() %>/AddCustomer?id=<%= customer.getCustomer_id() %>&job=2"> Add</a>
 </td>
@@ -120,7 +120,7 @@ Tel:
 <td>
 <% while (iteratorP.hasNext()) {  
 telNum = iteratorP.next(); %>
-<%= telNum %> <a href="<%= request.getContextPath()%>/CustomerUpdate?id=<%= customer.getCustomer_id() %>&job=6&index=<%= telNums.indexOf(telNum) %>"> edit</a> | <a href="<%= request.getContextPath() %>/CustomerDelete?id=<%= customer.getCustomer_id() %>&job=3&index=<%= telNums.indexOf(telNum) %>" onclick="deleteMsg()"> remove </a><br>
+<%= telNum %> <a href="<%= request.getContextPath()%>/CustomerUpdate?id=<%= customer.getCustomer_id() %>&job=6&index=<%= telNums.indexOf(telNum) %>"> edit</a> | <a href="<%= request.getContextPath() %>/DeleteCustomer?id=<%= customer.getCustomer_id() %>&job=3&index=<%= telNums.indexOf(telNum) %>" onclick="deleteMsg()"> remove </a><br>
 <% } %>
 <a href="<%= request.getContextPath() %>/AddCustomer?id=<%= customer.getCustomer_id() %>&job=3"> Add</a>
 </td>

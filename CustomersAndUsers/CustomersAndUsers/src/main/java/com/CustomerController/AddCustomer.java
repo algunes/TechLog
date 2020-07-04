@@ -50,6 +50,7 @@ public class AddCustomer extends HttpServlet {
 		
 		request.setAttribute("id", id);
 		request.setAttribute("job", job);
+		request.setAttribute("formAction", "addCustomer");
 		request.setAttribute("placeholder", "Enter an Email");
 
 		RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
@@ -62,6 +63,7 @@ public class AddCustomer extends HttpServlet {
 
 		request.setAttribute("id", id);
 		request.setAttribute("job", job);
+		request.setAttribute("formAction", "addCustomer");
 		request.setAttribute("placeholder", "Enter a Phone Number");
 
 		RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
@@ -74,6 +76,7 @@ public class AddCustomer extends HttpServlet {
 
 		request.setAttribute("id", id);
 		request.setAttribute("job", job);
+		request.setAttribute("formAction", "addCustomer");
 		request.setAttribute("placeholder", "Enter an Address");
 
 		RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
@@ -88,6 +91,7 @@ public class AddCustomer extends HttpServlet {
     	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
     		int job = Integer.parseInt(request.getParameter("job"));
+    		Users user = new UserServiceImp().getUser(1L, false);
     		
     		
     		switch(job) {
@@ -110,7 +114,6 @@ public class AddCustomer extends HttpServlet {
     			String telNum = request.getParameter("telNum");
     			String address = request.getParameter("address");
     			Long corpId = Long.parseLong(request.getParameter("corporation"));
-    			Users user = new UserServiceImp().getUser(1L, false) ;
     			
     			CustomerServiceImp cs = new CustomerServiceImp();
     			Customer customer = cs.createCustomer(firstname, lastname, corpId, department, position, email, telNum, address, user);
@@ -125,10 +128,9 @@ public class AddCustomer extends HttpServlet {
     		
     	case 2: {
     		Long id = Long.parseLong(request.getParameter("id"));
-    		
-			String email = request.getParameter("output");
+    		String email = request.getParameter("output");
 
-			Customer customer = new CustomerServiceImp().addEmail(id, email, new Users());
+			Customer customer = new CustomerServiceImp().addEmail(id, email, user);
 			
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", email + " succesfully added!");
@@ -141,7 +143,7 @@ public class AddCustomer extends HttpServlet {
 			Long id = Long.parseLong(request.getParameter("id"));
 			String telNum = request.getParameter("output");
 
-			Customer customer = new CustomerServiceImp().addTelNum(id, telNum, new Users());
+			Customer customer = new CustomerServiceImp().addTelNum(id, telNum, user);
 
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", telNum + " succesfully added!");
@@ -155,7 +157,7 @@ public class AddCustomer extends HttpServlet {
 			Long id = Long.parseLong(request.getParameter("id"));
 			String address = request.getParameter("output");
 
-			Customer customer = new CustomerServiceImp().addAddress(id, address, new Users());
+			Customer customer = new CustomerServiceImp().addAddress(id, address, user);
 
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", address + " succesfully added!");

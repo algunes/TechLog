@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.TechLog.Customers.Customer;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
+import com.TechLog.Services.UserImp.UserServiceImp;
 import com.TechLog.Users.Users;
 
 @WebServlet("/customerUpdate")
@@ -40,11 +41,13 @@ public class CustomerUpdate extends HttpServlet {
 			
 			request.setAttribute("id", customer.getCustomer_id());
 			request.setAttribute("value", customer.getFirstname());
-			request.setAttribute("job", 7);
+			request.setAttribute("job", job);
+			request.setAttribute("formAction", "customerUpdate");
 			
 			
 			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 			rd.forward(request, response);
+			break;
 		}
 		
 		case 2: {
@@ -52,38 +55,71 @@ public class CustomerUpdate extends HttpServlet {
 			
 			request.setAttribute("id", customer.getCustomer_id());
 			request.setAttribute("value", customer.getLastname());
-			request.setAttribute("job", 8);
-			
-			
+			request.setAttribute("job", job);
+			request.setAttribute("formAction", "customerUpdate");
+					
 			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 			rd.forward(request, response);
+			break;
+		}
+		
+		case 3: {
+			Customer customer = new CustomerServiceImp().getCustomer(id, true);
+			
+			request.setAttribute("id", customer.getCustomer_id());
+			request.setAttribute("value", customer.getDepartment());
+			request.setAttribute("job", job);
+			request.setAttribute("formAction", "customerUpdate");
+					
+			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
+			rd.forward(request, response);
+			break;
+		}
+		
+		case 4: {
+			Customer customer = new CustomerServiceImp().getCustomer(id, true);
+			
+			request.setAttribute("id", customer.getCustomer_id());
+			request.setAttribute("value", customer.getPosition());
+			request.setAttribute("job", job);
+			request.setAttribute("formAction", "customerUpdate");
+					
+			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
+			rd.forward(request, response);
+			break;
 		}
 		
 		
-		
 		case 5: {
-			int emailIndex = Integer.parseInt(request.getParameter("emailIndex"));
-			String email = request.getParameter("email");
+			int emailIndex = Integer.parseInt(request.getParameter("index"));
+			String email = new CustomerServiceImp()
+					.getCustomer(id, true)
+					.getEmails()
+					.get(emailIndex);
 
 			request.setAttribute("job", job);
 			request.setAttribute("id", id);
 			request.setAttribute("value", email);
 			request.setAttribute("index", emailIndex);
+			request.setAttribute("formAction", "customerUpdate");
 
 			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 			rd.forward(request, response);
-
 			break;
 		}
 
 		case 6: {
-			int phoneIndex = Integer.parseInt(request.getParameter("phoneIndex"));
-			String phone = request.getParameter("phone");
+			int telNumIndex = Integer.parseInt(request.getParameter("index"));
+			String telNum = new CustomerServiceImp()
+					.getCustomer(id, true)
+					.getTelNums()
+					.get(telNumIndex);
 
 			request.setAttribute("job", job);
 			request.setAttribute("id", id);
-			request.setAttribute("value", phone);
-			request.setAttribute("index", phoneIndex);
+			request.setAttribute("value", telNum);
+			request.setAttribute("index", telNumIndex);
+			request.setAttribute("formAction", "customerUpdate");
 
 			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 			rd.forward(request, response);
@@ -91,13 +127,17 @@ public class CustomerUpdate extends HttpServlet {
 		}
 
 		case 7: {
-			int addressIndex = Integer.parseInt(request.getParameter("addressIndex"));
-			String address = request.getParameter("address");
+			int addressIndex = Integer.parseInt(request.getParameter("index"));
+			String address = new CustomerServiceImp()
+					.getCustomer(id, true)
+					.getAddresses()
+					.get(addressIndex);
 
 			request.setAttribute("job", job);
 			request.setAttribute("id", id);
 			request.setAttribute("value", address);
 			request.setAttribute("index", addressIndex);
+			request.setAttribute("formAction", "customerUpdate");
 
 			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 			rd.forward(request, response);
@@ -113,6 +153,7 @@ public class CustomerUpdate extends HttpServlet {
 
 		int job = Integer.parseInt(request.getParameter("job"));
 		Long id = Long.parseLong(request.getParameter("id"));
+		Users user = new UserServiceImp().getUser(1L, false) ; 
 
 		switch (job) {
 		
@@ -128,7 +169,7 @@ public class CustomerUpdate extends HttpServlet {
 		
 		case 1: {
 			String firstname = request.getParameter("output");
-			Customer customer = new CustomerServiceImp().updateCustomerFirstname(id, firstname, new Users());
+			Customer customer = new CustomerServiceImp().updateCustomerFirstname(id, firstname, user);
 
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", customer.getFirstname() + " is updated successfully!");
@@ -140,7 +181,7 @@ public class CustomerUpdate extends HttpServlet {
 		
 		case 2: {
 			String lastname = request.getParameter("output");
-			Customer customer = new CustomerServiceImp().updateCustomerLastname(id, lastname, new Users());
+			Customer customer = new CustomerServiceImp().updateCustomerLastname(id, lastname, user);
 
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", customer.getLastname() + " is updated successfully!");
@@ -152,7 +193,7 @@ public class CustomerUpdate extends HttpServlet {
 		
 		case 3: {
 			String department= request.getParameter("output");
-			Customer customer = new CustomerServiceImp().updateCustomerDepartment(id, department, new Users());
+			Customer customer = new CustomerServiceImp().updateCustomerDepartment(id, department, user);
 
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", customer.getDepartment() + " is updated successfully!");
@@ -164,7 +205,7 @@ public class CustomerUpdate extends HttpServlet {
 		
 		case 4: {
 			String position= request.getParameter("output");
-			Customer customer = new CustomerServiceImp().updateCustomerPosition(id, position, new Users());
+			Customer customer = new CustomerServiceImp().updateCustomerPosition(id, position, user);
 
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", customer.getDepartment() + " is updated successfully!");
@@ -179,7 +220,7 @@ public class CustomerUpdate extends HttpServlet {
 			String email = request.getParameter("output");
 
 			CustomerServiceImp cservice = new CustomerServiceImp();
-			Customer customer = cservice.updateCustomerEmail(id, index, email, new Users());
+			Customer customer = cservice.updateCustomerEmail(id, index, email, user);
 
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", email + " succesfully updated!");
@@ -193,7 +234,7 @@ public class CustomerUpdate extends HttpServlet {
 			int index = Integer.parseInt(request.getParameter("index"));
 
 			CustomerServiceImp cservice = new CustomerServiceImp();
-			Customer customer = cservice.updateTelNum(id, index, telNum, new Users());
+			Customer customer = cservice.updateTelNum(id, index, telNum, user);
 
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", telNum + " succesfully updated!");
@@ -207,7 +248,7 @@ public class CustomerUpdate extends HttpServlet {
 			int index = Integer.parseInt(request.getParameter("index"));
 
 			CustomerServiceImp cservice = new CustomerServiceImp();
-			Customer customer = cservice.updateAddress(id, index, address, new Users());
+			Customer customer = cservice.updateAddress(id, index, address, user);
 
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", address + " succesfully updated!");

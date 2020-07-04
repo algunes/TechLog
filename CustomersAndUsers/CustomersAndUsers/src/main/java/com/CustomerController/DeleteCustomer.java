@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.TechLog.Customers.Customer;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
+import com.TechLog.Services.UserImp.UserServiceImp;
 import com.TechLog.Users.Users;
 
 @WebServlet("/deleteCustomer")
@@ -20,6 +21,7 @@ public class DeleteCustomer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Long id = Long.parseLong(request.getParameter("id"));
 		int job = Integer.parseInt(request.getParameter("job"));
+		Users user = new UserServiceImp().getUser(1L, false);
 		
 		switch(job) {
 		
@@ -31,9 +33,10 @@ public class DeleteCustomer extends HttpServlet {
 		 */
 		
 		case 1: {
-			Customer customer = new CustomerServiceImp().removeCustomer(id);	
+			CustomerServiceImp cs = new CustomerServiceImp();
+			Customer customer = cs.removeCustomer(id);	
 			request.setAttribute("message", customer.getFirstname() + " " + customer.getLastname() + " from " + customer.getCorporation().getName() +" deleted succesfully!");
-			request.setAttribute("corporation", customer.getCorporation());			
+			request.setAttribute("corporation", cs.getCorporation(customer.getCorporation().getId(), true));			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
 			rd.forward(request, response);
 			break;		
@@ -44,7 +47,7 @@ public class DeleteCustomer extends HttpServlet {
 		int index= Integer.parseInt(request.getParameter("index"));
 
 		CustomerServiceImp cservice = new CustomerServiceImp();
-		Customer customer = cservice.removeEmail(id, index, new Users());
+		Customer customer = cservice.removeEmail(id, index, user);
 
 		request.setAttribute("customer", customer);
 		request.setAttribute("message", "Email succesfully removed!");
@@ -58,7 +61,7 @@ public class DeleteCustomer extends HttpServlet {
 		int index = Integer.parseInt(request.getParameter("index"));
 
 		CustomerServiceImp cservice = new CustomerServiceImp();
-		Customer customer = cservice.removeTelNum(id, index, new Users());
+		Customer customer = cservice.removeTelNum(id, index, user);
 
 		request.setAttribute("customer", customer);
 		request.setAttribute("message", "Tel. number succesfully removed!");
@@ -72,7 +75,7 @@ public class DeleteCustomer extends HttpServlet {
 		int index = Integer.parseInt(request.getParameter("index"));
 
 		CustomerServiceImp cservice = new CustomerServiceImp();
-		Customer customer = cservice.removeAddress(id, index, new Users());
+		Customer customer = cservice.removeAddress(id, index, user);
 
 		request.setAttribute("customer", customer);
 		request.setAttribute("message", "Address succesfully removed!");

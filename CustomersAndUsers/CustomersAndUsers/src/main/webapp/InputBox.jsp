@@ -16,6 +16,9 @@
 <body>
 <% 
 Long id = (Long)request.getAttribute("id"); 					// Customer id
+String formAction = "";											// variable formAction attribute
+if(request.getAttribute("formAction") != null)
+formAction = (String)request.getAttribute("formAction");
 String defaultValue = "";										// text which want to modify
 if(request.getAttribute("value") != null) {
 defaultValue = (String)request.getAttribute("value");
@@ -41,7 +44,7 @@ placeholder = (String) request.getAttribute("placeholder");
 <%= message %>
 
 
-<form action="customerUpdate" id="input" method="post">
+<form action="<%= formAction %>" id="input" method="post">
 <input type="hidden" value="<%= index %>" name="index"><br>
 <input type="hidden" value="<%= job %>" name="job"><br>
 <input type="hidden" value="<%= id %>" name="id"><br>
