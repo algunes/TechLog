@@ -16,7 +16,9 @@
 <body>
 <form action="addCorporation" method="post">
 
-		<input type="text" placeholder="Corporation Name" name="corporationName" maxlength="255"><br>
+		<input type="text" placeholder="Corporation Name" name="name" maxlength="255"><br>
+		<input type="text" placeholder="Sector" name="sector" maxlength="255"><br>
+		<input type="checkbox" name="isActive"><br>
 
 		<input value="Submit" type="submit">
 

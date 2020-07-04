@@ -7,6 +7,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 
@@ -39,11 +40,15 @@ public class Corporation implements Serializable {
 	@OneToMany(mappedBy="corporation", cascade=CascadeType.ALL, orphanRemoval=true)
 	@Column(name="customers", unique=true)
 	private List<Customer> customers = new ArrayList<>();
-
-	@Column(name="created_by")
+	
+	@ManyToOne
+	@JoinColumn(name="created_by", nullable = false)
+	@ContainedIn
 	private Users created_by;
 	
-	@Column(name="updated_by")
+	@ManyToOne
+	@JoinColumn(name="updated_by")
+	@ContainedIn
 	private Users updated_by;
 	
 	@Column(name="last_update")

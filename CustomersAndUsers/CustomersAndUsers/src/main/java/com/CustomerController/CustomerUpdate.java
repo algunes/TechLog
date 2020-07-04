@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.TechLog.Customers.Customer;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
+import com.TechLog.Users.Users;
 
 @WebServlet("/customerUpdate")
 public class CustomerUpdate extends HttpServlet {
@@ -24,10 +25,43 @@ public class CustomerUpdate extends HttpServlet {
 
 		switch (job) {
 		/*
-		 * 1- Email Update 2- Phone Update 3- Address Update 4- Email Add 5- Phone
-		 * Number Add 6- Address Add 7- Email Remove 8- Phone Remove 9- Address Remove
+		 * 1- Update customer firstname
+		 * 2- Update customer lastname
+		 * 3- update customer department
+		 * 4- update customer position
+		 * 5- update customer email 
+		 * 6- update customer tel. number 
+		 * 7- update customer address  
+		 * 
 		 */
+		
 		case 1: {
+			Customer customer = new CustomerServiceImp().getCustomer(id, true);
+			
+			request.setAttribute("id", customer.getCustomer_id());
+			request.setAttribute("value", customer.getFirstname());
+			request.setAttribute("job", 7);
+			
+			
+			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
+			rd.forward(request, response);
+		}
+		
+		case 2: {
+			Customer customer = new CustomerServiceImp().getCustomer(id, true);
+			
+			request.setAttribute("id", customer.getCustomer_id());
+			request.setAttribute("value", customer.getLastname());
+			request.setAttribute("job", 8);
+			
+			
+			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
+			rd.forward(request, response);
+		}
+		
+		
+		
+		case 5: {
 			int emailIndex = Integer.parseInt(request.getParameter("emailIndex"));
 			String email = request.getParameter("email");
 
@@ -42,7 +76,7 @@ public class CustomerUpdate extends HttpServlet {
 			break;
 		}
 
-		case 2: {
+		case 6: {
 			int phoneIndex = Integer.parseInt(request.getParameter("phoneIndex"));
 			String phone = request.getParameter("phone");
 
@@ -56,7 +90,7 @@ public class CustomerUpdate extends HttpServlet {
 			break;
 		}
 
-		case 3: {
+		case 7: {
 			int addressIndex = Integer.parseInt(request.getParameter("addressIndex"));
 			String address = request.getParameter("address");
 
@@ -68,111 +102,6 @@ public class CustomerUpdate extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 			rd.forward(request, response);
 			break;
-		}
-
-		case 4: {
-
-			request.setAttribute("id", id);
-			request.setAttribute("job", job);
-			request.setAttribute("placeholder", "Enter an Email");
-
-			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
-			rd.forward(request, response);
-			break;
-		}
-
-		case 5: {
-
-			request.setAttribute("id", id);
-			request.setAttribute("job", job);
-			request.setAttribute("placeholder", "Enter a Phone Number");
-
-			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
-			rd.forward(request, response);
-			break;
-		}
-
-		case 6: {
-
-			request.setAttribute("id", id);
-			request.setAttribute("job", job);
-			request.setAttribute("placeholder", "Enter an Address");
-
-			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
-			rd.forward(request, response);
-			break;
-		}
-
-		case 7: {
-
-			int emailIndex = Integer.parseInt(request.getParameter("emailIndex"));
-			String email = request.getParameter("email");
-
-			CustomerServiceImp cservice = new CustomerServiceImp();
-			cservice.removeEmail(id, emailIndex);
-			Customer customer = cservice.getCustomer(id, true);
-
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", email + " succesfully removed!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
-			break;
-		}
-
-		case 8: {
-
-			int phoneIndex = Integer.parseInt(request.getParameter("phoneIndex"));
-			String phone = request.getParameter("phone");
-
-			CustomerServiceImp cservice = new CustomerServiceImp();
-			cservice.removePhone(id, phoneIndex);
-			Customer customer = cservice.getCustomer(id, true);
-
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", phone + " succesfully removed!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
-			break;
-		}
-
-		case 9: {
-
-			int addressIndex = Integer.parseInt(request.getParameter("addressIndex"));
-			String address = request.getParameter("address");
-
-			CustomerServiceImp cservice = new CustomerServiceImp();
-			cservice.removeAddress(id, addressIndex);
-			Customer customer = cservice.getCustomer(id, true);
-
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", address + " succesfully removed!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
-			break;
-		}
-		
-		case 10: {
-			Customer customer = new CustomerServiceImp().getCustomer(id, true);
-			
-			request.setAttribute("id", customer.getCustomer_id());
-			request.setAttribute("value", customer.getFirstname());
-			request.setAttribute("job", 7);
-			
-			
-			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
-			rd.forward(request, response);
-		}
-		
-		case 11: {
-			Customer customer = new CustomerServiceImp().getCustomer(id, true);
-			
-			request.setAttribute("id", customer.getCustomer_id());
-			request.setAttribute("value", customer.getLastname());
-			request.setAttribute("job", 8);
-			
-			
-			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
-			rd.forward(request, response);
 		}
 
 		}
@@ -188,123 +117,103 @@ public class CustomerUpdate extends HttpServlet {
 		switch (job) {
 		
 		/*
-		 * 1- Update Email 2- Update Phone Number 3- Update Address Number 4- Add Email
-		 * 5- Add Phone Number 6- Add Address 7- Update Firstname 8- Update Lastname
+		 * 1- Update customer firstname 
+		 * 2- Update customer lastname 
+		 * 3- Update customer department 
+		 * 4- Update customer position 
+		 * 5- Update customer email
+		 * 6- Update customer tel. number
+		 * 7- Update customer address 
 		 */
 		
 		case 1: {
-			String email = request.getParameter("output");
-			int index = Integer.parseInt(request.getParameter("index"));
-
-			CustomerServiceImp cservice = new CustomerServiceImp();
-			cservice.updateEmail(id, index, email);
-			Customer customer = cservice.getCustomer(id, true);
-
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", email + " succesfully updated!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
-
-			break;
-		}
-
-		case 2: {
-			String phone = request.getParameter("output");
-			int index = Integer.parseInt(request.getParameter("index"));
-
-			CustomerServiceImp cservice = new CustomerServiceImp();
-			cservice.updatePhone(id, index, phone);
-			Customer customer = cservice.getCustomer(id, true);
-
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", phone + " succesfully updated!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
-
-			break;
-		}
-
-		case 3: {
-			String address = request.getParameter("output");
-			int index = Integer.parseInt(request.getParameter("index"));
-
-			CustomerServiceImp cservice = new CustomerServiceImp();
-			cservice.updateAddress(id, index, address);
-			Customer customer = cservice.getCustomer(id, true);
-
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", address + " succesfully updated!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
-
-			break;
-		}
-
-		case 4: {
-			String email = request.getParameter("output");
-
-			CustomerServiceImp cservice = new CustomerServiceImp();
-			cservice.addEmail(id, email);
-			Customer customer = cservice.getCustomer(id, true);
-
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", email + " succesfully added!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
-
-			break;
-		}
-
-		case 5: {
-			String phone = request.getParameter("output");
-
-			CustomerServiceImp cservice = new CustomerServiceImp();
-			cservice.addPhone(id, phone);
-			Customer customer = cservice.getCustomer(id, true);
-
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", phone + " succesfully added!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
-
-			break;
-		}
-
-		case 6: {
-			String address = request.getParameter("output");
-
-			CustomerServiceImp cservice = new CustomerServiceImp();
-			cservice.addAddress(id, address);
-			Customer customer = cservice.getCustomer(id, true);
-
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", address + " succesfully added!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
-
-			break;
-		}
-		
-		case 7: {
 			String firstname = request.getParameter("output");
-			Customer customer = new CustomerServiceImp().updateCustomerFirstname(id, firstname);
+			Customer customer = new CustomerServiceImp().updateCustomerFirstname(id, firstname, new Users());
 
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", customer.getFirstname() + " is updated successfully!");
 			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 			rd.forward(request, response);
+			break;
 		}
 		
-		case 8: {
+		case 2: {
 			String lastname = request.getParameter("output");
-			Customer customer = new CustomerServiceImp().updateCustomerLastname(id, lastname);
+			Customer customer = new CustomerServiceImp().updateCustomerLastname(id, lastname, new Users());
 
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", customer.getLastname() + " is updated successfully!");
 			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 			rd.forward(request, response);
+			break;
+		}
+		
+		case 3: {
+			String department= request.getParameter("output");
+			Customer customer = new CustomerServiceImp().updateCustomerDepartment(id, department, new Users());
+
+			request.setAttribute("customer", customer);
+			request.setAttribute("message", customer.getDepartment() + " is updated successfully!");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+			rd.forward(request, response);
+			break;
+		}
+		
+		case 4: {
+			String position= request.getParameter("output");
+			Customer customer = new CustomerServiceImp().updateCustomerPosition(id, position, new Users());
+
+			request.setAttribute("customer", customer);
+			request.setAttribute("message", customer.getDepartment() + " is updated successfully!");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+			rd.forward(request, response);
+			break;
+		}
+		
+		case 5: {
+			int index = Integer.parseInt(request.getParameter("index"));
+			String email = request.getParameter("output");
+
+			CustomerServiceImp cservice = new CustomerServiceImp();
+			Customer customer = cservice.updateCustomerEmail(id, index, email, new Users());
+
+			request.setAttribute("customer", customer);
+			request.setAttribute("message", email + " succesfully updated!");
+			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+			rd.forward(request, response);
+			break;
+		}
+
+		case 6: {
+			String telNum = request.getParameter("output");
+			int index = Integer.parseInt(request.getParameter("index"));
+
+			CustomerServiceImp cservice = new CustomerServiceImp();
+			Customer customer = cservice.updateTelNum(id, index, telNum, new Users());
+
+			request.setAttribute("customer", customer);
+			request.setAttribute("message", telNum + " succesfully updated!");
+			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+			rd.forward(request, response);
+			break;
+		}
+
+		case 7: {
+			String address = request.getParameter("output");
+			int index = Integer.parseInt(request.getParameter("index"));
+
+			CustomerServiceImp cservice = new CustomerServiceImp();
+			Customer customer = cservice.updateAddress(id, index, address, new Users());
+
+			request.setAttribute("customer", customer);
+			request.setAttribute("message", address + " succesfully updated!");
+			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+			rd.forward(request, response);
+			break;
 		}
 
 		}

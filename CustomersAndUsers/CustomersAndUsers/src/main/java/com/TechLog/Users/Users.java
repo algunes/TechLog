@@ -2,10 +2,14 @@ package com.TechLog.Users;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.*;
 import javax.persistence.*;
 
 import org.hibernate.annotations.DynamicUpdate;
+
+import com.TechLog.Customers.Corporation;
+import com.TechLog.Customers.Customer;
 
 @Entity
 @Table(name="users")
@@ -27,6 +31,28 @@ public class Users implements Serializable {
 	@Column(name="department")
 	private String department;
 	
+	@Column(name="position")
+	private String position;
+	
+	@Column(name="role")
+	private String role;
+	
+	@Column(name="created_customers")
+	@OneToMany(mappedBy="created_by", orphanRemoval=false)
+	private List<Customer> created_customers = new ArrayList<>();
+	
+	@Column(name="updated_customers")
+	@OneToMany(mappedBy="updated_by", orphanRemoval=false)
+	private List<Customer> updated_customers = new ArrayList<>();
+	
+	@Column(name="created_corporations")
+	@OneToMany(mappedBy="created_by", orphanRemoval=false)
+	private List<Corporation> created_corporations = new ArrayList<>();
+	
+	@Column(name="updated_corporations")
+	@OneToMany(mappedBy="updated_by", orphanRemoval=false)
+	private List<Corporation> updated_corporations = new ArrayList<>();
+	
 	@Column(name="email")
 	private String email;
 	
@@ -40,16 +66,64 @@ public class Users implements Serializable {
 	private BigDecimal totalSales;
 	
 	@Column(name="last_login")
-	private Date lastLogin;
+	private LocalDate lastLogin;
 	
 	@Column(name="start_date")
-	private Date startDate;
+	private LocalDate startDate;
+	
+	
+	
+	public Users() {
+		super();
+	}
 
-	public Long getId() {
+	public Users(String firstname, String lastname, String department, String position, String role,
+			List<Customer> created_customers, List<Customer> updated_customers, List<Corporation> created_corporations,
+			List<Corporation> updated_corporations, String email, String telNumber, String address,
+			BigDecimal totalSales, LocalDate lastLogin, LocalDate startDate) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.department = department;
+		this.position = position;
+		this.role = role;
+		this.created_customers = created_customers;
+		this.updated_customers = updated_customers;
+		this.created_corporations = created_corporations;
+		this.updated_corporations = updated_corporations;
+		this.email = email;
+		this.telNumber = telNumber;
+		this.address = address;
+		this.totalSales = totalSales;
+		this.lastLogin = lastLogin;
+		this.startDate = startDate;
+	}
+
+	public void addCreated_customer(Customer customer) {
+		created_customers.add(customer);
+		customer.setCreated_by(this);
+	}
+	
+	public void addCreated_corporation(Corporation corporation) {
+		created_corporations.add(corporation);
+		corporation.setCreated_by(this);
+	}
+	
+	public void addUpdated_customer(Customer customer) {
+		updated_customers.add(customer);
+		customer.setUpdated_by(this);
+	}
+	
+	public void addUpdated_corporation(Corporation corporation) {
+		updated_corporations.add(corporation);
+		corporation.setUpdated_by(this);
+	}
+
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setId(Long userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
@@ -75,6 +149,54 @@ public class Users implements Serializable {
 
 	public void setDepartment(String department) {
 		this.department = department;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public List<Customer> getCreated_customers() {
+		return created_customers;
+	}
+
+	public void setCreated_customers(List<Customer> created_customers) {
+		this.created_customers = created_customers;
+	}
+
+	public List<Customer> getUpdated_customers() {
+		return updated_customers;
+	}
+
+	public void setUpdated_customers(List<Customer> updated_customers) {
+		this.updated_customers = updated_customers;
+	}
+
+	public List<Corporation> getCreated_corporations() {
+		return created_corporations;
+	}
+
+	public void setCreated_corporations(List<Corporation> created_corporations) {
+		this.created_corporations = created_corporations;
+	}
+
+	public List<Corporation> getUpdated_corporations() {
+		return updated_corporations;
+	}
+
+	public void setUpdated_corporations(List<Corporation> updated_corporations) {
+		this.updated_corporations = updated_corporations;
 	}
 
 	public String getEmail() {
@@ -109,41 +231,41 @@ public class Users implements Serializable {
 		this.totalSales = totalSales;
 	}
 
-	public Date getLastLogin() {
+	public LocalDate getLastLogin() {
 		return lastLogin;
 	}
 
-	public void setLastLogin(Date lastLogin) {
+	public void setLastLogin(LocalDate lastLogin) {
 		this.lastLogin = lastLogin;
 	}
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((created_corporations == null) ? 0 : created_corporations.hashCode());
+		result = prime * result + ((created_customers == null) ? 0 : created_customers.hashCode());
 		result = prime * result + ((department == null) ? 0 : department.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
 		result = prime * result + ((lastLogin == null) ? 0 : lastLogin.hashCode());
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+		result = prime * result + ((position == null) ? 0 : position.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		result = prime * result + ((telNumber == null) ? 0 : telNumber.hashCode());
 		result = prime * result + ((totalSales == null) ? 0 : totalSales.hashCode());
+		result = prime * result + ((updated_corporations == null) ? 0 : updated_corporations.hashCode());
+		result = prime * result + ((updated_customers == null) ? 0 : updated_customers.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
@@ -152,13 +274,25 @@ public class Users implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Users))
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
 			return false;
 		Users other = (Users) obj;
 		if (address == null) {
 			if (other.address != null)
 				return false;
 		} else if (!address.equals(other.address))
+			return false;
+		if (created_corporations == null) {
+			if (other.created_corporations != null)
+				return false;
+		} else if (!created_corporations.equals(other.created_corporations))
+			return false;
+		if (created_customers == null) {
+			if (other.created_customers != null)
+				return false;
+		} else if (!created_customers.equals(other.created_customers))
 			return false;
 		if (department == null) {
 			if (other.department != null)
@@ -185,6 +319,16 @@ public class Users implements Serializable {
 				return false;
 		} else if (!lastname.equals(other.lastname))
 			return false;
+		if (position == null) {
+			if (other.position != null)
+				return false;
+		} else if (!position.equals(other.position))
+			return false;
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
+			return false;
 		if (startDate == null) {
 			if (other.startDate != null)
 				return false;
@@ -200,6 +344,16 @@ public class Users implements Serializable {
 				return false;
 		} else if (!totalSales.equals(other.totalSales))
 			return false;
+		if (updated_corporations == null) {
+			if (other.updated_corporations != null)
+				return false;
+		} else if (!updated_corporations.equals(other.updated_corporations))
+			return false;
+		if (updated_customers == null) {
+			if (other.updated_customers != null)
+				return false;
+		} else if (!updated_customers.equals(other.updated_customers))
+			return false;
 		if (userId == null) {
 			if (other.userId != null)
 				return false;
@@ -210,12 +364,13 @@ public class Users implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", firstname=" + firstname + ", lastname=" + lastname + ", department=" + department
-				+ ", email=" + email + ", telNumber=" + telNumber + ", address=" + address + ", totalSales="
-				+ totalSales + ", lastLogin=" + lastLogin + ", startDate=" + startDate + "]";
+		return "Users [userId=" + userId + ", firstname=" + firstname + ", lastname=" + lastname + ", department="
+				+ department + ", position=" + position + ", role=" + role + ", created_customers=" + created_customers
+				+ ", updated_customers=" + updated_customers + ", created_corporations=" + created_corporations
+				+ ", updated_corporations=" + updated_corporations + ", email=" + email + ", telNumber=" + telNumber
+				+ ", address=" + address + ", totalSales=" + totalSales + ", lastLogin=" + lastLogin + ", startDate="
+				+ startDate + "]";
 	}
-	
-	
-	
+
 }
 

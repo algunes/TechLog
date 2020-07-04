@@ -20,15 +20,15 @@ String defaultValue = "";										// text which want to modify
 if(request.getAttribute("value") != null) {
 defaultValue = (String)request.getAttribute("value");
 }
-int index = 0;													// embedded object index (email, address etc.)
+int index = 0;													// object index (email, phone number, address etc.)
 if(request.getAttribute("index") != null) {
 index = (int)request.getAttribute("index");
 }
-int job = 0;													// process number
+int job = 0;													// job number
 if(request.getAttribute("job") != null) {
 job = (int) request.getAttribute("job");
 }
-String message = "";											// text which want to show
+String message = "";											// a text if want to show
 if(request.getAttribute("message") != null) {
 message = (String) request.getAttribute("message"); 
 }

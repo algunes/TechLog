@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.TechLog.Customers.Corporation;
+import com.TechLog.Customers.Customer;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
+import com.TechLog.Services.UserImp.UserServiceImp;
+import com.TechLog.Users.Users;
 
 @WebServlet("/addCorporation")
 public class AddCorporation extends HttpServlet {
@@ -21,16 +24,17 @@ public class AddCorporation extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String corporationName = request.getParameter("corporationName");
+		String name = request.getParameter("name");
+		String sector = request.getParameter("sector");
+		Boolean isActive = Boolean.parseBoolean(request.getParameter("isActive"));
 		
-		Corporation corporation = new Corporation();
-		corporation.setName(corporationName);
-		CustomerServiceImp cs = new CustomerServiceImp();
-		Long id = cs.createCorporation(corporation);
 		
-		corporation = cs.getCorporation(id, false);
+		
+		Corporation corporation = new CustomerServiceImp().createCorporation(name, sector, isActive, null, new UserServiceImp().getUser(1L, false));
+		
 		request.setAttribute("corporation", corporation); 
-		RequestDispatcher rd = request.getRequestDispatcher("SuccessScreen.jsp"); 
+		request.setAttribute("message", corporation.getName() + " is created succesfully!");
+		RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp"); 
 		rd.forward(request, response);
 	}
 

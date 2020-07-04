@@ -22,7 +22,7 @@
 		
 		<tr>
 		<td>
-		<a href=".<%request.getContextPath();%>/addCustomer" target="iframe_a">Add Customer</a>
+		<a href=".<%request.getContextPath();%>/addCustomer?job=1" target="iframe_a">Add Customer</a>
 		</td>
 		
 		<td>

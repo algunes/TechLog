@@ -38,9 +38,11 @@
 			<% } %>
 		</select><br> 
 		<input type="text" placeholder="Department" name="department" maxlength="255"><br>
+		<input type="text" placeholder="Position" name="position" maxlength="255"><br>
 		<input type="email" placeholder="Email" name="email" maxlength="255"><br>
-		<input type="tel" placeholder="Telephone Number" name="telNumber" maxlength="255"><br>
+		<input type="tel" placeholder="Telephone Number" name="telNum" maxlength="255"><br>
 		<input type="text" placeholder="Address" name="address" maxlength="255"><br>
+		<input type="hidden" name="job" value="1"><br>
 		
 		<input value="Submit" type="submit">
 

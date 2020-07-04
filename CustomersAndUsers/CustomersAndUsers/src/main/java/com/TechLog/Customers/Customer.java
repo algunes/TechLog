@@ -45,40 +45,29 @@ public class Customer implements Serializable {
 	@Column(name="position")
 	private String position;
 	
-//	@ElementCollection
-//	@IndexedEmbedded
-//	@Column(name="emails")
-//	private List<Email> emails = new ArrayList<>();
-	
 	@ElementCollection
 	@IndexedEmbedded
 	@Column(name="emails")
 	private List<String> emails = new ArrayList<>();
-	
-//	@ElementCollection
-//	@IndexedEmbedded
-//	@Column(name="phones")
-//	private List<Phone> phones = new ArrayList<>();
 	
 	@ElementCollection
 	@IndexedEmbedded
 	@Column(name="telNums")
 	private List<String> telNums = new ArrayList<>();
 	
-//	@ElementCollection
-//	@IndexedEmbedded
-//	@Column(name="addresses")
-//	private List<Address> addresses = new ArrayList<>();
-	
 	@ElementCollection
 	@IndexedEmbedded
 	@Column(name="addresses")
 	private List<String> addresses = new ArrayList<>();
 	
-	@Column(name="created_by")
+	@ManyToOne
+	@JoinColumn(name="created_by", nullable = false)
+	@ContainedIn
 	private Users created_by;
 	
-	@Column(name="updated_by")
+	@ManyToOne
+	@JoinColumn(name="updated_by")
+	@ContainedIn
 	private Users updated_by;
 	
 	@Column(name="last_update")
