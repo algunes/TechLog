@@ -1,0 +1,15 @@
+Urun Teklif
+urun_teklif_id (pk) | urun_genel_bilgi (fk)
+1            | cihaz_id
+2            | malzeme_id
+3            | aksesuar_id
+4            | servis_sozlesme_id
+
+Urun Satış
+urun_satis_id (pk) | urun_detay_bilgi (fk)
+1            | cihaz_detay_id
+2            | malzeme_detay_id
+3            | aksesuar_detay_id
+4            | servis_sozlesme_detay_id
+
+marka

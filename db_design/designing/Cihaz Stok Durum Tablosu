@@ -1,0 +1,26 @@
+(iptal edildi)
+
+Cihaz Stok Durum Tablosu
+--> cihaz_stok_no (pk) (AUTO_INCREMENT)!!!
+--> cihaz_id (fk)
+--> cihaz_stok_adedi
+
+DROP TABLE cihaz_stok_durum;
+
+ALTER TABLE cihaz_stok_durum ADD cihaz_stok_adedi INT;
+
+DELETE FROM cihaz_stok_durum WHERE cihaz_stok_no = 3;
+
+INSERT INTO cihaz_stok_durum (cihaz_id) values ("2");
+
+create table cihaz_stok_durum (
+cihaz_stok_no INT AUTO_INCREMENT,
+cihaz_id INT NOT NULL,
+PRIMARY KEY (cihaz_stok_no),
+FOREIGN KEY (cihaz_id) REFERENCES cihaz(cihaz_id) ON DELETE CASCADE
+);
+
+ALTER table cihaz_detay
+	ADD CONSTRAINT FOREIGN KEY (cihaz_id)
+	REFERENCES cihaz (cihaz_id)
+	ON DELETE CASCADE;

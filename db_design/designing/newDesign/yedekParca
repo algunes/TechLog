@@ -1,0 +1,8 @@
+Yedek Parça
+--> yedek_parca_id (PK) (AI)
+--> marka_id (FK)
+--> model_id (FK)
+--> yedek_parca_ismi
+--> yedek_parca_kodu
+--> kullanici_id (FK)
+--> last_change

@@ -1,0 +1,9 @@
+Urun Aciklama
+--> urun_desc_id (PK) (AI)
+--> model_id (FK)
+--> aksesuar_id (FK)
+--> sarf_id (FK)
+--> sozlesme_id (FK)
+--> teknik_servis_no (FK)
+--> aciklama (UNIQUE)
+--> last_change

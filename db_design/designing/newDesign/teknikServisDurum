@@ -1,0 +1,5 @@
+Teknik Servis Durum
+--> teknik_servis_durum_id (PK) (AI)
+--> teknik_servis_durum
+    --> İşlem devam etmekte
+    --> İşlem sona erdi

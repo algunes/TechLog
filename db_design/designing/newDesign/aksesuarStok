@@ -1,0 +1,5 @@
+Aksesuar Stok
+--> aksesuar_stok_id (PK) (AI)
+--> aksesuar_id (FK)
+--> stok_adedi
+--> last_change

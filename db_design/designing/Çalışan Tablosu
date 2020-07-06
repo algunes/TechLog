@@ -1,0 +1,23 @@
+Çalışan Tablosu
+--> kullanici_id (pk)
+--> entity_id (fk)
+--> calisan_adi
+--> calisan_soyadi
+--> calisan_departman
+--> calisan_tel
+--> calisan_email (UNIQUE)
+--> calisan_toplam_satis
+--> calisan_password
+
+CREATE TABLE kullanici (
+    kullanici_id INT PRIMARY KEY AUTO_INCREMENT,
+    yetki_id INT NOT NULL,
+    calisan_adi varchar(150) NOT NULL,
+    calisan_soyadi varchar(150) NOT NULL,
+    calisan_departman varchar(50) NOT NULL,
+    calisan_tel varchar(50) NOT NULL,
+    calisan_email varchar(100) NOT NULL UNIQUE,
+    calisan_toplam_satis DOUBLE NOT NULL,
+    kullanici_sifre varchar(50) NOT NULL,
+    CONSTRAINT yetki_id FOREIGN KEY (yetki_id) REFERENCES kullanici_yetkileri(yetki_id)
+);

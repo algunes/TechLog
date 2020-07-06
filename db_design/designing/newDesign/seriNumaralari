@@ -1,0 +1,9 @@
+Seri Numaralari
+--> urun_seri_id (PK) (AI)
+--> marka_id (FK)
+--> model_id (FK)
+--> aksesuar_id (FK)
+--> musteri_id (FK)
+--> stok_durum_id (FK)
+--> seri_no
+--> last_change

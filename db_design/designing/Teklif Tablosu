@@ -1,0 +1,27 @@
+Teklif Tablosu
+(musteri_kisi_no + urun_id)
+--> teklif_no (pk)
+--> kullanici_id (fk) (ON DELETE CASCADE)
+--> musteri_id (fk) (ON DELETE NULL)
+--> cihaz_id (fk) (ON DELETE SET NULL)
+--> teklif_seri_no
+--> teklif_adet
+--> teklif_tarih (auto update)
+--> teklif_fiyat
+--> teklif_durum_id (fk)
+
+CREATE TABLE teklif (
+    teklif_no INT PRIMARY KEY AUTO_INCREMENT,
+    kullanici_id  INT NOT NULL,
+    musteri_id INT,
+    cihaz_id INT,
+    teklif_seri_no varchar(50) NOT NULL,
+    teklif_adet INT NOT NULL,
+    teklif_tarih DATE NOT NULL,
+    teklif_fiyat DOUBLE NOT NULL,
+    teklif_durum_id INT NOT NULL,
+    CONSTRAINT kullanici_id FOREIGN KEY (kullanici_id) REFERENCES kullanici(kullanici_id) ON DELETE CASCADE,
+    CONSTRAINT musteri_id FOREIGN KEY (musteri_id) REFERENCES musteri(musteri_id) ON DELETE SET NULL,
+    CONSTRAINT cihaz_id FOREIGN KEY (cihaz_id) REFERENCES cihaz(cihaz_id) ON DELETE SET NULL,
+    CONSTRAINT teklif_durum_id FOREIGN KEY (teklif_durum_id) REFERENCES teklif_durum(teklif_durum_id)
+);

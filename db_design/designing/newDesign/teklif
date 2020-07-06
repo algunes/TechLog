@@ -1,0 +1,14 @@
+Teklif
+--> teklif_id (PK) (AI)
+--> teklif_no
+--> kullanici_id (FK)
+--> musteri_id (FK)
+--> musteri_kisi_no (FK)
+--> urun_desc_id (FK)
+--> urun_miktari
+--> birim_id (FK)
+--> urun_adedi
+--> teklif_fiyat
+--> teklif_durum_id (FK)
+--> teklif_tarih
+--> last_change

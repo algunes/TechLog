@@ -1,0 +1,12 @@
+Birim Miktar
+--> birim_id (PK) (AI)
+--> birim
+    --> null
+    --> kg
+    --> gr
+    --> Lt
+    --> ml
+    --> metre
+    --> cm
+    --> mm
+--> last_change

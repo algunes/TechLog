@@ -1,0 +1,15 @@
+Fatura
+--> fatura_id (PK) (AI)
+--> fatura_seri_no
+--> fatura_sira_no
+--> kullanici_id (FK)
+--> teklif_id (FK)
+--> on_satis_id (FK)
+--> teknik_servis_no (FK)
+--> urun_seri_id (FK)
+--> fatura_miktar
+--> birim_id (FK)
+--> fatura_adet
+--> fatura_fiyat
+--> fatura_tarih
+--> last_change

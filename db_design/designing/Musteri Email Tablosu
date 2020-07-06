@@ -1,0 +1,19 @@
+Musteri Email Tablosu
+--> musteri_email_no (pk) Auto Increment
+--> musteri_kisi_no (fk)
+--> musteri_email
+--> musteri_primary_email_flag
+--> kullanici_id (FK)
+--> last_change
+
+CREATE TABLE musteri_email (
+    musteri_email_no INT AUTO_INCREMENT,
+    musteri_kisi_no INT NOT NULL,
+    musteri_email VARCHAR(100) NOT NULL,
+    musteri_primary_email_flag boolean NOT NULL,
+    kullanici_id INT NOT NULL,
+    last_change DATE NOT NULL,
+    PRIMARY KEY (musteri_email_no),
+    FOREIGN KEY (musteri_kisi_no) REFERENCES musteri_kisiler(musteri_kisi_no) ON DELETE CASCADE,
+    FOREIGN KEY (kullanici_id) REFERENCES kullanici(kullanici_id)
+);
