@@ -37,6 +37,10 @@
 		<a href=".<%request.getContextPath();%>/searchCustomer" target="iframe_a">Search Customer</a>
 		</td>
 		
+		<td>
+		<a href=".<%request.getContextPath();%>/users" target="iframe_a">Users</a>
+		</td>
+		
 		</table>
 		
 		<iframe src=".<%request.getContextPath();%>/home.jsp" width="100%" height="500" name="iframe_a" style="border:none;"></iframe>

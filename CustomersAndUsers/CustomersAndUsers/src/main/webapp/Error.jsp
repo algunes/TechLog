@@ -7,8 +7,8 @@
 <title>Error</title>
 </head>
 <body>
-An Error Occured!
+An Error Occured!<br>
 <p></p>
-<% exception.getMessage(); %>
+<%= exception.getMessage() %>
 </body>
 </html>

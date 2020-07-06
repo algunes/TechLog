@@ -29,19 +29,13 @@ String message = (request.getAttribute("message") != null ? (String)request.getA
 
 String placeholder = (request.getAttribute("placeholder") != null ? (String) request.getAttribute("placeholder") : "");	// placeholder for textarea
 
-String hr = "<hr>";
-		
-String br = "<br>"; %>
-<i>
-<% if(!message.isEmpty()) { 
+ %>
 
-		out.print(message);
-		out.print(br);
-		out.print(hr);
-	
+<% if(!message.isEmpty()) { 
+		out.println("<i>" + message + "</i>" + "<br>" + "<hr>");
  	} 
 %>
-</i>
+
 
 
 <form action="<%= formAction %>" id="input" method="post">

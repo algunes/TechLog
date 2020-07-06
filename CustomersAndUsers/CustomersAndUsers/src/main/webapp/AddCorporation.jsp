@@ -19,7 +19,7 @@
 		<input type="hidden" name="job" value="addCorporation">
 		<input type="text" placeholder="Corporation Name" name="name" maxlength="255"><br>
 		<input type="text" placeholder="Sector" name="sector" maxlength="255"><br>
-		<input type="checkbox" name="isActive"><br>
+		<input type="hidden" name="isActive" value="true"><br>
 
 		<input value="Submit" type="submit">
 

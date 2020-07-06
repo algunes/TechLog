@@ -19,8 +19,6 @@
 <body>
 <% 
  String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
- String hr = "<hr>";
- String br = "<br>";
  Corporation corporation = (Corporation)request.getAttribute("corporation");
  List<Customer> customers = corporation.getCustomers(); 
  ListIterator<Customer> iteratorC = customers.listIterator();
@@ -28,27 +26,33 @@
  %>
 <i>
 <% if(!message.isEmpty()) { 
-
-	out.print(message);
-	out.print(br);
-	out.print(hr);
-	
+	out.println("<i>" + message + "</i>" + "<br>" + "<hr>");
  } %>
  </i>
  
-<p><%= corporation.getName() %></p>
+ <table>
+ <tr>
+ <td>
+ Name:
+ </td>
+ <td>
+ <%= corporation.getName() %> | Sector: <%= corporation.getSector() %>
+ </td>
+ </tr>
+ </table>
+<hr>
 <Table>
 <% while(iteratorC.hasNext()) { 
 customer = iteratorC.next(); %>
 <tr>
 <td>
 <a href="<%request.getContextPath();%>GetCustomer?id=<%= customer.getCustomer_id() %>&job=getCustomer"><%= customer.getFirstname() %> <%= customer.getLastname() %></a><br>
-<small><a href="<%= request.getContextPath() %>/AddCustomer?job=addCustomerIntoACorporation&id=<%= corporation.getId() %>">Add</a></small><br>
 </td>
-
-
 </tr>
 <% } %>
 </Table>
+<hr>
+<small><a href="<%= request.getContextPath() %>/AddCustomer?job=addCustomerIntoACorporation&id=<%= corporation.getId() %>">Add</a></small><br>
+
 </body>
 </html>

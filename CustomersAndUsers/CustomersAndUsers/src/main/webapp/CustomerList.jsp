@@ -18,19 +18,13 @@
 <body>
 
 	<% @SuppressWarnings(value={"unchecked"}) 
-		List<Customer> customers = (request.getAttribute("customers") instanceof java.util.List ? (List<Customer>)request.getAttribute("customers") : new ArrayList<>()); %>
+		List<Customer> customers = (request.getAttribute("customers") instanceof java.util.List ? (List<Customer>)request.getAttribute("customers") : null); %>
 	<% String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : ""); %>
-	<% String hr = "</hr>"; %>
-	<% String br = "<br>"; %>
 	<% ListIterator<Customer> iteratorC = customers.listIterator(); %>
-	<% Customer customer = new Customer(); %>
+	<% Customer customer = null; %>
 	
 	<% if(!message.isEmpty()) { 
-
-		out.print(message);
-		out.print(br);
-		out.print(hr);
-	
+		out.println("<i>" + message + "</i>" + "<br>" + "<hr>");
  	} %>
 	
 	<% 	while (iteratorC.hasNext()) {

@@ -27,11 +27,9 @@ function deleteMsg() {
 Customer customer = (Customer)request.getAttribute("customer");
 String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
 
-String hr = "<hr>";
-String br = "<br>";
-String email = "";
-String telNum = "";
-String address = "";
+String email = null;
+String telNum = null;
+String address = null;
 List<String> emails = customer.getEmails(); 
 List<String> telNums= customer.getTelNums();
 List<String> addresses = customer.getAddresses(); 
@@ -43,12 +41,9 @@ ListIterator<String> iteratorP = telNums.listIterator();
 ListIterator<String> iteratorA = addresses.listIterator();
 %>
 
-<i><% if(!message.isEmpty()) { 
-	out.print(message);
-	out.print(br);
-	out.print(hr);
+<% if(!message.isEmpty()) { 
+	out.println("<i>" + message + "</i>" + "<br>" + "<hr>");
  } %>
- </i>
  
 <Table>
 
