@@ -1,0 +1,14 @@
+Teknik Servis
+--> teknik_servis_no (PK) (AI)
+--> urun_seri_id (FK)
+--> musteri_kisi_no (FK)
+--> giris_tarihi
+--> cikis_tarihi
+--> ariza_tanimi
+--> yapilan_islem
+--> yedek_parca_id (FK)
+--> garanti_durum_id (FK)
+--> teknik_servis_fiyat
+--> teknik_servis_durum_id (FK)
+--> kullanici_id (FK)
+--> last_change

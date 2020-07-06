@@ -1,0 +1,19 @@
+Musteri Adres Tablosu
+--> musteri_adres_no (pk)
+--> musteri_id (fk)
+--> musteri_adres
+--> musteri_primary_address_flag
+--> kullanici_id (FK)
+--> last_change
+
+CREATE TABLE musteri_adres (
+    musteri_adres_no INT AUTO_INCREMENT,
+    musteri_id INT NOT NULL,
+    musteri_adres VARCHAR(255) NOT NULL,
+    musteri_primary_address_flag boolean NOT NULL,
+    kullanici_id INT NOT NULL,
+    last_change DATE NOT NULL,
+    PRIMARY KEY (musteri_adres_no),
+    FOREIGN KEY (musteri_id) REFERENCES musteri(musteri_id),
+    FOREIGN KEY (kullanici_id) REFERENCES kullanici(kullanici_id)
+);

@@ -1,0 +1,14 @@
+Teklif Durum Tablosu
+--> teklif_durum_id (pk)
+--> teklif_durumu
+  --> (Aktif)
+  --> (Pasif)
+  --> (Onaylandı)
+  --> (Ret)
+
+  CREATE TABLE teklif_durum (
+    teklif_durum_id INT PRIMARY KEY AUTO_INCREMENT,
+    teklif_durumu  VARCHAR(50) NOT NULL UNIQUE
+);
+
+INSERT teklif_durum(teklif_durumu) values ("Onaylandı");

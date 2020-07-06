@@ -1,0 +1,6 @@
+Garanti Durum
+--> garanti_durum_id (PK) (AI)
+--> garanti_durum
+    --> Garanti Kapsamında
+    --> Garanti Kapsamında Değil
+--> last_change

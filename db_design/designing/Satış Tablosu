@@ -1,0 +1,27 @@
+Satış Tablosu
+--> fatura_no (pk)
+--> musteri_id (fk)
+--> cihaz_id (fk)
+--> cihaz_detay_id (fk)
+--> teklif_no (fk)
+--> fatura_tarih
+--> calisan_id (fk)
+
+CREATE TABLE `tekniksatistakip`.`fatura` (
+  `fatura_no` VARCHAR(50) NOT NULL UNIQUE,
+  `musteri_id` INT NOT NULL,
+  `cihaz_id` INT NOT NULL,
+  `cihaz_detay_id` INT NULL,
+  `teklif_no` INT NULL,
+  `fatura_tarih` DATE NOT NULL,
+  `kullanici_id` INT NULL,
+  PRIMARY KEY (`fatura_no`),
+FOREIGN KEY (musteri_id) REFERENCES musteri(musteri_id),
+FOREIGN KEY (cihaz_id) REFERENCES cihaz(cihaz_id),
+FOREIGN KEY (cihaz_detay_id) REFERENCES cihaz_detay(cihaz_detay_id),
+FOREIGN KEY (teklif_no) REFERENCES teklif(teklif_no),
+FOREIGN KEY (kullanici_id) REFERENCES kullanici(kullanici_id)
+);
+ALTER TABLE fatura ADD COLUMN fatura_seri_no VARCHAR(100) NOT NULL UNIQUE AFTER fatura_no;
+ALTER TABLE fatura CHANGE `fatura_seri_no` `fatura_no` INT NOT NULL;
+ALTER table fatura MODIFY fatura_id INT AUTO_INCREMENT;

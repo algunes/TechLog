@@ -1,0 +1,35 @@
+Cihaz Tablosu
+--> cihaz_id (pk)
+--> cihaz_tanimi
+--> cihaz_markasi
+--> cihaz_modeli (UNIQUE)
+--> cihaz_stok_adedi
+
+CREATE TABLE cihaz (
+    cihaz_id INT NOT NULL AUTO_INCREMENT,
+    cihaz_markasi  VARCHAR(50) NOT NULL,
+    cihaz_modeli   VARCHAR(50) NOT NULL UNIQUE,
+    cihaz_stok_adedi INT NOT NULL,
+    cihaz_tanimi  VARCHAR(255)    NOT NULL,
+    PRIMARY KEY (cihaz_id)
+);
+
+---------------------
+
+ALTER TABLE cihaz add cihaz_stok_adedi INT NOT NULL;
+
+ALTER table cihaz
+	ADD CONSTRAINT UNIQUE (cihaz_modeli);
+
+ALTER table cihaz
+MODIFY cihaz_tanimi varchar(255) NOT NULL;
+
+ALTER table cihaz
+MODIFY cihaz_markasi varchar(50) NOT NULL;
+
+INSERT INTO cihaz (cihaz_tanimi, cihaz_markasi, cihaz_modeli) VALUES ('Gıda Paketleme Gaz Kontrol Cihazı', 'Dansensor', 'MAP Check');
+SELECT * FROM tekniksatistakip.cihaz;
+
+UPDATE cihaz
+   SET cihaz_modeli = 'Analysette 3 Spartan'
+   WHERE cihaz_id = 6;

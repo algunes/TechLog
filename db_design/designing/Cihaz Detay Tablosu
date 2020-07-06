@@ -1,0 +1,25 @@
+Cihaz Detay Tablosu
+--> cihaz_detay_id (pk)
+--> cihaz_id (fk)
+--> cihaz_seri_no (UNIQUE)
+
+CREATE TABLE cihaz_detay (
+    cihaz_detay_id INT AUTO_INCREMENT,
+    cihaz_seri_no  VARCHAR(50) NOT NULL UNIQUE,
+    cihaz_id  INT NOT NULL,
+    PRIMARY KEY (cihaz_detay_id),
+    FOREIGN KEY (cihaz_id) REFERENCES cihaz(cihaz_id)
+);
+
+----------------
+CREATE TABLE cihaz_detay (
+    cihaz_detay_id INT AUTO_INCREMENT,
+    cihaz_seri_no  VARCHAR(20) NOT NULL UNIQUE,
+    cihaz_id  INT NOT NULL,
+    PRIMARY KEY (cihaz_detay_id),
+    FOREIGN KEY (cihaz_id) REFERENCES cihaz(cihaz_id) ON DELETE CASCADE
+);
+
+DROP TABLE cihaz_detay;
+
+ALTER TABLE cihaz_detay MODIFY cihaz_seri_no varchar(50) AFTER cihaz_id;

@@ -1,0 +1,16 @@
+Entity Table
+--> entity_id (pk)
+--> entity_name (UNIQUE)
+--> customer_management
+--> invoice_management
+--> offer_management
+--> stock_management
+
+CREATE TABLE kullanici_yetkileri (
+    yetki_id INT PRIMARY KEY AUTO_INCREMENT,
+    yetki_adi  VARCHAR(50) NOT NULL UNIQUE,
+    musteri_yonetimi BOOLEAN NOT NULL,
+    fatura_yonetimi BOOLEAN NOT NULL,
+    teklif_yonetimi BOOLEAN NOT NULL,
+    stok_yonetimi BOOLEAN NOT NULL
+);

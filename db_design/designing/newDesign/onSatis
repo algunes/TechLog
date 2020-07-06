@@ -1,0 +1,11 @@
+Ön Satis
+--> on_satis_id (PK) (AI)
+--> kullanici_id (FK)
+--> musteri_id (FK)
+--> musteri_kisi_no (FK)
+--> urun_desc_id (FK)
+--> on_satis_miktar
+--> birim_id (FK)
+--> on_satis_adet
+--> fiyat
+--> last_change

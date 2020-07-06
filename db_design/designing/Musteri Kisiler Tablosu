@@ -1,0 +1,27 @@
+Müşteri Kişiler Tablosu
+--> musteri_kisi_no (pk)
+--> musteri_id (fk)
+--> musteri_ad
+--> musteri_soyad
+--> musteri_departman
+--> musteri_pozisyon
+--> musteri_kisi_tarih
+--> musteri_aktif_flag
+--> kullanici_id (FK)
+--> last_change
+
+CREATE TABLE musteri_kisiler (
+    musteri_kisi_no INT AUTO_INCREMENT,
+    musteri_id INT NOT NULL,
+    musteri_ad VARCHAR(100) NOT NULL,
+    musteri_soyad VARCHAR(100) NOT NULL,
+    musteri_departman VARCHAR(255) NOT NULL,
+    musteri_pozisyon VARCHAR(255),
+    musteri_kisi_tarih DATE NOT NULL,
+    musteri_aktif_flag boolean NOT NULL,
+    kullanici_id INT NOT NULL,
+    last_change DATE NOT NULL
+    PRIMARY KEY (musteri_kisi_no),
+    FOREIGN KEY (musteri_id) REFERENCES musteri(musteri_id),
+    FOREIGN KEY (kullanici_id) REFERENCES kullanici(kullanici_id)
+);

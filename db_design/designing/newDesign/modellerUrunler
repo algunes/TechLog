@@ -1,0 +1,5 @@
+Modeller / Urunler
+--> model_id (PK) (AI)
+--> marka_id (FK)
+--> model
+--> last_change

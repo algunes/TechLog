@@ -1,0 +1,33 @@
+Müşteri Tablosu
+--> musteri_id (pk)
+--> musteri_kurumsal_isim
+--> musteri_tarih
+--> kullanici_id
+
+CREATE TABLE musteri (
+    musteri_id INT NOT NULL AUTO_INCREMENT,
+    musteri_kurumsal_isim VARCHAR(50) NOT NULL,
+    musteri_tarih DATE NOT NULL,
+    kullanici_id INT NOT NULL,
+    PRIMARY KEY (musteri_id),
+    FOREIGN KEY (kullanici_id) REFERENCES kullanici(kullanici_id)
+);
+
+ALTER table musteri
+MODIFY musteri_tel varchar(30) NOT NULL;
+
+ALTER table musteri
+MODIFY musteri_adres varchar(255) NOT NULL;
+
+INSERT INTO musteri ( musteri_adi, musteri_soyadi, musteri_kurum, musteri_gorev, musteri_tel, musteri_email, musteri_adres, musteri_tarih )
+   VALUES
+   ( "Yunus", "Güneş", "Işık Üniversitesi", "Öğretim Üyesi", "+905314984365", "yunus.gunes@isikun.edu.tr", "Işık Üniversitesi Güzel Sanatlar Fakültesi Maslak Sarıyer / İstanbul", curdate() );
+
+SELECT * FROM tekniksatistakip.musteri;
+ALTER TABLE musteri DROP COLUMN musteri_adres;
+ALTER TABLE musteri RENAME COLUMN musteri_kurum TO musteri_kurumsal_isim;
+ALTER table musteri MODIFY musteri_kurumsal_isim varchar(255) NOT NULL;
+ALTER TABLE musteri_adres ADD COLUMN musteri_kisi_no INT AFTER musteri_id;
+ALTER table musteri_adres
+	ADD CONSTRAINT FOREIGN KEY (musteri_kisi_no)
+	REFERENCES musteri_kisiler(musteri_kisi_no);

@@ -1,0 +1,4 @@
+Markalar
+--> marka_id (PK) (AI)
+--> marka (UNIQUE)
+--> last_change

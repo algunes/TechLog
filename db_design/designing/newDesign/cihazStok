@@ -1,0 +1,5 @@
+Cihaz Stok
+--> cihaz_stok_id (FK) (AI)
+--> model_id (FK)
+--> stok_adedi
+--> last_change

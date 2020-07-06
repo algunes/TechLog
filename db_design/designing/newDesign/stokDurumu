@@ -1,0 +1,7 @@
+Stok Durumu
+--> stok_durum_id (PK) (AI)
+--> stok_durumu
+    --> Stokta
+    --> Satıldı
+    --> Dış Kayıt
+--> last_change

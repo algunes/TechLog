@@ -1,0 +1,7 @@
+Teklif Durum
+--> teklif_durum_id (PK) (AI)
+--> teklif_durum
+    --> Aktif
+    --> Pasif
+    --> Onaylandi
+    --> Ret

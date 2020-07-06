@@ -1,0 +1,7 @@
+Sarf Stok
+--> sarf_stok_id (PK) (AI)
+--> sarf_id (FK)
+--> sarf_miktari
+--> birim_id (FK)
+--> stok_adedi
+--> last_change

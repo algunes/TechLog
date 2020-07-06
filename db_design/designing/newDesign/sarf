@@ -1,0 +1,6 @@
+Sarf
+--> sarf_id (PK)
+--> marka_id (FK)
+--> model_id
+--> sarf
+--> last_change

@@ -1,0 +1,6 @@
+Aksesuar
+--> aksesuar_id (PK)
+--> marka_id (FK)
+--> model_id (FK)
+--> aksesuar
+--> last_change

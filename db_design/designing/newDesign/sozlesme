@@ -1,0 +1,7 @@
+Sozlesme
+--> sozlesme_id (PK) (AI)
+--> urun_seri_id (FK)
+--> baslangic_tarih
+--> bitis_tarih
+--> periyod
+--> last_change
