@@ -17,17 +17,16 @@
 <title>Corporation Details</title>
 </head>
 <body>
-<% String message = "";
-if(request.getAttribute("message") != null) {
-message = (String)request.getAttribute("message");
-	} %>
-<% String hr = "<hr>"; %>
-<% String br = "<br>"; %>
-<% Corporation corporation = (Corporation)request.getAttribute("corporation"); %>
-<% List<Customer> customers = corporation.getCustomers(); %>
-<% ListIterator<Customer> iteratorC = customers.listIterator(); %>
-<% Customer customer = new Customer(); %>
-
+<% 
+ String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
+ String hr = "<hr>";
+ String br = "<br>";
+ Corporation corporation = (Corporation)request.getAttribute("corporation");
+ List<Customer> customers = corporation.getCustomers(); 
+ ListIterator<Customer> iteratorC = customers.listIterator();
+ Customer customer = null; 
+ %>
+<i>
 <% if(!message.isEmpty()) { 
 
 	out.print(message);
@@ -35,6 +34,7 @@ message = (String)request.getAttribute("message");
 	out.print(hr);
 	
  } %>
+ </i>
  
 <p><%= corporation.getName() %></p>
 <Table>
@@ -42,8 +42,11 @@ message = (String)request.getAttribute("message");
 customer = iteratorC.next(); %>
 <tr>
 <td>
-<%= customer.getFirstname() %> <%= customer.getLastname() %> <a class="external" href="<%request.getContextPath();%>GetCustomer?id=<%= customer.getCustomer_id() %>"> </a>
+<a href="<%request.getContextPath();%>GetCustomer?id=<%= customer.getCustomer_id() %>&job=getCustomer"><%= customer.getFirstname() %> <%= customer.getLastname() %></a><br>
+<small><a href="<%= request.getContextPath() %>/AddCustomer?job=addCustomerIntoACorporation&id=<%= corporation.getId() %>">Add</a></small><br>
 </td>
+
+
 </tr>
 <% } %>
 </Table>

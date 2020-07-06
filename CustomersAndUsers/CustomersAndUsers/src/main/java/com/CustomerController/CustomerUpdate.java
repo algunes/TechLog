@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.TechLog.Customers.Corporation;
 import com.TechLog.Customers.Customer;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
 import com.TechLog.Services.UserImp.UserServiceImp;
@@ -22,21 +23,37 @@ public class CustomerUpdate extends HttpServlet {
 			throws ServletException, IOException {
 
 		Long id = Long.parseLong(request.getParameter("id"));
-		int job = Integer.parseInt(request.getParameter("job"));
+		String job = request.getParameter("job");
 
 		switch (job) {
-		/*
-		 * 1- Update customer firstname
-		 * 2- Update customer lastname
-		 * 3- update customer department
-		 * 4- update customer position
-		 * 5- update customer email 
-		 * 6- update customer tel. number 
-		 * 7- update customer address  
-		 * 
-		 */
 		
-		case 1: {
+		case "updateCorporationName": {
+			Corporation corporation = new CustomerServiceImp().getCorporation(id, false);
+			
+			request.setAttribute("id", id);
+			request.setAttribute("value", corporation.getName());
+			request.setAttribute("job", job);
+			request.setAttribute("formAction", "customerUpdate");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
+			rd.forward(request, response);
+			break;			
+		}
+		
+		case "updateCorporationSector": {
+			Corporation corporation = new CustomerServiceImp().getCorporation(id, false);
+			
+			request.setAttribute("id", id);
+			request.setAttribute("value", corporation.getSector());
+			request.setAttribute("job", job);
+			request.setAttribute("formAction", "customerUpdate");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
+			rd.forward(request, response);
+			break;			
+		}
+		
+		case "updateCustomerName": {
 			Customer customer = new CustomerServiceImp().getCustomer(id, true);
 			
 			request.setAttribute("id", customer.getCustomer_id());
@@ -50,7 +67,7 @@ public class CustomerUpdate extends HttpServlet {
 			break;
 		}
 		
-		case 2: {
+		case "updateCustomerLastname": {
 			Customer customer = new CustomerServiceImp().getCustomer(id, true);
 			
 			request.setAttribute("id", customer.getCustomer_id());
@@ -63,7 +80,7 @@ public class CustomerUpdate extends HttpServlet {
 			break;
 		}
 		
-		case 3: {
+		case "updateCustomerDepartment": {
 			Customer customer = new CustomerServiceImp().getCustomer(id, true);
 			
 			request.setAttribute("id", customer.getCustomer_id());
@@ -76,7 +93,7 @@ public class CustomerUpdate extends HttpServlet {
 			break;
 		}
 		
-		case 4: {
+		case "updateCustomerPosition": {
 			Customer customer = new CustomerServiceImp().getCustomer(id, true);
 			
 			request.setAttribute("id", customer.getCustomer_id());
@@ -90,7 +107,7 @@ public class CustomerUpdate extends HttpServlet {
 		}
 		
 		
-		case 5: {
+		case "updateCustomerEmail": {
 			int emailIndex = Integer.parseInt(request.getParameter("index"));
 			String email = new CustomerServiceImp()
 					.getCustomer(id, true)
@@ -108,7 +125,7 @@ public class CustomerUpdate extends HttpServlet {
 			break;
 		}
 
-		case 6: {
+		case "updateCustomerTelNum": {
 			int telNumIndex = Integer.parseInt(request.getParameter("index"));
 			String telNum = new CustomerServiceImp()
 					.getCustomer(id, true)
@@ -126,7 +143,7 @@ public class CustomerUpdate extends HttpServlet {
 			break;
 		}
 
-		case 7: {
+		case "updateCustomerAddress": {
 			int addressIndex = Integer.parseInt(request.getParameter("index"));
 			String address = new CustomerServiceImp()
 					.getCustomer(id, true)
@@ -151,23 +168,39 @@ public class CustomerUpdate extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int job = Integer.parseInt(request.getParameter("job"));
+		String job = request.getParameter("job");
 		Long id = Long.parseLong(request.getParameter("id"));
 		Users user = new UserServiceImp().getUser(1L, false) ; 
 
 		switch (job) {
 		
-		/*
-		 * 1- Update customer firstname 
-		 * 2- Update customer lastname 
-		 * 3- Update customer department 
-		 * 4- Update customer position 
-		 * 5- Update customer email
-		 * 6- Update customer tel. number
-		 * 7- Update customer address 
-		 */
+		case "updateCorporationName": {
+			
+			String name = request.getParameter("output");
+			Corporation corporation = new CustomerServiceImp().updateCorporationName(id, name, user);
+			
+			request.setAttribute("message", name + " is succesfully updated!");
+			request.setAttribute("corporation", corporation);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
+			rd.forward(request, response);
+			break;
+		}
 		
-		case 1: {
+case "updateCorporationSector": {
+			
+			String sector = request.getParameter("output");
+			Corporation corporation = new CustomerServiceImp().updateCorporationSector(id, sector, user);
+			
+			request.setAttribute("message", sector + " is succesfully updated to " + corporation.getSector());
+			request.setAttribute("corporaion", corporation);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
+			rd.forward(request, response);
+			break;
+		}
+		
+		case "updateCustomerFirstname": {
 			String firstname = request.getParameter("output");
 			Customer customer = new CustomerServiceImp().updateCustomerFirstname(id, firstname, user);
 
@@ -179,7 +212,7 @@ public class CustomerUpdate extends HttpServlet {
 			break;
 		}
 		
-		case 2: {
+		case "updateCustomerLastname": {
 			String lastname = request.getParameter("output");
 			Customer customer = new CustomerServiceImp().updateCustomerLastname(id, lastname, user);
 
@@ -191,7 +224,7 @@ public class CustomerUpdate extends HttpServlet {
 			break;
 		}
 		
-		case 3: {
+		case "updateCustomerDepartment": {
 			String department= request.getParameter("output");
 			Customer customer = new CustomerServiceImp().updateCustomerDepartment(id, department, user);
 
@@ -203,19 +236,19 @@ public class CustomerUpdate extends HttpServlet {
 			break;
 		}
 		
-		case 4: {
+		case "updateCustomerPosition": {
 			String position= request.getParameter("output");
 			Customer customer = new CustomerServiceImp().updateCustomerPosition(id, position, user);
 
 			request.setAttribute("customer", customer);
-			request.setAttribute("message", customer.getDepartment() + " is updated successfully!");
+			request.setAttribute("message", customer.getPosition() + " is updated successfully!");
 			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 			rd.forward(request, response);
 			break;
 		}
 		
-		case 5: {
+		case "updateCustomerEmail": {
 			int index = Integer.parseInt(request.getParameter("index"));
 			String email = request.getParameter("output");
 
@@ -229,7 +262,7 @@ public class CustomerUpdate extends HttpServlet {
 			break;
 		}
 
-		case 6: {
+		case "updateCustomerTelNum": {
 			String telNum = request.getParameter("output");
 			int index = Integer.parseInt(request.getParameter("index"));
 
@@ -243,7 +276,7 @@ public class CustomerUpdate extends HttpServlet {
 			break;
 		}
 
-		case 7: {
+		case "updateCustomerAddress": {
 			String address = request.getParameter("output");
 			int index = Integer.parseInt(request.getParameter("index"));
 

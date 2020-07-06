@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.TechLog.Customers.Corporation;
 import com.TechLog.Customers.Customer;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
 import com.TechLog.Services.UserImp.UserServiceImp;
@@ -20,19 +21,25 @@ public class DeleteCustomer extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Long id = Long.parseLong(request.getParameter("id"));
-		int job = Integer.parseInt(request.getParameter("job"));
+		String job = request.getParameter("job");
 		Users user = new UserServiceImp().getUser(1L, false);
 		
 		switch(job) {
 		
-		/*	case 
-		 * 1- Delete a customer 
-		 * 2- Delete an email 
-		 * 3- Delete a phone number
-		 * 4- delete an address
-		 */
+		case "removeCorporation": {
+			CustomerServiceImp cs = new CustomerServiceImp();
+			Corporation corporation = cs.getCorporation(id, false);
+			cs.removeCorporation(corporation);
+			
+			request.setAttribute("message", corporation.getName() + " and all of its records removed succesfully!");
+			request.setAttribute("corporations", cs.getAllCorporations());
+			
+			RequestDispatcher rd = request.getRequestDispatcher("CorporationList.jsp");
+			rd.forward(request, response);
+			break;
+		}
 		
-		case 1: {
+		case "removeCustomer": {
 			CustomerServiceImp cs = new CustomerServiceImp();
 			Customer customer = cs.removeCustomer(id);	
 			request.setAttribute("message", customer.getFirstname() + " " + customer.getLastname() + " from " + customer.getCorporation().getName() +" deleted succesfully!");
@@ -42,7 +49,7 @@ public class DeleteCustomer extends HttpServlet {
 			break;		
 		}
 		
-	case 2: {
+	case "removeCustomerEmail": {
 
 		int index= Integer.parseInt(request.getParameter("index"));
 
@@ -56,7 +63,7 @@ public class DeleteCustomer extends HttpServlet {
 		break;
 	}
 
-	case 3: {
+	case "removeCustomerTelNum": {
 
 		int index = Integer.parseInt(request.getParameter("index"));
 
@@ -70,7 +77,7 @@ public class DeleteCustomer extends HttpServlet {
 		break;
 	}
 
-	case 4: {
+	case "removeCustomerAddress": {
 
 		int index = Integer.parseInt(request.getParameter("index"));
 

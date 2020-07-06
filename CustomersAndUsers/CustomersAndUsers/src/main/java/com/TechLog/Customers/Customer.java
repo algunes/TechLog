@@ -37,6 +37,7 @@ public class Customer implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="corporation", nullable = false)
 	@ContainedIn
+	@IndexedEmbedded
 	private Corporation corporation;
 	
 	@Column(name="department")
@@ -47,16 +48,19 @@ public class Customer implements Serializable {
 	
 	@ElementCollection
 	@IndexedEmbedded
+	@Field
 	@Column(name="emails")
 	private List<String> emails = new ArrayList<>();
 	
 	@ElementCollection
 	@IndexedEmbedded
+	@Field
 	@Column(name="telNums")
 	private List<String> telNums = new ArrayList<>();
 	
 	@ElementCollection
 	@IndexedEmbedded
+	@Field
 	@Column(name="addresses")
 	private List<String> addresses = new ArrayList<>();
 	

@@ -9,13 +9,11 @@ import javax.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Indexed;
 
 import com.TechLog.Users.Users;
 
 
 @Entity
-@Indexed
 @Table(name="corporation")
 @DynamicUpdate
 public class Corporation implements Serializable {

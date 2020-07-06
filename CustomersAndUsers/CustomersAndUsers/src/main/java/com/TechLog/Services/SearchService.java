@@ -30,7 +30,7 @@ public class SearchService {
 					fuzzy().
 					withEditDistanceUpTo(2).
 					withPrefixLength(0).
-					onFields("firstname", "lastname", "emails.email", "phones.number").
+					onFields("firstname", "lastname", "corporation.name", "corporation.sector", "emails", "telNums", "addresses").
 					matching(key).createQuery();
 
 			// wrap Lucene query in a org.hibernate.Query
@@ -52,4 +52,5 @@ public class SearchService {
 		return results;
 
 	}
+
 }

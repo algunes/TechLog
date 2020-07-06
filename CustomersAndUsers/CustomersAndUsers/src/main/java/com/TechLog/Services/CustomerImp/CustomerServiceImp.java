@@ -243,5 +243,21 @@ public class CustomerServiceImp implements CustomerService {
 		customer.setLast_update(LocalDate.now());
 		return updateCustomer(customer, user);
 	}
+	
+	// update corporation name
+	
+	public Corporation updateCorporationName(Long id, String name, Users user) {
+		Corporation corporation = getCorporation(id, false);
+		corporation.setName(name);
+		return updateCorporation(corporation, user);
+	}
+	
+	// update corporation sector
+	
+		public Corporation updateCorporationSector(Long id, String sector, Users user) {
+			Corporation corporation = getCorporation(id, false);
+			corporation.setSector(sector);;
+			return updateCorporation(corporation, user);
+		}
 
 }

@@ -24,12 +24,14 @@ public class SearchCustomer extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String customerKeyword = request.getParameter("searchCustomer");
-		
-		List<Customer> customers = new SearchService().searchByCustomerName(customerKeyword);
+		String keyword = request.getParameter("keyword");
+		List<Customer> customers = new SearchService().searchByCustomerName(keyword);
 		request.setAttribute("customers", customers); 
 		RequestDispatcher rd = request.getRequestDispatcher("CustomerList.jsp"); 
 		rd.forward(request, response);
+
+		
+		
 	}
 
 }

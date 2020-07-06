@@ -2,8 +2,6 @@ package com.TechLog.Services.UserImp;
 
 import java.time.LocalDate;
 
-import com.TechLog.Customers.Customer;
-import com.TechLog.Dao.CustomerImp.CustomerDaoImp;
 import com.TechLog.Dao.UserImp.UserDaoImp;
 import com.TechLog.Services.UserService;
 import com.TechLog.Users.Users;

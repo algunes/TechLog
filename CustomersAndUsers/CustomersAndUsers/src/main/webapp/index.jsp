@@ -22,15 +22,15 @@
 		
 		<tr>
 		<td>
-		<a href=".<%request.getContextPath();%>/addCustomer?job=1" target="iframe_a">Add Customer</a>
+		<a href=".<%request.getContextPath();%>/addCustomer?job=addCustomer" target="iframe_a">Add Customer</a>
 		</td>
 		
 		<td>
-		<a href=".<%request.getContextPath();%>/addCorporation" target="iframe_a">Add Corporation</a>
+		<a href=".<%request.getContextPath();%>/addCustomer?job=addCorporation" target="iframe_a">Add Corporation</a>
 		</td>
 		
 		<td>
-		<a href=".<%request.getContextPath();%>/getCorporation" target="iframe_a">Show Customers</a>
+		<a href=".<%request.getContextPath();%>/getCustomer?job=getCorporationList" target="iframe_a">Show Customers</a>
 		</td>
 		
 		<td>

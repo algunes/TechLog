@@ -24,19 +24,12 @@ public class AddCustomer extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int job = Integer.parseInt(request.getParameter("job"));
+		String job = request.getParameter("job");
 		
 		
 		switch(job) {
 		
-		/* case
-		 * 1- create a customer from scratch 
-		 * 2- add an email 
-		 * 3- add a phone number
-		 * 4- add an address 
-		 */
-		
-		case 1: {
+		case "addCustomer": {
 			
 			List<Corporation> corporations = new CustomerServiceImp().getAllCorporations();
 			request.setAttribute("corporations", corporations);
@@ -45,7 +38,12 @@ public class AddCustomer extends HttpServlet {
 			break;
 		}
 		
-	case 2: {
+		case "addCorporation": {
+			response.sendRedirect("AddCorporation.jsp");
+			break;
+		}
+		
+	case "addCustomerEmail": {
 		Long id = Long.parseLong(request.getParameter("id"));
 		
 		request.setAttribute("id", id);
@@ -58,7 +56,7 @@ public class AddCustomer extends HttpServlet {
 		break;
 	}
 
-	case 3: {
+	case "addCustomerTelNum": {
 		Long id = Long.parseLong(request.getParameter("id"));
 
 		request.setAttribute("id", id);
@@ -71,7 +69,7 @@ public class AddCustomer extends HttpServlet {
 		break;
 	}
 
-	case 4: {
+	case "addCustomerAddress": {
 		Long id = Long.parseLong(request.getParameter("id"));
 
 		request.setAttribute("id", id);
@@ -83,6 +81,16 @@ public class AddCustomer extends HttpServlet {
 		rd.forward(request, response);
 		break;
 	}
+	
+	case "addCustomerIntoACorporation": {
+		Corporation corporation = new CustomerServiceImp().getCorporation(Long.parseLong(request.getParameter("id")), false);
+		request.setAttribute("job", job);
+		request.setAttribute("corporation", corporation);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("AddCustomer.jsp");
+		rd.forward(request, response);
+		break;
+	}
 		}
 		
 			
@@ -90,22 +98,14 @@ public class AddCustomer extends HttpServlet {
        
     	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-    		int job = Integer.parseInt(request.getParameter("job"));
+    		String job = request.getParameter("job");
     		Users user = new UserServiceImp().getUser(1L, false);
     		
     		
     		switch(job) {
     		
-    		/* case
-    		 * 1- create a customer from scratch 
-    		 * 2- add an email 
-    		 * 3- add phone number
-    		 * 4- add an address
-    		 */
-    		
-    		case 1: {
- 
-    			
+    		case "addCustomer": {
+   			
     			String firstname = request.getParameter("firstname");
     			String lastname =request.getParameter("lastname");
     			String department = request.getParameter("department");
@@ -126,7 +126,22 @@ public class AddCustomer extends HttpServlet {
     		
     		}
     		
-    	case 2: {
+    		case "addCorporation" : {
+    			
+    			String name = request.getParameter("name");
+    			String sector = request.getParameter("sector");
+    			Boolean isActive = Boolean.parseBoolean(request.getParameter("isActive"));
+    			
+    			Corporation corporation = new CustomerServiceImp().createCorporation(name, sector, isActive, null, user);
+    			
+    			request.setAttribute("corporation", corporation); 
+    			request.setAttribute("message", corporation.getName() + " is created succesfully!");
+    			RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp"); 
+    			rd.forward(request, response);
+    			break;
+    		}
+    		
+    	case "addCustomerEmail": {
     		Long id = Long.parseLong(request.getParameter("id"));
     		String email = request.getParameter("output");
 
@@ -139,7 +154,7 @@ public class AddCustomer extends HttpServlet {
 			break;
 		}
 
-		case 3: {
+		case "addCustomerTelNum": {
 			Long id = Long.parseLong(request.getParameter("id"));
 			String telNum = request.getParameter("output");
 
@@ -153,7 +168,7 @@ public class AddCustomer extends HttpServlet {
 			break;
 		}
 
-		case 4: {
+		case "addCustomerAddress": {
 			Long id = Long.parseLong(request.getParameter("id"));
 			String address = request.getParameter("output");
 

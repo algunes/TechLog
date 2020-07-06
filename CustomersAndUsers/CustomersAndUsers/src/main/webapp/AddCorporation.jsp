@@ -14,8 +14,9 @@
 <title>Add Corporation</title>
 </head>
 <body>
-<form action="addCorporation" method="post">
+<form action="addCustomer" method="post">
 
+		<input type="hidden" name="job" value="addCorporation">
 		<input type="text" placeholder="Corporation Name" name="name" maxlength="255"><br>
 		<input type="text" placeholder="Sector" name="sector" maxlength="255"><br>
 		<input type="checkbox" name="isActive"><br>

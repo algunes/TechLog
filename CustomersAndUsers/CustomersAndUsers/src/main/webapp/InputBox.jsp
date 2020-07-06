@@ -15,33 +15,33 @@
 </head>
 <body>
 <% 
-Long id = (Long)request.getAttribute("id"); 					// Customer id
-String formAction = "";											// variable formAction attribute
-if(request.getAttribute("formAction") != null)
-formAction = (String)request.getAttribute("formAction");
-String defaultValue = "";										// text which want to modify
-if(request.getAttribute("value") != null) {
-defaultValue = (String)request.getAttribute("value");
-}
-int index = 0;													// object index (email, phone number, address etc.)
-if(request.getAttribute("index") != null) {
-index = (int)request.getAttribute("index");
-}
-int job = 0;													// job number
-if(request.getAttribute("job") != null) {
-job = (int) request.getAttribute("job");
-}
-String message = "";											// a text if want to show
-if(request.getAttribute("message") != null) {
-message = (String) request.getAttribute("message"); 
-}
-String placeholder = "";										// placeholder for textarea
-if(request.getAttribute("placeholder") != null) {
-placeholder = (String) request.getAttribute("placeholder");
-}
-%>
+Long id = (Long)request.getAttribute("id"); // Customer id
 
-<%= message %>
+String formAction = (request.getAttribute("formAction") != null ? (String)request.getAttribute("formAction"): "") ;	// variable formAction attribute
+
+String defaultValue = (request.getAttribute("value") != null ? (String)request.getAttribute("value") : "");	// text which want to modify
+
+int index = (request.getAttribute("index") != null ? (int)request.getAttribute("index") : 0);	// collection object index (email, phone number, address etc.)
+
+String job = (request.getAttribute("job") != null ? (String)request.getAttribute("job") : "");	// job
+
+String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
+
+String placeholder = (request.getAttribute("placeholder") != null ? (String) request.getAttribute("placeholder") : "");	// placeholder for textarea
+
+String hr = "<hr>";
+		
+String br = "<br>"; %>
+<i>
+<% if(!message.isEmpty()) { 
+
+		out.print(message);
+		out.print(br);
+		out.print(hr);
+	
+ 	} 
+%>
+</i>
 
 
 <form action="<%= formAction %>" id="input" method="post">

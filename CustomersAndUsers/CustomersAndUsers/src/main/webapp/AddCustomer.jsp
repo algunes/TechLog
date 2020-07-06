@@ -17,10 +17,13 @@
 
 </head>
 <body>
-	
-	<% List<Corporation> corporations = (List<Corporation>)request.getAttribute("corporations"); %>
-	<% ListIterator<Corporation> iteratorC = corporations.listIterator(); %>
-	<% Corporation corporation = new Corporation(); %>
+<%  
+@SuppressWarnings(value={"unchecked"})
+List<Corporation> corporations = (request.getAttribute("corporations") instanceof java.util.List ? (List<Corporation>)request.getAttribute("corporations") : new ArrayList<>());
+Corporation scorporation = (request.getAttribute("corporation") != null ? (Corporation)request.getAttribute("corporation") : null);
+ListIterator<Corporation> iteratorC = corporations.listIterator();
+Corporation corporation; 
+%>
 
 
 	<form action="addCustomer" method="post">
@@ -29,7 +32,7 @@
 		<input type="text" placeholder="Lastname" name="lastname" maxlength="255"><br>
 
 		<select name="corporation">
-		<option value="">Select a Corporation</option>
+		<option value="<%= scorporation.getId() %>"><%= scorporation.getName() %></option>
 
 			<% 	while (iteratorC.hasNext()) {
 			
@@ -42,7 +45,7 @@
 		<input type="email" placeholder="Email" name="email" maxlength="255"><br>
 		<input type="tel" placeholder="Telephone Number" name="telNum" maxlength="255"><br>
 		<input type="text" placeholder="Address" name="address" maxlength="255"><br>
-		<input type="hidden" name="job" value="1"><br>
+		<input type="hidden" name="job" value="addCustomer"><br>
 		
 		<input value="Submit" type="submit">
 

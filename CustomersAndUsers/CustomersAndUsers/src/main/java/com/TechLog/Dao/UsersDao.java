@@ -2,7 +2,6 @@ package com.TechLog.Dao;
 
 import java.util.List;
 
-import com.TechLog.Customers.Corporation;
 import com.TechLog.Users.Users;
 
 public interface UsersDao {
