@@ -5,12 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css"
-	href=".<%request.getContextPath();%>/css/default.css" />
-<link rel="stylesheet" type="text/css"
-	href=".<%request.getContextPath();%>/css/syntax.css" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <title>Input</title>
 </head>
 <body>
@@ -39,13 +37,15 @@ String placeholder = (request.getAttribute("placeholder") != null ? (String) req
 
 
 <form action="<%= formAction %>" id="input" method="post">
+<div class="form-group">
 <input type="hidden" value="<%= index %>" name="index"><br>
 <input type="hidden" value="<%= job %>" name="job"><br>
 <input type="hidden" value="<%= id %>" name="id"><br>
-<textarea form="input" maxlength="255" placeholder="<%= placeholder %>" name="output" rows="6" cols="50"><%= defaultValue %></textarea><br>
+<textarea form="input" class="form-control" maxlength="255" placeholder="<%= placeholder %>" name="output" rows="6" cols="50"><%= defaultValue %></textarea><br>
 <%-- <input type="text" value="<%= defaultValue %>" placeholder="<%= placeholder %>" name="output" maxlength="255"><br>
  --%>
- <input value="Submit" type="submit">
+ <input class="btn btn-primary" value="Submit" type="submit">
+ </div>
 </form>
 
 </body>

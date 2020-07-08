@@ -7,13 +7,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css"
-	href=".<%request.getContextPath();%>/css/default.css" />
-<link rel="stylesheet" type="text/css"
-	href=".<%request.getContextPath();%>/css/syntax.css" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script>
 function deleteMsg() {
   alert("Are you sure to delete this?");
@@ -45,7 +42,9 @@ ListIterator<String> iteratorA = addresses.listIterator();
 	out.println("<i>" + message + "</i>" + "<br>" + "<hr>");
  } %>
  
-<Table>
+ <div class="container">
+ 
+<Table class="table table-striped">
 
 <tr>
 <td>
@@ -135,6 +134,6 @@ address = iteratorA.next();%>
 </tr>
 </Table>
 <a href="<%= request.getContextPath() %>/DeleteCustomer?id=<%= customer.getCustomer_id() %>&job=removeCustomer" onclick="deleteMsg()" style="float:center"> Delete This</a>
-
+</div>
 </body>
 </html>

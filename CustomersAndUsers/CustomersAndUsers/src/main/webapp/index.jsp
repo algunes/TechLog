@@ -5,45 +5,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css"
-	href=".<%request.getContextPath();%>/css/default.css" />
-<link rel="stylesheet" type="text/css"
-	href=".<%request.getContextPath();%>/css/syntax.css" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 <title>Customer Cards</title>
 </head>
 <body>
-	<div class="container">
-		<h1 id="hi">Customer Cards</h1>
+
+<!-- Navigation -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+          <img src="http://placehold.it/150x50?text=Logo" alt="">
+        </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" target="iframe_a" href=".<%request.getContextPath();%>/home.jsp">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" target="iframe_a" href=".<%request.getContextPath();%>/addCustomer?job=addCustomer">Add Customer</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" target="iframe_a" href=".<%request.getContextPath();%>/addCustomer?job=addCorporation">Add Corporation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" target="iframe_a" href=".<%request.getContextPath();%>/getCustomer?job=getCorporationList" target="iframe_a">Show Customers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href=".<%request.getContextPath();%>/searchCustomer" target="iframe_a">Search Customer</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href=".<%request.getContextPath();%>/users" target="iframe_a">Users</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <h1 class="mt-4">Customer Cards</h1>
+  <iframe src=".<%request.getContextPath();%>/home.jsp" width="100%" height="500" name="iframe_a" style="border:none;"></iframe>
+</div>
+<!-- /.container -->
 		
-		<table>
-		
-		<tr>
-		<td>
-		<a href=".<%request.getContextPath();%>/addCustomer?job=addCustomer" target="iframe_a">Add Customer</a>
-		</td>
-		
-		<td>
-		<a href=".<%request.getContextPath();%>/addCustomer?job=addCorporation" target="iframe_a">Add Corporation</a>
-		</td>
-		
-		<td>
-		<a href=".<%request.getContextPath();%>/getCustomer?job=getCorporationList" target="iframe_a">Show Customers</a>
-		</td>
-		
-		<td>
-		<a href=".<%request.getContextPath();%>/searchCustomer" target="iframe_a">Search Customer</a>
-		</td>
-		
-		<td>
-		<a href=".<%request.getContextPath();%>/users" target="iframe_a">Users</a>
-		</td>
-		
-		</table>
-		
-		<iframe src=".<%request.getContextPath();%>/home.jsp" width="100%" height="500" name="iframe_a" style="border:none;"></iframe>
-	</div>
 </body>
 </html>

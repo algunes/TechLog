@@ -7,12 +7,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css"
-	href=".<%request.getContextPath();%>/css/default.css" />
-<link rel="stylesheet" type="text/css"
-	href=".<%request.getContextPath();%>/css/syntax.css" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <title>Add Customer</title>
 
 </head>
@@ -26,28 +24,26 @@ Corporation corporation = null;
 %>
 
 	<form action="addCustomer" method="post">
-
-		<input type="text" placeholder="Firstname" name="firstname"
-			maxlength="255"><br> <input type="text"
-			placeholder="Lastname" name="lastname" maxlength="255"><br>
-
-		<select name="corporation">
+	<div class="form-group">
+<div class="col-sm-10">
+		<input type="text" class="form-control" placeholder="Firstname" name="firstname"
+			maxlength="255">
+			</div>
+			<div class="col-sm-10">
+		<input type="text" class="form-control" placeholder="Lastname"  name="lastname" maxlength="255">
+		</div>
+		<div class="col-sm-10">
+		<select class="custom-select mt-3" name="corporation">
 
 			<% if(scorporation != null) {
 		
 			out.println("<option value=" + Long.toString(scorporation.getId()) + ">" + scorporation.getName() + "</option>");
 			
-			while (iteratorC.hasNext()) {	
-				corporation = iteratorC.next();  
-			
-			out.print("<option value=" + Long.toString(corporation.getId()) + ">" + corporation.getName() + "</option>");
-
-			 } 
 			} 
 		
 		else {
 			
-			out.println("<option value=''> Select a Corporation </option>");
+			out.println("<option selected> Select a Corporation </option>");
 
 		 	while (iteratorC.hasNext()) {
 			
@@ -59,16 +55,33 @@ Corporation corporation = null;
 			%>
 
 
-		</select><br> <input type="text" placeholder="Department"
-			name="department" maxlength="255"><br> <input
-			type="text" placeholder="Position" name="position" maxlength="255"><br>
-		<input type="email" placeholder="Email" name="email" maxlength="255"><br>
-		<input type="tel" placeholder="Telephone Number" name="telNum"
-			maxlength="255"><br> <input type="text"
-			placeholder="Address" name="address" maxlength="255"><br>
-		<input type="hidden" name="job" value="addCustomer"><br>
+		</select> 
+		</div>
+		<div class="col-sm-10">
+		<input type="text" class="form-control" placeholder="Department"
+			name="department" maxlength="255"> 
+			</div>
+			<div class="col-sm-10">
+			<input
+			type="text" class="form-control" placeholder="Position" name="position" maxlength="255">
+			</div>
+			<div class="col-sm-10">
+		<input type="email" class="form-control" placeholder="Email" name="email" maxlength="255">
+		</div>
+		<div class="col-sm-10">
+		<input type="tel" class="form-control" placeholder="Telephone Number" name="telNum"
+			maxlength="255">
+			</div>
+			<div class="col-sm-10">
+			<input type="text" class="form-control"
+			placeholder="Address" name="address" maxlength="255">
+			</div>
+		<input type="hidden" name="job" value="addCustomer">
 
-		<input value="Submit" type="submit">
+		<div class="col-sm-10">
+		<input class="btn btn-primary" value="Submit" type="submit">
+		</div>
+		</div>
 
 	</form>
 
