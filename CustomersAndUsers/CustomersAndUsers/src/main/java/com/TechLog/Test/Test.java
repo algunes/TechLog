@@ -1,8 +1,17 @@
 package com.TechLog.Test;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
 import com.TechLog.Customers.Corporation;
 import com.TechLog.Customers.CorporationBuilder;
@@ -28,8 +37,92 @@ public class Test {
 //				.setCreatedBy(new UserServiceImp().getUser(1L, false))
 //				.build();
 		
-		new CustomerServiceImp().createCustomer("İŞüğÖÇ", "polüğşi", 1L, "Asişç", "tyutyu", "asert@fgt.com", "123654789", "ıuyuyuüğüğüğüğişi", new UserServiceImp().getUser(1L, false));
+		SecureRandom random = new SecureRandom();
+		byte[] salt = new byte[16];
+		random.nextBytes(salt);
 		
+		
+		String password = "1234";
+		
+		KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
+		
+		SecretKeyFactory factory = null;
+		
+		try {
+			factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+
+		byte[] hash = null;
+		
+		try {
+			hash = factory.generateSecret(spec).getEncoded();
+		} catch (InvalidKeySpecException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("original password: " + password);
+		System.out.println("hashed password: " + Arrays.toString(hash));
+		System.out.println("salt is: " + Arrays.toString(salt));
+		System.out.println();
+		
+		spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
+		
+		try {
+			factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+
+		byte[] hash2 = null;
+		
+		try {
+			hash2 = factory.generateSecret(spec).getEncoded();
+		} catch (InvalidKeySpecException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("original password: " + password);
+		System.out.println("hashed password: " + Arrays.toString(hash2));
+		System.out.println("salt is: " + Arrays.toString(salt));	
+		System.out.println();
+		
+		String password2 = "12345";
+		
+		spec = new PBEKeySpec(password2.toCharArray(), salt, 65536, 128);
+		
+		try {
+			factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+
+		byte[] hash3 = null;
+		
+		try {
+			hash3 = factory.generateSecret(spec).getEncoded();
+		} catch (InvalidKeySpecException e) {
+			e.printStackTrace();
+		}
+		
+		HashMap<String, List<byte[]>> pass = new HashMap<>();
+		
+		List<byte[]> user1 = new ArrayList<>();
+		user1.add(0, hash3);
+		user1.add(1, salt);
+		
+		pass.put("admin", user1);
+		
+		
+		System.out.println("original password: " + password2);
+		System.out.println("hashed password: " + Arrays.toString(pass.get("admin").get(0)));
+		System.out.println("salt is: " + Arrays.toString(pass.get("admin").get(1)));	
+		System.out.println();
+		System.out.println("Hash validation result is :" + pass.get("admin").get(0).equals(hash3));
+
+		
+				
 	}
 	
 //	public static void justChecked() {

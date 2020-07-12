@@ -5,21 +5,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css"
-	href=".<%request.getContextPath();%>/css/default.css" />
-<link rel="stylesheet" type="text/css"
-	href=".<%request.getContextPath();%>/css/syntax.css" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>Search Customer</title>
 </head>
 <body>
 
 	<form action="searchCustomer" method="post">
-
-		<input type="text" placeholder="Enter a Customer Data" name="keyword" maxlength="255"><br>
-		<input type="submit" value="Search">
-
+	<div class="form-group">
+		<input class="form-control" type="text" placeholder="Enter a Customer Data" name="keyword" maxlength="255"><br>
+		<input class="btn btn-primary" type="submit" value="Search">
+	</div>
 	</form>
 </body>
 </html>

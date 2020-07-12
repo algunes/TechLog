@@ -53,7 +53,7 @@ public class CustomerUpdate extends HttpServlet {
 			break;			
 		}
 		
-		case "updateCustomerName": {
+		case "updateCustomerFirstname": {
 			Customer customer = new CustomerServiceImp().getCustomer(id, true);
 			
 			request.setAttribute("id", customer.getCustomer_id());
@@ -187,7 +187,7 @@ public class CustomerUpdate extends HttpServlet {
 			break;
 		}
 		
-case "updateCorporationSector": {
+		case "updateCorporationSector": {
 			
 			String sector = request.getParameter("output");
 			Corporation corporation = new CustomerServiceImp().updateCorporationSector(id, sector, user);

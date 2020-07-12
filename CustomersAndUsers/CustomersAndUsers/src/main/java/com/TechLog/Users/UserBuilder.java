@@ -3,6 +3,7 @@ package com.TechLog.Users;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.TechLog.Customers.Corporation;
@@ -15,6 +16,7 @@ public class UserBuilder {
 	private String department;
 	private String position;
 	private String role;
+	
 	private List<Customer> created_customers = new ArrayList<>();
 	private List<Customer> updated_customers = new ArrayList<>();
 	private List<Corporation> created_corporations = new ArrayList<>();

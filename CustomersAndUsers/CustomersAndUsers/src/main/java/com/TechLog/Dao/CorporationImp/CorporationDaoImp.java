@@ -90,7 +90,9 @@ public class CorporationDaoImp implements CorporationDao {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
 				
-			CriteriaQuery<Corporation> criteriaQuery = session.getCriteriaBuilder().createQuery(Corporation.class);
+			CriteriaQuery<Corporation> criteriaQuery = session
+					.getCriteriaBuilder()
+					.createQuery(Corporation.class);
 	        criteriaQuery.from(Corporation.class);
 
 	        corporations = session.createQuery(criteriaQuery).getResultList();
