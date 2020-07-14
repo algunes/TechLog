@@ -3,7 +3,6 @@ package com.TechLog.Users;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import com.TechLog.Customers.Corporation;
@@ -16,7 +15,6 @@ public class UserBuilder {
 	private String department;
 	private String position;
 	private String role;
-	
 	private List<Customer> created_customers = new ArrayList<>();
 	private List<Customer> updated_customers = new ArrayList<>();
 	private List<Corporation> created_corporations = new ArrayList<>();
@@ -27,6 +25,7 @@ public class UserBuilder {
 	private BigDecimal totalSales;
 	private LocalDate lastLogin;
 	private LocalDate startDate;
+	private UserAuthenticationInfo userAuthInf;
 	
 	public UserBuilder setFirstname(String firstname) {
 		this.firstname = firstname;
@@ -103,11 +102,16 @@ public class UserBuilder {
 		return this;
 	}
 	
+	public UserBuilder setUserAuthenticationInfo(UserAuthenticationInfo userAuthInf) {
+		this.userAuthInf = userAuthInf;
+		return this;
+	}
+	
 	public Users build()  {
 		return new Users(firstname, lastname, department, position, role,
 				created_customers, updated_customers, created_corporations,
 				updated_corporations, email, telNumber,address,
-				totalSales, lastLogin, startDate);
+				totalSales, lastLogin, startDate, userAuthInf);
 	}
 
 }

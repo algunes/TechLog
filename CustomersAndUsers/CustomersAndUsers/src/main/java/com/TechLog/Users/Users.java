@@ -22,15 +22,6 @@ public class Users implements Serializable {
 	@Column(name="user_id")
 	private Long userId;
 	
-	@Column(name="userName")
-	private String userName;
-	
-	@Column(name="password")
-	private byte[] password;
-	
-	@Column(name="salt")
-	private byte[] salt;
-	
 	@Column(name="firstname")
 	private String firstname;
 	
@@ -80,20 +71,147 @@ public class Users implements Serializable {
 	@Column(name="start_date")
 	private LocalDate startDate;
 	
+	@Embedded
+	private UserAuthenticationInfo userAuthInf;
+	
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public List<Customer> getCreated_customers() {
+		return created_customers;
+	}
+
+	public void setCreated_customers(List<Customer> created_customers) {
+		this.created_customers = created_customers;
+	}
+
+	public List<Customer> getUpdated_customers() {
+		return updated_customers;
+	}
+
+	public void setUpdated_customers(List<Customer> updated_customers) {
+		this.updated_customers = updated_customers;
+	}
+
+	public List<Corporation> getCreated_corporations() {
+		return created_corporations;
+	}
+
+	public void setCreated_corporations(List<Corporation> created_corporations) {
+		this.created_corporations = created_corporations;
+	}
+
+	public List<Corporation> getUpdated_corporations() {
+		return updated_corporations;
+	}
+
+	public void setUpdated_corporations(List<Corporation> updated_corporations) {
+		this.updated_corporations = updated_corporations;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelNumber() {
+		return telNumber;
+	}
+
+	public void setTelNumber(String telNumber) {
+		this.telNumber = telNumber;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public BigDecimal getTotalSales() {
+		return totalSales;
+	}
+
+	public void setTotalSales(BigDecimal totalSales) {
+		this.totalSales = totalSales;
+	}
+
+	public LocalDate getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(LocalDate lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+
 	public Users() {
 		super();
 	}
 
-	public Users(Long userId, String userName, byte[] password, byte[] salt, String firstname, String lastname,
+	public Users(String firstname, String lastname,
 			String department, String position, String role, List<Customer> created_customers,
 			List<Customer> updated_customers, List<Corporation> created_corporations,
 			List<Corporation> updated_corporations, String email, String telNumber, String address,
-			BigDecimal totalSales, LocalDate lastLogin, LocalDate startDate) {
+			BigDecimal totalSales, LocalDate lastLogin, LocalDate startDate, UserAuthenticationInfo userAuthInf) {
 		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.password = password;
-		this.salt = salt;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.department = department;
@@ -109,6 +227,7 @@ public class Users implements Serializable {
 		this.totalSales = totalSales;
 		this.lastLogin = lastLogin;
 		this.startDate = startDate;
+		this.userAuthInf = userAuthInf;
 	}
 
 	@Override
@@ -123,17 +242,15 @@ public class Users implements Serializable {
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
 		result = prime * result + ((lastLogin == null) ? 0 : lastLogin.hashCode());
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result + Arrays.hashCode(password);
 		result = prime * result + ((position == null) ? 0 : position.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + Arrays.hashCode(salt);
 		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		result = prime * result + ((telNumber == null) ? 0 : telNumber.hashCode());
 		result = prime * result + ((totalSales == null) ? 0 : totalSales.hashCode());
 		result = prime * result + ((updated_corporations == null) ? 0 : updated_corporations.hashCode());
 		result = prime * result + ((updated_customers == null) ? 0 : updated_customers.hashCode());
+		result = prime * result + ((userAuthInf == null) ? 0 : userAuthInf.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		return result;
 	}
 
@@ -186,8 +303,6 @@ public class Users implements Serializable {
 				return false;
 		} else if (!lastname.equals(other.lastname))
 			return false;
-		if (!Arrays.equals(password, other.password))
-			return false;
 		if (position == null) {
 			if (other.position != null)
 				return false;
@@ -197,8 +312,6 @@ public class Users implements Serializable {
 			if (other.role != null)
 				return false;
 		} else if (!role.equals(other.role))
-			return false;
-		if (!Arrays.equals(salt, other.salt))
 			return false;
 		if (startDate == null) {
 			if (other.startDate != null)
@@ -225,28 +338,27 @@ public class Users implements Serializable {
 				return false;
 		} else if (!updated_customers.equals(other.updated_customers))
 			return false;
+		if (userAuthInf == null) {
+			if (other.userAuthInf != null)
+				return false;
+		} else if (!userAuthInf.equals(other.userAuthInf))
+			return false;
 		if (userId == null) {
 			if (other.userId != null)
 				return false;
 		} else if (!userId.equals(other.userId))
-			return false;
-		if (userName == null) {
-			if (other.userName != null)
-				return false;
-		} else if (!userName.equals(other.userName))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Users [userId=" + userId + ", userName=" + userName + ", password=" + Arrays.toString(password)
-				+ ", salt=" + Arrays.toString(salt) + ", firstname=" + firstname + ", lastname=" + lastname
-				+ ", department=" + department + ", position=" + position + ", role=" + role + ", created_customers="
-				+ created_customers + ", updated_customers=" + updated_customers + ", created_corporations="
-				+ created_corporations + ", updated_corporations=" + updated_corporations + ", email=" + email
-				+ ", telNumber=" + telNumber + ", address=" + address + ", totalSales=" + totalSales + ", lastLogin="
-				+ lastLogin + ", startDate=" + startDate + "]";
+		return "Users [userId=" + userId + ", firstname=" + firstname + ", lastname=" + lastname + ", department="
+				+ department + ", position=" + position + ", role=" + role + ", created_customers=" + created_customers
+				+ ", updated_customers=" + updated_customers + ", created_corporations=" + created_corporations
+				+ ", updated_corporations=" + updated_corporations + ", email=" + email + ", telNumber=" + telNumber
+				+ ", address=" + address + ", totalSales=" + totalSales + ", lastLogin=" + lastLogin + ", startDate="
+				+ startDate + ", userAuthInf=" + userAuthInf + "]";
 	}
 
 }
