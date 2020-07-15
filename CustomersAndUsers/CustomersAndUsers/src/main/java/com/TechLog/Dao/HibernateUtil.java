@@ -48,6 +48,7 @@ public class HibernateUtil {
 
 				MetadataSources sources = new MetadataSources(standardServiceRegistry)
 						.addAnnotatedClass(com.TechLog.Users.Users.class)
+						.addAnnotatedClass(com.TechLog.Users.UserAuthenticationInfo.class)
 						.addAnnotatedClass(com.TechLog.Customers.Corporation.class)
 						.addAnnotatedClass(com.TechLog.Customers.Customer.class);
 

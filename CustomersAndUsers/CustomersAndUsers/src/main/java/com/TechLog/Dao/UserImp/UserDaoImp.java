@@ -2,7 +2,6 @@ package com.TechLog.Dao.UserImp;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -13,14 +12,15 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import com.TechLog.Dao.HibernateUtil;
-import com.TechLog.Dao.UsersDao;
 import com.TechLog.Users.UserAuthenticationInfo;
 import com.TechLog.Users.Users;
 
-public class UserDaoImp implements UsersDao {
+public class UserDaoImp {
 
-	@Override
 	public Users addUser(Users user) {
+		
+		if(validateUserName(user.getUserAuth().getUserName()) == null) {
+			
 		Session session = null;
 		Long result = null;
 		try {
@@ -39,9 +39,13 @@ public class UserDaoImp implements UsersDao {
 			session.close();
 		}
 		return fullFetchUser(result);
+		}
+		
+		else {
+			return null;
+		}
 	}
 
-	@Override
 	public Users fetchUser(Long id) {
 		Session session = null;
 		Users user = new Users();
@@ -62,7 +66,6 @@ public class UserDaoImp implements UsersDao {
 		return user;
 	}
 
-	@Override
 	public Users fullFetchUser(Long id) {
 		Session session = null;
 		Users user = new Users();
@@ -87,7 +90,6 @@ public class UserDaoImp implements UsersDao {
 		return user;
 	}
 
-	@Override
 	public List<Users> fetchAllUsers() {
 		Session session = null;
 		List<Users> users = new ArrayList<>();
@@ -113,7 +115,6 @@ public class UserDaoImp implements UsersDao {
 		return users;
 	}
 
-	@Override
 	public void updateUser(Users user) {
 		Session session = null;
 		try {
@@ -134,7 +135,6 @@ public class UserDaoImp implements UsersDao {
 		}
 	}
 
-	@Override
 	public void deleteUser(Users user) {
 		Session session = null;
 		try {
@@ -156,9 +156,11 @@ public class UserDaoImp implements UsersDao {
 
 	}
 	
-	@Override
-	public void addUserAuthInfo(UserAuthenticationInfo userAuthInf) {
+	public boolean addUserAuthInfo(UserAuthenticationInfo userAuthInf) {
 		Session session = null;
+		
+		if(validateUserName(userAuthInf.getUserName()) == null) {
+		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();		
@@ -169,17 +171,22 @@ public class UserDaoImp implements UsersDao {
 			if(session.getTransaction() != null)
 				session.beginTransaction().rollback();
 			e.printStackTrace();
+			return false;
 		}
 		finally {
 			if (session != null)
 			session.close();
 		}
+		return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
-	@Override
-	public byte[] validateUserName(String userName) {
+	public UserAuthenticationInfo validateUserName(String userName) {
 		Session session = null;
-		byte[] result = null;
+		UserAuthenticationInfo result = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -190,8 +197,8 @@ public class UserDaoImp implements UsersDao {
 			
 			cr.select(root).where(cb.equal(root.get("userName"), userName));
 			 
-			result = (session.createQuery(cr).getSingleResult() != null ? 
-					session.createQuery(cr).getSingleResult().getSalt() : null);
+			result = (session.createQuery(cr).getResultList().isEmpty() ? 
+					null : session.createQuery(cr).getSingleResult());
 			
 			session.getTransaction().commit();
 		}
@@ -206,39 +213,6 @@ public class UserDaoImp implements UsersDao {
 			}
 		}
 		return result;
-	}
-	
-	@Override
-	public boolean validateUserPassword(String userName, byte[] password) {
-		Session session = null;
-		byte[] savedPassword = null;
-
-		try {
-			session = HibernateUtil.getSessionFactory().openSession();
-			session.beginTransaction();
-
-			CriteriaBuilder cb = session.getCriteriaBuilder();
-			CriteriaQuery<UserAuthenticationInfo> cr = cb.createQuery(UserAuthenticationInfo.class);
-			Root<UserAuthenticationInfo> root = cr.from(UserAuthenticationInfo.class);
-			
-			cr.select(root).where(cb.equal(root.get("userName"), userName));
-			 
-			savedPassword = (session.createQuery(cr).getSingleResult() != null ?
-					session.createQuery(cr).getSingleResult().getPassword() : null);			
-			
-			session.getTransaction().commit();
-		}
-		catch (HibernateException e) {
-			if(session.getTransaction() != null)
-				session.beginTransaction().rollback();
-			e.printStackTrace();
-		}
-		finally {
-			if (session != null) {
-				session.close();
-			}
-		}
-		return (savedPassword != null ? Arrays.equals(password, savedPassword) : false);
 	}
 
 }

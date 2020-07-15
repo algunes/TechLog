@@ -5,22 +5,20 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 import javax.persistence.*;
-
-import org.hibernate.annotations.DynamicUpdate;
+import javax.persistence.Entity;
 
 import com.TechLog.Customers.Corporation;
 import com.TechLog.Customers.Customer;
 
 @Entity
-@Table(name="users")
-@DynamicUpdate
+@Table(name="Users")
 public class Users implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="user_id")
-	private Long userId;
+	@Column(name="id")
+	private Long id;
 	
 	@Column(name="firstname")
 	private String firstname;
@@ -71,15 +69,15 @@ public class Users implements Serializable {
 	@Column(name="start_date")
 	private LocalDate startDate;
 	
-	@Embedded
-	private UserAuthenticationInfo userAuthInf;
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private UserAuthenticationInfo userAuth;
 	
-	public Long getUserId() {
-		return userId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setId(Long userId) {
+		this.id = userId;
 	}
 
 	public String getFirstname() {
@@ -201,165 +199,188 @@ public class Users implements Serializable {
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
+	
+	public UserAuthenticationInfo getUserAuth() {
+		return userAuth;
+	}
+
+	public void setUserAuth(UserAuthenticationInfo userAuth) {
+		this.userAuth = userAuth;
+	}
+	
+	
+	
+//	public void setUserAuthInf(String userName, String password) {
+////		UserServiceImp us = new UserServiceImp();
+////		byte[] salt = us.saltGenerator();
+////		byte[] passwordHash = us.passwordHashing(salt, password);
+////		
+////		this.userAuthInf.setUserName(userName);
+////		this.userAuthInf.setSalt(salt);
+////		this.userAuthInf.setPassword(passwordHash);
+//		
+//		this.userAuthInf = new UserServiceImp().addUserAuthInfo(userName, password);
+//	}
+
 
 	public Users() {
 		super();
 	}
 
-	public Users(String firstname, String lastname,
-			String department, String position, String role, List<Customer> created_customers,
-			List<Customer> updated_customers, List<Corporation> created_corporations,
-			List<Corporation> updated_corporations, String email, String telNumber, String address,
-			BigDecimal totalSales, LocalDate lastLogin, LocalDate startDate, UserAuthenticationInfo userAuthInf) {
-		super();
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.department = department;
-		this.position = position;
-		this.role = role;
-		this.created_customers = created_customers;
-		this.updated_customers = updated_customers;
-		this.created_corporations = created_corporations;
-		this.updated_corporations = updated_corporations;
-		this.email = email;
-		this.telNumber = telNumber;
-		this.address = address;
-		this.totalSales = totalSales;
-		this.lastLogin = lastLogin;
-		this.startDate = startDate;
-		this.userAuthInf = userAuthInf;
-	}
+public Users(Long id, String firstname, String lastname, String department, String position, String role,
+		List<Customer> created_customers, List<Customer> updated_customers, List<Corporation> created_corporations,
+		List<Corporation> updated_corporations, String email, String telNumber, String address, BigDecimal totalSales,
+		LocalDate lastLogin, LocalDate startDate, UserAuthenticationInfo userAuth) {
+	super();
+	this.id = id;
+	this.firstname = firstname;
+	this.lastname = lastname;
+	this.department = department;
+	this.position = position;
+	this.role = role;
+	this.created_customers = created_customers;
+	this.updated_customers = updated_customers;
+	this.created_corporations = created_corporations;
+	this.updated_corporations = updated_corporations;
+	this.email = email;
+	this.telNumber = telNumber;
+	this.address = address;
+	this.totalSales = totalSales;
+	this.lastLogin = lastLogin;
+	this.startDate = startDate;
+	this.userAuth = userAuth;
+}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((created_corporations == null) ? 0 : created_corporations.hashCode());
-		result = prime * result + ((created_customers == null) ? 0 : created_customers.hashCode());
-		result = prime * result + ((department == null) ? 0 : department.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
-		result = prime * result + ((lastLogin == null) ? 0 : lastLogin.hashCode());
-		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result + ((position == null) ? 0 : position.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
-		result = prime * result + ((telNumber == null) ? 0 : telNumber.hashCode());
-		result = prime * result + ((totalSales == null) ? 0 : totalSales.hashCode());
-		result = prime * result + ((updated_corporations == null) ? 0 : updated_corporations.hashCode());
-		result = prime * result + ((updated_customers == null) ? 0 : updated_customers.hashCode());
-		result = prime * result + ((userAuthInf == null) ? 0 : userAuthInf.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		return result;
-	}
+@Override
+public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((address == null) ? 0 : address.hashCode());
+	result = prime * result + ((created_corporations == null) ? 0 : created_corporations.hashCode());
+	result = prime * result + ((created_customers == null) ? 0 : created_customers.hashCode());
+	result = prime * result + ((department == null) ? 0 : department.hashCode());
+	result = prime * result + ((email == null) ? 0 : email.hashCode());
+	result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
+	result = prime * result + ((id == null) ? 0 : id.hashCode());
+	result = prime * result + ((lastLogin == null) ? 0 : lastLogin.hashCode());
+	result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+	result = prime * result + ((position == null) ? 0 : position.hashCode());
+	result = prime * result + ((role == null) ? 0 : role.hashCode());
+	result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+	result = prime * result + ((telNumber == null) ? 0 : telNumber.hashCode());
+	result = prime * result + ((totalSales == null) ? 0 : totalSales.hashCode());
+	result = prime * result + ((updated_corporations == null) ? 0 : updated_corporations.hashCode());
+	result = prime * result + ((updated_customers == null) ? 0 : updated_customers.hashCode());
+	result = prime * result + ((userAuth == null) ? 0 : userAuth.hashCode());
+	return result;
+}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Users other = (Users) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (created_corporations == null) {
-			if (other.created_corporations != null)
-				return false;
-		} else if (!created_corporations.equals(other.created_corporations))
-			return false;
-		if (created_customers == null) {
-			if (other.created_customers != null)
-				return false;
-		} else if (!created_customers.equals(other.created_customers))
-			return false;
-		if (department == null) {
-			if (other.department != null)
-				return false;
-		} else if (!department.equals(other.department))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (firstname == null) {
-			if (other.firstname != null)
-				return false;
-		} else if (!firstname.equals(other.firstname))
-			return false;
-		if (lastLogin == null) {
-			if (other.lastLogin != null)
-				return false;
-		} else if (!lastLogin.equals(other.lastLogin))
-			return false;
-		if (lastname == null) {
-			if (other.lastname != null)
-				return false;
-		} else if (!lastname.equals(other.lastname))
-			return false;
-		if (position == null) {
-			if (other.position != null)
-				return false;
-		} else if (!position.equals(other.position))
-			return false;
-		if (role == null) {
-			if (other.role != null)
-				return false;
-		} else if (!role.equals(other.role))
-			return false;
-		if (startDate == null) {
-			if (other.startDate != null)
-				return false;
-		} else if (!startDate.equals(other.startDate))
-			return false;
-		if (telNumber == null) {
-			if (other.telNumber != null)
-				return false;
-		} else if (!telNumber.equals(other.telNumber))
-			return false;
-		if (totalSales == null) {
-			if (other.totalSales != null)
-				return false;
-		} else if (!totalSales.equals(other.totalSales))
-			return false;
-		if (updated_corporations == null) {
-			if (other.updated_corporations != null)
-				return false;
-		} else if (!updated_corporations.equals(other.updated_corporations))
-			return false;
-		if (updated_customers == null) {
-			if (other.updated_customers != null)
-				return false;
-		} else if (!updated_customers.equals(other.updated_customers))
-			return false;
-		if (userAuthInf == null) {
-			if (other.userAuthInf != null)
-				return false;
-		} else if (!userAuthInf.equals(other.userAuthInf))
-			return false;
-		if (userId == null) {
-			if (other.userId != null)
-				return false;
-		} else if (!userId.equals(other.userId))
-			return false;
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
 		return true;
-	}
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	Users other = (Users) obj;
+	if (address == null) {
+		if (other.address != null)
+			return false;
+	} else if (!address.equals(other.address))
+		return false;
+	if (created_corporations == null) {
+		if (other.created_corporations != null)
+			return false;
+	} else if (!created_corporations.equals(other.created_corporations))
+		return false;
+	if (created_customers == null) {
+		if (other.created_customers != null)
+			return false;
+	} else if (!created_customers.equals(other.created_customers))
+		return false;
+	if (department == null) {
+		if (other.department != null)
+			return false;
+	} else if (!department.equals(other.department))
+		return false;
+	if (email == null) {
+		if (other.email != null)
+			return false;
+	} else if (!email.equals(other.email))
+		return false;
+	if (firstname == null) {
+		if (other.firstname != null)
+			return false;
+	} else if (!firstname.equals(other.firstname))
+		return false;
+	if (id == null) {
+		if (other.id != null)
+			return false;
+	} else if (!id.equals(other.id))
+		return false;
+	if (lastLogin == null) {
+		if (other.lastLogin != null)
+			return false;
+	} else if (!lastLogin.equals(other.lastLogin))
+		return false;
+	if (lastname == null) {
+		if (other.lastname != null)
+			return false;
+	} else if (!lastname.equals(other.lastname))
+		return false;
+	if (position == null) {
+		if (other.position != null)
+			return false;
+	} else if (!position.equals(other.position))
+		return false;
+	if (role == null) {
+		if (other.role != null)
+			return false;
+	} else if (!role.equals(other.role))
+		return false;
+	if (startDate == null) {
+		if (other.startDate != null)
+			return false;
+	} else if (!startDate.equals(other.startDate))
+		return false;
+	if (telNumber == null) {
+		if (other.telNumber != null)
+			return false;
+	} else if (!telNumber.equals(other.telNumber))
+		return false;
+	if (totalSales == null) {
+		if (other.totalSales != null)
+			return false;
+	} else if (!totalSales.equals(other.totalSales))
+		return false;
+	if (updated_corporations == null) {
+		if (other.updated_corporations != null)
+			return false;
+	} else if (!updated_corporations.equals(other.updated_corporations))
+		return false;
+	if (updated_customers == null) {
+		if (other.updated_customers != null)
+			return false;
+	} else if (!updated_customers.equals(other.updated_customers))
+		return false;
+	if (userAuth == null) {
+		if (other.userAuth != null)
+			return false;
+	} else if (!userAuth.equals(other.userAuth))
+		return false;
+	return true;
+}
 
-	@Override
-	public String toString() {
-		return "Users [userId=" + userId + ", firstname=" + firstname + ", lastname=" + lastname + ", department="
-				+ department + ", position=" + position + ", role=" + role + ", created_customers=" + created_customers
-				+ ", updated_customers=" + updated_customers + ", created_corporations=" + created_corporations
-				+ ", updated_corporations=" + updated_corporations + ", email=" + email + ", telNumber=" + telNumber
-				+ ", address=" + address + ", totalSales=" + totalSales + ", lastLogin=" + lastLogin + ", startDate="
-				+ startDate + ", userAuthInf=" + userAuthInf + "]";
-	}
+@Override
+public String toString() {
+	return "Users [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", department=" + department
+			+ ", position=" + position + ", role=" + role + ", created_customers=" + created_customers
+			+ ", updated_customers=" + updated_customers + ", created_corporations=" + created_corporations
+			+ ", updated_corporations=" + updated_corporations + ", email=" + email + ", telNumber=" + telNumber
+			+ ", address=" + address + ", totalSales=" + totalSales + ", lastLogin=" + lastLogin + ", startDate="
+			+ startDate + ", userAuth=" + userAuth + "]";
+}
 
 }
 
