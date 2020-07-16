@@ -2,6 +2,11 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
 <%@ page isELIgnored="false"%>
+<%
+    if(session.getAttribute("user") == null)
+    	response.sendRedirect("UserLogin.jsp");
+    
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,15 +47,18 @@
         <li class="nav-item">
           <a class="nav-link" href=".<%request.getContextPath();%>/users" target="iframe_a">Users</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href=".<%request.getContextPath();%>/userLogin">Logout</a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
-
+<br>
+<br>
 <!-- Page Content -->
 <div class="container">
-  <h1 class="mt-4">Customer Cards</h1>
-  <iframe src=".<%request.getContextPath();%>/home.jsp" width="100%" height="500" name="iframe_a" style="border:none;"></iframe>
+  <iframe src=".<%request.getContextPath();%>/home.jsp" width=100% height="500" name="iframe_a" style="border:none;"></iframe>
 </div>
 <!-- /.container -->
 		

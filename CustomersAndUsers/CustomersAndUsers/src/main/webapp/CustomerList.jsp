@@ -3,6 +3,11 @@
 <%@ page contentType="text/html" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.TechLog.Customers.Customer"%>
+<%
+    if(session.getAttribute("user") == null)
+    	response.sendRedirect("UserLogin.jsp");
+    
+    %>
 <!DOCTYPE html>
 <html>
 <head>

@@ -4,6 +4,11 @@
 <%@ page import="com.TechLog.Customers.Corporation"%>
 <%@ page import="com.TechLog.Customers.Customer"%>
 <%@ page import="java.util.*"%>
+<%
+    if(session.getAttribute("user") == null)
+    	response.sendRedirect("UserLogin.jsp");
+    
+    %>
 <!DOCTYPE html>
 <html>
 <head>

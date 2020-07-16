@@ -1,6 +1,11 @@
 <%@ page language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
+<%
+    if(session.getAttribute("user") == null)
+    	response.sendRedirect("UserLogin.jsp");
+    
+    %>
 <!DOCTYPE html>
 <html>
 <head>
