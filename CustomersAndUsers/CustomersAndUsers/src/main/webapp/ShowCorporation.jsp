@@ -5,6 +5,8 @@
 <%@ page import="com.TechLog.Customers.Customer"%>
 <%@ page import="java.util.*"%>
 <%
+response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
+response.setHeader("Expires", "0");
     if(session.getAttribute("user") == null)
     	response.sendRedirect("UserLogin.jsp");
     

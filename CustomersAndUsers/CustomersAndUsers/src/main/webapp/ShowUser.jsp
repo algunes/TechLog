@@ -16,35 +16,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
-<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
-
-<script>
-function deleteMsg() {
-  alert("Are you sure to delete this?");
-}
-</script>
-<title>Customer Details</title>
+<meta charset="UTF-8">
+<title>User Info</title>
 </head>
 <body>
 
-<% 
-String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
-%>
-
-<% if(!message.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-success'><strong>"
-			+
-			message
-			+
-			"</strong></div>"
-			
-			);
- } %>
- 
- <div class="container">
+<div class="container">
  
 <Table class="table table-sm">
 
@@ -53,10 +30,10 @@ String message = (request.getAttribute("message") != null ? (String)request.getA
 Firstname: 
 </td>
 <td>
-${customer.getFirstname()} <small>(<a href="<%= request.getContextPath() %>
-/CustomerUpdate?
-id=${customer.getCustomer_id()}&
-job=updateCustomerFirstname">edit</a>)</small><br>
+${user.getFirstname()} <small>(<a href="<%= request.getContextPath() %>
+/UserController?
+id=${user.getId()}&
+job=updateFirstname">edit</a>)</small><br>
 </td>
 </tr>
 <tr>

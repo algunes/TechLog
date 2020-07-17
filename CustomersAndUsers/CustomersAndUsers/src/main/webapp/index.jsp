@@ -3,6 +3,8 @@
 <%@ page contentType="text/html" %>
 <%@ page isELIgnored="false"%>
 <%
+response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
+response.setHeader("Expires", "0");
     if(session.getAttribute("user") == null)
     	response.sendRedirect("UserLogin.jsp");
     
@@ -45,10 +47,10 @@
           <a class="nav-link" href=".<%request.getContextPath();%>/searchCustomer" target="iframe_a">Search Customer</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href=".<%request.getContextPath();%>/users" target="iframe_a">Users</a>
+          <a class="nav-link" href=".<%request.getContextPath();%>/user?job=showUserList" target="iframe_a">Users</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href=".<%request.getContextPath();%>/userLogin">Logout</a>
+          <a class="nav-link" href=".<%request.getContextPath();%>/user?job=logout">Logout</a>
         </li>
       </ul>
     </div>

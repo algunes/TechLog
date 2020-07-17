@@ -2,6 +2,8 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
 <%
+response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
+response.setHeader("Expires", "0");
     if(session.getAttribute("user") == null)
     	response.sendRedirect("UserLogin.jsp");
     

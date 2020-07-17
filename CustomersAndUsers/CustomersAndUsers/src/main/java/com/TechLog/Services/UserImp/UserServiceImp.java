@@ -45,13 +45,14 @@ public class UserServiceImp {
 	}
 	
 	public Users userLoginValidation(String userName, String password) {
-		Users result = null;
+		Users user = null;
 		UserAuthenticationInfo uai = new UserDaoImp().validateUserName(userName);
 		
 		if(uai != null) {
-			result = (Arrays.equals(passwordHashing(uai.getSalt(), password), uai.getPassword()) ? uai.getUser(): null);
+			user = (Arrays.equals(passwordHashing(uai.getSalt(), password), uai.getPassword()) ? uai.getUser(): null);
+			user.setLastLogin(LocalDate.now());
 		}
-		return result;
+		return user;
 	}
 	
 	public byte[] passwordHashing(byte[] salt, String password) {

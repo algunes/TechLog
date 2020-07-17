@@ -4,6 +4,8 @@
 <%@ page import="com.TechLog.Users.Users"%>
 <%@ page isELIgnored="false" %>
 <%
+response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
+response.setHeader("Expires", "0");
     if(session.getAttribute("user") == null) {
     	response.sendRedirect("UserLogin.jsp");
     }
@@ -24,8 +26,8 @@
 
 <body>
 
-<div class='alert alert-danger'>
-Hi ${user.getFirstname()} !
+<div class='alert alert-success'>
+Hi ${user.getFirstname()}!
 </div>
     
 </body>
