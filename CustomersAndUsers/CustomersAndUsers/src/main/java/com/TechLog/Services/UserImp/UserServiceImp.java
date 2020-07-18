@@ -44,13 +44,63 @@ public class UserServiceImp {
 		return getUser(user.getId(), true);
 	}
 	
+	public Users updateFirstname(Long  id, String firstname) {
+		Users user = getUser(id, false);
+		user.setFirstname(firstname);
+		return updateUser(user);	
+	}
+	
+	public Users updateLastname(Long  id, String lastname) {
+		Users user = getUser(id, false);
+		user.setLastname(lastname);
+		return updateUser(user);	
+	}
+	
+	public Users updateDepartment(Long  id, String department) {
+		Users user = getUser(id, false);
+		user.setDepartment(department);
+		return updateUser(user);	
+	}
+	
+	public Users updatePosition(Long  id, String position) {
+		Users user = getUser(id, false);
+		user.setPosition(position);
+		return updateUser(user);	
+	}
+	
+	public Users updateRole(Long  id, String role) {
+		Users user = getUser(id, false);
+		user.setRole(role);
+		return updateUser(user);	
+	}
+	
+	public Users updateEmail(Long  id, String email) {
+		Users user = getUser(id, false);
+		user.setEmail(email);
+		return updateUser(user);	
+	}
+	
+	public Users updateTelNumber(Long  id, String telNumber) {
+		Users user = getUser(id, false);
+		user.setTelNumber(telNumber);
+		return updateUser(user);	
+	}
+	
+	public Users updateAddress(Long  id, String address) {
+		Users user = getUser(id, false);
+		user.setAddress(address);
+		return updateUser(user);	
+	}
+	
 	public Users userLoginValidation(String userName, String password) {
 		Users user = null;
-		UserAuthenticationInfo uai = new UserDaoImp().validateUserName(userName);
+		byte[] uname = usernameToByte(userName);
+		UserAuthenticationInfo uai = new UserDaoImp().validateUserName(uname);
 		
-		if(uai != null) {
-			user = (Arrays.equals(passwordHashing(uai.getSalt(), password), uai.getPassword()) ? uai.getUser(): null);
+		if(uai != null && Arrays.equals(passwordHashing(uai.getSalt(), password), uai.getPassword()) == true) {
+			user = uai.getUser();
 			user.setLastLogin(LocalDate.now());
+			updateUser(user);
 		}
 		return user;
 	}
@@ -76,12 +126,27 @@ public class UserServiceImp {
 		return hash;	
 	}
 	
+	public byte[] usernameToByte(String username) {
+		return username.getBytes();
+	}
+	
+	public String byteToUsername(byte[] username) {
+		return new String(username);
+	}
+	
 	public byte[] saltGenerator() {
 		
 		SecureRandom random = new SecureRandom();
 		byte[] salt = new byte[16];
 		random.nextBytes(salt);	
 		return salt;		
+	}
+	
+	public Users updateUsername(Long id, String username) {
+		byte[] uname = usernameToByte(username);
+		Users user = getUser(id, true);
+		user.getUserAuth().setUserName(uname);
+		return updateUser(user);
 	}
 	
 	public Users userBuild(String firstname, String lastname, String department,
@@ -112,9 +177,10 @@ public UserAuthenticationInfo userAuthInfoBuild(String userName, String password
 		
 		UserAuthenticationInfo uai = new UserAuthenticationInfo();
 		byte[] salt = saltGenerator();
+		byte[] uname = usernameToByte(userName);
 		uai.setSalt(salt);
 		uai.setPassword(passwordHashing(salt, password));
-		uai.setUserName(userName);
+		uai.setUserName(uname);
 		
 		return uai;
 	}

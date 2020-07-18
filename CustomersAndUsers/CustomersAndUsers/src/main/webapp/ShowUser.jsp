@@ -3,6 +3,10 @@
 <%@ page contentType="text/html" %>
     <%@ page import="com.TechLog.Customers.Customer"%>
     <%@ page import="com.TechLog.Customers.Corporation"%>
+    <%@ page import="com.TechLog.Services.UserImp.UserServiceImp"%>
+    <%@ page import="com.TechLog.Users.Users"%>
+    
+    
     <%@ page import="java.util.*"%>
     <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 	<%@ page isELIgnored="false" %>
@@ -18,12 +22,55 @@
 <head>
 <meta charset="UTF-8">
 <title>User Info</title>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
 </head>
 <body>
 
 <div class="container">
  
 <Table class="table table-sm">
+<% 
+String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
+String alert = (request.getAttribute("alert") != null ? (String)request.getAttribute("alert") : "");// a text alert if want to show
+Users user = (request.getAttribute("user") != null ? (Users)request.getAttribute("user") : null);
+String username = new UserServiceImp().byteToUsername(user.getUserAuth().getUserName());
+%>
+
+<% if(!message.isEmpty()) { 
+	out.println(
+			
+			"<div class='alert alert-success'><strong>"
+			+
+			message
+			+
+			"</strong></div>"
+			
+			);
+ } %>
+  <% if(!alert.isEmpty()) { 
+	out.println(
+			
+			"<div class='alert alert-danger'>"
+			+
+			alert
+			+
+			"</strong></div>"
+			
+			);
+ } %>
+ 
+<tr>
+<td>
+Username: 
+</td>
+<td>
+<%= username %> <small>(<a href="<%= request.getContextPath() %>
+/UserController?
+id=${user.getId()}&
+job=updateUsername">edit</a>)</small><br>
+</td>
+</tr>
 
 <tr>
 <td>
@@ -36,28 +83,16 @@ id=${user.getId()}&
 job=updateFirstname">edit</a>)</small><br>
 </td>
 </tr>
+
 <tr>
 <td>
 Lastname:
 </td>
 <td>
-${customer.getLastname()} <small>(<a href="<%= request.getContextPath() %>
-/CustomerUpdate?
-id=${customer.getCustomer_id()}&
-job=updateCustomerLastname">edit</a>)</small><br>
-</td>
-</tr>
-
-<tr>
-<td>
-Corporation:  
-</td>
-<% %>
-<td>
-<a href="<%= request.getContextPath()%>
-/GetCustomer?
-id=${customer.getCorporation().getId()}&
-job=getCorporation">${customer.getCorporation().getName()}</a><br>
+${user.getLastname()} <small>(<a href="<%= request.getContextPath() %>
+/UserController?
+id=${user.getId()}&
+job=updateLastname">edit</a>)</small><br>
 </td>
 </tr>
 
@@ -65,115 +100,125 @@ job=getCorporation">${customer.getCorporation().getName()}</a><br>
 <td>
 Department:  
 </td>
-<% %>
 <td>
-${customer.getDepartment()} <small>(<a href="<%= request.getContextPath() %>
-/CustomerUpdate?
-id=${customer.getCustomer_id()}&
-job=updateCustomerDepartment">edit</a>)</small><br>
+${user.getDepartment()} <small>(<a href="<%= request.getContextPath() %>
+/UserController?
+id=${user.getId()}&
+job=updateDepartment">edit</a>)</small><br>
 </td>
 </tr>
 
 <tr>
 <td>
-Position:  
-</td>
-<% %>
-<td>
-${customer.getPosition()} <small>(<a href="<%= request.getContextPath() %>
-/CustomerUpdate?
-id=${customer.getCustomer_id()}&
-job=updateCustomerPosition">edit</a>)</small><br>
-</td>
-</tr>
-
-
-<tr>
-<td>
-Email:  
+Position: 
 </td>
 <td>
-
-<c:forEach items ="${customer.getEmails()}" var = "e">
-${e} <small>(<a href="<%= request.getContextPath() %>
-
-/CustomerUpdate?
-id=${customer.getCustomer_id()}&
-job=updateCustomerEmail&
-index=${customer.getEmails().indexOf(e)}">edit</a> | <a href="<%= request.getContextPath() %>
-
-/DeleteCustomer?
-id=${customer.getCustomer_id()}&
-job=removeCustomerEmail&
-index=${customer.getEmails().indexOf(e)}" onclick="deleteMsg()">remove</a>)</small><br>
-</c:forEach>
-
-<small><a href="<%= request.getContextPath() %>
-/AddCustomer?
-id=${customer.getCustomer_id()}&
-job=addCustomerEmail"> Add</a></small>
+${user.getPosition()} <small>(<a href="<%= request.getContextPath() %>
+/UserController?
+id=${user.getId()}&
+job=updatePosition">edit</a>)</small><br>
 </td>
 </tr>
 
 <tr>
 <td>
-Tel:  
+Role:   
 </td>
 <td>
-
-<c:forEach items = "${customer.getTelNums()}" var = "e">
-${e} <small>(<a href="<%= request.getContextPath()%>
-
-/CustomerUpdate?
-id=${customer.getCustomer_id()}&
-job=updateCustomerTelNum&
-index=${customer.getTelNums().indexOf(e)}">edit</a> | <a href="<%= request.getContextPath() %>
-
-/DeleteCustomer?
-id=${customer.getCustomer_id()}&
-job=removeCustomerTelNum&
-index=${customer.getTelNums().indexOf(e)}" onclick="deleteMsg()">remove</a>)</small><br>
-</c:forEach>
-
-<small><a href="<%= request.getContextPath() %>
-/AddCustomer?
-id=${customer.getCustomer_id()}&
-job=addCustomerTelNum"> Add</a></small>
+${user.getRole()} <small>(<a href="<%= request.getContextPath() %>
+/UserController?
+id=${user.getId()}&
+job=updateRole">edit</a>)</small><br>
 </td>
 </tr>
 
 <tr>
 <td>
-Address:  
+Email:   
 </td>
 <td>
-
-<c:forEach items = "${customer.getAddresses()}" var = "e">
-${e} <small>(<a href="<%= request.getContextPath()%>
-
-/CustomerUpdate?
-id=${customer.getCustomer_id()}&
-job=updateCustomerTelNum&
-index=${customer.getAddresses().indexOf(e)}">edit</a> | <a href="<%= request.getContextPath() %>
-
-/DeleteCustomer?
-id=${customer.getCustomer_id()}&
-job=removeCustomerTelNum&
-index=${customer.getAddresses().indexOf(e)}" onclick="deleteMsg()">remove</a>)</small><br>
-</c:forEach>
-
-<small><a href="<%= request.getContextPath() %>
-/AddCustomer?
-id=${customer.getCustomer_id()}&
-job=addCustomerAddress"> Add</a></small><br>
+${user.getEmail()} <small>(<a href="<%= request.getContextPath() %>
+/UserController?
+id=${user.getId()}&
+job=updateEmail">edit</a>)</small><br>
 </td>
 </tr>
+
+<tr>
+<td>
+Tel. Number:   
+</td>
+<td>
+${user.getTelNumber()} <small>(<a href="<%= request.getContextPath() %>
+/UserController?
+id=${user.getId()}&
+job=updateTelNumber">edit</a>)</small><br>
+</td>
+</tr>
+
+<tr>
+<td>
+Address:   
+</td>
+<td>
+${user.getAddress()} <small>(<a href="<%= request.getContextPath() %>
+/UserController?
+id=${user.getId()}&
+job=updateAddress">edit</a>)</small><br>
+</td>
+</tr>
+
+<tr>
+<td>
+<a href="<%= request.getContextPath() %>
+/UserController?
+id=${user.getId()}&
+job=getCreatedCorporations">Created Corporations </a><br>
+</td>
+</tr>
+
+<tr>
+<td>
+<a href="<%= request.getContextPath() %>
+/UserController?
+id=${user.getId()}&
+job=getCreatedCustomers">Created Customers </a><br>
+</td>
+</tr>
+
+<tr>
+<td>
+Last Login:   
+</td>
+<td>
+${user.getLastLogin()}<br>
+</td>
+</tr>
+
+<tr>
+<td>
+Start Date:   
+</td>
+<td>
+${user.getStartDate()}<br>
+</td>
+</tr>
+
+<tr>
+<td>
+Sum of Sales:   
+</td>
+<td>
+${user.getTotalSales()}<br>
+</td>
+</tr>
+
 </Table>
 
 <a href="<%= request.getContextPath() %>
-/DeleteCustomer?
-id=${customer.getCustomer_id()}&
-job=removeCustomer" onclick="deleteMsg()" style="float:center"> Delete This</a>
+/UserController?
+id=${user.getId()}&
+job=removeUser" onclick="deleteMsg()" style="float:center"> Delete This</a>
 </div>
 </body>
 </html>

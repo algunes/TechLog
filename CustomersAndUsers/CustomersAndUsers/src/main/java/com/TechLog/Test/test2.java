@@ -1,6 +1,7 @@
 package com.TechLog.Test;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import com.TechLog.Services.UserImp.UserServiceImp;
 import com.TechLog.Users.UserAuthenticationInfo;
@@ -10,6 +11,18 @@ public class test2 {
 
 	public static void main(String[] args) {
 		
+//		String str1 = "hello";
+//		String str2 = "Hello";
+//		
+//		byte[] b1 = str1.getBytes();
+//		byte[] b2 = str2.getBytes();
+//		
+//		System.out.println(Arrays.toString(b1));
+//		System.out.println(Arrays.toString(b2));
+//		
+//		System.out.println(new String(b1));
+//		System.out.println(new String(b2));
+		
 		UserServiceImp us = new UserServiceImp();
 		
 		
@@ -18,9 +31,10 @@ public class test2 {
 		user.setFirstname("Aliyar2");
 		user.setLastname("Güneş2");
 		user.setEmail("aliyargunes2@gmail.com");
+		user.setRole("Admin");
 		user.setStartDate(LocalDate.now());
 		
-		UserAuthenticationInfo uai = us.addUserAuthInfo("admin", "Driver8...?");
+		UserAuthenticationInfo uai = us.userAuthInfoBuild("admin", "Driver8...?");
 		uai.setUser(user);
 		user.setUserAuth(uai);
 		
@@ -34,7 +48,7 @@ public class test2 {
 		else {
 			System.out.println("user not created");
 		}
-		
+//		
 		
 		
 //		Users user2 = us.userLoginValidation("admin1", "Driver8...?");

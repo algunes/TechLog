@@ -16,8 +16,6 @@
 String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
 %>
 
-
-
     <form action="user" method="post" class="form-signin">
     <input type="hidden" name="job" value="login" >
       <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">

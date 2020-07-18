@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.TechLog.Customers.Corporation;
 import com.TechLog.Customers.Customer;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
-import com.TechLog.Services.UserImp.UserServiceImp;
 import com.TechLog.Users.Users;
 
 @WebServlet("/addCustomer")
@@ -99,7 +98,7 @@ public class AddCustomer extends HttpServlet {
     	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
     		String job = request.getParameter("job");
-    		Users user = new UserServiceImp().getUser(1L, false);
+    		Users user = (Users)request.getSession().getAttribute("user") ;
     		
     		
     		switch(job) {

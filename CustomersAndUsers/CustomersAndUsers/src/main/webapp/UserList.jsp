@@ -27,11 +27,12 @@ function deleteMsg() {
 <body>
 <% 
 String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
+String alert = (request.getAttribute("alert") != null ? (String)request.getAttribute("alert") : "");// a text alert if want to show
 %>
 <% if(!message.isEmpty()) { 
 	out.println(
 			
-			"<div class='alert alert-success'><strong>"
+			"<div class='alert alert-success'>"
 			+
 			message
 			+
@@ -39,7 +40,19 @@ String message = (request.getAttribute("message") != null ? (String)request.getA
 			
 			);
  } %>
-<br>
+ 
+ <% if(!alert.isEmpty()) { 
+	out.println(
+			
+			"<div class='alert alert-danger'>"
+			+
+			alert
+			+
+			"</strong></div>"
+			
+			);
+ } %>
+
 <div class="container">
  
 <Table class="table table-sm">
@@ -47,12 +60,17 @@ String message = (request.getAttribute("message") != null ? (String)request.getA
 <tr>
 <td>
 <c:forEach items ="${users}" var = "e">
-${e.getFirstname()} ${e.getLastname()} (${e.getRole()})<small>(<a href="<%= request.getContextPath() %>
-	/UserController?job=details&id=${e.getId()}"> details</a>)</small><br>
+${e.getFirstname()} ${e.getLastname()} (${e.getRole()}) <small>(<a href="<%= request.getContextPath() %>
+	/UserController?job=details&id=${e.getId()}">details</a>)</small><br>
 	</c:forEach>
 	</td>
 	</tr>
 	</Table>
+	</div>
+	<div>
+	<a href="<%= request.getContextPath() %>
+	/UserController?
+	job=addUser">Create a user</a>
 	</div>
 </body>
 </html>

@@ -184,7 +184,7 @@ public class UserDaoImp {
 		}
 	}
 	
-	public UserAuthenticationInfo validateUserName(String userName) {
+	public UserAuthenticationInfo validateUserName(byte[] userName) {
 		Session session = null;
 		UserAuthenticationInfo result = null;
 		try {

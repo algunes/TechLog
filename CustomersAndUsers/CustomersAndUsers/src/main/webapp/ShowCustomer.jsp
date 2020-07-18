@@ -176,12 +176,12 @@ ${e} <small>(<a href="<%= request.getContextPath()%>
 
 /CustomerUpdate?
 id=${customer.getCustomer_id()}&
-job=updateCustomerTelNum&
+job=updateCustomerAddress&
 index=${customer.getAddresses().indexOf(e)}">edit</a> | <a href="<%= request.getContextPath() %>
 
 /DeleteCustomer?
 id=${customer.getCustomer_id()}&
-job=removeCustomerTelNum&
+job=removeCustomerAddress&
 index=${customer.getAddresses().indexOf(e)}" onclick="deleteMsg()">remove</a>)</small><br>
 </c:forEach>
 

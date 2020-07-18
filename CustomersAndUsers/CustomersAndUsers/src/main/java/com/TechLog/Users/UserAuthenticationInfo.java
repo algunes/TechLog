@@ -17,7 +17,7 @@ public class UserAuthenticationInfo implements Serializable {
 	private Long id;
 	
 	@Column(name="userName")
-	private String userName;
+	private byte[] userName;
 	
 	@Column(name="password")
 	private byte[] password;
@@ -37,11 +37,11 @@ public class UserAuthenticationInfo implements Serializable {
 		this.id = id;
 	}
 
-	public String getUserName() {
+	public byte[] getUserName() {
 		return userName;
 	}
 
-	public void setUserName(String userName) {
+	public void setUserName(byte[] userName) {
 		this.userName = userName;
 	}
 
