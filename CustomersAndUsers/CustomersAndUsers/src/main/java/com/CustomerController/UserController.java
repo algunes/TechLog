@@ -176,20 +176,15 @@ public class UserController extends HttpServlet {
 		case "removeUser" : {
 			Long id = Long.parseLong(request.getParameter("id"));
 			
-			if(((Users)request.getSession().getAttribute("user")).getRole().equals("Admin")) {
-			new UserServiceImp().removeUser(id);
+			UserServiceImp us = new UserServiceImp();
+			Users user = us.removeUser(id);
 			
-			request.setAttribute("message", "User removed!");
+			request.setAttribute("users", us.getAllUsersList());
+			request.setAttribute("message", user.getFirstname() + " " + user.getLastname() + " removed!");
 			
-			RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("UserList.jsp");
 			rd.forward(request, response);
-			}
-			else {
-				request.setAttribute("user", new UserServiceImp().getUser(id, true));
-				request.setAttribute("alert", "You are not authorized to delete this!");
-				RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
-				rd.forward(request, response);
-			}
+
 			break;	
 			
 		}
@@ -240,19 +235,18 @@ public class UserController extends HttpServlet {
 		}
 		
 		case "addUser" : {
-			if(((Users)(request.getSession().getAttribute("user"))).getRole().equals("Admin")) {
 			RequestDispatcher rd = request.getRequestDispatcher("AddUser.jsp");
 			rd.forward(request, response);
-			}
-			else {
-				request.setAttribute("alert", "You are not authorized to create an user!");
-				request.setAttribute("users", new UserServiceImp().getAllUsersList());
-				RequestDispatcher rd = request.getRequestDispatcher("UserList.jsp");
-				rd.forward(request, response);
-			}
-			
 			break;	
 			
+		}
+		
+		case "updatePassword" : {
+			Long id = Long.parseLong(request.getParameter("id"));
+			request.setAttribute("id", id);
+			RequestDispatcher rd = request.getRequestDispatcher("PasswordChange.jsp");
+			rd.forward(request, response);
+			break;
 		}
 		
 		}
@@ -274,12 +268,16 @@ public class UserController extends HttpServlet {
 			
 			if(user != null) {
 				HttpSession session = request.getSession();
+				session.setMaxInactiveInterval(15*60);
 				session.setAttribute("user", user);
-
-				response.sendRedirect("index.jsp");
+				
+				session.setAttribute("welcomeMessage", "Hello " + user.getFirstname() + "!");
+				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+				rd.forward(request, response);
 
 			}
 			else {
+				
 				request.setAttribute("message", "Your Username or Password is invalid!");
 				RequestDispatcher rd = request.getRequestDispatcher("UserLogin.jsp");
 				rd.forward(request, response);	
@@ -350,11 +348,11 @@ public class UserController extends HttpServlet {
 		
 		case "updateRole" : {
 			Long id = Long.parseLong(request.getParameter("id"));
-			String userRole = request.getParameter("output");
+			String role = request.getParameter("role");
 			
-			Users user = new UserServiceImp().updateRole(id, userRole);
+			Users user = new UserServiceImp().updateRole(id, role);
 						
-			request.setAttribute("message", "User role updated to '" + userRole + "' !");
+			request.setAttribute("message", "User role updated to '" + role + "' !");
 			request.setAttribute("user", user);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
@@ -446,6 +444,29 @@ public class UserController extends HttpServlet {
 			
 			break;
 			
+		}
+		
+		case "updatePassword" : {
+			Long id = Long.parseLong(request.getParameter("id"));
+			String oldPassword = request.getParameter("oldPassword");
+			String newPassword = request.getParameter("up");
+			
+			UserServiceImp us = new UserServiceImp();
+			Users user = us.updatePassword(id, oldPassword, newPassword);
+			if(user == null) {
+				request.setAttribute("user", user);
+				request.setAttribute("alert", "Your username or password is invalid!");
+				RequestDispatcher rd = request.getRequestDispatcher("PasswordChange.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				request.setAttribute("message", "Password changed!");
+				request.setAttribute("user", user);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
+				rd.forward(request, response);
+			}
+			break;
 		}
 		
 	}

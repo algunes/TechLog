@@ -92,6 +92,16 @@ public class UserServiceImp {
 		return updateUser(user);	
 	}
 	
+	public Users updatePassword(Long id, String oldPassword, String newPassword) {
+		
+		Users user = userLoginValidation(byteToUsername(getUser(id, true).getUserAuth().getUserName()), oldPassword);
+		if(user != null) {
+			user.getUserAuth().setPassword(passwordHashing(user.getUserAuth().getSalt(), newPassword));
+			user = updateUser(user);
+		}
+		return user;
+	}
+	
 	public Users userLoginValidation(String userName, String password) {
 		Users user = null;
 		byte[] uname = usernameToByte(userName);

@@ -17,7 +17,7 @@
 <title>Add Corporation</title>
 </head>
 <body>
-<form action="addCustomer" method="post">
+<form action="AddCustomer" method="post">
 <div class="form-group">
 
 		<input type="hidden" name="job" value="addCorporation">

@@ -74,6 +74,15 @@ job=updateUsername">edit</a>)</small><br>
 
 <tr>
 <td>
+<a href="<%= request.getContextPath() %>
+/UserController?
+id=${user.getId()}&
+job=updatePassword">Change Password </a><br>
+</td>
+</tr>
+
+<tr>
+<td>
 Firstname: 
 </td>
 <td>
@@ -125,10 +134,19 @@ job=updatePosition">edit</a>)</small><br>
 Role:   
 </td>
 <td>
-${user.getRole()} <small>(<a href="<%= request.getContextPath() %>
-/UserController?
-id=${user.getId()}&
-job=updateRole">edit</a>)</small><br>
+<form action="UserController" method="post" >
+<input type="hidden" name="id" value="${user.getId()}"> 
+<input type="hidden" name="job" value="updateRole"> 
+<input type="radio" id="admin" name="role" value="Admin"> 
+<label for="male">Admin</label>
+<input type="radio" id="accounter" name="role" value="Accounter"> 
+<label for="male">Accounter</label>
+<input type="radio" id="salesPerson" name="role" value="Sales Person"> 
+<label for="male">Sales Person</label>
+<input type="radio" id="techPerson" name="role" value="Tech. Person"> 
+<label for="male">Tech. Person</label>
+<input class="btn btn-primary" value="Submit" type="submit">
+</form>
 </td>
 </tr>
 

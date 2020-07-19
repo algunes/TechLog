@@ -26,9 +26,20 @@ response.setHeader("Expires", "0");
 
 <body>
 
-<div class='alert alert-success'>
-Hi ${user.getFirstname()}!
-</div>
+
+<% if(session.getAttribute("welcomeMessage") != null ) { 
+	out.println(
+			
+			"<div class='alert alert-success'><strong>"
+			+
+			session.getAttribute("welcomeMessage")
+			+
+			"</strong></div>"
+			
+			);
+	session.removeAttribute("welcomeMessage");
+ } %>
+
     
 </body>
   

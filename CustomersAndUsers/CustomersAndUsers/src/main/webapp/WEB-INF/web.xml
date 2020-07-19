@@ -2,6 +2,16 @@
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
+	<filter>
+		<filter-name>UserAuthorizationFilter</filter-name>
+		<display-name>UserAuthorizationFilter</display-name>
+		<description></description>
+		<filter-class>com.Filters.UserAuthorizationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UserAuthorizationFilter</filter-name>
+		<url-pattern>/UserAuthorizationFilter</url-pattern>
+	</filter-mapping>
 
 	<servlet>
 		<servlet-name>AddCorporation</servlet-name>
