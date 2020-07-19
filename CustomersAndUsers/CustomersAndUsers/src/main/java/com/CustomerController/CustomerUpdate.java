@@ -3,6 +3,7 @@ package com.CustomerController;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +25,7 @@ public class CustomerUpdate extends HttpServlet {
 
 		Long id = Long.parseLong(request.getParameter("id"));
 		String job = request.getParameter("job");
+		ServletContext ctx = request.getServletContext();
 
 		switch (job) {
 		
@@ -108,20 +110,39 @@ public class CustomerUpdate extends HttpServlet {
 		
 		
 		case "updateCustomerEmail": {
-			int emailIndex = Integer.parseInt(request.getParameter("index"));
-			String email = new CustomerServiceImp()
-					.getCustomer(id, true)
-					.getEmails()
-					.get(emailIndex);
+			
+			
+			
+			if(ctx.getAttribute(Long.toString(id)) == null) {
+				
+				ctx.setAttribute(Long.toString(id), Long.toString(id));
+				
+				int emailIndex = Integer.parseInt(request.getParameter("index"));
+				String email = new CustomerServiceImp()
+						.getCustomer(id, true)
+						.getEmails()
+						.get(emailIndex);
 
-			request.setAttribute("job", job);
-			request.setAttribute("id", id);
-			request.setAttribute("value", email);
-			request.setAttribute("index", emailIndex);
-			request.setAttribute("formAction", "customerUpdate");
+				request.setAttribute("job", job);
+				request.setAttribute("id", id);
+				request.setAttribute("value", email);
+				request.setAttribute("index", emailIndex);
+				request.setAttribute("formAction", "customerUpdate");
 
-			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
-			rd.forward(request, response);
+				RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
+				rd.forward(request, response);
+				
+			}
+			
+			else {
+				request.setAttribute("customer", new CustomerServiceImp().getCustomer(id, true));
+				request.setAttribute("alert", "This Customer's Email Addresses updating by an another User. Please wait until its done!");
+				
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+				rd.forward(request, response);	
+			}
+			
+			
 			break;
 		}
 
@@ -171,6 +192,7 @@ public class CustomerUpdate extends HttpServlet {
 		String job = request.getParameter("job");
 		Long id = Long.parseLong(request.getParameter("id"));
 		Users user = new UserServiceImp().getUser(1L, false) ; 
+		ServletContext ctx = request.getServletContext();
 
 		switch (job) {
 		
@@ -255,6 +277,8 @@ public class CustomerUpdate extends HttpServlet {
 			CustomerServiceImp cservice = new CustomerServiceImp();
 			Customer customer = cservice.updateCustomerEmail(id, index, email, user);
 
+			ctx.removeAttribute(Long.toString(id));
+			
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", email + " succesfully updated!");
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");

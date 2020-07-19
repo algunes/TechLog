@@ -30,9 +30,12 @@ function deleteMsg() {
 
 <% 
 String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
+String alert = (request.getAttribute("alert") != null ? (String)request.getAttribute("alert") : "");// a text alert if want to show
 %>
-
-<% if(!message.isEmpty()) { 
+ 
+ <div class="container">
+ 
+ <% if(!message.isEmpty()) { 
 	out.println(
 			
 			"<div class='alert alert-success'><strong>"
@@ -43,8 +46,17 @@ String message = (request.getAttribute("message") != null ? (String)request.getA
 			
 			);
  } %>
- 
- <div class="container">
+  <% if(!alert.isEmpty()) { 
+	out.println(
+			
+			"<div class='alert alert-danger'>"
+			+
+			alert
+			+
+			"</strong></div>"
+			
+			);
+ } %>
  
 <Table class="table table-sm">
 
