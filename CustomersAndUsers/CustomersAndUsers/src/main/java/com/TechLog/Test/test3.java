@@ -11,16 +11,18 @@ public class test3 {
 		list.add("aliyargunes2@gmail.com");
 		
 		List<String> result = list.stream()
-			     .filter(t -> t.equals("aliyargunes@gmail.com"))
+			     .filter(t -> t.equals("aliyargunes2@gmail.com"))
 			     .collect(Collectors.toList());
 		
-		for(String s: result) {
+		if(list.contains("aliyargunes2@gmail.com")) {
+		for(String s: list) {
 			System.out.println(s);
 		}
-		
-		boolean b = list.stream()
-			     .filter(t -> t.equals("aliyargunes@gmail.com"))
-			     .is;
+		}
+		else {
+			System.out.println("Nothing found!");
+		}
+	
 		
 	}
 

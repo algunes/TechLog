@@ -29,7 +29,10 @@ public class UserController extends HttpServlet {
 		switch(job) {
 		
 		case "logout" : {
-			request.getSession().invalidate();
+			HttpSession session = request.getSession(false);
+			if (session.getAttribute("user") != null) {
+				session.invalidate();		
+			}
 			response.sendRedirect("UserLogin.jsp");
 			break;
 		}
@@ -263,21 +266,20 @@ public class UserController extends HttpServlet {
 		case "login" : {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
-			
 			Users user = new UserServiceImp().userLoginValidation(username, password);
-			
-			if(user != null) {
-				HttpSession session = request.getSession();
+			HttpSession session = request.getSession(false);
+			if(user != null && session.getAttribute("user") == null) {
+				
+				session = request.getSession(true);
 				session.setMaxInactiveInterval(15*60);
 				session.setAttribute("user", user);
-				
 				session.setAttribute("welcomeMessage", "Hello " + user.getFirstname() + "!");
-				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-				rd.forward(request, response);
+				
+				response.sendRedirect(request.getContextPath());
 
 			}
+			
 			else {
-				
 				request.setAttribute("message", "Your Username or Password is invalid!");
 				RequestDispatcher rd = request.getRequestDispatcher("UserLogin.jsp");
 				rd.forward(request, response);	

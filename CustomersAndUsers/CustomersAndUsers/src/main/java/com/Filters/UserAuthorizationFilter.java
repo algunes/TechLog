@@ -13,6 +13,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.TechLog.Services.UserImp.UserServiceImp;
 import com.TechLog.Users.Users;
@@ -30,11 +31,14 @@ public class UserAuthorizationFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest)request;
 		
+		HttpSession session = req.getSession();
+		
+		
 		String job = (req.getParameter("job") != null ? req.getParameter("job") : null);
 		Long id = (req.getParameter("id") != null ? Long.parseLong(req.getParameter("id")) : null);
 		
 		Users user = (id != null ? new UserServiceImp().getUser(id, true) : null);
-		Users sessionUser = ((Users)req.getSession().getAttribute("user"));
+		Users sessionUser = ((Users)session.getAttribute("user"));
 		
 		boolean isAdmin = (sessionUser != null ? sessionUser.getRole().equals("Admin") : false);
 		boolean isSelfSubject = (user != null ? Arrays.equals(user.getUserAuth().getUserName(),

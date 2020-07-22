@@ -1,20 +1,22 @@
 package com.CustomerController;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.TechLog.Customers.Corporation;
 import com.TechLog.Customers.Customer;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
 import com.TechLog.Services.UserImp.UserServiceImp;
 import com.TechLog.Users.Users;
+
 
 @WebServlet("/customerUpdate")
 public class CustomerUpdate extends HttpServlet {
@@ -25,7 +27,6 @@ public class CustomerUpdate extends HttpServlet {
 
 		Long id = Long.parseLong(request.getParameter("id"));
 		String job = request.getParameter("job");
-		ServletContext ctx = request.getServletContext();
 
 		switch (job) {
 		
@@ -110,39 +111,23 @@ public class CustomerUpdate extends HttpServlet {
 		
 		
 		case "updateCustomerEmail": {
-			
-			
-			
-			if(ctx.getAttribute(Long.toString(id)) == null) {
+		
+				CustomerServiceImp cs = new CustomerServiceImp();
+				int index = Integer.parseInt(request.getParameter("index"));
+				Customer customer = cs.getCustomer(id, true);
+				String email = customer.getEmails().get(index);
 				
-				ctx.setAttribute(Long.toString(id), Long.toString(id));
-				
-				int emailIndex = Integer.parseInt(request.getParameter("index"));
-				String email = new CustomerServiceImp()
-						.getCustomer(id, true)
-						.getEmails()
-						.get(emailIndex);
+				HttpSession session = request.getSession(false);
+				session.setAttribute("customer", customer);				
 
-				request.setAttribute("job", job);
 				request.setAttribute("id", id);
+				request.setAttribute("job", job);
 				request.setAttribute("value", email);
-				request.setAttribute("index", emailIndex);
 				request.setAttribute("formAction", "customerUpdate");
 
 				RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 				rd.forward(request, response);
-				
-			}
-			
-			else {
-				request.setAttribute("customer", new CustomerServiceImp().getCustomer(id, true));
-				request.setAttribute("alert", "This Customer's Email Addresses updating by an another User. Please wait until its done!");
-				
-				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-				rd.forward(request, response);	
-			}
-			
-			
+							
 			break;
 		}
 
@@ -192,7 +177,6 @@ public class CustomerUpdate extends HttpServlet {
 		String job = request.getParameter("job");
 		Long id = Long.parseLong(request.getParameter("id"));
 		Users user = new UserServiceImp().getUser(1L, false) ; 
-		ServletContext ctx = request.getServletContext();
 
 		switch (job) {
 		
@@ -271,18 +255,42 @@ public class CustomerUpdate extends HttpServlet {
 		}
 		
 		case "updateCustomerEmail": {
-			int index = Integer.parseInt(request.getParameter("index"));
-			String email = request.getParameter("output");
-
-			CustomerServiceImp cservice = new CustomerServiceImp();
-			Customer customer = cservice.updateCustomerEmail(id, index, email, user);
-
-			ctx.removeAttribute(Long.toString(id));
 			
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", email + " succesfully updated!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
+			String newEmail = request.getParameter("output");
+			String oldEmail = request.getParameter("oldValue");
+			
+			HttpSession session = request.getSession(false);
+			
+			CustomerServiceImp cservice = new CustomerServiceImp();
+			Customer customer = cservice.updateCustomerEmail(oldEmail, newEmail, session, user);
+			
+			if(customer != null ) {
+				
+				request.setAttribute("customer", customer);
+				request.setAttribute("message", newEmail + " succesfully updated!");
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+				rd.forward(request, response);
+				if(session.getAttribute("customer") == null) {
+				System.out.println("No customer object");
+				}
+				else {
+					System.out.println("Customer object exist");
+				}
+				if(session.getAttribute("user") == null) {
+					System.out.println("No user object");
+					}
+					else {
+						System.out.println("User object exist");
+					}
+				
+			}
+			
+			else {
+				request.setAttribute("alert", "Email update failed!");
+				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+				rd.forward(request, response);
+			}
+			
 			break;
 		}
 

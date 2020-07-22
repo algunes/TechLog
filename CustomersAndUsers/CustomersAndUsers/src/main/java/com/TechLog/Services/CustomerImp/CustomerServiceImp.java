@@ -3,6 +3,8 @@ package com.TechLog.Services.CustomerImp;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.TechLog.Customers.Corporation;
 import com.TechLog.Customers.CorporationBuilder;
 import com.TechLog.Customers.Customer;
@@ -158,11 +160,16 @@ public class CustomerServiceImp implements CustomerService {
 	
 	// updates a customer email
 
-	public Customer updateCustomerEmail(Long customerId, int index, String email, Users user) {
+	public Customer updateCustomerEmail(String oldEmail, String newEmail, HttpSession session, Users user) {
 
-		Customer customer = getCustomer(customerId, true);
-		if(!customer.getEmails().contains(email))
-		       customer.getEmails().set(index, email);
+		Customer customer = (Customer)session.getAttribute("customer");
+		session.removeAttribute("customer");
+		
+		if(customer.getEmails().contains(oldEmail)) {
+			int idx = customer.getEmails().indexOf(oldEmail);
+			customer.getEmails().set(idx, newEmail);
+		}
+		
 		return updateCustomer(customer, user);
 
 	}

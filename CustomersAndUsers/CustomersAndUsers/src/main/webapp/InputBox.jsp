@@ -1,6 +1,7 @@
 <%@ page language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
+<%@ page isELIgnored="false" %>
 <%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
 response.setHeader("Expires", "0");
@@ -17,40 +18,51 @@ response.setHeader("Expires", "0");
 </head>
 <body>
 <% 
-Long id = (Long)request.getAttribute("id"); // Customer id
-
-String formAction = (request.getAttribute("formAction") != null ? (String)request.getAttribute("formAction"): "") ;	// variable formAction attribute
-
-String defaultValue = (request.getAttribute("value") != null ? (String)request.getAttribute("value") : "");	// text which want to modify
-
-int index = (request.getAttribute("index") != null ? (int)request.getAttribute("index") : 0);	// collection object index (email, phone number, address etc.)
-
-String job = (request.getAttribute("job") != null ? (String)request.getAttribute("job") : "");	// job
-
 String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
-
-String placeholder = (request.getAttribute("placeholder") != null ? (String) request.getAttribute("placeholder") : "");	// placeholder for textarea
-
- %>
-
-<% if(!message.isEmpty()) { 
-		out.println("<i>" + message + "</i>" + "<br>" + "<hr>");
- 	} 
+String alert = (request.getAttribute("alert") != null ? (String)request.getAttribute("alert") : "");// a text alert if want to show
 %>
 
 
+<div class="container">
 
-<form action="<%= formAction %>" id="input" method="post">
-<div class="form-group">
-<input type="hidden" value="<%= index %>" name="index"><br>
-<input type="hidden" value="<%= job %>" name="job"><br>
-<input type="hidden" value="<%= id %>" name="id"><br>
-<textarea form="input" class="form-control" maxlength="255" placeholder="<%= placeholder %>" name="output" rows="6" cols="50"><%= defaultValue %></textarea><br>
-<%-- <input type="text" value="<%= defaultValue %>" placeholder="<%= placeholder %>" name="output" maxlength="255"><br>
- --%>
- <input class="btn btn-primary" value="Submit" type="submit">
- </div>
+<% if(!message.isEmpty()) { 
+	out.println(
+			
+			"<div class='alert alert-success'><strong>"
+			+
+			message
+			+
+			"</strong></div>"
+			
+			);
+ } %>
+  <% if(!alert.isEmpty()) { 
+	out.println(
+			
+			"<div class='alert alert-danger'>"
+			+
+			alert
+			+
+			"</strong></div>"
+			
+			);
+ } %>
+
+<Table class="table table-sm">
+<tr>
+<td>
+<form action="${formaction}" id="input" method="post">
+<input type="hidden" value="${value}" name="oldValue"><br>
+<input type="hidden" value="${job}" name="job"><br>
+<input type="hidden" value="${id}" name="id"><br>
+<textarea form="input" class="form-control" maxlength="255" 
+placeholder="${placeholder}" name="output" rows="6" cols="50">${value}</textarea><br>
+<input class="btn btn-primary" value="Submit" type="submit">
 </form>
+</td>
+</tr>
+</Table>
+</div>
 
 </body>
 </html>
