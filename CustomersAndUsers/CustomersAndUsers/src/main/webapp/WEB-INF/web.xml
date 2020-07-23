@@ -79,6 +79,12 @@
 		<description></description>
 		<servlet-class>com.CustomerController.UserController</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ErrorHandling</servlet-name>
+		<display-name>ErrorHandling</display-name>
+		<description></description>
+		<servlet-class>com.CustomerController.ErrorHandling</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>AddCorporation</servlet-name>
@@ -123,6 +129,10 @@
 	<servlet-mapping>
 		<servlet-name>UserController</servlet-name>
 		<url-pattern>/UserController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ErrorHandling</servlet-name>
+		<url-pattern>/ErrorHandling</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

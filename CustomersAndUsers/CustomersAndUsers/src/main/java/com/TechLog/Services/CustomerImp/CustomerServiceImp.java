@@ -165,13 +165,13 @@ public class CustomerServiceImp implements CustomerService {
 		Customer customer = (Customer)session.getAttribute("customer");
 		session.removeAttribute("customer");
 		
-		if(customer.getEmails().contains(oldEmail)) {
+		if(getCustomer(customer.getCustomer_id(), false) != null && customer.getEmails().contains(oldEmail)) {
 			int idx = customer.getEmails().indexOf(oldEmail);
 			customer.getEmails().set(idx, newEmail);
+			return updateCustomer(customer, user);
 		}
+		return null;
 		
-		return updateCustomer(customer, user);
-
 	}
 	
 	// updates a customer phone number

@@ -267,7 +267,7 @@ public class CustomerUpdate extends HttpServlet {
 			if(customer != null ) {
 				
 				request.setAttribute("customer", customer);
-				request.setAttribute("message", newEmail + " succesfully updated!");
+				request.setAttribute("message", "Email succesfully updated to " + newEmail);
 				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 				rd.forward(request, response);
 				if(session.getAttribute("customer") == null) {
@@ -281,13 +281,12 @@ public class CustomerUpdate extends HttpServlet {
 					}
 					else {
 						System.out.println("User object exist");
-					}
-				
+					}			
 			}
 			
 			else {
-				request.setAttribute("alert", "Email update failed!");
-				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+				request.setAttribute("alert", "Email update failed! Someone might be deleted or updated this customer's data just before you! Please check the customer again.");
+				RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
 				rd.forward(request, response);
 			}
 			
