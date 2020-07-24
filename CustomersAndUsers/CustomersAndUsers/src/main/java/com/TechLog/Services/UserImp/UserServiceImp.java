@@ -40,8 +40,7 @@ public class UserServiceImp {
 	}
 
 	public Users updateUser(Users user) {
-		new UserDaoImp().updateUser(user);
-		return getUser(user.getId(), true);
+		return new UserDaoImp().updateUser(user);
 	}
 	
 	public Users updateFirstname(Long  id, String firstname) {

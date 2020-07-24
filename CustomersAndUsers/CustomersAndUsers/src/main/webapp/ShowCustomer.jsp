@@ -58,6 +58,7 @@ String alert = (request.getAttribute("alert") != null ? (String)request.getAttri
 			);
  } %>
  
+<b>Customer Details:</b> <br>
 <Table class="table table-sm">
 
 <tr>
@@ -203,6 +204,35 @@ id=${customer.getCustomer_id()}&
 job=addCustomerAddress"> Add</a></small><br>
 </td>
 </tr>
+
+<tr>
+<td>
+Created By:  
+</td>
+<td>
+<a href="<%= request.getContextPath() %>
+/user?
+id=${customer.getCreated_by().getId()}&
+job=details">
+${customer.getCreated_by().getFirstname()} ${customer.getCreated_by().getLastname()}
+</a><small> (${customer.getCreation_date()})</small>
+</td>
+</tr>
+
+<tr>
+<td>
+Last Update:  
+</td>
+<td>
+<a href="<%= request.getContextPath() %>
+/user?
+id=${customer.getUpdated_by().getId()}&
+job=details">
+${customer.getUpdated_by().getFirstname()} ${customer.getUpdated_by().getLastname()}
+</a><small> (${customer.getLast_update()})</small>
+</td>
+</tr>
+
 </Table>
 
 <a href="<%= request.getContextPath() %>

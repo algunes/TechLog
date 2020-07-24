@@ -413,12 +413,20 @@ public class UserController extends HttpServlet {
 			String username = request.getParameter("output");
 			
 			Users user = new UserServiceImp().updateUsername(id, username);
-						
-			request.setAttribute("message", "Username updated to '" + username + "' !");
-			request.setAttribute("user", user);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
-			rd.forward(request, response);
+			if(user != null) {		
+				request.setAttribute("message", "Username updated to '" + username + "' !");
+				request.setAttribute("user", user);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				request.setAttribute("alert", "This username is used by someone else!");
+				request.setAttribute("user", new UserServiceImp().getUser(id, true));
+				
+				RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
+				rd.forward(request, response);
+			}
 			break;	
 			
 		}

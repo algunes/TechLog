@@ -6,7 +6,10 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import com.TechLog.Customers.Corporation;
 import com.TechLog.Dao.CorporationDao;
@@ -15,13 +18,15 @@ import com.TechLog.Dao.HibernateUtil;
 public class CorporationDaoImp implements CorporationDao {
 
 	@Override
-	public Long addCorporation(Corporation corporation) {
+	public Corporation addCorporation(Corporation corporation) {
+		
+		if(validateCorporationName(corporation) == null) {
+			Long id = null;
 		Session session = null;
-		Long result = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();		
-			result = (Long)session.save(corporation);
+			id = (Long)session.save(corporation);
 			session.getTransaction().commit();			
 		}
 		catch (HibernateException e) {
@@ -33,7 +38,11 @@ public class CorporationDaoImp implements CorporationDao {
 			if (session != null)
 			session.close();
 		}
-		return result;
+		return fullFetchCorporation(id);
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
@@ -112,9 +121,12 @@ public class CorporationDaoImp implements CorporationDao {
 	}
 
 	@Override
-	public void updateCorporation(Corporation corporation) {
+	public Corporation updateCorporation(Corporation corporation) {
 
-		Session session = null;
+		if(validateCorporationName(corporation) == null) {
+
+			Session session = null;
+
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
 			session.beginTransaction();
@@ -130,6 +142,11 @@ public class CorporationDaoImp implements CorporationDao {
 			if (session != null) {
 				session.close();
 			}
+		}
+		return fullFetchCorporation(corporation.getId());
+		}
+		else {
+			return null;
 		}
 	}
 
@@ -153,6 +170,38 @@ public class CorporationDaoImp implements CorporationDao {
 			}
 		}
 
+	}
+	
+	@Override
+	public Corporation validateCorporationName(Corporation corporation) {
+		Session session = null;
+		Corporation result = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+
+			CriteriaBuilder cb = session.getCriteriaBuilder();
+			CriteriaQuery<Corporation> cr = cb.createQuery(Corporation.class);
+			Root<Corporation> root = cr.from(Corporation.class);
+			
+			cr.select(root).where(cb.equal(root.get("name"), corporation.getName()));
+			 
+			result = (session.createQuery(cr).getResultList().isEmpty() ? 
+					null : session.createQuery(cr).getSingleResult());
+			
+			session.getTransaction().commit();
+		}
+		catch (HibernateException e) {
+			if(session.getTransaction() != null)
+				session.beginTransaction().rollback();
+			e.printStackTrace();
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return result;
 	}
 
 }

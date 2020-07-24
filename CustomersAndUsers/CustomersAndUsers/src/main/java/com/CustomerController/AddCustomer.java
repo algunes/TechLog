@@ -127,16 +127,23 @@ public class AddCustomer extends HttpServlet {
     		
     		case "addCorporation" : {
     			
-    			String name = request.getParameter("name");
-    			String sector = request.getParameter("sector");
-    			Boolean isActive = Boolean.parseBoolean(request.getParameter("isActive"));
+    			request.getSession(false).setAttribute("corporationName", request.getParameter("name"));
+    			request.getSession(false).setAttribute("corporationSector", request.getParameter("sector"));
+    			request.getSession(false).setAttribute("corporationIsActive", Boolean.parseBoolean(request.getParameter("isActive")));
     			
-    			Corporation corporation = new CustomerServiceImp().createCorporation(name, sector, isActive, null, user);
+    			Corporation corporation = new CustomerServiceImp().createCorporation(request.getSession(false));
+    			if(corporation != null) {
+    				request.setAttribute("corporation", corporation); 
+        			request.setAttribute("message", corporation.getName() + " created!");
+        			RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp"); 
+        			rd.forward(request, response);
+    			}
+    			else {
+    				request.setAttribute("alert", "Corporation creation failed! Corporation name must be unique. Please check the Corporation List.");
+        			RequestDispatcher rd = request.getRequestDispatcher("Error.jsp"); 
+        			rd.forward(request, response);
+    			}
     			
-    			request.setAttribute("corporation", corporation); 
-    			request.setAttribute("message", corporation.getName() + " is created succesfully!");
-    			RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp"); 
-    			rd.forward(request, response);
     			break;
     		}
     		

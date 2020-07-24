@@ -4,6 +4,8 @@
 <%@ page import="com.TechLog.Customers.Corporation"%>
 <%@ page import="com.TechLog.Customers.Customer"%>
 <%@ page import="java.util.*"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
 response.setHeader("Expires", "0");
@@ -15,50 +17,58 @@ response.setHeader("Expires", "0");
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
 <title>Corporation List</title>
 </head>
 <body>
 
-	<%
-		@SuppressWarnings(value = { "unchecked" })
-	List<Corporation> corporations = (request.getAttribute("corporations") instanceof java.util.List
-			? (List<Corporation>) request.getAttribute("corporations")
-			: null);
-	ListIterator<Corporation> iteratorC = corporations.listIterator();
-	String message = (request.getAttribute("message") != null ? (String) request.getAttribute("message") : "");
-	Corporation corporation = null;
-	%>
+<% 
+String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
+String alert = (request.getAttribute("alert") != null ? (String)request.getAttribute("alert") : "");// a text alert if want to show
+%>
+ 
+ <div class="container">
+ 
+ <% if(!message.isEmpty()) { 
+	out.println(
+			
+			"<div class='alert alert-success'><strong>"
+			+
+			message
+			+
+			"</strong></div>"
+			
+			);
+ } %>
+  <% if(!alert.isEmpty()) { 
+	out.println(
+			
+			"<div class='alert alert-danger'>"
+			+
+			alert
+			+
+			"</strong></div>"
+			
+			);
+ } %>
 
-	<%
-		if (!message.isEmpty()) {
-		out.println("<i>" + message + "</i>" + "<br>" + "<hr>");
-	}
-	%>
+<Table class="table table-sm">
 
+<c:forEach items ="${corporations}" var = "e">
+<tr>
+<td>
+<a href="<%=request.getContextPath()%>
 
-	<%
-		while (iteratorC.hasNext()) {
-		corporation = iteratorC.next();
-	%>
-	<details>
-		<summary>
-			<a
-				href="<%request.getContextPath();%>GetCustomer?id=<%=corporation.getId()%>&job=getCorporation"><%=corporation.getName()%></a>
-		</summary>
-		<table>
-			<tr>
-				<td><small>(<a
-						href="<%=request.getContextPath()%>/CustomerUpdate?id=<%=corporation.getId()%>&job=updateCorporationName">edit</a>
-						| <a
-						href="<%=request.getContextPath()%>/DeleteCustomer?id=<%=corporation.getId()%>&job=removeCorporation"
-						onclick="deleteMsg()"> remove</a></small>)<br></td>
-			</tr>
-		</table>
-	</details>
-	<% } %>
+/GetCustomer?
+id=${e.getId()}&
+job=getCorporation">${e.getName()}</a>
+
+</td>
+</tr>
+</c:forEach>
+</Table>
+	
+</div>
 </body>
 </html>

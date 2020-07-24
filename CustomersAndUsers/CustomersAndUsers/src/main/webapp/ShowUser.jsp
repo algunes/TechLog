@@ -29,6 +29,7 @@
 
 <div class="container">
  
+<b>User Details:</b> <br>
 <Table class="table table-sm">
 <% 
 String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show

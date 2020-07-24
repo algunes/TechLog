@@ -11,14 +11,12 @@ import com.TechLog.Customers.Customer;
 import com.TechLog.Customers.CustomerBuilder;
 import com.TechLog.Dao.CorporationImp.CorporationDaoImp;
 import com.TechLog.Dao.CustomerImp.CustomerDaoImp;
-import com.TechLog.Services.CustomerService;
 import com.TechLog.Users.Users;
 
-public class CustomerServiceImp implements CustomerService {
+public class CustomerServiceImp {
 
 	// Creates and persists a customer from scratch
 	
-	@Override
 	public Customer createCustomer(String firstname, String lastname, Long corporationId, String department,
 			String position, String email, String telNum, String address, Users user) {
 
@@ -40,7 +38,6 @@ public class CustomerServiceImp implements CustomerService {
 	
 	// removes a specific customer
 
-	@Override
 	public Customer removeCustomer(Long customerId) {
 			Customer customer = getCustomer(customerId, false);
 			new CustomerDaoImp().deleteCustomer(customer);
@@ -49,7 +46,6 @@ public class CustomerServiceImp implements CustomerService {
 
 	// get a customer (isFull: lazy or eager)
 	
-	@Override
 	public Customer getCustomer(Long id, boolean isFull) {
 		if (isFull)
 			return new CustomerDaoImp().fullFetchCustomer(id);
@@ -59,7 +55,6 @@ public class CustomerServiceImp implements CustomerService {
 	
 	// updates a customer
 
-	@Override
 	public Customer updateCustomer(Customer customer, Users user) {
 		customer.setLast_update(LocalDate.now());
 		customer.setUpdated_by(user);
@@ -70,9 +65,16 @@ public class CustomerServiceImp implements CustomerService {
 	
 	// create a corporation from scratch (there is one-to-many association between corporation and customer classes. Customer is a subclass of Corporation.)
 
-	@Override
-	public Corporation createCorporation(String name, String sector, boolean isActive, Customer customer,
-			Users user) {
+	public Corporation createCorporation(HttpSession session) {
+		
+		String name = (String)session.getAttribute("corporationName");
+		String sector = (String)session.getAttribute("corporationSector");
+		Boolean isActive = (Boolean)session.getAttribute("corporationIsActive");
+		Users user = (Users)session.getAttribute("user");
+		
+		session.removeAttribute("corporationName");
+		session.removeAttribute("corporationSector");
+		session.removeAttribute("corporationIsActive");
 		
 		Corporation corporation = new CorporationBuilder()
 				.setName(name)
@@ -82,13 +84,12 @@ public class CustomerServiceImp implements CustomerService {
 				.setCreationDate(LocalDate.now())
 				.build();
 		
-		return getCorporation(new CorporationDaoImp().addCorporation(corporation), true);
+		return new CorporationDaoImp().addCorporation(corporation);
 
 	}
 	
 	// removes a specific corporation
 
-	@Override
 	public void removeCorporation(Corporation corporation) {
 		if (corporation != null)
 			new CorporationDaoImp().deleteCorporation(corporation);
@@ -97,7 +98,6 @@ public class CustomerServiceImp implements CustomerService {
 	
 	// get a corporation (isFull: lazy or eager)
 
-	@Override
 	public Corporation getCorporation(Long id, boolean isFull) {
 		if (isFull)
 			return new CorporationDaoImp().fullFetchCorporation(id);
@@ -107,92 +107,157 @@ public class CustomerServiceImp implements CustomerService {
 
 	// retrieve all rows from db corporation table (just for corporation name listing)
 	
-	@Override
 	public List<Corporation> getAllCorporations() {
 		return new CorporationDaoImp().fetchAllCorporations();
 	}
 	
 	// update a corporation
 
-	@Override
 	public Corporation updateCorporation(Corporation corporation, Users user) {
-		CorporationDaoImp cdimp = new CorporationDaoImp();
+		
 		corporation.setUpdated_by(user);
 		corporation.setLast_update(LocalDate.now());
-		cdimp.updateCorporation(corporation);
-		return cdimp.fullFetchCorporation(corporation.getId());
+		return new CorporationDaoImp().updateCorporation(corporation);
+		
 	}
 
 	// updates a customer firstname
 	
-	public Customer updateCustomerFirstname(Long id, String firstname, Users user) {
-		Customer customer = getCustomer(id, false);
-		customer.setFirstname(firstname);
-		updateCustomer(customer, user);
-		return customer;
+	public Customer updateCustomerFirstname(HttpSession session) {
+		
+		String newFirstname = (String)session.getAttribute("newCustomerFirstname");
+		String oldFirstname = ((Customer)session.getAttribute("customer")).getFirstname();
+
+		Customer customer = getCustomer(((Customer)session.getAttribute("customer")).getCustomer_id(), true);
+		session.removeAttribute("newCustomerFirstname");
+		session.removeAttribute("customer");
+		
+		if(customer != null && customer.getFirstname().equals(oldFirstname)) {
+			customer.setFirstname(newFirstname);
+			return updateCustomer(customer, (Users)session.getAttribute("user"));
+		}
+		else {
+			return null;
+		}
 	}
 	
 	// updates a customer lastname
 
-	public Customer updateCustomerLastname(Long id, String lastname, Users user) {
-		Customer customer = getCustomer(id, false);
-		customer.setLastname(lastname);
-		return updateCustomer(customer, user);
+	public Customer updateCustomerLastname(HttpSession session) {
+
+		
+		String newLastname = (String)session.getAttribute("newCustomerLastname");
+		String oldLastname = ((Customer)session.getAttribute("customer")).getLastname();
+
+		Customer customer = getCustomer(((Customer)session.getAttribute("customer")).getCustomer_id(), true);
+		session.removeAttribute("newCustomerLastname");
+		session.removeAttribute("customer");
+		
+		if(customer != null && customer.getLastname().equals(oldLastname)) {
+			customer.setLastname(newLastname);
+			return updateCustomer(customer, (Users)session.getAttribute("user"));
+		}
+		else {
+			return null;
+		}
 	}
 	
 	// updates a customer department
 	
-	public Customer updateCustomerDepartment(Long id, String department, Users user) {
+	public Customer updateCustomerDepartment(HttpSession session) {
 
-		Customer customer = getCustomer(id, false);
-		customer.setDepartment(department);
-		updateCustomer(customer, user);
-		return customer;
+		String newDepartment = (String)session.getAttribute("newCustomerDepartment");
+		String oldDepartment = ((Customer)session.getAttribute("customer")).getDepartment();
+
+		Customer customer = getCustomer(((Customer)session.getAttribute("customer")).getCustomer_id(), true);
+		session.removeAttribute("newCustomerDepartment");
+		session.removeAttribute("customer");
+		
+		if(customer != null && customer.getDepartment().equals(oldDepartment)) {
+			customer.setDepartment(newDepartment);
+			return updateCustomer(customer, (Users)session.getAttribute("user"));
+		}
+		else {
+			return null;
+		}
 	}
 	
 	// updates a customer position
 	
-	public Customer updateCustomerPosition(Long id, String position, Users user) {
-		Customer customer = getCustomer(id, false);
-		customer.setPosition(position);
-		return updateCustomer(customer, user);
+	public Customer updateCustomerPosition(HttpSession session) {
+		
+		String newPosition = (String)session.getAttribute("newCustomerPosition");
+		String oldPosition = ((Customer)session.getAttribute("customer")).getPosition();
+
+		Customer customer = getCustomer(((Customer)session.getAttribute("customer")).getCustomer_id(), true);
+		session.removeAttribute("newCustomerPosition");
+		session.removeAttribute("customer");
+		
+		if(customer != null && customer.getPosition().equals(oldPosition)) {
+			customer.setPosition(newPosition);
+			return updateCustomer(customer, (Users)session.getAttribute("user"));
+		}
+		else {
+			return null;
+		}
 	}
 	
 	// updates a customer email
 
-	public Customer updateCustomerEmail(String oldEmail, String newEmail, HttpSession session, Users user) {
-
-		Customer customer = (Customer)session.getAttribute("customer");
-		session.removeAttribute("customer");
+	public Customer updateEmail(HttpSession session) {
 		
-		if(getCustomer(customer.getCustomer_id(), false) != null && customer.getEmails().contains(oldEmail)) {
+		String newEmail = (String)session.getAttribute("newEmail");
+		String oldEmail = (String)session.getAttribute("oldEmail");
+		Customer customer = getCustomer(((Customer)session.getAttribute("customer")).getCustomer_id(), true);
+		session.removeAttribute("customer");
+		session.removeAttribute("newEmail");
+		session.removeAttribute("oldEmail");
+		
+		if(customer != null && customer.getEmails().contains(oldEmail)) {
 			int idx = customer.getEmails().indexOf(oldEmail);
 			customer.getEmails().set(idx, newEmail);
-			return updateCustomer(customer, user);
+			return updateCustomer(customer, (Users)session.getAttribute("user"));
 		}
 		return null;
-		
 	}
 	
 	// updates a customer phone number
 
-	public Customer updateTelNum(Long customerId, int index, String telNum, Users user) {
-
-		Customer customer = getCustomer(customerId, true);
-		if(!customer.getTelNums().contains(telNum))
-		       customer.getTelNums().set(index, telNum);
-		return updateCustomer(customer, user);
+	public Customer updateTelNum(HttpSession session) {
+		
+		String newTelNum = (String)session.getAttribute("newTelNum");
+		String oldTelNum = (String)session.getAttribute("oldTelNum");
+		Customer customer = getCustomer(((Customer)session.getAttribute("customer")).getCustomer_id(), true);
+		session.removeAttribute("customer");
+		session.removeAttribute("newTelNum");
+		session.removeAttribute("oldTelNum");
+		
+		if(customer != null && customer.getTelNums().contains(oldTelNum)) {
+			int idx = customer.getTelNums().indexOf(oldTelNum);
+			customer.getTelNums().set(idx, newTelNum);
+			return updateCustomer(customer, (Users)session.getAttribute("user"));
+		}
+		return null;
 
 	}
 	
 	// updates a customer address
 
-	public Customer updateAddress(Long customerId, int index, String address, Users user) {
+	public Customer updateAddress(HttpSession session) {
 
-		Customer customer = getCustomer(customerId, true);
-		if(!customer.getAddresses().contains(address))
-		       customer.getAddresses().set(index, address);
-		return updateCustomer(customer, user);
+		String newAddress = (String)session.getAttribute("newAddress");
+		String oldAddress = (String)session.getAttribute("oldAddress");
+		Customer customer = getCustomer(((Customer)session.getAttribute("customer")).getCustomer_id(), true);
+		session.removeAttribute("customer");
+		session.removeAttribute("newAddress");
+		session.removeAttribute("oldAddress");
+		
+		if(customer != null && customer.getAddresses().contains(oldAddress)) {
+			int idx = customer.getAddresses().indexOf(oldAddress);
+			customer.getAddresses().set(idx, newAddress);
+			return updateCustomer(customer, (Users)session.getAttribute("user"));
+		}
+		return null;
 	}
 	
 	// add an email to a customer
@@ -253,18 +318,41 @@ public class CustomerServiceImp implements CustomerService {
 	
 	// update corporation name
 	
-	public Corporation updateCorporationName(Long id, String name, Users user) {
-		Corporation corporation = getCorporation(id, false);
-		corporation.setName(name);
-		return updateCorporation(corporation, user);
+	public Corporation updateCorporationName(HttpSession session) {
+		
+		Corporation corporation = getCorporation(((Corporation)session.getAttribute("corporation")).getId(), true);
+		String newCorporationName = (String)session.getAttribute("newCorporationName");
+		String oldCorporationName = ((Corporation)session.getAttribute("corporation")).getName();
+		session.removeAttribute("newCorporationName");
+		session.removeAttribute("corporation");
+		Users user = (Users)session.getAttribute("user");
+		
+		if(corporation != null && corporation.getName().equals(oldCorporationName)) {
+			corporation.setName(newCorporationName);
+			return updateCorporation(corporation, user);
+		}
+		else {
+			return null;
+		}
 	}
 	
 	// update corporation sector
 	
-		public Corporation updateCorporationSector(Long id, String sector, Users user) {
-			Corporation corporation = getCorporation(id, false);
-			corporation.setSector(sector);;
-			return updateCorporation(corporation, user);
+		public Corporation updateCorporationSector(HttpSession session) {
+			Corporation corporation = getCorporation(((Corporation)session.getAttribute("corporation")).getId(), true);
+			String newCorporationSector = (String)session.getAttribute("newCorporationSector");
+			String oldCorporationSector = ((Corporation)session.getAttribute("corporation")).getSector();
+			session.removeAttribute("newCorporationSector");
+			session.removeAttribute("corporation");
+			Users user = (Users)session.getAttribute("user");
+			
+			if(corporation != null && corporation.getSector().equals(oldCorporationSector)) {
+				corporation.setSector(newCorporationSector);
+				return updateCorporation(corporation, user);
+			}
+			else {
+				return null;
+			}
 		}
 
 }

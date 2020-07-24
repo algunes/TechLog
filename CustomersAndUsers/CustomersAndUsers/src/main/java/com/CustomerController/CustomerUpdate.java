@@ -1,7 +1,6 @@
 package com.CustomerController;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,13 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.TechLog.Customers.Corporation;
 import com.TechLog.Customers.Customer;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
-import com.TechLog.Services.UserImp.UserServiceImp;
-import com.TechLog.Users.Users;
 
 
 @WebServlet("/customerUpdate")
@@ -32,6 +28,7 @@ public class CustomerUpdate extends HttpServlet {
 		
 		case "updateCorporationName": {
 			Corporation corporation = new CustomerServiceImp().getCorporation(id, false);
+			request.getSession(false).setAttribute("corporation", corporation);
 			
 			request.setAttribute("id", id);
 			request.setAttribute("value", corporation.getName());
@@ -45,6 +42,7 @@ public class CustomerUpdate extends HttpServlet {
 		
 		case "updateCorporationSector": {
 			Corporation corporation = new CustomerServiceImp().getCorporation(id, false);
+			request.getSession(false).setAttribute("corporation", corporation);
 			
 			request.setAttribute("id", id);
 			request.setAttribute("value", corporation.getSector());
@@ -64,6 +62,7 @@ public class CustomerUpdate extends HttpServlet {
 			request.setAttribute("job", job);
 			request.setAttribute("formAction", "customerUpdate");
 			
+			request.getSession(false).setAttribute("customer", customer);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 			rd.forward(request, response);
@@ -77,6 +76,8 @@ public class CustomerUpdate extends HttpServlet {
 			request.setAttribute("value", customer.getLastname());
 			request.setAttribute("job", job);
 			request.setAttribute("formAction", "customerUpdate");
+			
+			request.getSession(false).setAttribute("customer", customer);
 					
 			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 			rd.forward(request, response);
@@ -90,7 +91,9 @@ public class CustomerUpdate extends HttpServlet {
 			request.setAttribute("value", customer.getDepartment());
 			request.setAttribute("job", job);
 			request.setAttribute("formAction", "customerUpdate");
-					
+			
+			request.getSession(false).setAttribute("customer", customer);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 			rd.forward(request, response);
 			break;
@@ -103,6 +106,8 @@ public class CustomerUpdate extends HttpServlet {
 			request.setAttribute("value", customer.getPosition());
 			request.setAttribute("job", job);
 			request.setAttribute("formAction", "customerUpdate");
+			
+			request.getSession(false).setAttribute("customer", customer);
 					
 			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 			rd.forward(request, response);
@@ -117,8 +122,7 @@ public class CustomerUpdate extends HttpServlet {
 				Customer customer = cs.getCustomer(id, true);
 				String email = customer.getEmails().get(index);
 				
-				HttpSession session = request.getSession(false);
-				session.setAttribute("customer", customer);				
+				request.getSession(false).setAttribute("customer", customer);				
 
 				request.setAttribute("id", id);
 				request.setAttribute("job", job);
@@ -132,16 +136,17 @@ public class CustomerUpdate extends HttpServlet {
 		}
 
 		case "updateCustomerTelNum": {
-			int telNumIndex = Integer.parseInt(request.getParameter("index"));
-			String telNum = new CustomerServiceImp()
-					.getCustomer(id, true)
-					.getTelNums()
-					.get(telNumIndex);
+			
+			CustomerServiceImp cs = new CustomerServiceImp();
+			int index = Integer.parseInt(request.getParameter("index"));
+			Customer customer = cs.getCustomer(id, true);
+			String telNum = customer.getTelNums().get(index);
+			
+			request.getSession(false).setAttribute("customer", customer);	
 
 			request.setAttribute("job", job);
 			request.setAttribute("id", id);
 			request.setAttribute("value", telNum);
-			request.setAttribute("index", telNumIndex);
 			request.setAttribute("formAction", "customerUpdate");
 
 			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
@@ -150,16 +155,17 @@ public class CustomerUpdate extends HttpServlet {
 		}
 
 		case "updateCustomerAddress": {
-			int addressIndex = Integer.parseInt(request.getParameter("index"));
-			String address = new CustomerServiceImp()
-					.getCustomer(id, true)
-					.getAddresses()
-					.get(addressIndex);
+			
+			CustomerServiceImp cs = new CustomerServiceImp();
+			int index = Integer.parseInt(request.getParameter("index"));
+			Customer customer = cs.getCustomer(id, true);
+			String address = customer.getAddresses().get(index);
+			
+			request.getSession(false).setAttribute("customer", customer);	
 
 			request.setAttribute("job", job);
 			request.setAttribute("id", id);
 			request.setAttribute("value", address);
-			request.setAttribute("index", addressIndex);
 			request.setAttribute("formAction", "customerUpdate");
 
 			RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
@@ -175,113 +181,152 @@ public class CustomerUpdate extends HttpServlet {
 			throws ServletException, IOException {
 
 		String job = request.getParameter("job");
-		Long id = Long.parseLong(request.getParameter("id"));
-		Users user = new UserServiceImp().getUser(1L, false) ; 
 
 		switch (job) {
 		
 		case "updateCorporationName": {
 			
-			String name = request.getParameter("output");
-			Corporation corporation = new CustomerServiceImp().updateCorporationName(id, name, user);
+			request.getSession(false).setAttribute("newCorporationName", request.getParameter("output"));
 			
-			request.setAttribute("message", name + " is succesfully updated!");
-			request.setAttribute("corporation", corporation);
+			Corporation corporation = new CustomerServiceImp().updateCorporationName(request.getSession(false));
+			if(corporation != null) {
+				request.setAttribute("message", "Corporation Name succesfully updated!");
+				request.setAttribute("corporation", corporation);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				request.setAttribute("alert", "Corporation name update failed! This must be unique, also someone might be deleted or updated this data just before you. Please check the corporation name again.");
+				request.setAttribute("corporation", corporation);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
+				rd.forward(request, response);
+			}
 			
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
-			rd.forward(request, response);
 			break;
 		}
 		
 		case "updateCorporationSector": {
 			
-			String sector = request.getParameter("output");
-			Corporation corporation = new CustomerServiceImp().updateCorporationSector(id, sector, user);
+			request.getSession(false).setAttribute("newCorporationSector", request.getParameter("output"));
+			Corporation corporation = new CustomerServiceImp().updateCorporationSector(request.getSession(false));
+
+			if(corporation != null) {
+				request.setAttribute("message", "Corporation Sector succesfully updated!");
+				request.setAttribute("corporation", corporation);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				request.setAttribute("alert", "Corporation Sector update failed! Someone might be deleted or updated this data just before you! Please check the Corporation Sector again.");
+				request.setAttribute("corporation", corporation);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
+				rd.forward(request, response);
+			}
 			
-			request.setAttribute("message", sector + " is succesfully updated to " + corporation.getSector());
-			request.setAttribute("corporaion", corporation);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
-			rd.forward(request, response);
 			break;
 		}
 		
 		case "updateCustomerFirstname": {
-			String firstname = request.getParameter("output");
-			Customer customer = new CustomerServiceImp().updateCustomerFirstname(id, firstname, user);
 
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", customer.getFirstname() + " is updated successfully!");
-			
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
+				request.getSession(false).setAttribute("newCustomerFirstname", request.getParameter("output"));
+				Customer customer = new CustomerServiceImp().updateCustomerFirstname(request.getSession(false));
+	
+			if(customer != null) {
+				request.setAttribute("customer", customer);
+				request.setAttribute("message", "Firstname updated successfully!");
+				
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				request.setAttribute("alert", "Firstname update failed! Someone might be deleted or updated this data just before you! Please check the Customer Firstname again.");
+				
+				RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
+				rd.forward(request, response);
+			}
 			break;
 		}
 		
 		case "updateCustomerLastname": {
-			String lastname = request.getParameter("output");
-			Customer customer = new CustomerServiceImp().updateCustomerLastname(id, lastname, user);
+			
+			request.getSession(false).setAttribute("newCustomerLastname", request.getParameter("output"));
+			Customer customer = new CustomerServiceImp().updateCustomerLastname(request.getSession(false));
 
+		if(customer != null) {
 			request.setAttribute("customer", customer);
-			request.setAttribute("message", customer.getLastname() + " is updated successfully!");
+			request.setAttribute("message", "Lastname updated successfully!");
 			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 			rd.forward(request, response);
-			break;
+		}
+		else {
+			request.setAttribute("alert", "Lastname update failed! Someone might be deleted or updated this data just before you! Please check the Customer Lastname again.");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
+			rd.forward(request, response);
+		}
+		break;
 		}
 		
 		case "updateCustomerDepartment": {
-			String department= request.getParameter("output");
-			Customer customer = new CustomerServiceImp().updateCustomerDepartment(id, department, user);
+			
+			request.getSession(false).setAttribute("newCustomerDepartment", request.getParameter("output"));
+			Customer customer = new CustomerServiceImp().updateCustomerDepartment(request.getSession(false));
 
+		if(customer != null) {
 			request.setAttribute("customer", customer);
-			request.setAttribute("message", customer.getDepartment() + " is updated successfully!");
+			request.setAttribute("message", "Department updated successfully!");
 			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 			rd.forward(request, response);
-			break;
+		}
+		else {
+			request.setAttribute("alert", "Department update failed! Someone might be deleted or updated this data just before you! Please check the Customer Department again.");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
+			rd.forward(request, response);
+		}
+		break;
 		}
 		
 		case "updateCustomerPosition": {
-			String position= request.getParameter("output");
-			Customer customer = new CustomerServiceImp().updateCustomerPosition(id, position, user);
+			
+			request.getSession(false).setAttribute("newCustomerPosition", request.getParameter("output"));
+			Customer customer = new CustomerServiceImp().updateCustomerPosition(request.getSession(false));
 
+		if(customer != null) {
 			request.setAttribute("customer", customer);
-			request.setAttribute("message", customer.getPosition() + " is updated successfully!");
+			request.setAttribute("message", "Position updated successfully!");
 			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 			rd.forward(request, response);
-			break;
+		}
+		else {
+			request.setAttribute("alert", "Position update failed! Someone might be deleted or updated this data just before you! Please check the Customer Position again.");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
+			rd.forward(request, response);
+		}
+		break;
 		}
 		
 		case "updateCustomerEmail": {
 			
-			String newEmail = request.getParameter("output");
-			String oldEmail = request.getParameter("oldValue");
+			request.getSession(false).setAttribute("newEmail", request.getParameter("output"));
+			request.getSession(false).setAttribute("oldEmail", request.getParameter("oldValue"));
 			
-			HttpSession session = request.getSession(false);
-			
-			CustomerServiceImp cservice = new CustomerServiceImp();
-			Customer customer = cservice.updateCustomerEmail(oldEmail, newEmail, session, user);
+			Customer customer = new CustomerServiceImp().updateEmail(request.getSession(false));
 			
 			if(customer != null ) {
 				
 				request.setAttribute("customer", customer);
-				request.setAttribute("message", "Email succesfully updated to " + newEmail);
+				request.setAttribute("message", "Email succesfully updated!");
 				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 				rd.forward(request, response);
-				if(session.getAttribute("customer") == null) {
-				System.out.println("No customer object");
-				}
-				else {
-					System.out.println("Customer object exist");
-				}
-				if(session.getAttribute("user") == null) {
-					System.out.println("No user object");
-					}
-					else {
-						System.out.println("User object exist");
-					}			
 			}
 			
 			else {
@@ -294,30 +339,47 @@ public class CustomerUpdate extends HttpServlet {
 		}
 
 		case "updateCustomerTelNum": {
-			String telNum = request.getParameter("output");
-			int index = Integer.parseInt(request.getParameter("index"));
-
-			CustomerServiceImp cservice = new CustomerServiceImp();
-			Customer customer = cservice.updateTelNum(id, index, telNum, user);
-
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", telNum + " succesfully updated!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
+			
+			
+			request.getSession(false).setAttribute("newTelNum", request.getParameter("output"));
+			request.getSession(false).setAttribute("oldTelNum", request.getParameter("oldValue"));
+			
+			Customer customer = new CustomerServiceImp().updateTelNum(request.getSession(false));
+			
+			if(customer != null ) {
+	
+				request.setAttribute("customer", customer);
+				request.setAttribute("message", "Tel. Num. succesfully updated!");
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				request.setAttribute("alert", "Tel. Num. update failed! Someone might be deleted or updated this customer's data just before you! Please check the customer again.");
+				RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
+				rd.forward(request, response);
+			}
 			break;
 		}
 
 		case "updateCustomerAddress": {
-			String address = request.getParameter("output");
-			int index = Integer.parseInt(request.getParameter("index"));
-
-			CustomerServiceImp cservice = new CustomerServiceImp();
-			Customer customer = cservice.updateAddress(id, index, address, user);
-
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", address + " succesfully updated!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
+			
+			request.getSession(false).setAttribute("newAddress", request.getParameter("output"));
+			request.getSession(false).setAttribute("oldAddress", request.getParameter("oldValue"));
+			
+			Customer customer = new CustomerServiceImp().updateAddress(request.getSession(false));
+			
+			if(customer != null ) {
+	
+				request.setAttribute("customer", customer);
+				request.setAttribute("message", "Address succesfully updated!");
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				request.setAttribute("alert", "Address update failed! Someone might be deleted or updated this customer's data just before you! Please check the customer again.");
+				RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
+				rd.forward(request, response);
+			}
 			break;
 		}
 

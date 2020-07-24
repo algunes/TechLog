@@ -115,7 +115,10 @@ public class UserDaoImp {
 		return users;
 	}
 
-	public void updateUser(Users user) {
+	public Users updateUser(Users user) {
+		
+		if(validateUserName(user.getUserAuth().getUserName()) == null) {
+		
 		Session session = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
@@ -133,6 +136,9 @@ public class UserDaoImp {
 				session.close();
 			}
 		}
+		return fullFetchUser(user.getId());
+		}
+		return null;
 	}
 
 	public void deleteUser(Users user) {

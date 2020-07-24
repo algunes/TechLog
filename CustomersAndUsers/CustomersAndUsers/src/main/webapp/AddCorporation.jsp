@@ -21,8 +21,8 @@
 <div class="form-group">
 
 		<input type="hidden" name="job" value="addCorporation">
-		<input type="text" class="form-control" placeholder="Corporation Name" name="name" maxlength="255"><br>
-		<input type="text" class="form-control" placeholder="Sector" name="sector" maxlength="255"><br>
+		<input type="text" class="form-control" placeholder="Corporation Name" required name="name" maxlength="255"><br>
+		<input type="text" class="form-control" placeholder="Sector" required name="sector" maxlength="255"><br>
 		<input type="hidden" name="isActive" value="true"><br>
 
 		<input class="btn btn-primary" value="Submit" type="submit">

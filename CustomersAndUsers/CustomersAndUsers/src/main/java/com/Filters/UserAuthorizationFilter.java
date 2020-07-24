@@ -31,7 +31,7 @@ public class UserAuthorizationFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest)request;
 		
-		HttpSession session = req.getSession();
+		HttpSession session = req.getSession(false);
 		
 		
 		String job = (req.getParameter("job") != null ? req.getParameter("job") : null);

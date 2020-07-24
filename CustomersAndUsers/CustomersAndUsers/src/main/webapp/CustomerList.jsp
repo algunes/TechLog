@@ -3,6 +3,8 @@
 <%@ page contentType="text/html" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.TechLog.Customers.Customer"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
 response.setHeader("Expires", "0");
@@ -14,43 +16,58 @@ response.setHeader("Expires", "0");
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css"
-	href=".<%request.getContextPath();%>/css/default.css" />
-<link rel="stylesheet" type="text/css"
-	href=".<%request.getContextPath();%>/css/syntax.css" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
 <title>Customer List</title>
 </head>
 <body>
 
-	<% @SuppressWarnings(value={"unchecked"}) 
-		List<Customer> customers = (request.getAttribute("customers") instanceof java.util.List ? (List<Customer>)request.getAttribute("customers") : null); %>
-	<% String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : ""); %>
-	<% ListIterator<Customer> iteratorC = customers.listIterator(); %>
-	<% Customer customer = null; %>
-	
-	<% if(!message.isEmpty()) { 
-		out.println("<i>" + message + "</i>" + "<br>" + "<hr>");
- 	} %>
-	
-	<% 	while (iteratorC.hasNext()) {
+<% 
+String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
+String alert = (request.getAttribute("alert") != null ? (String)request.getAttribute("alert") : "");// a text alert if want to show
+%>
+ 
+ <div class="container">
+ 
+ <% if(!message.isEmpty()) { 
+	out.println(
 			
-			customer = iteratorC.next(); %>
-	<details>
-	<summary> <a href="<%request.getContextPath();%>GetCustomer?id=<%= customer.getCustomer_id() %>&job=getCustomer"><%= customer.getFirstname() %> <%= customer.getLastname() %></a></summary>
-	<table>
-	<tr>
-	<td>
-	Corporation: 
-	</td>
-	<td>
-	<%= customer.getCorporation().getName() %>
-	</td>
-	</tr>
-	</table>
-	</details>
-	<% } %>
-	
+			"<div class='alert alert-success'><strong>"
+			+
+			message
+			+
+			"</strong></div>"
+			
+			);
+ } %>
+  <% if(!alert.isEmpty()) { 
+	out.println(
+			
+			"<div class='alert alert-danger'>"
+			+
+			alert
+			+
+			"</strong></div>"
+			
+			);
+ } %>
+
+<Table class="table table-sm">
+
+<c:forEach items ="${customers}" var = "e">
+<tr>
+<td>
+
+<a href="<%=request.getContextPath()%>
+/GetCustomer?
+id=${e.getCustomer_id()}&
+job=getCustomer">
+${e.getFirstname()} ${e.getLastname()}</a>
+</td>
+</tr>
+</c:forEach>
+
+</Table>
+</div>
 </body>
 </html>
