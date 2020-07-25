@@ -53,7 +53,7 @@ String alert = (request.getAttribute("alert") != null ? (String)request.getAttri
 			
 			);
  } %>
- <b>Corporation Details:</b> <br>
+ <b>Corporation Details:</b><br>
  <Table class="table table-sm">
 
 <tr>
@@ -122,7 +122,7 @@ ${corporation.getUpdated_by().getFirstname()} ${corporation.getUpdated_by().getL
 </tr>
 </Table>
 
-<b>Customer List:</b> <br>
+<b>Customer List:</b><br>
 <Table class="table table-sm">
 
 <c:forEach items ="${corporation.getCustomers()}" var = "e">

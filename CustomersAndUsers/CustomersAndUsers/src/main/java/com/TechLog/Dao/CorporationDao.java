@@ -12,6 +12,6 @@ public interface CorporationDao {
 	List<Corporation> fetchAllCorporations(); // Fetch a list of all corporations (lazily)
 	Corporation updateCorporation(Corporation corporation); // Update
 	void deleteCorporation(Corporation corporation); // Delete
-	Corporation validateCorporationName(Corporation corporation); // For name originality 
+	Corporation validateCorporationName(String name); // For name originality 
 
 }

@@ -19,7 +19,7 @@ public class CustomerServiceImp {
 	
 	public Customer createCustomer(String firstname, String lastname, Long corporationId, String department,
 			String position, String email, String telNum, String address, Users user) {
-
+		
 		Customer customer = new CustomerBuilder()
 				.setFirstname(firstname)
 				.setLastname(lastname)
@@ -60,7 +60,6 @@ public class CustomerServiceImp {
 		customer.setUpdated_by(user);
 		new CustomerDaoImp().updateCustomer(customer);
 		return getCustomer(customer.getCustomer_id(), true);
-
 	}
 	
 	// create a corporation from scratch (there is one-to-many association between corporation and customer classes. Customer is a subclass of Corporation.)
@@ -213,7 +212,7 @@ public class CustomerServiceImp {
 		session.removeAttribute("newEmail");
 		session.removeAttribute("oldEmail");
 		
-		if(customer != null && customer.getEmails().contains(oldEmail)) {
+		if(customer != null && customer.getEmails().contains(oldEmail) && !customer.getEmails().stream().anyMatch(newEmail::equalsIgnoreCase)) {
 			int idx = customer.getEmails().indexOf(oldEmail);
 			customer.getEmails().set(idx, newEmail);
 			return updateCustomer(customer, (Users)session.getAttribute("user"));
@@ -232,7 +231,7 @@ public class CustomerServiceImp {
 		session.removeAttribute("newTelNum");
 		session.removeAttribute("oldTelNum");
 		
-		if(customer != null && customer.getTelNums().contains(oldTelNum)) {
+		if(customer != null && customer.getTelNums().contains(oldTelNum) && !customer.getTelNums().stream().anyMatch(newTelNum::equalsIgnoreCase)) {
 			int idx = customer.getTelNums().indexOf(oldTelNum);
 			customer.getTelNums().set(idx, newTelNum);
 			return updateCustomer(customer, (Users)session.getAttribute("user"));
@@ -252,7 +251,7 @@ public class CustomerServiceImp {
 		session.removeAttribute("newAddress");
 		session.removeAttribute("oldAddress");
 		
-		if(customer != null && customer.getAddresses().contains(oldAddress)) {
+		if(customer != null && customer.getAddresses().contains(oldAddress) && !customer.getAddresses().stream().anyMatch(newAddress::equalsIgnoreCase)) {
 			int idx = customer.getAddresses().indexOf(oldAddress);
 			customer.getAddresses().set(idx, newAddress);
 			return updateCustomer(customer, (Users)session.getAttribute("user"));
@@ -262,32 +261,59 @@ public class CustomerServiceImp {
 	
 	// add an email to a customer
 
-	public Customer addEmail(Long id, String email, Users user) {
+	public Customer addEmail(HttpSession session) {
 
-		Customer customer = getCustomer(id, true);
-		if(!customer.getEmails().contains(email))
-		       customer.getEmails().add(email);
-		return updateCustomer(customer, user);
+		String newEmail = (String)session.getAttribute("newEmail");
+		Customer customer = getCustomer(((Customer)session.getAttribute("customer")).getCustomer_id(), true);
+				
+		session.removeAttribute("newEmail");
+		
+		if(customer != null && !customer.getEmails().stream().anyMatch(newEmail::equalsIgnoreCase)) {
+			session.removeAttribute("customer");
+			customer.getEmails().add(newEmail);
+			return updateCustomer(customer, (Users)session.getAttribute("user"));
+		}
+		else {
+			return null;
+		}	
 	}
 	
 	// add a phone number to a customer
 
-	public Customer addTelNum(Long id, String telNum, Users user) {
+	public Customer addTelNum(HttpSession session) {
 
-		Customer customer = getCustomer(id, true);
-		if(!customer.getTelNums().contains(telNum))
-		       customer.getTelNums().add(telNum);
-		return updateCustomer(customer, user);
+		String newTelNum = (String)session.getAttribute("newTelNum");
+		Customer customer = getCustomer(((Customer)session.getAttribute("customer")).getCustomer_id(), true);
+				
+		session.removeAttribute("newTelNum");
+		
+		if(customer != null && !customer.getTelNums().stream().anyMatch(newTelNum::equalsIgnoreCase)) {
+			session.removeAttribute("customer");
+			customer.getTelNums().add(newTelNum);
+			return updateCustomer(customer, (Users)session.getAttribute("user"));
+		}
+		else {
+			return null;
+		}
 	}
 	
 	// add an address to a customer
 
-	public Customer addAddress(Long id, String address, Users user) {
+	public Customer addAddress(HttpSession session) {
 
-		Customer customer = getCustomer(id, true);
-		if(!customer.getAddresses().contains(address))
-		       customer.getAddresses().add(address);
-		return updateCustomer(customer, user);
+		String newAddress = (String)session.getAttribute("newAddress");
+		Customer customer = getCustomer(((Customer)session.getAttribute("customer")).getCustomer_id(), true);
+				
+		session.removeAttribute("newAddress");
+		
+		if(customer != null && !customer.getAddresses().stream().anyMatch(newAddress::equalsIgnoreCase)) {
+			session.removeAttribute("customer");
+			customer.getAddresses().add(newAddress);
+			return updateCustomer(customer, (Users)session.getAttribute("user"));
+		}
+		else {
+			return null;
+		}
 	}
 	
 	// remove an email from a customer
@@ -325,9 +351,14 @@ public class CustomerServiceImp {
 		String oldCorporationName = ((Corporation)session.getAttribute("corporation")).getName();
 		session.removeAttribute("newCorporationName");
 		session.removeAttribute("corporation");
+
+		
 		Users user = (Users)session.getAttribute("user");
 		
-		if(corporation != null && corporation.getName().equals(oldCorporationName)) {
+		if(corporation != null && 
+				new CorporationDaoImp().validateCorporationName(newCorporationName) == null && 
+				corporation.getName().equals(oldCorporationName)) {
+			
 			corporation.setName(newCorporationName);
 			return updateCorporation(corporation, user);
 		}

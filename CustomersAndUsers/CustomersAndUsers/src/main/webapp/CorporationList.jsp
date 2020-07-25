@@ -52,7 +52,7 @@ String alert = (request.getAttribute("alert") != null ? (String)request.getAttri
 			
 			);
  } %>
-
+<b>Corporations: </b><br>
 <Table class="table table-sm">
 
 <c:forEach items ="${corporations}" var = "e">

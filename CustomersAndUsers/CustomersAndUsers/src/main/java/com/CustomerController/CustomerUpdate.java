@@ -27,7 +27,7 @@ public class CustomerUpdate extends HttpServlet {
 		switch (job) {
 		
 		case "updateCorporationName": {
-			Corporation corporation = new CustomerServiceImp().getCorporation(id, false);
+			Corporation corporation = new CustomerServiceImp().getCorporation(id, true);
 			request.getSession(false).setAttribute("corporation", corporation);
 			
 			request.setAttribute("id", id);
@@ -41,7 +41,7 @@ public class CustomerUpdate extends HttpServlet {
 		}
 		
 		case "updateCorporationSector": {
-			Corporation corporation = new CustomerServiceImp().getCorporation(id, false);
+			Corporation corporation = new CustomerServiceImp().getCorporation(id, true);
 			request.getSession(false).setAttribute("corporation", corporation);
 			
 			request.setAttribute("id", id);
@@ -330,7 +330,7 @@ public class CustomerUpdate extends HttpServlet {
 			}
 			
 			else {
-				request.setAttribute("alert", "Email update failed! Someone might be deleted or updated this customer's data just before you! Please check the customer again.");
+				request.setAttribute("alert", "Email update failed! Someone might be deleted or updated this customer's data just before you! Also, all email addresses must be unique! Please check the customer again.");
 				RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
 				rd.forward(request, response);
 			}
@@ -354,7 +354,7 @@ public class CustomerUpdate extends HttpServlet {
 				rd.forward(request, response);
 			}
 			else {
-				request.setAttribute("alert", "Tel. Num. update failed! Someone might be deleted or updated this customer's data just before you! Please check the customer again.");
+				request.setAttribute("alert", "Tel. Num. update failed! Someone might be deleted or updated this customer's data just before you! Also, all tel. Nums must be unique! Please check the customer again.");
 				RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
 				rd.forward(request, response);
 			}
@@ -376,7 +376,7 @@ public class CustomerUpdate extends HttpServlet {
 				rd.forward(request, response);
 			}
 			else {
-				request.setAttribute("alert", "Address update failed! Someone might be deleted or updated this customer's data just before you! Please check the customer again.");
+				request.setAttribute("alert", "Address update failed! Someone might be deleted or updated this customer's data just before you! Also, all addresses must be unique! Please check the customer again.");
 				RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
 				rd.forward(request, response);
 			}

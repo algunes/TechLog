@@ -49,6 +49,8 @@ public class AddCustomer extends HttpServlet {
 		request.setAttribute("job", job);
 		request.setAttribute("formAction", "addCustomer");
 		request.setAttribute("placeholder", "Enter an Email");
+		
+		request.getSession(false).setAttribute("customer", new CustomerServiceImp().getCustomer(id, true));
 
 		RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 		rd.forward(request, response);
@@ -63,6 +65,8 @@ public class AddCustomer extends HttpServlet {
 		request.setAttribute("formAction", "addCustomer");
 		request.setAttribute("placeholder", "Enter a Phone Number");
 
+		request.getSession(false).setAttribute("customer", new CustomerServiceImp().getCustomer(id, true));
+		
 		RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 		rd.forward(request, response);
 		break;
@@ -75,6 +79,8 @@ public class AddCustomer extends HttpServlet {
 		request.setAttribute("job", job);
 		request.setAttribute("formAction", "addCustomer");
 		request.setAttribute("placeholder", "Enter an Address");
+		
+		request.getSession(false).setAttribute("customer", new CustomerServiceImp().getCustomer(id, true));
 
 		RequestDispatcher rd = request.getRequestDispatcher("InputBox.jsp");
 		rd.forward(request, response);
@@ -98,7 +104,7 @@ public class AddCustomer extends HttpServlet {
     	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
     		String job = request.getParameter("job");
-    		Users user = (Users)request.getSession().getAttribute("user") ;
+    		Users user = (Users)request.getSession(false).getAttribute("user") ;
     		
     		
     		switch(job) {
@@ -148,43 +154,65 @@ public class AddCustomer extends HttpServlet {
     		}
     		
     	case "addCustomerEmail": {
-    		Long id = Long.parseLong(request.getParameter("id"));
-    		String email = request.getParameter("output");
+    		    		
+    		request.getSession(false).setAttribute("newEmail", request.getParameter("output"));
 
-			Customer customer = new CustomerServiceImp().addEmail(id, email, user);
+			Customer customer = new CustomerServiceImp().addEmail(request.getSession(false));
+			if(customer != null) {
+				request.setAttribute("customer", customer);
+				request.setAttribute("message", "Email added!");
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				request.setAttribute("customer", request.getSession(false).getAttribute("customer"));
+				request.setAttribute("alert", "Email fail to add! Please enter a unique email!");
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+				rd.forward(request, response);
+			}
 			
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", email + " succesfully added!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
 			break;
 		}
 
 		case "addCustomerTelNum": {
-			Long id = Long.parseLong(request.getParameter("id"));
-			String telNum = request.getParameter("output");
+			
+			request.getSession(false).setAttribute("newTelNum", request.getParameter("output"));
 
-			Customer customer = new CustomerServiceImp().addTelNum(id, telNum, user);
-
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", telNum + " succesfully added!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
-
+			Customer customer = new CustomerServiceImp().addTelNum(request.getSession(false));
+			if(customer != null) {
+				request.setAttribute("customer", customer);
+				request.setAttribute("message", "Tel. Num. added!");
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				request.setAttribute("customer", request.getSession(false).getAttribute("customer"));
+				request.setAttribute("alert", "Tel. Num. fail to add! Please enter a unique tel. num.!");
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+				rd.forward(request, response);
+			}
+			
 			break;
 		}
 
 		case "addCustomerAddress": {
-			Long id = Long.parseLong(request.getParameter("id"));
-			String address = request.getParameter("output");
+			
+			request.getSession(false).setAttribute("newAddress", request.getParameter("output"));
 
-			Customer customer = new CustomerServiceImp().addAddress(id, address, user);
-
-			request.setAttribute("customer", customer);
-			request.setAttribute("message", address + " succesfully added!");
-			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
-			rd.forward(request, response);
-
+			Customer customer = new CustomerServiceImp().addAddress(request.getSession(false));
+			if(customer != null) {
+				request.setAttribute("customer", customer);
+				request.setAttribute("message", "Address added!");
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				request.setAttribute("customer", request.getSession(false).getAttribute("customer"));
+				request.setAttribute("alert", "Address fail to add! Please enter a unique address!");
+				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
+				rd.forward(request, response);
+			}
+			
 			break;
 		}
     		 	

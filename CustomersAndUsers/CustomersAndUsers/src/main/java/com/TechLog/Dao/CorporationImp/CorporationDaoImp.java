@@ -20,7 +20,7 @@ public class CorporationDaoImp implements CorporationDao {
 	@Override
 	public Corporation addCorporation(Corporation corporation) {
 		
-		if(validateCorporationName(corporation) == null) {
+		if(validateCorporationName(corporation.getName()) == null) {
 			Long id = null;
 		Session session = null;
 		try {
@@ -123,9 +123,7 @@ public class CorporationDaoImp implements CorporationDao {
 	@Override
 	public Corporation updateCorporation(Corporation corporation) {
 
-		if(validateCorporationName(corporation) == null) {
-
-			Session session = null;
+		Session session = null;
 
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
@@ -137,6 +135,7 @@ public class CorporationDaoImp implements CorporationDao {
 			if(session.getTransaction() != null)
 				session.beginTransaction().rollback();
 			e.printStackTrace();
+			return null;
 		}
 		finally {
 			if (session != null) {
@@ -144,11 +143,8 @@ public class CorporationDaoImp implements CorporationDao {
 			}
 		}
 		return fullFetchCorporation(corporation.getId());
-		}
-		else {
-			return null;
-		}
 	}
+
 
 	@Override
 	public void deleteCorporation(Corporation corporation) {
@@ -173,7 +169,7 @@ public class CorporationDaoImp implements CorporationDao {
 	}
 	
 	@Override
-	public Corporation validateCorporationName(Corporation corporation) {
+	public Corporation validateCorporationName(String name) {
 		Session session = null;
 		Corporation result = null;
 		try {
@@ -184,7 +180,7 @@ public class CorporationDaoImp implements CorporationDao {
 			CriteriaQuery<Corporation> cr = cb.createQuery(Corporation.class);
 			Root<Corporation> root = cr.from(Corporation.class);
 			
-			cr.select(root).where(cb.equal(root.get("name"), corporation.getName()));
+			cr.select(root).where(cb.equal(root.get("name"), name));
 			 
 			result = (session.createQuery(cr).getResultList().isEmpty() ? 
 					null : session.createQuery(cr).getSingleResult());
