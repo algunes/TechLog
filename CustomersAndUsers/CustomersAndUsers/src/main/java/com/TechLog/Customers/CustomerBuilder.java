@@ -3,6 +3,7 @@ package com.TechLog.Customers;
 import java.time.LocalDate;
 import java.util.*;
 
+import com.TechLog.Corporations.Corporation;
 import com.TechLog.Users.Users;
 
 public class CustomerBuilder {

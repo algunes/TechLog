@@ -1,7 +1,7 @@
 <%@ page language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
-<%@ page import="com.TechLog.Customers.Corporation"%>
+<%@ page import="com.TechLog.Corporations.Corporation"%>
 <%@ page import="com.TechLog.Customers.Customer"%>
 <%@ page import="com.TechLog.Users.Users"%>
 <%@ page import="java.util.*"%>

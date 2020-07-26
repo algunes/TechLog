@@ -12,6 +12,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
+import com.TechLog.Corporations.Corporation;
 import com.TechLog.Users.Users;
 
 

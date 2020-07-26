@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.TechLog.Customers.Corporation;
+import com.TechLog.Corporations.Corporation;
 import com.TechLog.Customers.Customer;
 import com.TechLog.Services.UserImp.UserServiceImp;
 import com.TechLog.Users.Users;

@@ -11,7 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import com.TechLog.Customers.Corporation;
+import com.TechLog.Corporations.Corporation;
 import com.TechLog.Dao.CorporationDao;
 import com.TechLog.Dao.HibernateUtil;
 

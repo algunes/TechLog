@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.TechLog.Customers.Corporation;
+import com.TechLog.Corporations.Corporation;
 import com.TechLog.Customers.Customer;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
 

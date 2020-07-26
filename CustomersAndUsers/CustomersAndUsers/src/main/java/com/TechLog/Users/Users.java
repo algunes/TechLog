@@ -7,7 +7,7 @@ import java.util.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 
-import com.TechLog.Customers.Corporation;
+import com.TechLog.Corporations.Corporation;
 import com.TechLog.Customers.Customer;
 
 @Entity
@@ -207,21 +207,6 @@ public class Users implements Serializable {
 	public void setUserAuth(UserAuthenticationInfo userAuth) {
 		this.userAuth = userAuth;
 	}
-	
-	
-	
-//	public void setUserAuthInf(String userName, String password) {
-////		UserServiceImp us = new UserServiceImp();
-////		byte[] salt = us.saltGenerator();
-////		byte[] passwordHash = us.passwordHashing(salt, password);
-////		
-////		this.userAuthInf.setUserName(userName);
-////		this.userAuthInf.setSalt(salt);
-////		this.userAuthInf.setPassword(passwordHash);
-//		
-//		this.userAuthInf = new UserServiceImp().addUserAuthInfo(userName, password);
-//	}
-
 
 	public Users() {
 		super();

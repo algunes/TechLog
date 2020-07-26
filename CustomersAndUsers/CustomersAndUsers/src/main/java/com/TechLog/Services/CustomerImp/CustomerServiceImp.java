@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import com.TechLog.Customers.Corporation;
-import com.TechLog.Customers.CorporationBuilder;
+import com.TechLog.Corporations.Corporation;
+import com.TechLog.Corporations.CorporationBuilder;
 import com.TechLog.Customers.Customer;
 import com.TechLog.Customers.CustomerBuilder;
 import com.TechLog.Dao.CorporationImp.CorporationDaoImp;
