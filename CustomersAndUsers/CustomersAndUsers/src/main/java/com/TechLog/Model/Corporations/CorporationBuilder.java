@@ -1,11 +1,11 @@
-package com.TechLog.Corporations;
+package com.TechLog.Model.Corporations;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.TechLog.Customers.Customer;
-import com.TechLog.Users.Users;
+import com.TechLog.Model.Customers.Customer;
+import com.TechLog.Model.Users.Users;
 
 public class CorporationBuilder {
 	

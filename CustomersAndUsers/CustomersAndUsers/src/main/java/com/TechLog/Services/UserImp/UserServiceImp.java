@@ -13,8 +13,8 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 import com.TechLog.Dao.UserImp.UserDaoImp;
-import com.TechLog.Users.UserAuthenticationInfo;
-import com.TechLog.Users.Users;
+import com.TechLog.Model.Users.UserAuthenticationInfo;
+import com.TechLog.Model.Users.Users;
 
 public class UserServiceImp {
 

@@ -11,9 +11,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import com.TechLog.Corporations.Corporation;
 import com.TechLog.Dao.CorporationDao;
 import com.TechLog.Dao.HibernateUtil;
+import com.TechLog.Model.Corporations.Corporation;
 
 public class CorporationDaoImp implements CorporationDao {
 

@@ -1,4 +1,4 @@
-package com.TechLog.Users;
+package com.TechLog.Model.Users;
 
 import java.io.Serializable;
 import java.util.Arrays;

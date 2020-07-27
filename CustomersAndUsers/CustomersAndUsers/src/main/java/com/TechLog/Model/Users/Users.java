@@ -1,4 +1,4 @@
-package com.TechLog.Users;
+package com.TechLog.Model.Users;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -7,8 +7,8 @@ import java.util.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 
-import com.TechLog.Corporations.Corporation;
-import com.TechLog.Customers.Customer;
+import com.TechLog.Model.Corporations.Corporation;
+import com.TechLog.Model.Customers.Customer;
 
 @Entity
 @Table(name="Users")

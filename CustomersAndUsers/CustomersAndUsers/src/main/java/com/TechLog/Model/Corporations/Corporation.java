@@ -1,4 +1,4 @@
-package com.TechLog.Corporations;
+package com.TechLog.Model.Corporations;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -10,8 +10,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
 
-import com.TechLog.Customers.Customer;
-import com.TechLog.Users.Users;
+import com.TechLog.Model.Customers.Customer;
+import com.TechLog.Model.Users.Users;
 
 
 @Entity

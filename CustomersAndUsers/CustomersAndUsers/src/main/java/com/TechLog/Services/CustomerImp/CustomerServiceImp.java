@@ -6,13 +6,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.TechLog.Corporations.Corporation;
-import com.TechLog.Corporations.CorporationBuilder;
-import com.TechLog.Customers.Customer;
-import com.TechLog.Customers.CustomerBuilder;
+import com.TechLog.Model.Corporations.Corporation;
+import com.TechLog.Model.Corporations.CorporationBuilder;
+import com.TechLog.Model.Customers.Customer;
+import com.TechLog.Model.Customers.CustomerBuilder;
 import com.TechLog.Dao.CorporationImp.CorporationDaoImp;
 import com.TechLog.Dao.CustomerImp.CustomerDaoImp;
-import com.TechLog.Users.Users;
+import com.TechLog.Model.Users.Users;
 
 public class CustomerServiceImp {
 
@@ -21,15 +21,15 @@ public class CustomerServiceImp {
 	public Customer createCustomer(HttpServletRequest request) {
 		
 		Customer customer = new CustomerBuilder()
-				.setFirstname(request.getParameter("firstname"))
-				.setLastname(request.getParameter("lastname"))
-				.setCorporation(getCorporation(Long.parseLong(request.getParameter("corporation")), false))
-				.setDepartment(request.getParameter("department"))
-				.setPosition(request.getParameter("position"))
-				.setEmail(request.getParameter("email"))
-				.setTelNum(request.getParameter("telNum"))
-				.setAddress(request.getParameter("address"))
-				.setCreatedBy((Users)request.getSession(false).getAttribute("user"))
+				.setFirstname())
+				.setLastname()
+				.setCorporation(getCorporation(), false))
+				.setDepartment()
+				.setPosition()
+				.setEmail()
+				.setTelNum()
+				.setAddress()
+				.setCreatedBy(user)
 				.setCreationDate(LocalDate.now())
 				.build();
 			

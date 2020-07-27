@@ -1,4 +1,4 @@
-package com.TechLog.CustomerControllers;
+package com.TechLog.Controller.Customers;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.TechLog.Corporations.Corporation;
-import com.TechLog.Customers.Customer;
+import com.TechLog.Model.Corporations.Corporation;
+import com.TechLog.Model.Customers.Customer;
+import com.TechLog.Model.Users.Users;
 import com.TechLog.Services.UserImp.UserServiceImp;
-import com.TechLog.Users.Users;
 
 @WebServlet("/user")
 public class UserController extends HttpServlet {

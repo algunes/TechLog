@@ -8,8 +8,8 @@ import org.hibernate.Transaction;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.query.dsl.QueryBuilder;
 
-import com.TechLog.Customers.Customer;
 import com.TechLog.Dao.Search.SearchDao;
+import com.TechLog.Model.Customers.Customer;
 
 public class SearchService {
 

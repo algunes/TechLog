@@ -1,4 +1,4 @@
-package com.TechLog.CustomerControllers;
+package com.TechLog.Controller.Customers;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.TechLog.Corporations.Corporation;
-import com.TechLog.Customers.Customer;
+import com.TechLog.Model.Corporations.Corporation;
+import com.TechLog.Model.Customers.Customer;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
 
 @WebServlet("/getCustomer")

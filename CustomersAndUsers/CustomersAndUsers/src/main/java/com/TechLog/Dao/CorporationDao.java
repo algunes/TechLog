@@ -2,7 +2,7 @@ package com.TechLog.Dao;
 
 import java.util.List;
 
-import com.TechLog.Corporations.Corporation;
+import com.TechLog.Model.Corporations.Corporation;
 
 public interface CorporationDao {
 	

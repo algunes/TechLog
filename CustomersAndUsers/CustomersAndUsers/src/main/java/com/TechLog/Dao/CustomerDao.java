@@ -1,6 +1,6 @@
 package com.TechLog.Dao;
 
-import com.TechLog.Customers.Customer;
+import com.TechLog.Model.Customers.Customer;
 
 public interface CustomerDao {
 	

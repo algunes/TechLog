@@ -1,4 +1,4 @@
-package com.TechLog.Corporations;
+package com.TechLog.Model.Corporations;
 
 public interface UpdateCorporations {
 

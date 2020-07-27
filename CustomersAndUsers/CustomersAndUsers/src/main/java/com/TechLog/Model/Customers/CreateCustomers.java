@@ -1,4 +1,4 @@
-package com.TechLog.Customers;
+package com.TechLog.Model.Customers;
 
 import javax.servlet.http.HttpServletRequest;
 

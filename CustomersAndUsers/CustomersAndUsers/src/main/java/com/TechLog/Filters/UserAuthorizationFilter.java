@@ -15,8 +15,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.TechLog.Model.Users.Users;
 import com.TechLog.Services.UserImp.UserServiceImp;
-import com.TechLog.Users.Users;
 
 @WebFilter(urlPatterns = { "/user","/UserController"})
 public class UserAuthorizationFilter implements Filter {

@@ -1,4 +1,4 @@
-package com.TechLog.Users;
+package com.TechLog.Model.Users;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -6,16 +6,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.TechLog.Corporations.Corporation;
-import com.TechLog.Corporations.CreateCorporations;
-import com.TechLog.Corporations.RemoveCorporations;
-import com.TechLog.Corporations.ShowCorporations;
-import com.TechLog.Corporations.UpdateCorporations;
-import com.TechLog.Customers.CreateCustomers;
-import com.TechLog.Customers.Customer;
-import com.TechLog.Customers.RemoveCustomers;
-import com.TechLog.Customers.ShowCustomers;
-import com.TechLog.Customers.UpdateCustomers;
+import com.TechLog.Model.Corporations.Corporation;
+import com.TechLog.Model.Corporations.CreateCorporations;
+import com.TechLog.Model.Corporations.RemoveCorporations;
+import com.TechLog.Model.Corporations.ShowCorporations;
+import com.TechLog.Model.Corporations.UpdateCorporations;
+import com.TechLog.Model.Customers.CreateCustomers;
+import com.TechLog.Model.Customers.Customer;
+import com.TechLog.Model.Customers.RemoveCustomers;
+import com.TechLog.Model.Customers.ShowCustomers;
+import com.TechLog.Model.Customers.UpdateCustomers;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
 
 public class AdminUser extends Users

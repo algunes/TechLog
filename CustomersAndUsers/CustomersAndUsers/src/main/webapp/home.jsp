@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset = UTF-8"
 	pageEncoding="UTF-8" errorPage="Error.jsp"%>
 <%@ page isELIgnored="false"%>
-<%@ page import="com.TechLog.Users.Users"%>
+<%@ page import="com.TechLog.Model.Users.Users"%>
 <%@ page isELIgnored="false" %>
 <%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");

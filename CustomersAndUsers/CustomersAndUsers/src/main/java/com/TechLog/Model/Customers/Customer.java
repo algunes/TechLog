@@ -1,4 +1,4 @@
-package com.TechLog.Customers;
+package com.TechLog.Model.Customers;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -12,8 +12,8 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
-import com.TechLog.Corporations.Corporation;
-import com.TechLog.Users.Users;
+import com.TechLog.Model.Corporations.Corporation;
+import com.TechLog.Model.Users.Users;
 
 
 @Entity

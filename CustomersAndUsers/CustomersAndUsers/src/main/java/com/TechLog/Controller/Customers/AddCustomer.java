@@ -1,4 +1,4 @@
-package com.TechLog.CustomerControllers;
+package com.TechLog.Controller.Customers;
 
 import java.io.IOException;
 import java.util.*;
@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.TechLog.Corporations.Corporation;
-import com.TechLog.Customers.Customer;
+import com.TechLog.Model.Corporations.Corporation;
+import com.TechLog.Model.Customers.Customer;
+import com.TechLog.Model.Users.Users;
 import com.TechLog.Services.CustomerImp.CustomerServiceImp;
-import com.TechLog.Users.Users;
 
 @WebServlet("/addCustomer")
 public class AddCustomer extends HttpServlet {
@@ -110,8 +110,17 @@ public class AddCustomer extends HttpServlet {
     		switch(job) {
     		
     		case "addCustomer": {
-
-    			Customer customer = new CustomerServiceImp().createCustomer(request);
+    			
+    			String firstname = request.getParameter("firstname");
+    			String lastname = request.getParameter("lastname");
+    			Long corporationId = Long.parseLong(request.getParameter("corporation"));
+    			String department = request.getParameter("department");
+    			String position = request.getParameter("position");
+    			String email = request.getParameter("email");
+    			String telNum = request.getParameter("telNum");
+    			String address = request.getParameter("address");
+    			    			
+    			Customer customer = ((Users)request.getSession(false).getAttribute("user"));
    			
     			request.setAttribute("customer", customer); 
     			request.setAttribute("message", customer.getFirstname() + " " + customer.getLastname() + " created succesfully!");

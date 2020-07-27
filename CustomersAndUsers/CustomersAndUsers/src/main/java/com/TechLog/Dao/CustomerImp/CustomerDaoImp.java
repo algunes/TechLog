@@ -4,9 +4,9 @@ import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-import com.TechLog.Customers.Customer;
 import com.TechLog.Dao.CustomerDao;
 import com.TechLog.Dao.HibernateUtil;
+import com.TechLog.Model.Customers.Customer;
 
 public class CustomerDaoImp implements CustomerDao {
 

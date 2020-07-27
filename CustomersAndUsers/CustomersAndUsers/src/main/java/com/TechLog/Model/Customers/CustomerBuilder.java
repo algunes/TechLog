@@ -1,10 +1,10 @@
-package com.TechLog.Customers;
+package com.TechLog.Model.Customers;
 
 import java.time.LocalDate;
 import java.util.*;
 
-import com.TechLog.Corporations.Corporation;
-import com.TechLog.Users.Users;
+import com.TechLog.Model.Corporations.Corporation;
+import com.TechLog.Model.Users.Users;
 
 public class CustomerBuilder {
 	

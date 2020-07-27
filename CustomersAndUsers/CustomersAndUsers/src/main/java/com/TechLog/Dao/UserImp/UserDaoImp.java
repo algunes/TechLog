@@ -12,8 +12,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import com.TechLog.Dao.HibernateUtil;
-import com.TechLog.Users.UserAuthenticationInfo;
-import com.TechLog.Users.Users;
+import com.TechLog.Model.Users.UserAuthenticationInfo;
+import com.TechLog.Model.Users.Users;
 
 public class UserDaoImp {
 

@@ -47,10 +47,10 @@ public class HibernateUtil {
 				standardServiceRegistry = registryBuilder.build();
 
 				MetadataSources sources = new MetadataSources(standardServiceRegistry)
-						.addAnnotatedClass(com.TechLog.Users.Users.class)
-						.addAnnotatedClass(com.TechLog.Users.UserAuthenticationInfo.class)
-						.addAnnotatedClass(com.TechLog.Corporations.Corporation.class)
-						.addAnnotatedClass(com.TechLog.Customers.Customer.class);
+						.addAnnotatedClass(com.TechLog.Model.Users.Users.class)
+						.addAnnotatedClass(com.TechLog.Model.Users.UserAuthenticationInfo.class)
+						.addAnnotatedClass(com.TechLog.Model.Corporations.Corporation.class)
+						.addAnnotatedClass(com.TechLog.Model.Customers.Customer.class);
 
 				Metadata metadata = sources.getMetadataBuilder().build();
 
