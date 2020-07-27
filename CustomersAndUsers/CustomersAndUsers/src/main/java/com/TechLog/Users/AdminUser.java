@@ -102,7 +102,6 @@ public class AdminUser extends Users
 
 	@Override
 	public Corporation createCorporations(Corporation corporation) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
