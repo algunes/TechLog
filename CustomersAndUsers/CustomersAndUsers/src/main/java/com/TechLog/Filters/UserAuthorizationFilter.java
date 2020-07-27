@@ -1,4 +1,4 @@
-package com.Filters;
+package com.TechLog.Filters;
 
 import java.io.IOException;
 import java.util.Arrays;

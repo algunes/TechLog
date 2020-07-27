@@ -1,4 +1,4 @@
-package com.CustomerController;
+package com.TechLog.CustomerControllers;
 
 import java.io.IOException;
 import java.util.*;
