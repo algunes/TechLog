@@ -110,18 +110,8 @@ public class AddCustomer extends HttpServlet {
     		switch(job) {
     		
     		case "addCustomer": {
-   			
-    			String firstname = request.getParameter("firstname");
-    			String lastname =request.getParameter("lastname");
-    			String department = request.getParameter("department");
-    			String position = request.getParameter("position");
-    			String email = request.getParameter("email");
-    			String telNum = request.getParameter("telNum");
-    			String address = request.getParameter("address");
-    			Long corpId = Long.parseLong(request.getParameter("corporation"));
-    			
-    			CustomerServiceImp cs = new CustomerServiceImp();
-    			Customer customer = cs.createCustomer(firstname, lastname, corpId, department, position, email, telNum, address, user);
+
+    			Customer customer = new CustomerServiceImp().createCustomer(request);
    			
     			request.setAttribute("customer", customer); 
     			request.setAttribute("message", customer.getFirstname() + " " + customer.getLastname() + " created succesfully!");

@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.TechLog.Corporations.Corporation;
 import com.TechLog.Corporations.CreateCorporations;
 import com.TechLog.Corporations.RemoveCorporations;
@@ -14,6 +16,7 @@ import com.TechLog.Customers.Customer;
 import com.TechLog.Customers.RemoveCustomers;
 import com.TechLog.Customers.ShowCustomers;
 import com.TechLog.Customers.UpdateCustomers;
+import com.TechLog.Services.CustomerImp.CustomerServiceImp;
 
 public class AdminUser extends Users
 		implements CreateCorporations, CreateCustomers, CreateUsers, ShowCorporations, ShowCustomers, ShowUsers,
@@ -93,9 +96,8 @@ public class AdminUser extends Users
 	}
 
 	@Override
-	public Customer createCustomer(Customer customer) {
-		// TODO Auto-generated method stub
-		return null;
+	public Customer createCustomer(HttpServletRequest request) {
+		return new CustomerServiceImp().createCustomer(request);
 	}
 
 	@Override

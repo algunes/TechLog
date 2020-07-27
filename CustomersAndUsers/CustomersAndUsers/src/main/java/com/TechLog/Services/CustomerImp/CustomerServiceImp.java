@@ -3,6 +3,7 @@ package com.TechLog.Services.CustomerImp;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.TechLog.Corporations.Corporation;
@@ -17,19 +18,18 @@ public class CustomerServiceImp {
 
 	// Creates and persists a customer from scratch
 	
-	public Customer createCustomer(String firstname, String lastname, Long corporationId, String department,
-			String position, String email, String telNum, String address, Users user) {
+	public Customer createCustomer(HttpServletRequest request) {
 		
 		Customer customer = new CustomerBuilder()
-				.setFirstname(firstname)
-				.setLastname(lastname)
-				.setCorporation(getCorporation(corporationId, false))
-				.setDepartment(department)
-				.setPosition(position)
-				.setEmail(email)
-				.setTelNum(telNum)
-				.setAddress(address)
-				.setCreatedBy(user)
+				.setFirstname(request.getParameter("firstname"))
+				.setLastname(request.getParameter("lastname"))
+				.setCorporation(getCorporation(Long.parseLong(request.getParameter("corporation")), false))
+				.setDepartment(request.getParameter("department"))
+				.setPosition(request.getParameter("position"))
+				.setEmail(request.getParameter("email"))
+				.setTelNum(request.getParameter("telNum"))
+				.setAddress(request.getParameter("address"))
+				.setCreatedBy((Users)request.getSession(false).getAttribute("user"))
 				.setCreationDate(LocalDate.now())
 				.build();
 			
