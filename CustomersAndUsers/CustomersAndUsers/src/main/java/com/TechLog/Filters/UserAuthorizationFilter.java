@@ -15,8 +15,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.TechLog.Model.Users.Users;
-import com.TechLog.Services.UserImp.UserServiceImp;
+import com.TechLog.Entity.Users.Users;
+import com.TechLog.Services.User.UserService;
 
 @WebFilter(urlPatterns = { "/user","/UserController"})
 public class UserAuthorizationFilter implements Filter {
@@ -37,7 +37,7 @@ public class UserAuthorizationFilter implements Filter {
 		String job = (req.getParameter("job") != null ? req.getParameter("job") : null);
 		Long id = (req.getParameter("id") != null ? Long.parseLong(req.getParameter("id")) : null);
 		
-		Users user = (id != null ? new UserServiceImp().getUser(id, true) : null);
+		Users user = (id != null ? new UserService().getUser(id, true) : null);
 		Users sessionUser = ((Users)session.getAttribute("user"));
 		
 		boolean isAdmin = (sessionUser != null ? sessionUser.getRole().equals("Admin") : false);
@@ -216,7 +216,7 @@ case "removeUser" : {
 case "addUser" : {
 	
 	if (!isAdmin) {
-		List<Users> users = new UserServiceImp().getAllUsersList();
+		List<Users> users = new UserService().getAllUsersList();
 		req.setAttribute("alert", "You are not Authorized to create an user!");
 		req.setAttribute("users", users);
 		RequestDispatcher rd = req.getRequestDispatcher("UserList.jsp");

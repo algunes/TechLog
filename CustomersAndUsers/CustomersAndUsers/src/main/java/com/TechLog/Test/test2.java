@@ -3,9 +3,9 @@ package com.TechLog.Test;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-import com.TechLog.Model.Users.UserAuthenticationInfo;
-import com.TechLog.Model.Users.Users;
-import com.TechLog.Services.UserImp.UserServiceImp;
+import com.TechLog.Entity.Users.UserAuthenticationInfo;
+import com.TechLog.Entity.Users.Users;
+import com.TechLog.Services.User.UserService;
 
 public class test2 {
 
@@ -23,7 +23,7 @@ public class test2 {
 //		System.out.println(new String(b1));
 //		System.out.println(new String(b2));
 		
-		UserServiceImp us = new UserServiceImp();
+		UserService us = new UserService();
 		
 		
 		

@@ -1,8 +1,8 @@
 <%@ page language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
-    <%@ page import="com.TechLog.Model.Customers.Customer"%>
-    <%@ page import="com.TechLog.Model.Corporations.Corporation"%>
+    <%@ page import="com.TechLog.Entity.Customers.Customer"%>
+    <%@ page import="com.TechLog.Entity.Corporations.Corporation"%>
     <%@ page import="java.util.*"%>
     <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 	<%@ page isELIgnored="false" %>
@@ -18,12 +18,6 @@
 <head>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
 <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
-
-<script>
-function deleteMsg() {
-  alert("Are you sure to delete this?");
-}
-</script>
 <title>Customer Details</title>
 </head>
 <body>
@@ -141,7 +135,7 @@ index=${customer.getEmails().indexOf(e)}">edit</a> | <a href="<%= request.getCon
 /DeleteCustomer?
 id=${customer.getCustomer_id()}&
 job=removeCustomerEmail&
-index=${customer.getEmails().indexOf(e)}" onclick="deleteMsg()">remove</a>)</small><br>
+index=${customer.getEmails().indexOf(e)}">remove</a>)</small><br>
 </c:forEach>
 
 <small><a href="<%= request.getContextPath() %>
@@ -168,7 +162,7 @@ index=${customer.getTelNums().indexOf(e)}">edit</a> | <a href="<%= request.getCo
 /DeleteCustomer?
 id=${customer.getCustomer_id()}&
 job=removeCustomerTelNum&
-index=${customer.getTelNums().indexOf(e)}" onclick="deleteMsg()">remove</a>)</small><br>
+index=${customer.getTelNums().indexOf(e)}">remove</a>)</small><br>
 </c:forEach>
 
 <small><a href="<%= request.getContextPath() %>
@@ -195,7 +189,7 @@ index=${customer.getAddresses().indexOf(e)}">edit</a> | <a href="<%= request.get
 /DeleteCustomer?
 id=${customer.getCustomer_id()}&
 job=removeCustomerAddress&
-index=${customer.getAddresses().indexOf(e)}" onclick="deleteMsg()">remove</a>)</small><br>
+index=${customer.getAddresses().indexOf(e)}">remove</a>)</small><br>
 </c:forEach>
 
 <small><a href="<%= request.getContextPath() %>

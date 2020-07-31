@@ -13,17 +13,17 @@ import java.util.ListIterator;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-import com.TechLog.Dao.CorporationImp.CorporationDaoImp;
-import com.TechLog.Dao.UserImp.UserDaoImp;
-import com.TechLog.Model.Corporations.Corporation;
-import com.TechLog.Model.Corporations.CorporationBuilder;
-import com.TechLog.Model.Customers.Customer;
-import com.TechLog.Model.Customers.CustomerBuilder;
-import com.TechLog.Model.Users.UserBuilder;
-import com.TechLog.Model.Users.Users;
-import com.TechLog.Services.SearchService;
-import com.TechLog.Services.CustomerImp.CustomerServiceImp;
-import com.TechLog.Services.UserImp.UserServiceImp;
+import com.TechLog.DAO.Corporations.CorporationDAO;
+import com.TechLog.DAO.Users.UserDaoImp;
+import com.TechLog.Entity.Corporations.Corporation;
+import com.TechLog.Entity.Corporations.CorporationBuilder;
+import com.TechLog.Entity.Customers.Customer;
+import com.TechLog.Entity.Customers.CustomerBuilder;
+import com.TechLog.Entity.Users.UserBuilder;
+import com.TechLog.Entity.Users.Users;
+import com.TechLog.Services.Customer.CustomerServiceImp;
+import com.TechLog.Services.Search.SearchService;
+import com.TechLog.Services.User.UserService;
 
 public class Test {
 

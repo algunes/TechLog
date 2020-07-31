@@ -1,9 +1,9 @@
-<%@ page language="java" %>
+<%@ page language="java" errorPage="Error.jsp"%>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
-<%@ page import="com.TechLog.Model.Corporations.Corporation"%>
-<%@ page import="com.TechLog.Model.Customers.Customer"%>
-<%@ page import="com.TechLog.Model.Users.Users"%>
+<%@ page import="com.TechLog.Entity.Corporations.Corporation"%>
+<%@ page import="com.TechLog.Entity.Customers.Customer"%>
+<%@ page import="com.TechLog.Entity.Users.Users"%>
 <%@ page import="java.util.*"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>

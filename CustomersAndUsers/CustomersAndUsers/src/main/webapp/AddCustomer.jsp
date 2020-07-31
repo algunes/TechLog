@@ -2,7 +2,7 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ page contentType="text/html"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.TechLog.Model.Corporations.Corporation"%>
+<%@ page import="com.TechLog.Entity.Corporations.Corporation"%>
 <%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
 response.setHeader("Expires", "0");

@@ -1,10 +1,10 @@
 <%@ page language="java" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
-    <%@ page import="com.TechLog.Model.Customers.Customer"%>
-    <%@ page import="com.TechLog.Model.Corporations.Corporation"%>
-    <%@ page import="com.TechLog.Services.UserImp.UserServiceImp"%>
-    <%@ page import="com.TechLog.Model.Users.Users"%>
+    <%@ page import="com.TechLog.Entity.Customers.Customer"%>
+    <%@ page import="com.TechLog.Entity.Corporations.Corporation"%>
+    <%@ page import="com.TechLog.Entity.Users.Users"%>
+    <%@ page import="com.TechLog.Services.User.UserService"%>
     
     
     <%@ page import="java.util.*"%>
@@ -35,7 +35,7 @@
 String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
 String alert = (request.getAttribute("alert") != null ? (String)request.getAttribute("alert") : "");// a text alert if want to show
 Users user = (request.getAttribute("user") != null ? (Users)request.getAttribute("user") : null);
-String username = new UserServiceImp().byteToUsername(user.getUserAuth().getUserName());
+String username = new UserService().byteToUsername(user.getUserAuth().getUserName());
 %>
 
 <% if(!message.isEmpty()) { 

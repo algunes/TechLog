@@ -2,159 +2,105 @@
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
+
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<display-name>CharacterEncodingFilter</display-name>
+		<description></description>
+		<filter-class>com.TechLog.Filters.CharacterEncodingFilter</filter-class>
+	</filter>
+
 	<filter>
 		<filter-name>UserAuthorizationFilter</filter-name>
 		<display-name>UserAuthorizationFilter</display-name>
 		<description></description>
-		<filter-class>com.Filters.UserAuthorizationFilter</filter-class>
+		<filter-class>com.TechLog.Filters.UserAuthorizationFilter</filter-class>
 	</filter>
+	
 	<filter-mapping>
 		<filter-name>UserAuthorizationFilter</filter-name>
 		<url-pattern>/UserAuthorizationFilter</url-pattern>
 	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>CreateCustomer</servlet-name>
+		<display-name>CreateCustomer</display-name>
+		<description></description>
+		<servlet-class>com.TechLog.Controllers.CreateCustomer</servlet-class>
+	</servlet>
 
-	<servlet>
-		<servlet-name>AddCorporation</servlet-name>
-		<display-name>AddCorporation</display-name>
-		<description></description>
-		<servlet-class>com.CustomerController.AddCorporation</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>AddCustomer</servlet-name>
-		<display-name>AddCustomer</display-name>
-		<description></description>
-		<servlet-class>com.CustomerController.AddCustomer</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>CharacterEncodingFilter</servlet-name>
-		<display-name>CharacterEncodingFilter</display-name>
-		<description></description>
-		<servlet-class>com.CustomerController.CharacterEncodingFilter</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>GetCorporation</servlet-name>
-		<display-name>GetCorporation</display-name>
-		<description></description>
-		<servlet-class>com.CustomerController.GetCorporation</servlet-class>
-	</servlet>
 	<servlet>
 		<servlet-name>GetCustomer</servlet-name>
 		<display-name>GetCustomer</display-name>
 		<description></description>
-		<servlet-class>com.CustomerController.GetCustomer</servlet-class>
+		<servlet-class>com.TechLog.Controllers.GetCustomer</servlet-class>
 	</servlet>
+	
 	<servlet>
 		<servlet-name>SearchCustomer</servlet-name>
 		<display-name>SearchCustomer</display-name>
 		<description></description>
-		<servlet-class>com.CustomerController.SearchCustomer</servlet-class>
+		<servlet-class>com.TechLog.Controllers.SearchCustomer</servlet-class>
 	</servlet>
+	
 	<servlet>
-		<servlet-name>CustomerUpdate</servlet-name>
-		<display-name>CustomerUpdate</display-name>
+		<servlet-name>UpdateCustomer</servlet-name>
+		<display-name>UpdateCustomer</display-name>
 		<description></description>
-		<servlet-class>com.CustomerController.CustomerUpdate</servlet-class>
+		<servlet-class>com.TechLog.Controllers.UpdateCustomer</servlet-class>
 	</servlet>
+	
 	<servlet>
 		<servlet-name>DeleteCustomer</servlet-name>
 		<display-name>DeleteCustomer</display-name>
 		<description></description>
-		<servlet-class>com.CustomerController.DeleteCustomer</servlet-class>
+		<servlet-class>com.TechLog.Controllers.DeleteCustomer</servlet-class>
 	</servlet>
-	<servlet>
-		<servlet-name>UserLogin</servlet-name>
-		<display-name>UserLogin</display-name>
-		<description></description>
-		<servlet-class>com.CustomerController.UserLogin</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>Users</servlet-name>
-		<display-name>Users</display-name>
-		<description></description>
-		<servlet-class>com.CustomerController.Users</servlet-class>
-	</servlet>
+
 	<servlet>
 		<servlet-name>UserController</servlet-name>
 		<display-name>UserController</display-name>
 		<description></description>
-		<servlet-class>com.CustomerController.UserController</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>ErrorHandling</servlet-name>
-		<display-name>ErrorHandling</display-name>
-		<description></description>
-		<servlet-class>com.CustomerController.ErrorHandling</servlet-class>
+		<servlet-class>com.TechLog.Controllers.UserController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>AddCorporation</servlet-name>
-		<url-pattern>/AddCorporation</url-pattern>
+		<servlet-name>CreateCustomer</servlet-name>
+		<url-pattern>/CreateCustomer</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>AddCustomer</servlet-name>
-		<url-pattern>/AddCustomer</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>CharacterEncodingFilter</servlet-name>
-		<url-pattern>/CharacterEncodingFilter</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>GetCorporation</servlet-name>
-		<url-pattern>/GetCorporation</url-pattern>
-	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>GetCustomer</servlet-name>
 		<url-pattern>/GetCustomer</url-pattern>
 	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>SearchCustomer</servlet-name>
 		<url-pattern>/SearchCustomer</url-pattern>
 	</servlet-mapping>
+	
 	<servlet-mapping>
-		<servlet-name>CustomerUpdate</servlet-name>
-		<url-pattern>/CustomerUpdate</url-pattern>
+		<servlet-name>UpdateCustomer</servlet-name>
+		<url-pattern>/UpdateCustomer</url-pattern>
 	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>DeleteCustomer</servlet-name>
 		<url-pattern>/DeleteCustomer</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>UserLogin</servlet-name>
-		<url-pattern>/UserLogin</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>Users</servlet-name>
-		<url-pattern>/Users</url-pattern>
-	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>UserController</servlet-name>
 		<url-pattern>/UserController</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>ErrorHandling</servlet-name>
-		<url-pattern>/ErrorHandling</url-pattern>
-	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-	<error-page>
-		<exception-type>401</exception-type>
-		<location>/error.jsp</location>
-	</error-page>
-	<error-page>
-		<exception-type>403</exception-type>
-		<location>/error.jsp</location>
-	</error-page>
-	<error-page>
-		<exception-type>404</exception-type>
-		<location>/error.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>500</error-code>
-		<location>/error.jsp</location>
-	</error-page>
-	<error-page>
-		<exception-type>java.lang.Exception</exception-type>
-		<location>/error.jsp</location>
-	</error-page>
+	
 </web-app>

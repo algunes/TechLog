@@ -1,4 +1,4 @@
-<%@ page language="java" %>
+<%@ page language="java" errorPage="Error.jsp" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
 <%@ page import="java.util.*"%>

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset = UTF-8"
 	pageEncoding="UTF-8" errorPage="Error.jsp"%>
-<%@ page isELIgnored="false"%>
-<%@ page import="com.TechLog.Model.Users.Users"%>
+<%@ page import="com.TechLog.Entity.Users.Users"%>
 <%@ page isELIgnored="false" %>
 <%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
@@ -18,9 +17,11 @@ response.setHeader("Expires", "0");
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/login.css">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+
 <title>Customer Cards Home</title>
 </head>
 

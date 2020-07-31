@@ -1,6 +1,8 @@
 <%@ page language="java" errorPage="Error.jsp"%>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.TechLog.Entity.Users.Users"%>
 <%@ page isELIgnored="false"%>
 <%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
@@ -13,8 +15,11 @@ response.setHeader("Expires", "0");
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+
 
 <title>Customer Cards</title>
 </head>
@@ -52,6 +57,11 @@ response.setHeader("Expires", "0");
         </li>
         <li class="nav-item">
           <a class="nav-link" href=".${request.getContextPath()}/user?job=logout">Logout</a>
+        </li>
+        <li>
+      <c:if test = "${user.getRole().equals('Admin')}">
+         <p>Your role is:  <c:out value="admin"/><p>
+      </c:if>          <a class="nav-link" href=".${request.getContextPath()}/user?job=logout">Login</a>
         </li>
       </ul>
     </div>

@@ -2,7 +2,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
 <%@ page import="java.util.*"%>
-<%@ page import="com.TechLog.Model.Users.Users"%>
+<%@ page import="com.TechLog.Entity.Users.Users"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 	<%@ page isELIgnored="false" %>
 <%
