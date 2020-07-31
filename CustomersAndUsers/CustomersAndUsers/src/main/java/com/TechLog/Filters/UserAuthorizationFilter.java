@@ -129,6 +129,13 @@ case "updateRole" : {
 		RequestDispatcher rd = req.getRequestDispatcher("ShowUser.jsp");
 		rd.forward(request, response);
 	}
+	
+	else if (isAdmin && isSelfSubject) {
+		req.setAttribute("alert", "You are not Authorized to change the Role!");
+		req.setAttribute("user", user);
+		RequestDispatcher rd = req.getRequestDispatcher("ShowUser.jsp");
+		rd.forward(request, response);
+	}
 
 	else {
 		chain.doFilter(request, response);

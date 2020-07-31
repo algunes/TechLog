@@ -12,35 +12,36 @@ import java.util.List;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-import com.TechLog.DAO.Users.UserDaoImp;
+import com.TechLog.DAO.Users.UserDao;
 import com.TechLog.Entity.Users.UserAuthenticationInfo;
+import com.TechLog.Entity.Users.UserRoles;
 import com.TechLog.Entity.Users.Users;
 
 public class UserService {
 
 	public Users createUser(Users user) {
-		return new UserDaoImp().addUser(user);
+		return new UserDao().addUser(user);
 	}
 
 	public Users removeUser(Long UserId) {
 		Users user = getUser(UserId, false);
-		new UserDaoImp().deleteUser(user);
+		new UserDao().deleteUser(user);
 		return user;
 	}
 
 	public Users getUser(Long id, boolean isFull) {
 		if (isFull)
-			return new UserDaoImp().fullFetchUser(id);
+			return new UserDao().fullFetchUser(id);
 		else
-			return new UserDaoImp().fetchUser(id);
+			return new UserDao().fetchUser(id);
 	}
 	
 	public List<Users> getAllUsersList() {
-		return new UserDaoImp().fetchAllUsers();
+		return new UserDao().fetchAllUsers();
 	}
 
 	public Users updateUser(Users user) {
-		return new UserDaoImp().updateUser(user);
+		return new UserDao().updateUser(user);
 	}
 	
 	public Users updateFirstname(Long  id, String firstname) {
@@ -67,7 +68,7 @@ public class UserService {
 		return updateUser(user);	
 	}
 	
-	public Users updateRole(Long  id, String role) {
+	public Users updateRole(Long  id, UserRoles role) {
 		Users user = getUser(id, false);
 		user.setRole(role);
 		return updateUser(user);	
@@ -104,7 +105,7 @@ public class UserService {
 	public Users userLoginValidation(String userName, String password) {
 		Users user = null;
 		byte[] uname = usernameToByte(userName);
-		UserAuthenticationInfo uai = new UserDaoImp().validateUserName(uname);
+		UserAuthenticationInfo uai = new UserDao().validateUserName(uname);
 		
 		if(uai != null && Arrays.equals(passwordHashing(uai.getSalt(), password), uai.getPassword()) == true) {
 			user = uai.getUser();
@@ -153,13 +154,19 @@ public class UserService {
 	
 	public Users updateUsername(Long id, String username) {
 		byte[] uname = usernameToByte(username);
-		Users user = getUser(id, true);
-		user.getUserAuth().setUserName(uname);
-		return updateUser(user);
+		UserDao ud = new UserDao();
+		if(ud.validateUserName(uname) == null) { // null return means name is unique
+			Users user = getUser(id, true);
+			user.getUserAuth().setUserName(uname);
+			return updateUser(user);
+		}
+		else {
+			return null;
+		}
 	}
 	
 	public Users userBuild(String firstname, String lastname, String department,
-			String position, String role, String email, String telNumber,
+			String position, UserRoles role, String email, String telNumber,
 			String address, BigDecimal totalSales, String userName, String password) {
 		
 		Users user = new Users();

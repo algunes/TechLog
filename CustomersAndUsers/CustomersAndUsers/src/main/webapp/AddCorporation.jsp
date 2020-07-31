@@ -17,16 +17,15 @@
 <title>Add Corporation</title>
 </head>
 <body>
-<form action="AddCustomer" method="post">
-<div class="form-group">
 
-		<input type="hidden" name="job" value="addCorporation">
-		<input type="text" class="form-control" placeholder="Corporation Name" required name="name" maxlength="255"><br>
-		<input type="text" class="form-control" placeholder="Sector" required name="sector" maxlength="255"><br>
-		<input type="hidden" name="isActive" value="true"><br>
-
-		<input class="btn btn-primary" value="Submit" type="submit">
+<div class="form-group, col-sm-4">
+<form action="CreateCustomer" method="post">
+<input type="hidden" name="job" value="addCorporation">
+<input type="text" class="form-control" placeholder="Corporation Name" required name="name" maxlength="255">
+<input type="text" class="form-control" placeholder="Sector" required name="sector" maxlength="255">
+<input type="hidden" name="isActive" value="true">
+<input class="btn btn-primary" value="Submit" type="submit">
+</form>
 </div>
-	</form>
 </body>
 </html>

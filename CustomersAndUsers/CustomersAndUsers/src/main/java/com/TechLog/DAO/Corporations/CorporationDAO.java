@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
 import com.TechLog.Entity.Corporations.Corporation;
 import com.TechLog.Hibernate.HibernateUtil;
 
-public class CorporationDAO implements CorporationDao {
+public class CorporationDAO implements ICorporationDao {
 
 	@Override
 	public Corporation addCorporation(Corporation corporation) {

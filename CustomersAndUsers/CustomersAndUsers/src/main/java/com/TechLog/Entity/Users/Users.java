@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 import javax.persistence.*;
-import javax.persistence.Entity;
 
 import com.TechLog.Entity.Corporations.Corporation;
 import com.TechLog.Entity.Customers.Customer;
@@ -32,8 +31,9 @@ public class Users implements Serializable {
 	@Column(name="position")
 	private String position;
 	
-	@Column(name="role")
-	private String role;
+	@ManyToOne
+	@JoinColumn(name="role")
+	private UserRoles role;
 	
 	@Column(name="created_customers")
 	@OneToMany(mappedBy="created_by", orphanRemoval=false)
@@ -112,11 +112,11 @@ public class Users implements Serializable {
 		this.position = position;
 	}
 
-	public String getRole() {
+	public UserRoles getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(UserRoles role) {
 		this.role = role;
 	}
 
@@ -212,7 +212,7 @@ public class Users implements Serializable {
 		super();
 	}
 
-public Users(Long id, String firstname, String lastname, String department, String position, String role,
+public Users(Long id, String firstname, String lastname, String department, String position, UserRoles role,
 		List<Customer> created_customers, List<Customer> updated_customers, List<Corporation> created_corporations,
 		List<Corporation> updated_corporations, String email, String telNumber, String address, BigDecimal totalSales,
 		LocalDate lastLogin, LocalDate startDate, UserAuthenticationInfo userAuth) {

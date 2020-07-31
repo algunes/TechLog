@@ -22,36 +22,20 @@ response.setHeader("Expires", "0");
 <title>Corporation List</title>
 </head>
 <body>
-
-<% 
-String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
-String alert = (request.getAttribute("alert") != null ? (String)request.getAttribute("alert") : "");// a text alert if want to show
-%>
  
  <div class="container">
  
- <% if(!message.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-success'><strong>"
-			+
-			message
-			+
-			"</strong></div>"
-			
-			);
- } %>
-  <% if(!alert.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-danger'>"
-			+
-			alert
-			+
-			"</strong></div>"
-			
-			);
- } %>
+<c:if test = "${message != null}">
+      <div class='alert alert-success'><strong>  
+      <c:out value="${message}"/>
+      </strong></div>
+</c:if>
+<c:if test = "${alert != null}">
+      <div class='alert alert-warning'><strong>  
+      <c:out value="${alert}"/>
+      </strong></div>
+</c:if>
+ 
 <b>Corporations: </b><br>
 <Table class="table table-sm">
 

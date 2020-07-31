@@ -18,7 +18,7 @@ import com.TechLog.Services.Corporation.CorporationPostService;
 import com.TechLog.Services.Corporation.CorporationPreService;
 import com.TechLog.Services.Customer.CustomerPreService;
 
-@WebServlet("/addCustomer")
+@WebServlet("/createCustomer")
 public class CreateCustomer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

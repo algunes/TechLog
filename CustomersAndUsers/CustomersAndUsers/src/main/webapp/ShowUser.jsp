@@ -5,8 +5,6 @@
     <%@ page import="com.TechLog.Entity.Corporations.Corporation"%>
     <%@ page import="com.TechLog.Entity.Users.Users"%>
     <%@ page import="com.TechLog.Services.User.UserService"%>
-    
-    
     <%@ page import="java.util.*"%>
     <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 	<%@ page isELIgnored="false" %>

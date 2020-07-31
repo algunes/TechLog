@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.TechLog.Entity.Corporations.Corporation;
 import com.TechLog.Entity.Customers.Customer;
+import com.TechLog.Entity.Users.UserRoles;
 import com.TechLog.Entity.Users.Users;
 import com.TechLog.Services.User.UserService;
 
@@ -118,7 +119,7 @@ public class UserController extends HttpServlet {
 		
 		case "updateRole" : {
 			Long id = Long.parseLong(request.getParameter("id"));
-			String userRole = new UserService().getUser(id, false).getRole();
+			UserRoles userRole = new UserService().getUser(id, false).getRole();
 			
 			request.setAttribute("id", id);
 			request.setAttribute("value", userRole);
@@ -353,7 +354,7 @@ public class UserController extends HttpServlet {
 			String role = request.getParameter("role");
 			
 			Users user = new UserService().updateRole(id, role);
-						
+			
 			request.setAttribute("message", "User role updated to '" + role + "' !");
 			request.setAttribute("user", user);
 			

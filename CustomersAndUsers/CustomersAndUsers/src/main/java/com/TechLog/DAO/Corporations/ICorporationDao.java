@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.TechLog.Entity.Corporations.Corporation;
 
-public interface CorporationDao {
+public interface ICorporationDao {
 	
 	Corporation addCorporation(Corporation corporation); // Create
 	Corporation fetchCorporation(Long id); // Fetching a corp. lazily

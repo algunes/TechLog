@@ -22,20 +22,12 @@ if(session.getAttribute("user") == null) {
 <title>Create a User</title>
 </head>
 <body>
-<% 
-String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
-%>
-<% if(!message.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-success'><strong>"
-			+
-			message
-			+
-			"</strong></div>"
-			
-			);
- } %>
+
+<c:if test = "${message != null}">
+      <div class='alert alert-success'><strong>  
+      <c:out value="${message}"/>
+      </strong></div>
+</c:if>
  
  <form action="user?job=addUser" method="post" oninput='up2.setCustomValidity(up2.value != up.value ? "Passwords do not match." : "")'>
  <div class="form-group">

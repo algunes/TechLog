@@ -14,14 +14,12 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 import com.TechLog.DAO.Corporations.CorporationDAO;
-import com.TechLog.DAO.Users.UserDaoImp;
+import com.TechLog.DAO.Users.UserDao;
 import com.TechLog.Entity.Corporations.Corporation;
 import com.TechLog.Entity.Corporations.CorporationBuilder;
 import com.TechLog.Entity.Customers.Customer;
 import com.TechLog.Entity.Customers.CustomerBuilder;
-import com.TechLog.Entity.Users.UserBuilder;
 import com.TechLog.Entity.Users.Users;
-import com.TechLog.Services.Customer.CustomerServiceImp;
 import com.TechLog.Services.Search.SearchService;
 import com.TechLog.Services.User.UserService;
 

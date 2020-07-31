@@ -15,7 +15,7 @@ import com.TechLog.Entity.Users.UserAuthenticationInfo;
 import com.TechLog.Entity.Users.Users;
 import com.TechLog.Hibernate.HibernateUtil;
 
-public class UserDaoImp {
+public class UserDao {
 
 	public Users addUser(Users user) {
 		
@@ -117,8 +117,6 @@ public class UserDaoImp {
 
 	public Users updateUser(Users user) {
 		
-		if(validateUserName(user.getUserAuth().getUserName()) == null) {
-		
 		Session session = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
@@ -137,8 +135,6 @@ public class UserDaoImp {
 			}
 		}
 		return fullFetchUser(user.getId());
-		}
-		return null;
 	}
 
 	public void deleteUser(Users user) {
