@@ -28,7 +28,7 @@ public class HibernateUtil {
 				settings.put(Environment.PASS, "Driver8..?");				
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
 				settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-				settings.put(Environment.HBM2DDL_AUTO, "update");
+				settings.put(Environment.HBM2DDL_AUTO, "create");
 				settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 				
 				// c3p0 Configuration
@@ -47,8 +47,9 @@ public class HibernateUtil {
 				standardServiceRegistry = registryBuilder.build();
 
 				MetadataSources sources = new MetadataSources(standardServiceRegistry)
-						.addAnnotatedClass(com.TechLog.Entity.Users.Users.class)
+						.addAnnotatedClass(com.TechLog.Entity.Roles.Roles.class)
 						.addAnnotatedClass(com.TechLog.Entity.Users.UserRoles.class)
+						.addAnnotatedClass(com.TechLog.Entity.Users.Users.class)
 						.addAnnotatedClass(com.TechLog.Entity.Users.UserAuthenticationInfo.class)
 						.addAnnotatedClass(com.TechLog.Entity.Corporations.Corporation.class)
 						.addAnnotatedClass(com.TechLog.Entity.Customers.Customer.class);

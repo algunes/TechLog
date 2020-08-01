@@ -8,15 +8,24 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-import com.TechLog.Roles.Roles;
+import com.TechLog.Entity.Roles.Roles;
 
 @Entity(name = "UserRoles")
-@DiscriminatorValue("User_Roles")
+@DiscriminatorValue("Customers")
 public class UserRoles extends Roles {
 	
-	@OneToMany(mappedBy="user")
-	@Column(name="role")
+	@OneToMany(mappedBy="role")
+	@Column(name="users")
 	private List<Users> users = new ArrayList<>();
+	
+	public UserRoles(String name, boolean create, boolean read, boolean update, boolean delete, List<Users> users) {
+		super(name, create, read, update, delete);
+		this.users = users;
+	}
+	
+	public UserRoles() {
+		super();
+	}
 
 	public List<Users> getUsers() {
 		return users;
