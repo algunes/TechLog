@@ -8,13 +8,20 @@
   <name>CustomersAndUsers Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
-    
-	<dependency>
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-    <version>3.8.1</version>
+
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-api</artifactId>
+    <version>5.6.2</version>
     <scope>test</scope>
-    </dependency>
+</dependency>
+
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-engine</artifactId>
+    <version>5.6.2</version>
+    <scope>test</scope>
+</dependency>
     
     <dependency>
     <groupId>mysql</groupId>
@@ -73,9 +80,16 @@
 	</dependency>
 	
   </dependencies>
+  
+  <properties>
+  <maven.compiler.target>1.8</maven.compiler.target>
+  <maven.compiler.source>1.8</maven.compiler.source>
+  </properties>
+  
   <build>
     <finalName>CustomersAndUsers</finalName>
     <plugins>
+    
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -84,7 +98,8 @@
           <source>1.8</source>
           <target>1.8</target>
         </configuration>
-      </plugin>      
+        </plugin> 
+         
     </plugins>
   </build>
   

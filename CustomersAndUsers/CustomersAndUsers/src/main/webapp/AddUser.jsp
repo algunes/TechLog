@@ -28,8 +28,14 @@ if(session.getAttribute("user") == null) {
       <c:out value="${message}"/>
       </strong></div>
 </c:if>
+
+<c:if test = "${alert != null}">
+      <div class='alert alert-danger'><strong>  
+      <c:out value="${alert}"/>
+      </strong></div>
+</c:if>
  
- <form action="user?job=addUser" method="post" oninput='up2.setCustomValidity(up2.value != up.value ? "Passwords do not match." : "")'>
+ <form action="createUser" method="post" oninput='up2.setCustomValidity(up2.value != up.value ? "Passwords do not match." : "")'>
  <div class="form-group">
  <div class="col-sm-10">
  <input type="text" class="form-control" placeholder="Firstname" name="firstname" required maxlength="255"><br>
@@ -43,17 +49,64 @@ if(session.getAttribute("user") == null) {
  <div class="col-sm-10">
  <input type="text" class="form-control" placeholder="Position"  name="position" required maxlength="255"><br>
  </div>
+ 
  <div class="col-sm-10">
- <p>Please select a user role:</p>
- <input type="radio" id="admin" name="role" value="Admin"> 
- <label for="male">Admin</label><br>
- <input type="radio" id="accounter" name="role" value="Accounter"> 
- <label for="male">Accounter</label><br>
- <input type="radio" id="salesPerson" name="role" value="Sales Person"> 
- <label for="male">Sales Person</label><br>
- <input type="radio" id="techPerson" name="role" value="Tech. Person"> 
- <label for="male">Tech. Person</label><br>
+ 
+ <p>Customer Domain Permissions:</p>
+ 
+ <input type="checkbox" id="customerDomainCreate" name="customerDomainCreate" value=true>
+  <label for="customerDomainCreate"> Create</label><br>
+  <input type="checkbox" id="customerDomainRead" name="customerDomainRead" value=true>
+  <label for="customerDomainRead"> Read</label><br>
+  <input type="checkbox" id="customerDomainUpdate" name="customerDomainUpdate" value=true>
+  <label for="customerDomainUpdate"> Update</label><br>
+  <input type="checkbox" id="customerDomainDelete" name="customerDomainDelete" value=true>
+  <label for="customerDomainDelete"> Delete</label><br>
+ 
  </div>
+ 
+ <div class="col-sm-10">
+ <p>User Domain Permissions:</p>
+ 
+ <input type="checkbox" id="userDomainCreate" name="userDomainCreate" value=true>
+  <label for="userDomainCreate"> Create</label><br>
+  <input type="checkbox" id="userDomainRead" name="userDomainRead" value=true>
+  <label for="userDomainRead"> Read</label><br>
+  <input type="checkbox" id="userDomainUpdate" name="userDomainUpdate" value=true>
+  <label for="userDomainUpdate"> Update</label><br>
+  <input type="checkbox" id="userDomainDelete" name="userDomainDelete" value=true>
+  <label for="userDomainDelete"> Delete</label><br>
+ 
+ </div>
+ 
+ <div class="col-sm-10">
+ <p>Product Domain Permissions:</p>
+ 
+ <input type="checkbox" id="productDomainCreate" name="productDomainCreate" value=true>
+  <label for="productDomainCreate"> Create</label><br>
+  <input type="checkbox" id="productDomainRead" name="productDomainRead" value=true>
+  <label for="productDomainRead"> Read</label><br>
+  <input type="checkbox" id="productDomainUpdate" name="productDomainUpdate" value=true>
+  <label for="productDomainUpdate"> Update</label><br>
+  <input type="checkbox" id="productDomainDelete" name="productDomainDelete" value=true>
+  <label for="productDomainDelete"> Delete</label><br>
+ 
+ </div>
+ 
+ <div class="col-sm-10">
+ <p>Stock Domain Permissions:</p>
+ 
+ <input type="checkbox" id="stockDomainCreate" name="stockDomainCreate" value=true>
+  <label for="stockDomainCreate"> Create</label><br>
+  <input type="checkbox" id="stockDomainRead" name="stockDomainRead" value=true>
+  <label for="stockDomainRead"> Read</label><br>
+  <input type="checkbox" id="stockDomainUpdate" name="stockDomainUpdate" value=true>
+  <label for="stockDomainUpdate"> Update</label><br>
+  <input type="checkbox" id="stockDomainDelete" name="stockDomainDelete" value=true>
+  <label for="stockDomainDelete"> Delete</label><br>
+ 
+ </div>
+ 
  <div class="col-sm-10">
   <input type="email" class="form-control" placeholder="Email"  name="email" required maxlength="255"><br>
   </div>

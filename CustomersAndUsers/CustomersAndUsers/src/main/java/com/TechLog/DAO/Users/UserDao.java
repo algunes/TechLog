@@ -18,9 +18,7 @@ import com.TechLog.Hibernate.HibernateUtil;
 public class UserDao {
 
 	public Users addUser(Users user) {
-		
-		if(validateUserName(user.getUserAuth().getUserName()) == null) {
-			
+					
 		Session session = null;
 		Long result = null;
 		try {
@@ -39,11 +37,7 @@ public class UserDao {
 			session.close();
 		}
 		return fullFetchUser(result);
-		}
 		
-		else {
-			return null;
-		}
 	}
 
 	public Users fetchUser(Long id) {

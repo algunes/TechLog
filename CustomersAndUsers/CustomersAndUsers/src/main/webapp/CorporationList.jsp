@@ -44,7 +44,7 @@ response.setHeader("Expires", "0");
 <td>
 <a href="<%=request.getContextPath()%>
 
-/GetCustomer?
+/readCustomer?
 id=${e.getId()}&
 job=getCorporation">${e.getName()}</a>
 

@@ -26,7 +26,7 @@ public class UpdateCustomer extends HttpServlet {
 			throws ServletException, IOException {
 
 		Long id = Long.parseLong(request.getParameter("id"));
-		String job = request.getParameter("job");
+		String job = request.getParameter("job") != null ? request.getParameter("job") : "";
 
 		switch (job) {
 		
@@ -157,6 +157,11 @@ public class UpdateCustomer extends HttpServlet {
 			rd.forward(request, response);
 			break;
 		}
+		
+		default : {
+			response.sendRedirect("index.jsp");
+			break;
+		}
 
 		}
 
@@ -165,7 +170,7 @@ public class UpdateCustomer extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String job = request.getParameter("job");
+		String job = request.getParameter("job") != null ? request.getParameter("job") : "";
 		Long id = Long.parseLong(request.getParameter("id"));
 		Users user = (Users)request.getSession(false).getAttribute("user");
 
@@ -374,6 +379,11 @@ public class UpdateCustomer extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
 				rd.forward(request, response);
 			}
+			break;
+		}
+		
+		default : {
+			response.sendRedirect("index.jsp");
 			break;
 		}
 

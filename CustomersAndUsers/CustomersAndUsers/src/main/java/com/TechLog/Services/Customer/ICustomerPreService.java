@@ -1,12 +1,19 @@
 package com.TechLog.Services.Customer;
 
-import com.TechLog.DTO.Customers.CustomerDTO;
 import com.TechLog.Entity.Customers.Customer;
 import com.TechLog.Entity.Users.Users;
 
 public interface ICustomerPreService {
 
-	Customer createCustomer(CustomerDTO cdto); 
+	Customer createCustomer(String firstname,
+			String lastname,
+			Long corporationId,
+			String department,
+			String position,
+			String email,
+			String telNum,
+			String address,
+			Users user); 
 	
 	Customer updateCustomerFirstname(Long id, String oldName, String newName, Users user);
 	Customer updateCustomerLastname(Long id, String oldName, String newName, Users user);

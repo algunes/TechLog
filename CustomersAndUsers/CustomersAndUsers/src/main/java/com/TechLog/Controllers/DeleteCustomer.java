@@ -22,7 +22,7 @@ public class DeleteCustomer extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Long id = Long.parseLong(request.getParameter("id"));
-		String job = request.getParameter("job");
+		String job = request.getParameter("job") != null ? request.getParameter("job") : "";
 	
 		switch(job) {
 		
@@ -117,6 +117,10 @@ public class DeleteCustomer extends HttpServlet {
 		}
 		break;
 	}
+	
+	default : {
+		response.sendRedirect("index.jsp");
+	}
 			
 	}
 	}
@@ -125,7 +129,7 @@ public class DeleteCustomer extends HttpServlet {
 			throws ServletException, IOException {
 
 		Long id = Long.parseLong(request.getParameter("id"));
-		String job = request.getParameter("job");
+		String job = request.getParameter("job") != null ? request.getParameter("job") : "";
 		Users user = (Users)request.getSession(false).getAttribute("user");
 		
 		switch(job) {
@@ -182,6 +186,10 @@ public class DeleteCustomer extends HttpServlet {
 				rd.forward(request, response);
 			}
 			break;
+		}
+		
+		default : {
+			response.sendRedirect("index.jsp");
 		}
 		
 		}

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.TechLog.DTO.Customers.CustomerDTO;
 import com.TechLog.Entity.Corporations.Corporation;
 import com.TechLog.Entity.Customers.Customer;
 import com.TechLog.Entity.Users.Users;
@@ -26,7 +25,7 @@ public class CreateCustomer extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String job = request.getParameter("job");
+		String job = request.getParameter("job") != null ? request.getParameter("job") : "";
 		
 		
 		switch(job) {
@@ -41,7 +40,8 @@ public class CreateCustomer extends HttpServlet {
 		}
 		
 		case "addCorporation": {
-			response.sendRedirect("AddCorporation.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("AddCorporation.jsp");
+			rd.forward(request, response);	
 			break;
 		}
 		
@@ -93,6 +93,11 @@ public class CreateCustomer extends HttpServlet {
 		rd.forward(request, response);
 		break;
 	}
+	
+	default : {
+		response.sendRedirect("index.jsp");
+		break;
+	}
 		}
 		
 			
@@ -100,7 +105,7 @@ public class CreateCustomer extends HttpServlet {
        
     	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-    		String job = request.getParameter("job");
+    		String job = request.getParameter("job") != null ? request.getParameter("job") : "";
     		Users user = (Users)request.getSession(false).getAttribute("user") ;
     		
     		
@@ -119,18 +124,16 @@ public class CreateCustomer extends HttpServlet {
     			String telNum = request.getParameter("telNum");
     			String address = request.getParameter("address");
     			
-    			CustomerDTO cdto = new CustomerDTO();
-	    			cdto.setFirstname(firstname);
-	    			cdto.setLastname(lastname);
-	    			cdto.setCorporation(new CorporationPostService().getCorporation(corporationId, false));
-	    			cdto.setDepartment(department);
-	    			cdto.setPosition(position);
-	    			cdto.addEmail(email);
-	    			cdto.addTelNum(telNum);
-	    			cdto.addAddress(address);
-	    			cdto.setObjectCreator(user);
-	    			
-    			Customer customer = new CustomerPreService().createCustomer(cdto);
+    			Customer customer = new CustomerPreService().createCustomer(
+    					firstname,
+    					lastname,
+    					corporationId,
+    					department,
+    					position,
+    					email,
+    					telNum,
+    					address,
+    					user);
    			
     			request.setAttribute("customer", customer); 
     			request.setAttribute("message", customer.getFirstname() + " " + customer.getLastname() + " created succesfully!");
@@ -225,6 +228,11 @@ public class CreateCustomer extends HttpServlet {
 				rd.forward(request, response);
 			}
 			
+			break;
+		}
+		
+		default : {
+			response.sendRedirect("index.jsp");
 			break;
 		}
     		 	

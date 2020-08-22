@@ -19,7 +19,7 @@
 <body>
 
 <div class="form-group, col-sm-4">
-<form action="CreateCustomer" method="post">
+<form action="createCustomer" method="post">
 <input type="hidden" name="job" value="addCorporation">
 <input type="text" class="form-control" placeholder="Corporation Name" required name="name" maxlength="255">
 <input type="text" class="form-control" placeholder="Sector" required name="sector" maxlength="255">

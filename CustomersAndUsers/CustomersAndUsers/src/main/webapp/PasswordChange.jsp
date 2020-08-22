@@ -47,11 +47,11 @@ String alert = (request.getAttribute("alert") != null ? (String)request.getAttri
 			);
  } %>
 
-<form action="user" method="post" oninput='up2.setCustomValidity(up2.value != up.value ? "Passwords do not match." : "")'>
+<form action="updateUser" method="post" oninput='up2.setCustomValidity(up2.value != up.value ? "Passwords do not match." : "")'>
 <input type="hidden" name="job" value="updatePassword" >
 <div class="form-group">
 <div class="col-sm-10">
-<input type="hidden" required name ="id" value="${id}" >
+<input type="hidden" name ="id" value="${id}" >
 </div>
 <div class="col-sm-10">
 <input type=password class="form-control" placeholder="Current Password" id="password" required name=oldPassword><br>

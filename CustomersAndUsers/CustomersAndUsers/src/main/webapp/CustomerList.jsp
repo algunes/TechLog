@@ -59,7 +59,7 @@ String alert = (request.getAttribute("alert") != null ? (String)request.getAttri
 <td>
 
 <a href="<%=request.getContextPath()%>
-/GetCustomer?
+/readCustomer?
 id=${e.getCustomer_id()}&
 job=getCustomer">
 ${e.getFirstname()} ${e.getLastname()}</a>

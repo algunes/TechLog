@@ -18,26 +18,19 @@
 
 <% 
 String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
-/* String alert = (request.getAttribute("alert") != null ? (String)request.getAttribute("alert") : "");// a text alert if want to show
- */%>
-
+%>
+<div class="container">
 <c:if test = "${alert != null}">
-      <div class='alert alert-success'><strong>  
-      <c:out value="alert"/>
+      <div class='alert alert-danger'><strong>  
+      <c:out value="${alert}"/>
       </strong></div>
 </c:if>
 
- <% if(!message.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-success'><strong>"
-			+
-			message
-			+
-			"</strong></div>"
-			
-			);
- } %>
- 
+<c:if test = "${message != null}">
+	<div class='alert alert-alert'><strong>
+	<c:out value ="${message}" />
+	</strong></div>
+</c:if>
+</div>
 </body>
 </html>

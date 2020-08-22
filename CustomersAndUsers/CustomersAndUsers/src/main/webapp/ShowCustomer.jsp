@@ -61,7 +61,7 @@ Firstname:
 </td>
 <td>
 ${customer.getFirstname()} <small>(<a href="<%= request.getContextPath() %>
-/CustomerUpdate?
+/updateCustomer?
 id=${customer.getCustomer_id()}&
 job=updateCustomerFirstname">edit</a>)</small><br>
 </td>
@@ -72,7 +72,7 @@ Lastname:
 </td>
 <td>
 ${customer.getLastname()} <small>(<a href="<%= request.getContextPath() %>
-/CustomerUpdate?
+/updateCustomer?
 id=${customer.getCustomer_id()}&
 job=updateCustomerLastname">edit</a>)</small><br>
 </td>
@@ -85,7 +85,7 @@ Corporation:
 <% %>
 <td>
 <a href="<%= request.getContextPath()%>
-/GetCustomer?
+/readCustomer?
 id=${customer.getCorporation().getId()}&
 job=getCorporation">${customer.getCorporation().getName()}</a><br>
 </td>
@@ -98,7 +98,7 @@ Department:
 <% %>
 <td>
 ${customer.getDepartment()} <small>(<a href="<%= request.getContextPath() %>
-/CustomerUpdate?
+/updateCustomer?
 id=${customer.getCustomer_id()}&
 job=updateCustomerDepartment">edit</a>)</small><br>
 </td>
@@ -111,7 +111,7 @@ Position:
 <% %>
 <td>
 ${customer.getPosition()} <small>(<a href="<%= request.getContextPath() %>
-/CustomerUpdate?
+/updateCustomer?
 id=${customer.getCustomer_id()}&
 job=updateCustomerPosition">edit</a>)</small><br>
 </td>
@@ -126,20 +126,19 @@ Email:
 
 <c:forEach items ="${customer.getEmails()}" var = "e">
 ${e} <small>(<a href="<%= request.getContextPath() %>
-
-/CustomerUpdate?
+/updateCustomer?
 id=${customer.getCustomer_id()}&
 job=updateCustomerEmail&
 index=${customer.getEmails().indexOf(e)}">edit</a> | <a href="<%= request.getContextPath() %>
 
-/DeleteCustomer?
+/deleteCustomer?
 id=${customer.getCustomer_id()}&
 job=removeCustomerEmail&
 index=${customer.getEmails().indexOf(e)}">remove</a>)</small><br>
 </c:forEach>
 
 <small><a href="<%= request.getContextPath() %>
-/AddCustomer?
+/createCustomer?
 id=${customer.getCustomer_id()}&
 job=addCustomerEmail"> Add</a></small>
 </td>
@@ -154,19 +153,19 @@ Tel:
 <c:forEach items = "${customer.getTelNums()}" var = "e">
 ${e} <small>(<a href="<%= request.getContextPath()%>
 
-/CustomerUpdate?
+/updateCustomer?
 id=${customer.getCustomer_id()}&
 job=updateCustomerTelNum&
 index=${customer.getTelNums().indexOf(e)}">edit</a> | <a href="<%= request.getContextPath() %>
 
-/DeleteCustomer?
+/deleteCustomer?
 id=${customer.getCustomer_id()}&
 job=removeCustomerTelNum&
 index=${customer.getTelNums().indexOf(e)}">remove</a>)</small><br>
 </c:forEach>
 
 <small><a href="<%= request.getContextPath() %>
-/AddCustomer?
+/createCustomer?
 id=${customer.getCustomer_id()}&
 job=addCustomerTelNum"> Add</a></small>
 </td>
@@ -181,19 +180,19 @@ Address:
 <c:forEach items = "${customer.getAddresses()}" var = "e">
 ${e} <small>(<a href="<%= request.getContextPath()%>
 
-/CustomerUpdate?
+/updateCustomer?
 id=${customer.getCustomer_id()}&
 job=updateCustomerAddress&
 index=${customer.getAddresses().indexOf(e)}">edit</a> | <a href="<%= request.getContextPath() %>
 
-/DeleteCustomer?
+/deleteCustomer?
 id=${customer.getCustomer_id()}&
 job=removeCustomerAddress&
 index=${customer.getAddresses().indexOf(e)}">remove</a>)</small><br>
 </c:forEach>
 
 <small><a href="<%= request.getContextPath() %>
-/AddCustomer?
+/createCustomer?
 id=${customer.getCustomer_id()}&
 job=addCustomerAddress"> Add</a></small><br>
 </td>
@@ -205,7 +204,7 @@ Created By:
 </td>
 <td>
 <a href="<%= request.getContextPath() %>
-/user?
+/readUser?
 id=${customer.getCreated_by().getId()}&
 job=details">
 ${customer.getCreated_by().getFirstname()} ${customer.getCreated_by().getLastname()}
@@ -219,7 +218,7 @@ Last Update:
 </td>
 <td>
 <a href="<%= request.getContextPath() %>
-/user?
+/readUser?
 id=${customer.getUpdated_by().getId()}&
 job=details">
 ${customer.getUpdated_by().getFirstname()} ${customer.getUpdated_by().getLastname()}
@@ -230,7 +229,7 @@ ${customer.getUpdated_by().getFirstname()} ${customer.getUpdated_by().getLastnam
 </Table>
 
 <a href="<%= request.getContextPath() %>
-/DeleteCustomer?
+/deleteCustomer?
 id=${customer.getCustomer_id()}&
 job=removeCustomer" onclick="deleteMsg()" style="float:center"> Delete This</a>
 </div>

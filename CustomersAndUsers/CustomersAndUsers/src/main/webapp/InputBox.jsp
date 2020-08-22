@@ -21,7 +21,7 @@ response.setHeader("Expires", "0");
 
 <div class="container">
  
- <c:if test = "${message != null}">
+<c:if test = "${message != null}">
       <div class='alert alert-success'><strong>  
       <c:out value="${message}"/>
       </strong></div>

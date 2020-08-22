@@ -41,7 +41,7 @@ ${value}<br>
 <input type="hidden" value="${value}" name="value"><br>
 <input type="hidden" value="${job}" name="job"><br>
 <input type="hidden" value="${id}" name="id"><br>
-<a href="<%=request.getContextPath()%>/GetCustomer?job=getCustomer&&id=${id}" class="btn btn-primary" role="button">Back</a>
+<a href="<%=request.getContextPath()%>/readCustomer?job=getCustomer&id=${id}" class="btn btn-primary" role="button">Back</a>
 <button class="btn btn-danger" type="submit">Delete</button>
 </form>
 </td>

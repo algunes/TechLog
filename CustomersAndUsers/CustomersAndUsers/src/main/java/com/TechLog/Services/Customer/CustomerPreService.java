@@ -2,27 +2,36 @@ package com.TechLog.Services.Customer;
 
 import java.time.LocalDate;
 
-import com.TechLog.DTO.Customers.CustomerDTO;
 import com.TechLog.Entity.Customers.Customer;
 import com.TechLog.Entity.Customers.CustomerBuilder;
 import com.TechLog.Entity.Users.Users;
+import com.TechLog.Services.Corporation.CorporationPostService;
 
 public class CustomerPreService implements ICustomerPreService {
 
 	@Override
-	public Customer createCustomer(CustomerDTO cdto) {
+	public Customer createCustomer(
+			String firstname,
+			String lastname,
+			Long corporationId,
+			String department,
+			String position,
+			String email,
+			String telNum,
+			String address,
+			Users user) {
+		
 		// Creates and persists a customer from scratch
 		Customer customer = new CustomerBuilder()
-				.setFirstname(cdto.getFirstname())
-				.setLastname(cdto.getLastname())
-				.setCorporation(cdto.getCorporation())
-				.setDepartment(cdto.getDepartment())
-				.setPosition(cdto.getDepartment())
-				.setEmail(cdto.getEmails())
-				.setTelNum(cdto.getTelNums())
-				.setAddress(cdto.getAddresses())
-				.setCreatedBy(cdto.getObjectCreator())
-				.setCreationDate(LocalDate.now())
+				.setFirstname(firstname)
+				.setLastname(lastname)
+				.setCorporation(new CorporationPostService().getCorporation(corporationId, false))
+				.setDepartment(department)
+				.setPosition(position)
+				.setEmail(email)
+				.setTelNum(telNum)
+				.setAddress(address)
+				.setCreatedBy(user)
 				.build();
 			
 		return new CustomerPostService().createCustomer(customer);

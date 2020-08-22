@@ -60,8 +60,8 @@ String alert = (request.getAttribute("alert") != null ? (String)request.getAttri
 <tr>
 <td>
 <c:forEach items ="${users}" var = "e">
-${e.getFirstname()} ${e.getLastname()} (${e.getRole()}) <small>(<a href="<%= request.getContextPath() %>
-	/UserController?job=details&id=${e.getId()}">details</a>)</small><br>
+${e.getFirstname()} ${e.getLastname()} <small>(<a href="<%= request.getContextPath() %>
+	/readUser?job=details&id=${e.getId()}">details</a>)</small><br>
 	</c:forEach>
 	</td>
 	</tr>
@@ -69,7 +69,7 @@ ${e.getFirstname()} ${e.getLastname()} (${e.getRole()}) <small>(<a href="<%= req
 	</div>
 	<div>
 	<a href="<%= request.getContextPath() %>
-	/UserController?
+	/createUser?
 	job=addUser">Create a user</a>
 	</div>
 </body>

@@ -17,9 +17,7 @@ public class CustomerBuilder {
 	private List<String> telNums = new ArrayList<>();
 	private List<String> addresses = new ArrayList<>();
 	private Users created_by;
-	private Users updated_by;
-	private LocalDate last_update;
-	private LocalDate creation_date;
+
 	
 	public CustomerBuilder setFirstname(String firstname) {
 		this.firstname = firstname;
@@ -46,32 +44,17 @@ public class CustomerBuilder {
 		return this;
 	}
 	
-	public CustomerBuilder setEmail(List<String> emails) {
-		this.emails = emails;
-		return this;
-	}
-	
-	public CustomerBuilder addEmail(String email) {
+	public CustomerBuilder setEmail(String email) {
 		this.emails.add(email);
 		return this;
 	}
 	
-	public CustomerBuilder setTelNum(List<String> telNums) {
-		this.telNums = telNums;
-		return this;
-	}
-	
-	public CustomerBuilder addTelNum(String telNum) {
+	public CustomerBuilder setTelNum(String telNum) {
 		this.telNums.add(telNum);
 		return this;
 	}
 	
-	public CustomerBuilder setAddress(List<String> addresses) {
-		this.addresses = addresses;
-		return this;
-	}
-	
-	public CustomerBuilder addAddress(String address) {
+	public CustomerBuilder setAddress(String address) {
 		this.addresses.add(address);
 		return this;
 	}
@@ -81,25 +64,10 @@ public class CustomerBuilder {
 		return this;
 	}
 	
-	public CustomerBuilder setUpdatedBy(Users user) {
-		this.updated_by = user;
-		return this;
-	}
-	
-	public CustomerBuilder setLastUpdate(LocalDate date) {
-		this.last_update = date;
-		return this;
-	}
-	
-	public CustomerBuilder setCreationDate(LocalDate date) {
-		this.creation_date = date;
-		return this;
-	}
-	
 	public Customer build() {
 		return new Customer(firstname, lastname, corporation, department, position,
-				emails, telNums, addresses, created_by, updated_by, 
-				last_update, creation_date);
+				emails, telNums, addresses, created_by, null, 
+				null, LocalDate.now());
 	}
 	
 }

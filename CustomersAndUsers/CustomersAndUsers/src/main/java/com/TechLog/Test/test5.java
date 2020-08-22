@@ -1,7 +1,7 @@
 package com.TechLog.Test;
 
-import com.TechLog.Entity.Users.UserRoleBuilder;
-import com.TechLog.Entity.Users.UserRoles;
+import com.TechLog.Entity.Roles.UserRoleBuilder;
+import com.TechLog.Entity.Roles.UserRoles;
 import com.TechLog.Entity.Users.Users;
 import com.TechLog.Services.User.UserService;
 import com.TechLog.Services.User.Roles.UserRolesPostService;

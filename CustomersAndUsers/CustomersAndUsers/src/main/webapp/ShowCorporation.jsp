@@ -62,14 +62,14 @@ Name:
 </td>
 <td>
 ${corporation.getName()} <small>(<a href="<%= request.getContextPath() %>
-/CustomerUpdate?
+/updateCustomer?
 id=${corporation.getId()}&
 job=updateCorporationName">
 update
 </a>
  | 
 <a href="<%= request.getContextPath() %>
-/DeleteCustomer?
+/deleteCustomer?
 id=${corporation.getId()}&
 job=removeCorporation">
 remove
@@ -84,7 +84,7 @@ Sector:
 </td>
 <td>
 ${corporation.getSector()} <small>(<a href="<%= request.getContextPath() %>
-/CustomerUpdate?
+/updateCustomer?
 id=${corporation.getId()}&
 job=updateCorporationSector">
 update
@@ -99,7 +99,7 @@ Created By:
 </td>
 <td>
 <a href="<%= request.getContextPath() %>
-/UserController?
+/readUser?
 id=${corporation.getCreated_by().getId()}&
 job=details">
 ${corporation.getCreated_by().getFirstname()} ${corporation.getCreated_by().getLastname()}
@@ -113,7 +113,7 @@ Last Update:
 </td>
 <td>
 <a href="<%= request.getContextPath() %>
-/UserController?
+/readUser?
 id=${corporation.getCreated_by().getId()}&
 job=details">
 ${corporation.getUpdated_by().getFirstname()} ${corporation.getUpdated_by().getLastname()}
@@ -129,7 +129,7 @@ ${corporation.getUpdated_by().getFirstname()} ${corporation.getUpdated_by().getL
 <tr>
 <td>
 <a href="<%=request.getContextPath()%>
-/GetCustomer?
+/readCustomer?
 id=${e.getCustomer_id()}&
 job=getCustomer">${e.getFirstname()} ${e.getLastname()}</a>
 

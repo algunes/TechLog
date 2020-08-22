@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" %>
+<%@ page pageEncoding="UTF-8" %>
+<%@ page contentType="text/html" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
     
     <%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
@@ -21,25 +24,18 @@ response.setHeader("Expires", "0");
 
 <body class="text-center">
 
-<% 
-String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
-%>
-
-    <form action="user" method="post" class="form-signin">
-    <input type="hidden" name="job" value="login" >
-      <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <form action="login" method="post" class="form-signin" target = _parent>
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-      <% if(!message.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-danger'>"
-			+
-			message
-			+
-			"</div>"
-			
-			);
- } %>
+<c:if test = "${message != null}">
+      <div class='alert alert-success'><strong>  
+      <c:out value="${message}"/>
+      </strong></div>
+</c:if>
+<c:if test = "${alert != null}">
+      <div class='alert alert-warning'><strong>  
+      <c:out value="${alert}"/>
+      </strong></div>
+</c:if>
       <label class="sr-only">Username</label>
       <input type="text" class="form-control" placeholder="Username" name ="username" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>

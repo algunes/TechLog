@@ -1,14 +1,14 @@
 package com.TechLog.Test;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 
+import com.TechLog.Entity.Permissions.CustomerDomainPermission;
+import com.TechLog.Entity.Permissions.Permission;
+import com.TechLog.Entity.Permissions.UserRolesOnCustomersBuilder;
 import com.TechLog.Entity.Users.UserAuthenticationInfo;
-import com.TechLog.Entity.Users.UserRoleBuilder;
-import com.TechLog.Entity.Users.UserRoles;
 import com.TechLog.Entity.Users.Users;
 import com.TechLog.Services.User.UserService;
-import com.TechLog.Services.User.Roles.UserRolesPostService;
+import com.TechLog.Services.User.Permissions.UserRolesOnCustomersPostService;
 
 public class test2 {
 
@@ -30,13 +30,7 @@ public class test2 {
 		
 		UserService us = new UserService();
 		
-		UserRoles ur = new UserRoleBuilder().
-				setName("admino")
-				.setCreate(true)
-				.setRead(true)
-				.setUpdate(true)
-				.setDelete(true)
-				.build();
+		
 		
 		
 		
@@ -44,16 +38,32 @@ public class test2 {
 		user.setFirstname("Aliyar2");
 		user.setLastname("Güneş2");
 		user.setEmail("aliyargunes2@gmail.com");
-		user.setRole(ur);
+		// user.getRoles().add(ur);
 		user.setStartDate(LocalDate.now());
 		
-		UserAuthenticationInfo uai = us.userAuthInfoBuild("admin232", "1234");
+		UserAuthenticationInfo uai = us.userAuthInfoBuild("admin46", "1234");
 		uai.setUser(user);
 		user.setUserAuth(uai);
 		
 		
-		new UserRolesPostService().createUserRole(ur);
+		
 		Users user2 = us.createUser(user);
+		
+		CustomerDomainPermission ur = new UserRolesOnCustomersBuilder().
+				setName("admino")
+				.addUser(user2)
+				.setCreate(true)
+				.setRead(true)
+				.setUpdate(true)
+				.setDelete(true)
+				.build();
+		
+		Permission role = ur;
+		
+		new UserRolesOnCustomersPostService().createUserRole(role);
+		
+		us.addRole(user2.getId(), ur);
+		us.updateUser(user2);
 		
 		
 		

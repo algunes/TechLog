@@ -18,7 +18,6 @@ public class SearchCustomer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		response.sendRedirect("SearchCustomer.jsp");
 	}
 
@@ -30,8 +29,6 @@ public class SearchCustomer extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("CustomerList.jsp"); 
 		rd.forward(request, response);
 
-		
-		
 	}
 
 }

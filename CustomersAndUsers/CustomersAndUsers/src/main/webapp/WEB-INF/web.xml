@@ -9,22 +9,70 @@
 		<description></description>
 		<filter-class>com.TechLog.Filters.CharacterEncodingFilter</filter-class>
 	</filter>
-
 	<filter>
-		<filter-name>UserAuthorizationFilter</filter-name>
-		<display-name>UserAuthorizationFilter</display-name>
+		<filter-name>PublicRestrictedServletsFilter</filter-name>
+		<display-name>PublicRestrictedServletsFilter</display-name>
 		<description></description>
-		<filter-class>com.TechLog.Filters.UserAuthorizationFilter</filter-class>
+		<filter-class>com.TechLog.Filters.PublicRestrictedServletsFilter</filter-class>
 	</filter>
-	
-	<filter-mapping>
-		<filter-name>UserAuthorizationFilter</filter-name>
-		<url-pattern>/UserAuthorizationFilter</url-pattern>
-	</filter-mapping>
+	<filter>
+		<filter-name>UserDomainPermissionsFilter</filter-name>
+		<display-name>UserDomainPermissionsFilter</display-name>
+		<description></description>
+		<filter-class>com.TechLog.Filters.UserDomainPermissionsFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>CustomerDomainCreatePermissionFilter</filter-name>
+		<display-name>CustomerDomainCreatePermissionFilter</display-name>
+		<description></description>
+		<filter-class>com.TechLog.Filters.CustomerDomainCreatePermissionFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>CustomerDomainReadPermissionFilter</filter-name>
+		<display-name>CustomerDomainReadPermissionFilter</display-name>
+		<description></description>
+		<filter-class>com.TechLog.Filters.CustomerDomainReadPermissionFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>CustomerDomainUpdatePermissionFilter</filter-name>
+		<display-name>CustomerDomainUpdatePermissionFilter</display-name>
+		<description></description>
+		<filter-class>com.TechLog.Filters.CustomerDomainUpdatePermissionFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>CustomerDomainDeletePermissionFilter</filter-name>
+		<display-name>CustomerDomainDeletePermissionFilter</display-name>
+		<description></description>
+		<filter-class>com.TechLog.Filters.CustomerDomainDeletePermissionFilter</filter-class>
+	</filter>
 	
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedServletsFilter</filter-name>
+		<url-pattern>/PublicRestrictedServletsFilter</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>UserDomainPermissionsFilter</filter-name>
+		<url-pattern>/UserDomainPermissionsFilter</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CustomerDomainCreatePermissionFilter</filter-name>
+		<url-pattern>/CustomerDomainCreatePermissionFilter</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CustomerDomainReadPermissionFilter</filter-name>
+		<url-pattern>/CustomerDomainReadPermissionFilter</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CustomerDomainUpdatePermissionFilter</filter-name>
+		<url-pattern>/CustomerDomainUpdatePermissionFilter</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CustomerDomainDeletePermissionFilter</filter-name>
+		<url-pattern>/CustomerDomainDeletePermissionFilter</url-pattern>
 	</filter-mapping>
 	
 	<servlet>
@@ -35,10 +83,10 @@
 	</servlet>
 
 	<servlet>
-		<servlet-name>GetCustomer</servlet-name>
-		<display-name>GetCustomer</display-name>
+		<servlet-name>ReadCustomer</servlet-name>
+		<display-name>ReadCustomer</display-name>
 		<description></description>
-		<servlet-class>com.TechLog.Controllers.GetCustomer</servlet-class>
+		<servlet-class>com.TechLog.Controllers.ReadCustomer</servlet-class>
 	</servlet>
 	
 	<servlet>
@@ -63,10 +111,46 @@
 	</servlet>
 
 	<servlet>
-		<servlet-name>UserController</servlet-name>
-		<display-name>UserController</display-name>
+		<servlet-name>Initialization</servlet-name>
+		<display-name>Initialization</display-name>
 		<description></description>
-		<servlet-class>com.TechLog.Controllers.UserController</servlet-class>
+		<servlet-class>com.TechLog.Controllers.Initialization</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<display-name>Login</display-name>
+		<description></description>
+		<servlet-class>com.TechLog.Controllers.Login</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<display-name>Logout</display-name>
+		<description></description>
+		<servlet-class>com.TechLog.Controllers.Logout</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CreateUser</servlet-name>
+		<display-name>CreateUser</display-name>
+		<description></description>
+		<servlet-class>com.TechLog.Controllers.CreateUser</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ReadUser</servlet-name>
+		<display-name>ReadUser</display-name>
+		<description></description>
+		<servlet-class>com.TechLog.Controllers.ReadUser</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UpdateUser</servlet-name>
+		<display-name>UpdateUser</display-name>
+		<description></description>
+		<servlet-class>com.TechLog.Controllers.UpdateUser</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>DeleteUser</servlet-name>
+		<display-name>DeleteUser</display-name>
+		<description></description>
+		<servlet-class>com.TechLog.Controllers.DeleteUser</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -75,8 +159,8 @@
 	</servlet-mapping>
 	
 	<servlet-mapping>
-		<servlet-name>GetCustomer</servlet-name>
-		<url-pattern>/GetCustomer</url-pattern>
+		<servlet-name>ReadCustomer</servlet-name>
+		<url-pattern>/ReadCustomer</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
@@ -95,8 +179,32 @@
 	</servlet-mapping>
 	
 	<servlet-mapping>
-		<servlet-name>UserController</servlet-name>
-		<url-pattern>/UserController</url-pattern>
+		<servlet-name>Initialization</servlet-name>
+		<url-pattern>/Initialization</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/Logout</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CreateUser</servlet-name>
+		<url-pattern>/CreateUser</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReadUser</servlet-name>
+		<url-pattern>/ReadUser</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UpdateUser</servlet-name>
+		<url-pattern>/UpdateUser</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeleteUser</servlet-name>
+		<url-pattern>/DeleteUser</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>
