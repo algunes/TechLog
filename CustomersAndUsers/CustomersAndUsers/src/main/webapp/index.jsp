@@ -94,6 +94,12 @@ response.setHeader("Expires", "0");
         
         <c:if test = "${user != null}" >
         <li>
+		 <a class="nav-link" target="iframe_a" href=".${request.getContextPath()}/readUser?job=details&id=${user.getId()}">Profile</a>
+        </li>
+        </c:if>
+        
+        <c:if test = "${user != null}" >
+        <li>
 		 <a class="nav-link" href=".${request.getContextPath()}/logout">Logout</a>
         </li>
         </c:if>

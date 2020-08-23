@@ -13,27 +13,31 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.TechLog.Entity.Users.Users;
 
-@WebFilter(urlPatterns = {"/getCustomer", "/GetCustomer"})
-public class CustomerDomainReadPermissionFilter implements Filter {
+@WebFilter(urlPatterns = {"/createUser", "/CreateUser"})
+public class UserDomainCreatePermissionFilter implements Filter {
 
-    public CustomerDomainReadPermissionFilter() {
+    public UserDomainCreatePermissionFilter() {
+        
     }
 
 	public void destroy() {
+		
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-
+		
 		HttpServletRequest req = (HttpServletRequest)request;
-		if(((Users)req.getSession().getAttribute("user")).getDomainPermissions().getCustomerDomain().is_read())
+		Boolean isCreate = ((Users)req.getSession().getAttribute("user")).getDomainPermissions().getUserDomain().is_create();
+		
+		if(isCreate)
 			chain.doFilter(request, response);
-		req.setAttribute("alert", "You shouldn't be there!");
+		req.setAttribute("alert", "You can't create user!");
 		RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
 		rd.forward(request, response);
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
-		
+
 	}
 
 }

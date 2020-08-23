@@ -29,7 +29,18 @@
 <b>User Details:</b> <br>
 <Table class="table table-sm">
 <% 
-String username = request.getAttribute("user") != null ? new UserService().byteToUsername(((Users) (request.getAttribute("user"))).getUserAuth().getUserName()) : "";
+Users masterUser = (Users)request.getSession().getAttribute("user");
+Users targetUser = request.getAttribute("user") != null
+						? (Users)request.getAttribute("user") : null;
+String username = targetUser != null ? new UserService().byteToUsername(targetUser.getUserAuth().getUserName()) : "";
+Boolean selfVisitor = masterUser.getId() == targetUser.getId() ? true : false;
+
+Boolean isCreate = masterUser.getDomainPermissions().getUserDomain().is_create();
+Boolean isRead = masterUser.getDomainPermissions().getUserDomain().is_read();
+Boolean isUpdate = masterUser.getDomainPermissions().getUserDomain().is_update();
+Boolean isDelete = masterUser.getDomainPermissions().getUserDomain().is_delete();
+
+
 %>
 
 <c:if test = "${message != null}">
@@ -48,13 +59,18 @@ String username = request.getAttribute("user") != null ? new UserService().byteT
 Username: 
 </td>
 <td>
-<%= username %> <small>(<a href="<%= request.getContextPath() %>
+<%= username %> 
+<c:if test = "<%= isUpdate || selfVisitor %>" >
+<small>(<a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
-job=updateUsername">edit</a>)</small><br>
+job=updateUsername">edit</a>)</small>
+</c:if>
+<br>
 </td>
 </tr>
 
+<c:if test = "<%= selfVisitor %>" >
 <tr>
 <td>
 <a href="<%= request.getContextPath() %>
@@ -63,16 +79,22 @@ id=${user.getId()}&
 job=updatePassword">Change Password </a><br>
 </td>
 </tr>
+</c:if>
+
 
 <tr>
 <td>
 Firstname: 
 </td>
 <td>
-${user.getFirstname()} <small>(<a href="<%= request.getContextPath() %>
+${user.getFirstname()} 
+<c:if test = "<%= isUpdate %>" >
+<small>(<a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
-job=updateFirstname">edit</a>)</small><br>
+job=updateFirstname">edit</a>)</small>
+</c:if>
+<br>
 </td>
 </tr>
 
@@ -81,10 +103,14 @@ job=updateFirstname">edit</a>)</small><br>
 Lastname:
 </td>
 <td>
-${user.getLastname()} <small>(<a href="<%= request.getContextPath() %>
+${user.getLastname()} 
+<c:if test = "<%= isUpdate %>" >
+<small>(<a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
-job=updateLastname">edit</a>)</small><br>
+job=updateLastname">edit</a>)</small>
+</c:if>
+<br>
 </td>
 </tr>
 
@@ -93,10 +119,14 @@ job=updateLastname">edit</a>)</small><br>
 Department:  
 </td>
 <td>
-${user.getDepartment()} <small>(<a href="<%= request.getContextPath() %>
+${user.getDepartment()} 
+<c:if test = "<%= isUpdate %>" >
+<small>(<a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
-job=updateDepartment">edit</a>)</small><br>
+job=updateDepartment">edit</a>)</small>
+</c:if>
+<br>
 </td>
 </tr>
 
@@ -105,10 +135,14 @@ job=updateDepartment">edit</a>)</small><br>
 Position: 
 </td>
 <td>
-${user.getPosition()} <small>(<a href="<%= request.getContextPath() %>
+${user.getPosition()} 
+<c:if test = "<%= isUpdate %>" >
+<small>(<a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
-job=updatePosition">edit</a>)</small><br>
+job=updatePosition">edit</a>)</small>
+</c:if>
+<br>
 </td>
 </tr>
 

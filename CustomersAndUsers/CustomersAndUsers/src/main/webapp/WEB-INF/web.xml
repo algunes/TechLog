@@ -16,12 +16,6 @@
 		<filter-class>com.TechLog.Filters.PublicRestrictedServletsFilter</filter-class>
 	</filter>
 	<filter>
-		<filter-name>UserDomainPermissionsFilter</filter-name>
-		<display-name>UserDomainPermissionsFilter</display-name>
-		<description></description>
-		<filter-class>com.TechLog.Filters.UserDomainPermissionsFilter</filter-class>
-	</filter>
-	<filter>
 		<filter-name>CustomerDomainCreatePermissionFilter</filter-name>
 		<display-name>CustomerDomainCreatePermissionFilter</display-name>
 		<description></description>
@@ -45,6 +39,30 @@
 		<description></description>
 		<filter-class>com.TechLog.Filters.CustomerDomainDeletePermissionFilter</filter-class>
 	</filter>
+	<filter>
+		<filter-name>UserDomainCreatePermissionFilter</filter-name>
+		<display-name>UserDomainCreatePermissionFilter</display-name>
+		<description></description>
+		<filter-class>com.TechLog.Filters.UserDomainCreatePermissionFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>UserDomainReadPermissionFilter</filter-name>
+		<display-name>UserDomainReadPermissionFilter</display-name>
+		<description></description>
+		<filter-class>com.TechLog.Filters.UserDomainReadPermissionFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>UserDomainUpdatePermissionFilter</filter-name>
+		<display-name>UserDomainUpdatePermissionFilter</display-name>
+		<description></description>
+		<filter-class>com.TechLog.Filters.UserDomainUpdatePermissionFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>UserDomainDeletePermissionFilter</filter-name>
+		<display-name>UserDomainDeletePermissionFilter</display-name>
+		<description></description>
+		<filter-class>com.TechLog.Filters.UserDomainDeletePermissionFilter</filter-class>
+	</filter>
 	
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
@@ -53,10 +71,6 @@
 	<filter-mapping>
 		<filter-name>PublicRestrictedServletsFilter</filter-name>
 		<url-pattern>/PublicRestrictedServletsFilter</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>UserDomainPermissionsFilter</filter-name>
-		<url-pattern>/UserDomainPermissionsFilter</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CustomerDomainCreatePermissionFilter</filter-name>
@@ -73,6 +87,22 @@
 	<filter-mapping>
 		<filter-name>CustomerDomainDeletePermissionFilter</filter-name>
 		<url-pattern>/CustomerDomainDeletePermissionFilter</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>UserDomainCreatePermissionFilter</filter-name>
+		<url-pattern>/UserDomainCreatePermissionFilter</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>UserDomainReadPermissionFilter</filter-name>
+		<url-pattern>/UserDomainReadPermissionFilter</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>UserDomainUpdatePermissionFilter</filter-name>
+		<url-pattern>/UserDomainUpdatePermissionFilter</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>UserDomainDeletePermissionFilter</filter-name>
+		<url-pattern>/UserDomainDeletePermissionFilter</url-pattern>
 	</filter-mapping>
 	
 	<servlet>

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 		,"/GetCustomer" ,"/getCustomer" 
 		,"/DeleteCustomer" , "/deleteCustomer"
 		,"/createCustomer", "/CreateCustomer"
-		,"/user", "/UserController"
+		,"/createUser", "/CreateUser"
 		,"/searchCustomer", "/SearchCustomer"})
 public class PublicRestrictedServletsFilter implements Filter {
 
@@ -31,15 +31,11 @@ public class PublicRestrictedServletsFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpSession session = req.getSession(true);
 		
-		if (session.getAttribute("user") != null) {
+		if (session.getAttribute("user") != null) 
 			chain.doFilter(request, response);
-		}
-		else {
-			req.setAttribute("alert", "Please Sign in first!");
-			RequestDispatcher rd = req.getRequestDispatcher("UserLogin.jsp");
-			rd.forward(request, response);
-		}
-		
+		req.setAttribute("alert", "Please Sign in first!");
+		RequestDispatcher rd = req.getRequestDispatcher("UserLogin.jsp");
+		rd.forward(request, response);
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
