@@ -32,34 +32,31 @@ public class UserDomainUpdatePermissionFilter implements Filter {
 		Users masterUser = (Users)req.getSession().getAttribute("user");
 		
 		Boolean isUpdate = ((Users)req.getSession().getAttribute("user")).getDomainPermissions().getUserDomain().is_update();
-
+		UserService us = new UserService();
 		
 			Users targetUser = req.getParameter("id") != null 
-					? new UserService().getUser(Long.parseLong(req.getParameter("id")), true)
+					? us.getUser(Long.parseLong(req.getParameter("id")), true)
 							: null;
 			Boolean isUpdatingHimerself = targetUser != null
 					? Arrays.equals(masterUser.getUserAuth().getUserName(),
 					targetUser.getUserAuth().getUserName())
 							: null;
-			
-			Boolean isAdmin = masterUser.getDomainPermissions().getUserDomain().is_create()
-							&& masterUser.getDomainPermissions().getUserDomain().is_read()
-							&& masterUser.getDomainPermissions().getUserDomain().is_update()
-							&& masterUser.getDomainPermissions().getUserDomain().is_delete()
-							== true ? true : false;
+					
+			Boolean targetUserIsAdmin = "admin".equals(us.byteToUsername(targetUser.getUserAuth().getUserName()));			
+			Boolean masterUserIsAdmin = "admin".equals(us.byteToUsername(masterUser.getUserAuth().getUserName()));
 			
 			String job = req.getParameter("job") != null 
 					? (String)req.getParameter("job")
 							: "";
 					
 					if(isUpdate) {
-						if(isUpdatingHimerself && "updateUserPermissions".equals(job)) {
+						if(!masterUserIsAdmin && isUpdatingHimerself && "updateUserPermissions".equals(job)) {
 							req.setAttribute("alert", "You're not authorized to update your own permissions!");
 							req.setAttribute("user", targetUser);
 							RequestDispatcher rd = req.getRequestDispatcher("ShowUser.jsp");
 							rd.forward(request, response);
 						}
-						else if("admin".equals(new UserService().byteToUsername(targetUser.getUserAuth().getUserName()))) {
+						else if(!masterUserIsAdmin && targetUserIsAdmin) {
 							req.setAttribute("alert", "You can't update the top admin permissions!");
 							req.setAttribute("user", targetUser);
 							RequestDispatcher rd = req.getRequestDispatcher("ShowUser.jsp");
@@ -75,18 +72,28 @@ public class UserDomainUpdatePermissionFilter implements Filter {
 						switch(job) {
 						case "updateEmail" : {
 							chain.doFilter(request, response);
+							break;
 						}
 						case "updateTelNumber" : {
 							chain.doFilter(request, response);
+							break;
 						}
 						case "updateAddress" : {
 							chain.doFilter(request, response);
+							break;
 						}
 						case "updateUsername" : {
 							chain.doFilter(request, response);
+							break;
 						}
 						case "updatePassword" : {
 							chain.doFilter(request, response);
+							break;
+						}
+						case "updateUserPermissions" : {
+							if(masterUserIsAdmin)
+								chain.doFilter(request, response);
+							break;
 						}
 						
 						default : {
