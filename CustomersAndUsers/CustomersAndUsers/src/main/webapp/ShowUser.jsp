@@ -34,12 +34,12 @@ Users targetUser = request.getAttribute("user") != null
 						? (Users)request.getAttribute("user") : null;
 String username = targetUser != null ? new UserService().byteToUsername(targetUser.getUserAuth().getUserName()) : "";
 Boolean selfVisitor = masterUser.getId() == targetUser.getId() ? true : false;
+Boolean adminUser = "admin".equals(new UserService().byteToUsername(masterUser.getUserAuth().getUserName()));
 
 Boolean isCreate = masterUser.getDomainPermissions().getUserDomain().is_create();
 Boolean isRead = masterUser.getDomainPermissions().getUserDomain().is_read();
 Boolean isUpdate = masterUser.getDomainPermissions().getUserDomain().is_update();
 Boolean isDelete = masterUser.getDomainPermissions().getUserDomain().is_delete();
-
 
 %>
 
@@ -146,6 +146,7 @@ job=updatePosition">edit</a>)</small>
 </td>
 </tr>
 
+<c:if test = "<%= (!selfVisitor && isUpdate) || adminUser %>" >
 <tr>
 <td>
 <a href="<%= request.getContextPath() %>
@@ -153,8 +154,8 @@ job=updatePosition">edit</a>)</small>
 id=${user.getId()}&
 job=updateUserPermissions">Permissions</a>   
 </td>
-
 </tr>
+</c:if>
 
 <tr>
 <td>

@@ -16,44 +16,66 @@ import javax.servlet.http.HttpServletRequest;
 import com.TechLog.Entity.Users.Users;
 import com.TechLog.Services.Users.UserService;
 
-@WebFilter(urlPatterns = {"/deleteUser", "/DeleteUser"})
+@WebFilter(urlPatterns = { "/deleteUser", "/DeleteUser" })
 public class UserDomainDeletePermissionFilter implements Filter {
 
-    public UserDomainDeletePermissionFilter() {
-    }
+	public UserDomainDeletePermissionFilter() {
+	}
 
 	public void destroy() {
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
-		HttpServletRequest req = (HttpServletRequest)request;
-		Boolean isDelete = ((Users)req.getSession().getAttribute("user")).getDomainPermissions().getUserDomain().is_delete();
-		
-		if(isDelete && req.getParameter("id") != null) {
-			
-			Users targetUser = new UserService().getUser(Long.parseLong(req.getParameter("id")), true);
-			Users masterUser = (Users)req.getSession().getAttribute("user");
-			Boolean isRemovingHimerself = Arrays.equals(masterUser.getUserAuth().getUserName(),
-					targetUser.getUserAuth().getUserName());
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 
-			if(!isRemovingHimerself) {
-				chain.doFilter(request, response);
-			}
-			else {
+		HttpServletRequest req = (HttpServletRequest) request;
+
+		Users masterUser = (Users)req.getSession().getAttribute("user");
+
+		Boolean isDelete = ((Users) req.getSession().getAttribute("user")).getDomainPermissions().getUserDomain()
+				.is_delete();
+		
+		UserService us = new UserService();
+
+		Users targetUser = req.getParameter("id") != null ? us.getUser(Long.parseLong(req.getParameter("id")), true)
+				: null;
+		Boolean isDeletingHimerself = targetUser != null
+				? Arrays.equals(masterUser.getUserAuth().getUserName(), targetUser.getUserAuth().getUserName())
+				: null;
+
+		Boolean targetUserIsAdmin = "admin".equals(us.byteToUsername(targetUser.getUserAuth().getUserName()));
+		Boolean masterUserIsAdmin = "admin".equals(us.byteToUsername(masterUser.getUserAuth().getUserName()));
+
+		if(isDelete) {
+			if(!masterUserIsAdmin && isDeletingHimerself) {
+				req.setAttribute("alert", "You're not authorized to delete yourself!");
 				req.setAttribute("user", targetUser);
-				req.setAttribute("alert", "Are you kidding? You can't remove yourself, go tell the other admin!");
 				RequestDispatcher rd = req.getRequestDispatcher("ShowUser.jsp");
 				rd.forward(request, response);
 			}
-			
+			else if(!masterUserIsAdmin && targetUserIsAdmin) {
+				req.setAttribute("alert", "You can't delete the top admin!");
+				req.setAttribute("user", targetUser);
+				RequestDispatcher rd = req.getRequestDispatcher("ShowUser.jsp");
+				rd.forward(request, response);
+			}
+			else if(masterUserIsAdmin && targetUserIsAdmin) {
+				req.setAttribute("alert", "You are top level admin, you can't delete yourself!");
+				req.setAttribute("user", targetUser);
+				RequestDispatcher rd = req.getRequestDispatcher("ShowUser.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				chain.doFilter(request, response);
+			}
 		}
 		else {
-			req.setAttribute("alert", "You can't delete user!");
-			RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
+			req.setAttribute("alert", "You have no permission to delete user!");
+			req.setAttribute("user", targetUser);
+			RequestDispatcher rd = req.getRequestDispatcher("ShowUser.jsp");
 			rd.forward(request, response);
 		}
-		
+
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {

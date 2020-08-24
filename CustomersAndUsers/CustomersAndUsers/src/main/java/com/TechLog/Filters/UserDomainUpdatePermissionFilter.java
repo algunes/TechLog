@@ -56,8 +56,20 @@ public class UserDomainUpdatePermissionFilter implements Filter {
 							RequestDispatcher rd = req.getRequestDispatcher("ShowUser.jsp");
 							rd.forward(request, response);
 						}
+						else if(masterUserIsAdmin && targetUserIsAdmin && "updateUsername".equals(job)) {
+							req.setAttribute("alert", "You are top level admin, you can't update your username!!");
+							req.setAttribute("user", targetUser);
+							RequestDispatcher rd = req.getRequestDispatcher("ShowUser.jsp");
+							rd.forward(request, response);
+						}
 						else if(!masterUserIsAdmin && targetUserIsAdmin) {
-							req.setAttribute("alert", "You can't update the top admin permissions!");
+							req.setAttribute("alert", "You can't update the top admin data!");
+							req.setAttribute("user", targetUser);
+							RequestDispatcher rd = req.getRequestDispatcher("ShowUser.jsp");
+							rd.forward(request, response);
+						}
+						else if(!isUpdatingHimerself && "updatePassword".equals(job)) {
+							req.setAttribute("alert", "You can't update others password!");
 							req.setAttribute("user", targetUser);
 							RequestDispatcher rd = req.getRequestDispatcher("ShowUser.jsp");
 							rd.forward(request, response);
