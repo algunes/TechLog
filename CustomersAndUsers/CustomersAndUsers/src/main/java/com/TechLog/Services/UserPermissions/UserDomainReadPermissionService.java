@@ -39,7 +39,7 @@ public class UserDomainReadPermissionService {
 	public Boolean getCreatedCustomers() {
 		// --> Users can get their own created customers
 		// --> Only the users who have read permission and admin can reach the other user's created customers
-		return masterUserIsAdmin || masterUserHasRead || masterUserHasRead ? true : false;
+		return masterUserIsAdmin || masterUserHasRead || masterUserHasRead || masterUserIsReadingSelf ? true : false;
 	}
 
 }

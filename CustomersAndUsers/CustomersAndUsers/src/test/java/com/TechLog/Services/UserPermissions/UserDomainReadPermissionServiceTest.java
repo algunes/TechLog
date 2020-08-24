@@ -29,16 +29,10 @@ class UserDomainReadPermissionServiceTest {
 	void createAUser() {
 		
 		DomainPermissions dpTrue = new DomainPermissionsBuilder()
-				.setCustomerDomain(true, true, true, true)
-				.setProductDomain(true, true, true, true)
-				.setStockDomain(true, true, true, true)
 				.setUserDomain(true, true, true, true)
 				.build();
 		
 		DomainPermissions dpFalse = new DomainPermissionsBuilder()
-				.setCustomerDomain(true, true, true, true)
-				.setProductDomain(true, true, true, true)
-				.setStockDomain(true, true, true, true)
 				.setUserDomain(true, false, true, true)
 				.build();
 		
@@ -180,5 +174,28 @@ class UserDomainReadPermissionServiceTest {
 		UserDomainReadPermissionService udrpp = new UserDomainReadPermissionService(masterUser2, masterUser2);
 		assertTrue(udrpp.getCreatedCorporations());
 	}
-
+	@Test
+	@DisplayName("getCreatedCorporations() --> Admin User with read permission test")
+	void adminUserReadPermissionTest7() {
+		UserDomainReadPermissionService udrpp = new UserDomainReadPermissionService(adminUser, targetUser);
+		assertTrue(udrpp.getCreatedCorporations());
+	}
+	@Test
+	@DisplayName("getCreatedCorporations() --> Admin User without read permission test")
+	void adminUserReadPermissionTest8() {
+		UserDomainReadPermissionService udrpp = new UserDomainReadPermissionService(adminUser2, targetUser);
+		assertTrue(udrpp.getCreatedCorporations());
+	}
+	@Test
+	@DisplayName("getCreatedCorporations() --> Admin User without read permission test (SelfRead)")
+	void adminUserReadPermissionTest9() {
+		UserDomainReadPermissionService udrpp = new UserDomainReadPermissionService(adminUser2, adminUser2);
+		assertTrue(udrpp.getCreatedCorporations());
+	}
+	@Test
+	@DisplayName("getCreatedCorporations() --> Admin User with read permission test (SelfRead)")
+	void adminUserReadPermissionTest10() {
+		UserDomainReadPermissionService udrpp = new UserDomainReadPermissionService(adminUser, adminUser);
+		assertTrue(udrpp.getCreatedCorporations());
+	}
 }
