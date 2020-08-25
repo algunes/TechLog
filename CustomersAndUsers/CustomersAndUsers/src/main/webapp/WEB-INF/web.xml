@@ -70,7 +70,8 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>PublicRestrictedServletsFilter</filter-name>
-		<url-pattern>/PublicRestrictedServletsFilter</url-pattern>
+		<url-pattern>/createCustomer</url-pattern>
+		<url-pattern>/CreateCustomer</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CustomerDomainCreatePermissionFilter</filter-name>

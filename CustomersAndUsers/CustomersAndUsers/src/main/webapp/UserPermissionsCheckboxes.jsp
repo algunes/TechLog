@@ -39,7 +39,7 @@ response.setHeader("Expires", "0");
 
  <p><b>Customer Domain Permissions:</b></p>
  
- <input type="checkbox" id="customerDomainCreate" name="customerDomainCreate" disabled value=true 
+ <input type="checkbox" id="customerDomainCreate" name="customerDomainCreate" value=true 
  <c:if test = "${domainPermissions.getCustomerDomain().is_create()}"> checked </c:if> >
   <label for="customerDomainCreate"> Create</label><br>
   <input type="checkbox" id="customerDomainRead" name="customerDomainRead" value=true

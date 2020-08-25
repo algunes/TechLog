@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 import com.TechLog.Entity.Users.Users;
+import com.Techlog.Services.CustomerPermissions.CustomerDomainReadPermissionService;
 
 @WebFilter(urlPatterns = {"/getCustomer", "/GetCustomer"})
 public class CustomerDomainReadPermissionFilter implements Filter {
@@ -25,11 +26,17 @@ public class CustomerDomainReadPermissionFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
 		HttpServletRequest req = (HttpServletRequest)request;
-		if(((Users)req.getSession().getAttribute("user")).getDomainPermissions().getCustomerDomain().is_read())
+		Users masterUser = (Users)req.getSession().getAttribute("user");
+		
+		CustomerDomainReadPermissionService cdrps = new CustomerDomainReadPermissionService(masterUser);
+		if(cdrps.readCustomer()) {
 			chain.doFilter(request, response);
-		req.setAttribute("alert", "You shouldn't be there!");
-		RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
-		rd.forward(request, response);
+		}
+		else {
+			req.setAttribute("alert", "You have no permission to do this!");
+			RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {

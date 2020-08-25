@@ -21,12 +21,13 @@ public class UpdateUser extends HttpServlet {
 	String job;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		job = request.getParameter("job") != null ? request.getParameter("job") : "";
+		job = request.getParameter("job");
+		Long id = Long.parseLong(request.getParameter("id"));
 
 		switch(job) {
 		
 		case "updateFirstname" : {
-			Long id = Long.parseLong(request.getParameter("id"));
+			
 			String userFirstname = new UserService().getUser(id, false).getFirstname();
 			
 			request.setAttribute("id", id);
@@ -41,7 +42,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updateLastname" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String userLastname = new UserService().getUser(id, false).getLastname();
 			
 			request.setAttribute("id", id);
@@ -56,7 +56,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updateDepartment" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String userDepartment = new UserService().getUser(id, false).getDepartment();
 			
 			request.setAttribute("id", id);
@@ -71,7 +70,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updatePosition" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String userPosition = new UserService().getUser(id, false).getPosition();
 			
 			request.setAttribute("id", id);
@@ -86,7 +84,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updateUserPermissions" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			DomainPermissions domainPermissions = new UserService().getUser(id, true).getDomainPermissions();
 			
 			request.setAttribute("id", id);
@@ -100,7 +97,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updateEmail" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String userEmail = new UserService().getUser(id, false).getEmail();
 			
 			request.setAttribute("id", id);
@@ -115,7 +111,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updateTelNumber" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String userTelNumber = new UserService().getUser(id, false).getTelNumber();
 			
 			request.setAttribute("id", id);
@@ -130,7 +125,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updateAddress" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String userAddress = new UserService().getUser(id, false).getAddress();
 			
 			request.setAttribute("id", id);
@@ -145,7 +139,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updateUsername" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			UserService us = new UserService();
 			String username = us.byteToUsername(us.getUser(id, true).getUserAuth().getUserName());
 			
@@ -161,28 +154,23 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updatePassword" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			request.setAttribute("id", id);
 			RequestDispatcher rd = request.getRequestDispatcher("PasswordChange.jsp");
 			rd.forward(request, response);
 			break;
-		}
-		
-		default : {
-			response.sendRedirect("index.jsp");
-			break;
-		}
-		
+		}		
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		job = request.getParameter("job") != null ? request.getParameter("job") : "";
+		Long id = Long.parseLong(request.getParameter("id"));
+
 
 		switch(job) {
 		
 		case "updateFirstname" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String userFirstname = request.getParameter("output");
 			
 			Users user = new UserService().updateFirstname(id, userFirstname);
@@ -196,7 +184,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updateLastname" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String userLastname = request.getParameter("output");
 			
 			Users user = new UserService().updateLastname(id, userLastname);
@@ -211,7 +198,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updateDepartment" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String userDepartment = request.getParameter("output");
 			
 			Users user = new UserService().updateDepartment(id, userDepartment);
@@ -226,7 +212,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updatePosition" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String userPosition = request.getParameter("output");
 			
 			Users user = new UserService().updatePosition(id, userPosition);
@@ -241,7 +226,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updateUserPermissions" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			
 			Boolean cdCreate = Boolean.parseBoolean(request.getParameter("customerDomainCreate"));
 			Boolean cdRead = Boolean.parseBoolean(request.getParameter("customerDomainRead"));
@@ -281,7 +265,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updateEmail" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String userEmail = request.getParameter("output");
 			
 			Users user = new UserService().updateEmail(id, userEmail);
@@ -296,7 +279,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updateTelNumber" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String userTelNumber = request.getParameter("output");
 			
 			Users user = new UserService().updateTelNumber(id, userTelNumber);
@@ -311,7 +293,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updateAddress" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String userAddress = request.getParameter("output");
 		
 			Users user = new UserService().updateAddress(id, userAddress);
@@ -326,7 +307,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updateUsername" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String username = request.getParameter("output");
 			
 			Users user = new UserService().updateUsername(id, username);
@@ -349,7 +329,6 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		case "updatePassword" : {
-			Long id = Long.parseLong(request.getParameter("id"));
 			String oldPassword = request.getParameter("oldPassword");
 			String newPassword = request.getParameter("up");
 			
@@ -372,7 +351,9 @@ public class UpdateUser extends HttpServlet {
 		}
 		
 		default : {
-			response.sendRedirect("index.jsp");
+			request.setAttribute("alert", "Bad Post Request!");
+			RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
+			rd.forward(request, response);
 			break;
 		}
 		

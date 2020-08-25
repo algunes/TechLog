@@ -17,7 +17,7 @@ public class UserDomainDeletePermissionService {
 		UserService us = new UserService();
 		this.targetUserIsAdmin = "admin".equals(us.byteToUsername(targetUser.getUserAuth().getUserName()));
 		this.masterUserIsAdmin = "admin".equals(us.byteToUsername(masterUser.getUserAuth().getUserName()));
-		this.masterUserHasDelete = masterUser.getDomainPermissions().getUserDomain().is_update();
+		this.masterUserHasDelete = masterUser.getDomainPermissions().getUserDomain().is_delete();
 		this.masterUserIsDeletingSelf = Arrays.equals(masterUser.getUserAuth().getUserName(),	targetUser.getUserAuth().getUserName());
 	}
 	

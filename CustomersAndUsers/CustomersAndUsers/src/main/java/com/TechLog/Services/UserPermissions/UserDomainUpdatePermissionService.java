@@ -23,9 +23,10 @@ public class UserDomainUpdatePermissionService {
 	
 	public Boolean updateUsername() {
 		// --> Users can update their username 
-		// --> The users who had update permission can update other user's usernames, except top level admin's
+		// --> The users who had update permission can update other user's usernames, except admin's
+		// --> admin can update all usernames with or without update permission
 		
-		if(masterUserIsUpdatingSelf) {
+		if(masterUserIsUpdatingSelf || masterUserIsAdmin) {
 			return true;
 		}
 		else if(masterUserHasUpdate && !targetUserIsAdmin) {
@@ -43,17 +44,23 @@ public class UserDomainUpdatePermissionService {
 	
 	public Boolean updateFirstname() {
 		// --> Only the users who have update permission can update firstnames, except admin's
-		return masterUserHasUpdate && !targetUserIsAdmin ? true : false;
+		// --> admin can update all Firstnames with or without update permission
+		return masterUserIsAdmin || (masterUserHasUpdate && !targetUserIsAdmin) ? true : false;
 		}
 	
 	public Boolean updateLastname() {
 		// --> Only the users who have update permission can update lastnames, except admin's
-		return masterUserHasUpdate && !targetUserIsAdmin ? true : false;
+		return masterUserIsAdmin || (masterUserHasUpdate && !targetUserIsAdmin) ? true : false;
 		}
+	
+	public Boolean updateDepartment() {
+		// --> Only the users who have update permission can update departments, except admin's
+		return masterUserIsAdmin || (masterUserHasUpdate && !targetUserIsAdmin) ? true : false;
+	}
 	
 	public Boolean updatePosition() {
 		// --> Only the users who have update permission can update departments, except admin's
-		return masterUserHasUpdate && !targetUserIsAdmin ? true : false;
+		return masterUserIsAdmin || (masterUserHasUpdate && !targetUserIsAdmin) ? true : false;
 	}
 	
 	public Boolean updatePermissions() {
@@ -77,11 +84,12 @@ public class UserDomainUpdatePermissionService {
 	public Boolean updateEmail() {
 		// --> Users can update their own email
 		// --> Users who have update permission can change other's email, except admin's
+		// --> Admin can update its own and user's email
 	
 		if(masterUserHasUpdate && !targetUserIsAdmin) {
 			return true;
 		}
-		else if(masterUserIsUpdatingSelf) {
+		else if(masterUserIsAdmin || masterUserIsUpdatingSelf) {
 			return true;
 		}
 		else {
@@ -93,11 +101,12 @@ public class UserDomainUpdatePermissionService {
 	public Boolean updateTelNumber() {
 		// --> Users can update their own tel nums
 		// --> Users who have update permission can change other's tel nums, except admin's
+		// --> Admin can update its own and user's tel num
 	
 		if(masterUserHasUpdate && !targetUserIsAdmin) {
 			return true;
 		}
-		else if(masterUserIsUpdatingSelf) {
+		else if(masterUserIsAdmin || masterUserIsUpdatingSelf) {
 			return true;
 		}
 		else {
@@ -109,11 +118,12 @@ public class UserDomainUpdatePermissionService {
 	public Boolean updateAddress() {
 		// --> Users can update their own addresses
 		// --> Users who have update permission can change other's addresses, except admin's
+		// --> Admin can update its own and user's address
 	
 		if(masterUserHasUpdate && !targetUserIsAdmin) {
 			return true;
 		}
-		else if(masterUserIsUpdatingSelf) {
+		else if(masterUserIsAdmin || masterUserIsUpdatingSelf) {
 			return true;
 		}
 		else {

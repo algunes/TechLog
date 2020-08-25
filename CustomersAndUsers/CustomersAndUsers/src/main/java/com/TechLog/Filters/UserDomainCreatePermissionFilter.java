@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 import com.TechLog.Entity.Users.Users;
+import com.TechLog.Services.UserPermissions.UserDomainCreatePermissionService;
 
 @WebFilter(urlPatterns = {"/createUser", "/CreateUser"})
 public class UserDomainCreatePermissionFilter implements Filter {
@@ -27,13 +28,17 @@ public class UserDomainCreatePermissionFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
 		HttpServletRequest req = (HttpServletRequest)request;
-		Boolean isCreate = ((Users)req.getSession().getAttribute("user")).getDomainPermissions().getUserDomain().is_create();
+		Users user = (Users)req.getSession().getAttribute("user");
+		UserDomainCreatePermissionService udcps = new UserDomainCreatePermissionService(user);
 		
-		if(isCreate)
+		if(udcps.createUser()) {
 			chain.doFilter(request, response);
-		req.setAttribute("alert", "You can't create user!");
-		RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
-		rd.forward(request, response);
+		}
+		else {
+			req.setAttribute("alert", "You can't create user!");
+			RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {

@@ -21,7 +21,7 @@ public class ReadUser extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String job = request.getParameter("job") != null ? request.getParameter("job") : "";
+		String job = request.getParameter("job");
 
 		switch(job) {
 		
@@ -72,15 +72,9 @@ public class ReadUser extends HttpServlet {
 			break;
 			
 		}
-		
-		default : {
-			response.sendRedirect("index.jsp");
-			break;
-		}
-		
-		}
-		
 	}
+		
+}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

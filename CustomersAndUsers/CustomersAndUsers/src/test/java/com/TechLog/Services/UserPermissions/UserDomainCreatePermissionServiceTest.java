@@ -26,16 +26,10 @@ class UserDomainCreatePermissionServiceTest {
 	void createAUser() {
 		
 		DomainPermissions dpTrue = new DomainPermissionsBuilder()
-				.setCustomerDomain(true, true, true, true)
-				.setProductDomain(true, true, true, true)
-				.setStockDomain(true, true, true, true)
 				.setUserDomain(true, true, true, true)
 				.build();
 		
 		DomainPermissions dpFalse = new DomainPermissionsBuilder()
-				.setCustomerDomain(true, true, true, true)
-				.setProductDomain(true, true, true, true)
-				.setStockDomain(true, true, true, true)
 				.setUserDomain(false, true, true, true)
 				.build();
 		

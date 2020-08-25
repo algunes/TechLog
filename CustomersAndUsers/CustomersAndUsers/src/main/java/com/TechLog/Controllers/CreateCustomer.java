@@ -25,8 +25,7 @@ public class CreateCustomer extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String job = request.getParameter("job") != null ? request.getParameter("job") : "";
-		
+		String job = request.getParameter("job");
 		
 		switch(job) {
 		

@@ -13,6 +13,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 import com.TechLog.Entity.Users.Users;
+import com.TechLog.Services.UserPermissions.UserDomainDeletePermissionService;
+import com.TechLog.Services.Users.UserService;
 
 @WebFilter(urlPatterns = {"/deleteCustomer", "/DeleteCustomer"})
 public class CustomerDomainDeletePermissionFilter implements Filter {
@@ -25,11 +27,26 @@ public class CustomerDomainDeletePermissionFilter implements Filter {
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest)request;
-		if(((Users)req.getSession().getAttribute("user")).getDomainPermissions().getCustomerDomain().is_delete())
-			chain.doFilter(request, response);
-		req.setAttribute("alert", "You shouldn't be there!");
-		RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
-		rd.forward(request, response);
+		
+		Long id = req.getParameter("id") != null ? Long.parseLong(req.getParameter("id")) : null;
+		
+		if(id != null) {
+			Users masterUser = (Users)req.getSession().getAttribute("user");
+			Users targetUser = new UserService().getUser(id, true);
+			UserDomainDeletePermissionService uddps = new UserDomainDeletePermissionService(masterUser, targetUser);
+			
+			if(uddps.deleteUser())
+				chain.doFilter(request, response);
+			req.setAttribute("alert", "You have no permission to delete this user!");
+			RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
+			rd.forward(request, response);
+		}
+		else {
+			req.setAttribute("alert", "Bad Request!");
+			RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
+			rd.forward(request, response);
+		}
+
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {

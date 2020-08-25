@@ -73,12 +73,6 @@ class UserDomainReadPermissionServiceTest {
 		adminUser2.setUserAuth(uaAdmin);
 		adminUser2.setDomainPermissions(dpFalse);
 		
-		masterUser2 = new Users();
-		masterUser2.setFirstname("Gustav");
-		masterUser2.setLastname("Mahler");
-		masterUser2.setUserAuth(uaUser);
-		masterUser2.setDomainPermissions(dpFalse);
-		
 		targetUser = new Users();
 		targetUser.setFirstname("Janis");
 		targetUser.setLastname("Joplin");

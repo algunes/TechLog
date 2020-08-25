@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 import com.TechLog.Entity.Users.Users;
+import com.Techlog.Services.CustomerPermissions.CustomerDomainCreatePermissionService;
 
 @WebFilter(urlPatterns = {"/createCustomer", "/CreateCustomer"})
 public class CustomerDomainCreatePermissionFilter implements Filter {
@@ -26,13 +27,20 @@ public class CustomerDomainCreatePermissionFilter implements Filter {
 
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		
 		HttpServletRequest req = (HttpServletRequest)request;
-		if(((Users)req.getSession().getAttribute("user")).getDomainPermissions().getCustomerDomain().is_create())
+		Users masterUser = (Users)req.getSession(false).getAttribute("user");
+		
+		CustomerDomainCreatePermissionService cdcps = new CustomerDomainCreatePermissionService(masterUser);
+		
+		if(cdcps.createCustomer() && !req.getParameterMap().get("job").equals(null)) {
 			chain.doFilter(request, response);
-		req.setAttribute("alert", "You shouldn't be there!");
-		RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
-		rd.forward(request, response);
-	
+		}
+		else {
+			req.setAttribute("alert", "You have no permission to do this!");
+			RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {

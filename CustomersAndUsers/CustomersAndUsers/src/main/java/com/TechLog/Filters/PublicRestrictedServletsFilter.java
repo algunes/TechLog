@@ -12,10 +12,10 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = {"/UpdateCustomer" , "/customerUpdate" 
+@WebFilter(urlPatterns = {"/createCustomer", "/CreateCustomer"
 		,"/GetCustomer" ,"/getCustomer" 
 		,"/DeleteCustomer" , "/deleteCustomer"
-		,"/createCustomer", "/CreateCustomer"
+		,"/UpdateCustomer" , "/customerUpdate" 
 		,"/createUser", "/CreateUser"
 		,"/searchCustomer", "/SearchCustomer"})
 public class PublicRestrictedServletsFilter implements Filter {
@@ -29,13 +29,16 @@ public class PublicRestrictedServletsFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
 		HttpServletRequest req = (HttpServletRequest)request;
-		HttpSession session = req.getSession(true);
-		
-		if (session.getAttribute("user") != null) 
+		HttpSession session = req.getSession();
+
+		if (session.getAttribute("user") != null) {
 			chain.doFilter(request, response);
-		req.setAttribute("alert", "Please Sign in first!");
-		RequestDispatcher rd = req.getRequestDispatcher("UserLogin.jsp");
-		rd.forward(request, response);
+		}
+		else {
+			req.setAttribute("alert", "Please Sign in first!");
+			RequestDispatcher rd = req.getRequestDispatcher("UserLogin.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
