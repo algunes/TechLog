@@ -16,6 +16,7 @@ import com.TechLog.Services.Corporation.CorporationPostService;
 import com.TechLog.Services.Corporation.CorporationPreService;
 import com.TechLog.Services.Customer.CustomerPostService;
 import com.TechLog.Services.Customer.CustomerPreService;
+import com.TechLog.Services.DomainViewService.DomainViewService;
 
 
 @WebServlet("/customerUpdate")
@@ -173,6 +174,7 @@ public class UpdateCustomer extends HttpServlet {
 		String job = request.getParameter("job") != null ? request.getParameter("job") : "";
 		Long id = Long.parseLong(request.getParameter("id"));
 		Users user = (Users)request.getSession(false).getAttribute("user");
+		DomainViewService viewPermissions = new DomainViewService(user, user);
 
 		switch (job) {
 		
@@ -185,6 +187,7 @@ public class UpdateCustomer extends HttpServlet {
 			if(corporation != null) {
 				request.setAttribute("message", "Corporation Name succesfully updated!");
 				request.setAttribute("corporation", corporation);
+    			request.setAttribute("viewPermissions", viewPermissions);
 				
 				RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
 				rd.forward(request, response);
@@ -192,6 +195,7 @@ public class UpdateCustomer extends HttpServlet {
 			else {
 				request.setAttribute("alert", "Corporation name update failed! This must be unique, also someone might be deleted or updated this data just before you. Please check the corporation name again.");
 				request.setAttribute("corporation", corporation);
+				request.setAttribute("viewPermissions", viewPermissions);
 				
 				RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
 				rd.forward(request, response);
@@ -210,6 +214,7 @@ public class UpdateCustomer extends HttpServlet {
 			if(corporation != null) {
 				request.setAttribute("message", "Corporation Sector succesfully updated!");
 				request.setAttribute("corporation", corporation);
+				request.setAttribute("viewPermissions", viewPermissions);
 				
 				RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
 				rd.forward(request, response);
@@ -217,6 +222,7 @@ public class UpdateCustomer extends HttpServlet {
 			else {
 				request.setAttribute("alert", "Corporation Sector update failed! Someone might be deleted or updated this data just before you! Please check the Corporation Sector again.");
 				request.setAttribute("corporation", corporation);
+				request.setAttribute("viewPermissions", viewPermissions);
 				
 				RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
 				rd.forward(request, response);
@@ -234,6 +240,7 @@ public class UpdateCustomer extends HttpServlet {
 	
 			if(customer != null) {
 				request.setAttribute("customer", customer);
+				request.setAttribute("viewPermissions", viewPermissions);
 				request.setAttribute("message", "Firstname updated successfully!");
 				
 				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
@@ -258,6 +265,7 @@ public class UpdateCustomer extends HttpServlet {
 		if(customer != null) {
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", "Lastname updated successfully!");
+			request.setAttribute("viewPermissions", viewPermissions);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 			rd.forward(request, response);
@@ -275,12 +283,13 @@ public class UpdateCustomer extends HttpServlet {
 			
 			String newDepartment = request.getParameter("output");
 			String oldDepartment = request.getParameter("oldValue");
-			Customer customer = new CustomerPreService().updateCustomerLastname(id, oldDepartment, newDepartment, user);
+			Customer customer = new CustomerPreService().updateCustomerDepartment(id, oldDepartment, newDepartment, user);
 
 
 		if(customer != null) {
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", "Department updated successfully!");
+			request.setAttribute("viewPermissions", viewPermissions);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 			rd.forward(request, response);
@@ -298,11 +307,12 @@ public class UpdateCustomer extends HttpServlet {
 			
 			String newPosition = request.getParameter("output");
 			String oldPosition = request.getParameter("oldValue");
-			Customer customer = new CustomerPreService().updateCustomerLastname(id, oldPosition, newPosition, user);
+			Customer customer = new CustomerPreService().updateCustomerPosition(id, oldPosition, newPosition, user);
 
 		if(customer != null) {
 			request.setAttribute("customer", customer);
 			request.setAttribute("message", "Position updated successfully!");
+			request.setAttribute("viewPermissions", viewPermissions);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 			rd.forward(request, response);
@@ -320,12 +330,13 @@ public class UpdateCustomer extends HttpServlet {
 			
 			String newEmail = request.getParameter("output");
 			String oldEmail = request.getParameter("oldValue");
-			Customer customer = new CustomerPreService().updateCustomerLastname(id, oldEmail, newEmail, user);
+			Customer customer = new CustomerPreService().updateCustomerEmail(id, oldEmail, newEmail, user);
 			
 			if(customer != null ) {
 				
 				request.setAttribute("customer", customer);
 				request.setAttribute("message", "Email succesfully updated!");
+				request.setAttribute("viewPermissions", viewPermissions);
 				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 				rd.forward(request, response);
 			}
@@ -344,12 +355,13 @@ public class UpdateCustomer extends HttpServlet {
 			
 			String newTelNum = request.getParameter("output");
 			String oldTelNum = request.getParameter("oldValue");
-			Customer customer = new CustomerPreService().updateCustomerLastname(id, oldTelNum, newTelNum, user);
+			Customer customer = new CustomerPreService().updateCustomerTelNum(id, oldTelNum, newTelNum, user);
 			
 			if(customer != null ) {
 	
 				request.setAttribute("customer", customer);
 				request.setAttribute("message", "Tel. Num. succesfully updated!");
+				request.setAttribute("viewPermissions", viewPermissions);
 				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 				rd.forward(request, response);
 			}
@@ -365,12 +377,13 @@ public class UpdateCustomer extends HttpServlet {
 			
 			String newAddress = request.getParameter("output");
 			String oldAddress = request.getParameter("oldValue");
-			Customer customer = new CustomerPreService().updateCustomerLastname(id, oldAddress, newAddress, user);
+			Customer customer = new CustomerPreService().updateCustomerAddress(id, oldAddress, newAddress, user);
 			
 			if(customer != null ) {
 	
 				request.setAttribute("customer", customer);
 				request.setAttribute("message", "Address succesfully updated!");
+				request.setAttribute("viewPermissions", viewPermissions);
 				RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 				rd.forward(request, response);
 			}
@@ -383,8 +396,8 @@ public class UpdateCustomer extends HttpServlet {
 		}
 		
 		default : {
-			response.sendRedirect("index.jsp");
-			break;
+			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+			rd.forward(request, response);
 		}
 
 		}

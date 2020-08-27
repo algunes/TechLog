@@ -1,12 +1,11 @@
-<%@ page language="java" %>
+<%@ page language="java" errorPage="Error.jsp"%>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false"%>
 <%
 	response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
 	response.setHeader("Expires", "0");
-    if(session.getAttribute("user") == null)
-    	response.sendRedirect("UserLogin.jsp");
-    
     %>
 <!DOCTYPE html>
 <html>
@@ -17,6 +16,17 @@
 <title>Add Corporation</title>
 </head>
 <body>
+
+<c:if test = "${message != null}">
+      <div class='alert alert-success'><strong>  
+      <c:out value="${message}"/>
+      </strong></div>
+</c:if>
+<c:if test = "${alert != null}">
+      <div class='alert alert-warning'><strong>  
+      <c:out value="${alert}"/>
+      </strong></div>
+</c:if>
 
 <div class="form-group, col-sm-4">
 <form action="createCustomer" method="post">

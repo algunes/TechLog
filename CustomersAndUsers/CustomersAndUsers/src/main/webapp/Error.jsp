@@ -16,9 +16,6 @@
 </head>
 <body>
 
-<% 
-String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
-%>
 <div class="container">
 <c:if test = "${alert != null}">
       <div class='alert alert-danger'><strong>  
@@ -27,10 +24,19 @@ String message = (request.getAttribute("message") != null ? (String)request.getA
 </c:if>
 
 <c:if test = "${message != null}">
-	<div class='alert alert-alert'><strong>
+	<div class='alert alert-info'><strong>
 	<c:out value ="${message}" />
 	</strong></div>
 </c:if>
+
+<c:if test = "${pageContext.errorData.statusCode != 0}" >
+<div class='alert alert-danger'><strong>
+<c:out value ="Something went wrong!" /><br>
+</strong>
+<c:out value = "Status code: ${pageContext.errorData.statusCode}" />
+</div>
+</c:if>
+
 </div>
 </body>
 </html>

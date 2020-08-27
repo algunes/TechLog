@@ -10,10 +10,10 @@
 		<filter-class>com.TechLog.Filters.CharacterEncodingFilter</filter-class>
 	</filter>
 	<filter>
-		<filter-name>PublicRestrictedServletsFilter</filter-name>
-		<display-name>PublicRestrictedServletsFilter</display-name>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<display-name>PublicRestrictedFilter</display-name>
 		<description></description>
-		<filter-class>com.TechLog.Filters.PublicRestrictedServletsFilter</filter-class>
+		<filter-class>com.TechLog.Filters.PublicRestrictedFilter</filter-class>
 	</filter>
 	<filter>
 		<filter-name>CustomerDomainCreatePermissionFilter</filter-name>
@@ -63,16 +63,146 @@
 		<description></description>
 		<filter-class>com.TechLog.Filters.UserDomainDeletePermissionFilter</filter-class>
 	</filter>
+	<filter>
+		<filter-name>CustomerDomainJspAuthFilter</filter-name>
+		<display-name>CustomerDomainJspAuthFilter</display-name>
+		<description></description>
+		<filter-class>com.TechLog.Filters.CustomerDomainJspAuthFilter</filter-class>
+	</filter>
 	
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/</url-pattern>
 	</filter-mapping>
+	
 	<filter-mapping>
-		<filter-name>PublicRestrictedServletsFilter</filter-name>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/createUser</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/CreateUser</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/readUser</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/ReadUser</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/updateUser</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/UpdateUser</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/deleteUser</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/DeleteUser</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
 		<url-pattern>/createCustomer</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
 		<url-pattern>/CreateCustomer</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/readCustomer</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/ReadCustomer</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/customerUpdate</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/UpdateCustomer</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/deleteCustomer</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/DeleteCustomer</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/searchCustomer</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/SearchCustomer</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/AddCorporation.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/AddCustomer.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/AddUser.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/CorporationList.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/CustomerDataRemoveConfirmation.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/CustomerList.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/InputBox.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/PasswordChange.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/ShowCorporation.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/ShowCustomer.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/ShowUser.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/UserList.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>PublicRestrictedFilter</filter-name>
+		<url-pattern>/UserPermissionsCheckboxes.jsp</url-pattern>
+	</filter-mapping>
+	
+	
 	<filter-mapping>
 		<filter-name>CustomerDomainCreatePermissionFilter</filter-name>
 		<url-pattern>/CustomerDomainCreatePermissionFilter</url-pattern>
@@ -104,6 +234,10 @@
 	<filter-mapping>
 		<filter-name>UserDomainDeletePermissionFilter</filter-name>
 		<url-pattern>/UserDomainDeletePermissionFilter</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CustomerDomainJspAuthFilter</filter-name>
+		<url-pattern>/AddCorporation.jsp</url-pattern>
 	</filter-mapping>
 	
 	<servlet>
@@ -241,5 +375,15 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<error-page>
+    <error-code>500</error-code>
+    <location>/Error.jsp</location>
+	</error-page>
+	
+	<error-page>
+    <error-code>404</error-code>
+    <location>/Error.jsp</location>
+	</error-page>
 	
 </web-app>

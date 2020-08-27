@@ -17,10 +17,7 @@ public class CustomerDomainCreatePermissionService {
 	
 	public Boolean createCustomer() {
 		// --> Only the users have 'create permission' and admin can create customer or corporation fields
-		if(masterUserHasCreate) {
-			return true;
-		}
-		else if(masterUserIsAdmin) {
+		if(masterUserHasCreate || masterUserIsAdmin) {
 			return true;
 		}
 		else {

@@ -16,10 +16,7 @@ public class CustomerDomainUpdatePermissionService {
 	
 	public Boolean updateCustomer() {
 		// --> Only the users have 'create permission' and admin can update customer or corporation fields
-		if(masterUserHasUpdate) {
-			return true;
-		}
-		else if(masterUserIsAdmin) {
+		if(masterUserHasUpdate || masterUserIsAdmin) {
 			return true;
 		}
 		else {

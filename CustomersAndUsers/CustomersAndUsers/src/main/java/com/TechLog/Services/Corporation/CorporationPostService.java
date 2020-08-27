@@ -14,11 +14,10 @@ public class CorporationPostService implements ICorporationPostService {
 	}
 
 	@Override
-	public Corporation removeCorporation(Long id) {
+	public void removeCorporation(Long id) {
 		// removes a specific corporation
 		Corporation corporation = getCorporation(id, true);
 		new CorporationDAO().deleteCorporation(corporation);
-		return corporation;
 	}
 
 	@Override

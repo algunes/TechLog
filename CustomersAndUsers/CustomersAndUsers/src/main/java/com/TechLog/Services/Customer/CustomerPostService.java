@@ -12,11 +12,10 @@ public class CustomerPostService implements ICustomerPostService {
 	}
 
 	@Override
-	public Customer removeCustomer(Long id) {
+	public void removeCustomer(Long id) {
 		// removes a specific customer
-		Customer customer = getCustomer(id, false);
+		Customer customer = getCustomer(id, true);
 		new CustomerDAO().deleteCustomer(customer);
-		return customer;
 	}
 
 	@Override

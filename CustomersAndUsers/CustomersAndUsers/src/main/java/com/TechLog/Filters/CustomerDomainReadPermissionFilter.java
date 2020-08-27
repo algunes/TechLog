@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.TechLog.Entity.Users.Users;
 import com.Techlog.Services.CustomerPermissions.CustomerDomainReadPermissionService;
 
-@WebFilter(urlPatterns = {"/getCustomer", "/GetCustomer"})
+@WebFilter(urlPatterns = {"/readCustomer", "/ReadCustomer"})
 public class CustomerDomainReadPermissionFilter implements Filter {
 
     public CustomerDomainReadPermissionFilter() {
@@ -29,8 +29,43 @@ public class CustomerDomainReadPermissionFilter implements Filter {
 		Users masterUser = (Users)req.getSession().getAttribute("user");
 		
 		CustomerDomainReadPermissionService cdrps = new CustomerDomainReadPermissionService(masterUser);
-		if(cdrps.readCustomer()) {
-			chain.doFilter(request, response);
+		if(cdrps.readCustomer() && req.getParameter("job") != null) {
+			String job = req.getParameter("job");
+			
+			switch(job) {
+			
+			case "getCustomer" : {
+				if(req.getParameter("id") != null) {
+					chain.doFilter(request, response);
+				}
+				else {
+					req.setAttribute("alert", "Bad Request!");
+					RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
+					rd.forward(request, response);
+				}
+				break;
+			}
+			
+			case "getCorporation" : {
+				if(req.getParameter("id") != null) {
+					chain.doFilter(request, response);
+				}
+				else {
+					req.setAttribute("alert", "Bad Request!");
+					RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
+					rd.forward(request, response);
+				}
+				break;
+			}
+			
+			case "getCorporationList" : {
+				chain.doFilter(request, response);
+				break;
+			}
+			
+			}
+			
+			
 		}
 		else {
 			req.setAttribute("alert", "You have no permission to do this!");

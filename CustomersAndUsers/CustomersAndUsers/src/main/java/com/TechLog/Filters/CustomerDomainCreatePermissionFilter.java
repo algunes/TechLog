@@ -25,7 +25,6 @@ public class CustomerDomainCreatePermissionFilter implements Filter {
 	public void destroy() {
 	}
 
-
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
 		HttpServletRequest req = (HttpServletRequest)request;
@@ -33,8 +32,72 @@ public class CustomerDomainCreatePermissionFilter implements Filter {
 		
 		CustomerDomainCreatePermissionService cdcps = new CustomerDomainCreatePermissionService(masterUser);
 		
-		if(cdcps.createCustomer() && !req.getParameterMap().get("job").equals(null)) {
-			chain.doFilter(request, response);
+		if(cdcps.createCustomer() && req.getParameter("job") != null) {
+			String job = req.getParameter("job");
+			
+			switch(job) {
+			
+			case "addCustomer" : {
+				chain.doFilter(request, response);
+				break;
+			}
+			
+			case "addCorporation" : {
+				chain.doFilter(request, response);
+				break;
+			}
+			
+			case "addCustomerEmail" : {
+				
+				if(req.getParameter("id") != null) {
+					chain.doFilter(request, response);
+				}
+				else {
+					req.setAttribute("alert", "Bad Request!");
+					RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
+					rd.forward(request, response);
+				}
+				break;
+			}
+			
+			case "addCustomerTelNum" : {
+				
+				if(req.getParameter("id") != null) {
+					chain.doFilter(request, response);
+				}
+				else {
+					req.setAttribute("alert", "Bad Request!");
+					RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
+					rd.forward(request, response);
+				}
+				break;
+			}
+			
+			case "addCustomerAddress" : {
+				
+				if(req.getParameter("id") != null) {
+					chain.doFilter(request, response);
+				}
+				else {
+					req.setAttribute("alert", "Bad Request!");
+					RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
+					rd.forward(request, response);
+				}
+				break;
+			}
+			
+			case "addCustomerIntoACorporation" : {
+				chain.doFilter(request, response);
+				break;
+			}
+			
+			default : {
+				req.setAttribute("alert", "Bad Request!");
+				RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
+				rd.forward(request, response);
+			}
+			
+			}		
 		}
 		else {
 			req.setAttribute("alert", "You have no permission to do this!");

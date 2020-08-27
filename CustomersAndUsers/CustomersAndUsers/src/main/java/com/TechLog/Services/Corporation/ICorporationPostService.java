@@ -7,7 +7,7 @@ import com.TechLog.Entity.Corporations.Corporation;
 public interface ICorporationPostService {
 	
 	Corporation createCorporation(Corporation corporation);
-	Corporation removeCorporation(Long id);
+	void removeCorporation(Long id);
 	Corporation getCorporation(Long id, boolean isFull);
 	List<Corporation> getAllCorporations();
 	Corporation updateCorporation(Corporation corporation);

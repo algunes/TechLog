@@ -17,10 +17,7 @@ public class UserDomainCreatePermissionService {
 	
 	public Boolean createUser() {
 		// --> Only the users have create permission and admin can create a user
-		if(masterUserHasCreate) {
-			return true;
-		}
-		else if(masterUserIsAdmin) {
+		if(masterUserHasCreate || masterUserIsAdmin) {
 			return true;
 		}
 		else {

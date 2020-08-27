@@ -16,10 +16,7 @@ public class CustomerDomainDeletePermissionService {
 	
 	public Boolean deleteCustomer() {
 		// --> Only the users have 'create permission' and admin can delete customer or corporation fields
-		if(masterUserHasDelete) {
-			return true;
-		}
-		else if(masterUserIsAdmin) {
+		if(masterUserHasDelete || masterUserIsAdmin) {
 			return true;
 		}
 		else {

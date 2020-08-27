@@ -1,4 +1,4 @@
-<%@ page language="java" errorPage="Error.jsp"%>
+<%@ page language="java" errorPage="Error.jsp" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>

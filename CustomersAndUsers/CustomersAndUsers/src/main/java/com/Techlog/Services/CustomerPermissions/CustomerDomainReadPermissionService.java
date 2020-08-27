@@ -17,10 +17,7 @@ public class CustomerDomainReadPermissionService {
 	
 	public Boolean readCustomer() {
 		// --> Only the users have 'create permission' and admin can read customer or corporation fields
-		if(masterUserHasRead) {
-			return true;
-		}
-		else if(masterUserIsAdmin) {
+		if(masterUserHasRead || masterUserIsAdmin) {
 			return true;
 		}
 		else {
