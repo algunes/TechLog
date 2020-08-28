@@ -2,6 +2,8 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
 <%@ page import="java.util.*"%>
+<%@ page import="com.TechLog.Entity.Customers.Customer" %>
+<%@ page import="com.TechLog.Services.Customer.CustomerPostService" %>
 <%@ page import="com.TechLog.Entity.Users.Users"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 	<%@ page isELIgnored="false" %>
@@ -17,6 +19,14 @@ response.setHeader("Expires", "0");
 <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
 <title>Customer Cards Home</title>
+
+<%
+
+List<Customer> lastAddedCustomers = new CustomerPostService().getLastAddedCustomers();
+pageContext.setAttribute("lastAddedCustomers", lastAddedCustomers);
+
+%>
+
 </head>
  <c:if test = "${message != null}" >
  <c:out value = "${message}" />
@@ -50,6 +60,11 @@ response.setHeader("Expires", "0");
      <div class="row">
     <div class="col">
       <h6>Last Added Customers:</h6><br>
+      
+      <c:forEach items="${lastAddedCustomers}" var="c"> 
+      ${c.getFirstname()} ${c.getLastname()}<br>
+      </c:forEach>
+      
     </div>
     <div class="col">
     <h6>Last Added Corporations:</h6><br>

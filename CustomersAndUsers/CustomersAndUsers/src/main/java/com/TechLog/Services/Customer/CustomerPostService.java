@@ -1,5 +1,7 @@
 package com.TechLog.Services.Customer;
 
+import java.util.List;
+
 import com.TechLog.DAO.Customers.CustomerDAO;
 import com.TechLog.Entity.Customers.Customer;
 
@@ -32,6 +34,10 @@ public class CustomerPostService implements ICustomerPostService {
 		// updates a customer
 		new CustomerDAO().updateCustomer(customer);
 		return getCustomer(customer.getCustomer_id(), true);
+	}
+	
+	public List<Customer> getLastAddedCustomers() {
+		return new CustomerDAO().lastAddedCustomers();
 	}
 
 }

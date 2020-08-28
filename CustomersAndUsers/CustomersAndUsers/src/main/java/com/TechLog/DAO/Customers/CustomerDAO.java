@@ -1,10 +1,19 @@
 package com.TechLog.DAO.Customers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import com.TechLog.Entity.Corporations.Corporation;
 import com.TechLog.Entity.Customers.Customer;
+import com.TechLog.Entity.Users.UserAuthenticationInfo;
 import com.TechLog.Hibernate.HibernateUtil;
 
 public class CustomerDAO implements ICustomerDao {
@@ -120,6 +129,37 @@ public class CustomerDAO implements ICustomerDao {
 			}
 		}
 		
+	}
+	
+	public List<Customer> lastAddedCustomers () {
+		Session session = null;
+		List<Customer> result = new ArrayList<>();
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+
+			CriteriaBuilder cb = session.getCriteriaBuilder();
+			CriteriaQuery<Customer> cr = cb.createQuery(Customer.class);
+			Root<Customer> root = cr.from(Customer.class);
+			
+			cr.orderBy(cb.desc(root.get("creation_date")));
+						 
+			result = (session.createQuery(cr).getResultList().isEmpty() ? 
+					null : session.createQuery(cr).setMaxResults(10).list());
+			
+			session.getTransaction().commit();
+		}
+		catch (HibernateException e) {
+			if(session.getTransaction() != null)
+				session.beginTransaction().rollback();
+			e.printStackTrace();
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return result;
 	}
 
 }
