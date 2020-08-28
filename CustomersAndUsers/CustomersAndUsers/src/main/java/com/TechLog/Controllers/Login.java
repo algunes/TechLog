@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.TechLog.Entity.Users.Users;
+import com.TechLog.Services.DomainViewService.DomainViewService;
 import com.TechLog.Services.Users.UserService;
 
 @WebServlet("/login")
@@ -48,6 +49,7 @@ public class Login extends HttpServlet {
 				HttpSession session = request.getSession(true);
 				session.setMaxInactiveInterval(15*60);
 				session.setAttribute("user", user);
+				session.setAttribute("domainPermissions", new DomainViewService(user, user));
 				
 				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 				rd.forward(request, response);

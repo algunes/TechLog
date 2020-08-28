@@ -1,4 +1,4 @@
-<%@ page language="java" %>
+<%@ page language="java" errorPage="Error.jsp" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
     <%@ page import="com.TechLog.Entity.Customers.Customer"%>
@@ -6,13 +6,10 @@
     <%@ page import="java.util.*"%>
     <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 	<%@ page isELIgnored="false" %>
-	<%
+<%
 	response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
 	response.setHeader("Expires", "0");
-    if(session.getAttribute("user") == null)
-    	response.sendRedirect("UserLogin.jsp");
-    
-    %>
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,35 +19,18 @@
 </head>
 <body>
 
-<% 
-String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
-String alert = (request.getAttribute("alert") != null ? (String)request.getAttribute("alert") : "");// a text alert if want to show
-%>
+<div class="container">
  
- <div class="container">
- 
- <% if(!message.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-success'><strong>"
-			+
-			message
-			+
-			"</strong></div>"
-			
-			);
- } %>
-  <% if(!alert.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-danger'>"
-			+
-			alert
-			+
-			"</strong></div>"
-			
-			);
- } %>
+ <c:if test = "${message != null}">
+      <div class='alert alert-success'><strong>  
+      <c:out value="${message}"/>
+      </strong></div>
+</c:if>
+<c:if test = "${alert != null}">
+      <div class='alert alert-warning'><strong>  
+      <c:out value="${alert}"/>
+      </strong></div>
+</c:if>
  
 <b>Customer Details:</b> <br>
 <Table class="table table-sm">
@@ -60,10 +40,13 @@ String alert = (request.getAttribute("alert") != null ? (String)request.getAttri
 Firstname: 
 </td>
 <td>
-${customer.getFirstname()} <small>(<a href="<%= request.getContextPath() %>
+${customer.getFirstname()} 
+<c:if test = "${domainPermissions.getCustomerDomainUpdate().updateCustomer()}" >
+<small>(<a href="<%= request.getContextPath() %>
 /customerUpdate?
 id=${customer.getCustomer_id()}&
 job=updateCustomerFirstname">edit</a>)</small><br>
+</c:if>
 </td>
 </tr>
 <tr>
@@ -71,10 +54,13 @@ job=updateCustomerFirstname">edit</a>)</small><br>
 Lastname:
 </td>
 <td>
-${customer.getLastname()} <small>(<a href="<%= request.getContextPath() %>
+${customer.getLastname()} 
+<c:if test = "${domainPermissions.getCustomerDomainUpdate().updateCustomer()}" >
+<small>(<a href="<%= request.getContextPath() %>
 /customerUpdate?
 id=${customer.getCustomer_id()}&
 job=updateCustomerLastname">edit</a>)</small><br>
+</c:if>
 </td>
 </tr>
 
@@ -97,10 +83,13 @@ Department:
 </td>
 <% %>
 <td>
-${customer.getDepartment()} <small>(<a href="<%= request.getContextPath() %>
+${customer.getDepartment()} 
+<c:if test = "${domainPermissions.getCustomerDomainUpdate().updateCustomer()}" >
+<small>(<a href="<%= request.getContextPath() %>
 /customerUpdate?
 id=${customer.getCustomer_id()}&
 job=updateCustomerDepartment">edit</a>)</small><br>
+</c:if>
 </td>
 </tr>
 
@@ -110,10 +99,13 @@ Position:
 </td>
 <% %>
 <td>
-${customer.getPosition()} <small>(<a href="<%= request.getContextPath() %>
+${customer.getPosition()} 
+<c:if test = "${domainPermissions.getCustomerDomainUpdate().updateCustomer()}" >
+<small>(<a href="<%= request.getContextPath() %>
 /customerUpdate?
 id=${customer.getCustomer_id()}&
 job=updateCustomerPosition">edit</a>)</small><br>
+</c:if>
 </td>
 </tr>
 
@@ -125,22 +117,31 @@ Email:
 <td>
 
 <c:forEach items ="${customer.getEmails()}" var = "e">
-${e} <small>(<a href="<%= request.getContextPath() %>
+${e} 
+
+<c:if test = "${domainPermissions.getCustomerDomainUpdate().updateCustomer()}" >
+<small>(<a href="<%= request.getContextPath() %>
 /customerUpdate?
 id=${customer.getCustomer_id()}&
 job=updateCustomerEmail&
-index=${customer.getEmails().indexOf(e)}">edit</a> | <a href="<%= request.getContextPath() %>
+index=${customer.getEmails().indexOf(e)}">edit</a>) </small>
+</c:if>
 
+<c:if test = "${domainPermissions.getCustomerDomainDelete().deleteCustomer()}" >
+ <small>(<a href="<%= request.getContextPath() %>
 /deleteCustomer?
 id=${customer.getCustomer_id()}&
 job=removeCustomerEmail&
 index=${customer.getEmails().indexOf(e)}">remove</a>)</small><br>
+</c:if>
 </c:forEach>
 
+<c:if test = "${domainPermissions.getCustomerDomainCreate().createCustomer()}" >
 <small><a href="<%= request.getContextPath() %>
 /createCustomer?
 id=${customer.getCustomer_id()}&
 job=addCustomerEmail"> Add</a></small>
+</c:if>
 </td>
 </tr>
 
@@ -151,23 +152,31 @@ Tel:
 <td>
 
 <c:forEach items = "${customer.getTelNums()}" var = "e">
-${e} <small>(<a href="<%= request.getContextPath()%>
+${e} 
 
+<c:if test = "${domainPermissions.getCustomerDomainUpdate().updateCustomer()}" >
+<small>(<a href="<%= request.getContextPath()%>
 /customerUpdate?
 id=${customer.getCustomer_id()}&
 job=updateCustomerTelNum&
-index=${customer.getTelNums().indexOf(e)}">edit</a> | <a href="<%= request.getContextPath() %>
+index=${customer.getTelNums().indexOf(e)}">edit</a>) </small>
+</c:if>
 
+<c:if test = "${domainPermissions.getCustomerDomainDelete().deleteCustomer()}" >
+<small>(<a href="<%= request.getContextPath() %>
 /deleteCustomer?
 id=${customer.getCustomer_id()}&
 job=removeCustomerTelNum&
 index=${customer.getTelNums().indexOf(e)}">remove</a>)</small><br>
+</c:if>
 </c:forEach>
 
+<c:if test = "${domainPermissions.getCustomerDomainCreate().createCustomer()}" >
 <small><a href="<%= request.getContextPath() %>
 /createCustomer?
 id=${customer.getCustomer_id()}&
 job=addCustomerTelNum"> Add</a></small>
+</c:if>
 </td>
 </tr>
 
@@ -178,23 +187,31 @@ Address:
 <td>
 
 <c:forEach items = "${customer.getAddresses()}" var = "e">
-${e} <small>(<a href="<%= request.getContextPath()%>
+${e} 
 
+<c:if test = "${domainPermissions.getCustomerDomainUpdate().updateCustomer()}" >
+<small>(<a href="<%= request.getContextPath()%>
 /customerUpdate?
 id=${customer.getCustomer_id()}&
 job=updateCustomerAddress&
-index=${customer.getAddresses().indexOf(e)}">edit</a> | <a href="<%= request.getContextPath() %>
+index=${customer.getAddresses().indexOf(e)}">edit</a>) </small>
+</c:if>
 
+<c:if test = "${domainPermissions.getCustomerDomainDelete().deleteCustomer()}" >
+<small>(<a href="<%= request.getContextPath() %>
 /deleteCustomer?
 id=${customer.getCustomer_id()}&
 job=removeCustomerAddress&
 index=${customer.getAddresses().indexOf(e)}">remove</a>)</small><br>
+</c:if>
 </c:forEach>
 
+<c:if test = "${domainPermissions.getCustomerDomainCreate().createCustomer()}" >
 <small><a href="<%= request.getContextPath() %>
 /createCustomer?
 id=${customer.getCustomer_id()}&
 job=addCustomerAddress"> Add</a></small><br>
+</c:if>
 </td>
 </tr>
 
@@ -222,16 +239,36 @@ Last Update:
 id=${customer.getUpdated_by().getId()}&
 job=details">
 ${customer.getUpdated_by().getFirstname()} ${customer.getUpdated_by().getLastname()}
-</a><small> (${customer.getLast_update()})</small>
+</a>
+<c:if test = "${customer.getLast_update() != null}" >
+<small> (${customer.getLast_update()})</small>
+</c:if>
 </td>
 </tr>
 
 </Table>
 
-<a href="<%= request.getContextPath() %>
-/deleteCustomer?
-id=${customer.getCustomer_id()}&
-job=removeCustomer" onclick="deleteMsg()" style="float:center"> Delete This</a>
+<c:if test = "${domainPermissions.getCustomerDomainDelete().deleteCustomer()}" >
+<button type="button" class="btn btn-sm btn-danger" onclick="document.getElementById('id01').style.display='block'">Delete This</button>
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+  <form class="modal-content" action="deleteCustomer" method="get">
+    <div class="alert alert-danger">
+      <h5>Delete Customer</h5>
+      <p>Are you sure you want to delete ${customer.getFirstname()} ${customer.getLastname()}?</p>
+    
+      <div class="clearfix">
+      <input type="hidden" value="removeCustomer" name="job">
+      <input type="hidden" value="${customer.getCustomer_id()}" name="id">
+      
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="submit" name="" onclick="document.getElementById('id01').style.display='none'" class="deletebtn">Delete</button>
+      </div>
+    </div>
+  </form>
+</div>
+</c:if>
+
 </div>
 </body>
 </html>

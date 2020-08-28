@@ -2,75 +2,64 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
 <%@ page import="java.util.*"%>
+<%@ page import="com.TechLog.Entity.Users.Users"%>
+<%@ page import="com.TechLog.Services.DomainViewService.DomainViewService" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-	<%@ page isELIgnored="false" %>
+<%@ page isELIgnored="false" %>
 <%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
 response.setHeader("Expires", "0");
-    if(session.getAttribute("user") == null)
-    	response.sendRedirect("UserLogin.jsp");
-    
-    %>
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
 <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
-
-<script>
-function deleteMsg() {
-  alert("Are you sure to delete this?");
-}
-</script>
 <title>User List</title>
+
 </head>
 <body>
-<% 
-String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
-String alert = (request.getAttribute("alert") != null ? (String)request.getAttribute("alert") : "");// a text alert if want to show
-%>
-
-
 <div class="container">
- <% if(!message.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-success'>"
-			+
-			message
-			+
-			"</strong></div>"
-			
-			);
- } %>
  
- <% if(!alert.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-danger'>"
-			+
-			alert
-			+
-			"</strong></div>"
-			
-			);
- } %>
+ <c:if test = "${message != null}">
+      <div class='alert alert-success'><strong>  
+      <c:out value="${message}"/>
+      </strong></div>
+</c:if>
+<c:if test = "${alert != null}">
+      <div class='alert alert-warning'><strong>  
+      <c:out value="${alert}"/>
+      </strong></div>
+</c:if>
+
+<p><b>Current Users</b></p> 
 <Table class="table table-sm">
 
+<c:forEach items ="${users}" var = "e">
 <tr>
 <td>
-<c:forEach items ="${users}" var = "e">
 ${e.getFirstname()} ${e.getLastname()} <small>(<a href="<%= request.getContextPath() %>
 	/readUser?job=details&id=${e.getId()}">details</a>)</small><br>
-	</c:forEach>
 	</td>
 	</tr>
+	</c:forEach>
+	
+	<c:if test = "${domainPermissions.getUserDomainCreate().createUser()}" >
+	
+	<tr>
+	<td>
+	<a href="<%= request.getContextPath() %>
+	/createUser?
+	job=addUser" class="btn btn-primary btn-sm active" 
+	role="button" aria-pressed="true">Create an User</a>
+	</td>
+	</tr>
+	</c:if>
+	
 	</Table>
 	</div>
 	<div>
-	<a href="<%= request.getContextPath() %>
-	/createUser?
-	job=addUser">Create a user</a>
+	
 	</div>
 </body>
 </html>

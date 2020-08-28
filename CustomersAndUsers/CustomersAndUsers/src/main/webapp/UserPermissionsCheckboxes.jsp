@@ -1,4 +1,4 @@
-<%@ page language="java" %>
+<%@ page language="java" errorPage="Error.jsp" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
@@ -7,10 +7,7 @@
 <%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
 response.setHeader("Expires", "0");
-    if(session.getAttribute("user") == null)
-    	response.sendRedirect("UserLogin.jsp");
-    
-    %>
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,7 +69,7 @@ response.setHeader("Expires", "0");
  
  </div>
  
- <div class="col-sm-10">
+ <%-- <div class="col-sm-10">
  <p><b>Product Domain Permissions:</b></p>
  
  <input type="checkbox" id="productDomainCreate" name="productDomainCreate" value=true
@@ -106,7 +103,7 @@ response.setHeader("Expires", "0");
   <c:if test = "${domainPermissions.getStockDomain().is_delete()}"> checked </c:if> >
   <label for="stockDomainDelete"> Delete</label><br>
  
- </div>
+ </div> --%>
  <input type="hidden" value="${id}" name="id"><br>
 <input class="btn btn-primary" value="Submit" type="submit">
 

@@ -39,6 +39,7 @@ public class ReadUser extends HttpServlet {
 			
 			Users user = new UserService().getUser(id, true);
 			request.setAttribute("user", user);
+			request.setAttribute("username", new UserService().byteToUsername(user.getUserAuth().getUserName()));
 			RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
 			rd.forward(request, response);
 			break;
@@ -51,7 +52,7 @@ public class ReadUser extends HttpServlet {
 			
 			
 			request.setAttribute("corporations", corporations);
-			request.setAttribute("message", "Corporations which created by " + user.getFirstname() + " " + user.getLastname());
+			request.setAttribute("caption", "Corporations which created by " + user.getFirstname() + " " + user.getLastname());
 			
 			RequestDispatcher rd = request.getRequestDispatcher("CorporationList.jsp");
 			rd.forward(request, response);
@@ -65,7 +66,7 @@ public class ReadUser extends HttpServlet {
 			List<Customer> customers = user.getCreated_customers();
 			
 			request.setAttribute("customers", customers);
-			request.setAttribute("message", "Customers which created by " + user.getFirstname() + " " + user.getLastname());
+			request.setAttribute("caption", "Customers which created by " + user.getFirstname() + " " + user.getLastname());
 			
 			RequestDispatcher rd = request.getRequestDispatcher("CustomerList.jsp");
 			rd.forward(request, response);

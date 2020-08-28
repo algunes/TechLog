@@ -1,4 +1,4 @@
-<%@ page language="java" %>
+<%@ page language="java" errorPage="Error.jsp" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
 <%@ page import="java.util.*"%>
@@ -8,10 +8,7 @@
 <%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
 response.setHeader("Expires", "0");
-    if(session.getAttribute("user") == null)
-    	response.sendRedirect("UserLogin.jsp");
-    
-    %>
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,36 +18,25 @@ response.setHeader("Expires", "0");
 <title>Customer List</title>
 </head>
 <body>
-
-<% 
-String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
-String alert = (request.getAttribute("alert") != null ? (String)request.getAttribute("alert") : "");// a text alert if want to show
-%>
  
  <div class="container">
  
- <% if(!message.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-success'><strong>"
-			+
-			message
-			+
-			"</strong></div>"
-			
-			);
- } %>
-  <% if(!alert.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-danger'>"
-			+
-			alert
-			+
-			"</strong></div>"
-			
-			);
- } %>
+ <c:if test = "${message != null}">
+      <div class='alert alert-success'><strong>  
+      <c:out value="${message}"/>
+      </strong></div>
+</c:if>
+<c:if test = "${alert != null}">
+      <div class='alert alert-warning'><strong>  
+      <c:out value="${alert}"/>
+      </strong></div>
+</c:if>
+<c:if test = "${caption != null}">
+      <div class='alert alert-dark'><strong>  
+      <c:out value="${caption}"/>
+      </strong></div>
+</c:if>
+
 <b>Customers: </b><br>
 <Table class="table table-sm">
 

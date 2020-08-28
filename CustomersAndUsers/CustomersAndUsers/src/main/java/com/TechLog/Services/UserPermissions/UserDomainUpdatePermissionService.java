@@ -18,7 +18,7 @@ public class UserDomainUpdatePermissionService {
 		this.targetUserIsAdmin = "admin".equals(us.byteToUsername(targetUser.getUserAuth().getUserName()));
 		this.masterUserIsAdmin = "admin".equals(us.byteToUsername(masterUser.getUserAuth().getUserName()));
 		this.masterUserHasUpdate = masterUser.getDomainPermissions().getUserDomain().is_update();
-		this.masterUserIsUpdatingSelf = Arrays.equals(masterUser.getUserAuth().getUserName(),	targetUser.getUserAuth().getUserName());
+		this.masterUserIsUpdatingSelf = Arrays.equals(masterUser.getUserAuth().getUserName(),targetUser.getUserAuth().getUserName());
 	}
 	
 	public Boolean updateUsername() {

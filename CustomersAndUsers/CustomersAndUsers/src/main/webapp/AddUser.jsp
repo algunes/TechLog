@@ -8,10 +8,6 @@
 <%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
 response.setHeader("Expires", "0");
-
-if(session.getAttribute("user") == null) {
-	response.sendRedirect("UserLogin.jsp");
-}
 %>
 <!DOCTYPE html>
 <html>
@@ -51,6 +47,26 @@ if(session.getAttribute("user") == null) {
  </div>
  
  <div class="col-sm-10">
+  <input type="email" class="form-control" placeholder="Email"  name="email" required maxlength="255"><br>
+  </div>
+  <div class="col-sm-10">
+  <input type="text" class="form-control" placeholder="Tel. Number"  name="telNumber" required maxlength="255"><br>
+  </div>
+  <div class="col-sm-10">
+  <input type="text" class="form-control" placeholder="Address"  name="address" required maxlength="255"><br>
+  </div>
+  <div class="col-sm-10">
+  <input type="text" class="form-control" placeholder="Username"  name="username" required maxlength="255"><br>
+  </div>
+  <div class="col-sm-10">
+  <input type=password class="form-control" placeholder="Password" id="password1" required name=up><br>
+  </div>
+  <div class="col-sm-10">
+  <input type=password class="form-control" placeholder="Re-Enter Password" id="password2" name=up2><br>
+  </div>
+  <div class="col-sm-10">
+  
+  <div class="col-sm-10">
  
  <p>Customer Domain Permissions:</p>
  
@@ -79,7 +95,7 @@ if(session.getAttribute("user") == null) {
  
  </div>
  
- <div class="col-sm-10">
+<!--  <div class="col-sm-10">
  <p>Product Domain Permissions:</p>
  
  <input type="checkbox" id="productDomainCreate" name="productDomainCreate" value=true>
@@ -105,27 +121,7 @@ if(session.getAttribute("user") == null) {
   <input type="checkbox" id="stockDomainDelete" name="stockDomainDelete" value=true>
   <label for="stockDomainDelete"> Delete</label><br>
  
- </div>
- 
- <div class="col-sm-10">
-  <input type="email" class="form-control" placeholder="Email"  name="email" required maxlength="255"><br>
-  </div>
-  <div class="col-sm-10">
-  <input type="text" class="form-control" placeholder="Tel. Number"  name="telNumber" required maxlength="255"><br>
-  </div>
-  <div class="col-sm-10">
-  <input type="text" class="form-control" placeholder="Address"  name="address" required maxlength="255"><br>
-  </div>
-  <div class="col-sm-10">
-  <input type="text" class="form-control" placeholder="Username"  name="username" required maxlength="255"><br>
-  </div>
-  <div class="col-sm-10">
-  <input type=password class="form-control" placeholder="Password" id="password1" required name=up><br>
-  </div>
-  <div class="col-sm-10">
-  <input type=password class="form-control" placeholder="Re-Enter Password" id="password2" name=up2><br>
-  </div>
-  <div class="col-sm-10">
+ </div> -->
 		<input class="btn btn-primary" value="Submit" type="submit">
 		</div>
  </div>

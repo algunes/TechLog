@@ -1,19 +1,18 @@
-<%@ page language="java" %>
+<%@ page language="java" errorPage="Error.jsp" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
     <%@ page import="com.TechLog.Entity.Customers.Customer"%>
     <%@ page import="com.TechLog.Entity.Corporations.Corporation"%>
     <%@ page import="com.TechLog.Entity.Users.Users"%>
     <%@ page import="com.TechLog.Services.Users.UserService"%>
+    <%@ page import="com.TechLog.Services.DomainViewService.DomainViewService" %>
     <%@ page import="java.util.*"%>
     <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 	<%@ page isELIgnored="false" %>
-	<%
+<%
 	response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
 	response.setHeader("Expires", "0");
-	if(request.getSession(false).getAttribute("user") == null)
-		response.sendRedirect("UserLogin.jsp");
-    %>
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +20,14 @@
 <title>User Info</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
 <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+
+<%
+Users masterUser = (Users)request.getSession(false).getAttribute("user");
+Users targetUser = (Users)request.getAttribute("user");
+
+pageContext.setAttribute("dvs", new DomainViewService(masterUser, targetUser));
+%>
+
 </head>
 <body>
 
@@ -28,20 +35,6 @@
  
 <b>User Details:</b> <br>
 <Table class="table table-sm">
-<% 
-Users masterUser = (Users)request.getSession().getAttribute("user");
-Users targetUser = request.getAttribute("user") != null
-						? (Users)request.getAttribute("user") : null;
-String username = targetUser != null ? new UserService().byteToUsername(targetUser.getUserAuth().getUserName()) : "";
-Boolean selfVisitor = masterUser.getId() == targetUser.getId() ? true : false;
-Boolean adminUser = "admin".equals(new UserService().byteToUsername(masterUser.getUserAuth().getUserName()));
-
-Boolean isCreate = masterUser.getDomainPermissions().getUserDomain().is_create();
-Boolean isRead = masterUser.getDomainPermissions().getUserDomain().is_read();
-Boolean isUpdate = masterUser.getDomainPermissions().getUserDomain().is_update();
-Boolean isDelete = masterUser.getDomainPermissions().getUserDomain().is_delete();
-
-%>
 
 <c:if test = "${message != null}">
       <div class='alert alert-success'><strong>  
@@ -56,11 +49,11 @@ Boolean isDelete = masterUser.getDomainPermissions().getUserDomain().is_delete()
  
 <tr>
 <td>
-Username: 
+Username:
 </td>
 <td>
-<%= username %> 
-<c:if test = "<%= isUpdate || selfVisitor %>" >
+${username}
+<c:if test = "${dvs.getUserDomainUpdate().updateUsername()}" >
 <small>(<a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
@@ -70,13 +63,15 @@ job=updateUsername">edit</a>)</small>
 </td>
 </tr>
 
-<c:if test = "<%= selfVisitor %>" >
+<c:if test = "${dvs.getUserDomainUpdate().updatePassword()}" >
 <tr>
 <td>
 <a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
 job=updatePassword">Change Password </a><br>
+</td>
+<td>
 </td>
 </tr>
 </c:if>
@@ -88,7 +83,7 @@ Firstname:
 </td>
 <td>
 ${user.getFirstname()} 
-<c:if test = "<%= isUpdate %>" >
+<c:if test = "${dvs.getUserDomainUpdate().updateFirstname()}" >
 <small>(<a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
@@ -104,7 +99,7 @@ Lastname:
 </td>
 <td>
 ${user.getLastname()} 
-<c:if test = "<%= isUpdate %>" >
+<c:if test = "${dvs.getUserDomainUpdate().updateLastname()}" >
 <small>(<a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
@@ -120,7 +115,7 @@ Department:
 </td>
 <td>
 ${user.getDepartment()} 
-<c:if test = "<%= isUpdate %>" >
+<c:if test = "${dvs.getUserDomainUpdate().updateDepartment()}" >
 <small>(<a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
@@ -136,7 +131,7 @@ Position:
 </td>
 <td>
 ${user.getPosition()} 
-<c:if test = "<%= isUpdate %>" >
+<c:if test = "${dvs.getUserDomainUpdate().updatePosition()}" >
 <small>(<a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
@@ -146,13 +141,15 @@ job=updatePosition">edit</a>)</small>
 </td>
 </tr>
 
-<c:if test = "<%= (!selfVisitor && isUpdate) || adminUser %>" >
+<c:if test = "${dvs.getUserDomainUpdate().updatePermissions()}" >
 <tr>
 <td>
 <a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
 job=updateUserPermissions">Permissions</a>   
+</td>
+<td>
 </td>
 </tr>
 </c:if>
@@ -162,10 +159,13 @@ job=updateUserPermissions">Permissions</a>
 Email:   
 </td>
 <td>
-${user.getEmail()} <small>(<a href="<%= request.getContextPath() %>
+${user.getEmail()} 
+<c:if test = "${dvs.getUserDomainUpdate().updateEmail()}" >
+<small>(<a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
 job=updateEmail">edit</a>)</small><br>
+</c:if>
 </td>
 </tr>
 
@@ -174,10 +174,13 @@ job=updateEmail">edit</a>)</small><br>
 Tel. Number:   
 </td>
 <td>
-${user.getTelNumber()} <small>(<a href="<%= request.getContextPath() %>
+${user.getTelNumber()} 
+<c:if test = "${dvs.getUserDomainUpdate().updateTelNumber()}" >
+<small>(<a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
 job=updateTelNumber">edit</a>)</small><br>
+</c:if>
 </td>
 </tr>
 
@@ -186,10 +189,13 @@ job=updateTelNumber">edit</a>)</small><br>
 Address:   
 </td>
 <td>
-${user.getAddress()} <small>(<a href="<%= request.getContextPath() %>
+${user.getAddress()} 
+<c:if test = "${dvs.getUserDomainUpdate().updateAddress()}" >
+<small>(<a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
 job=updateAddress">edit</a>)</small><br>
+</c:if>
 </td>
 </tr>
 
@@ -200,6 +206,8 @@ job=updateAddress">edit</a>)</small><br>
 id=${user.getId()}&
 job=getCreatedCorporations">Created Corporations </a><br>
 </td>
+<td>
+</td>
 </tr>
 
 <tr>
@@ -208,6 +216,8 @@ job=getCreatedCorporations">Created Corporations </a><br>
 /readUser?
 id=${user.getId()}&
 job=getCreatedCustomers">Created Customers </a><br>
+</td>
+<td>
 </td>
 </tr>
 
@@ -240,9 +250,27 @@ ${user.getTotalSales()}<br>
 
 </Table>
 
-<a href="<%= request.getContextPath() %>
-/deleteUser?
-id=${user.getId()}"> Delete This</a>
+<c:if test = "${dvs.getUserDomainDelete().deleteUser()}" >
+<button type="button" class="btn btn-sm btn-danger" onclick="document.getElementById('id01').style.display='block'">Delete This</button>
+
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+  <form class="modal-content" action="deleteUser" method="get">
+    <div class="alert alert-danger">
+      <h5>Delete User</h5>
+      <p>Are you sure you want to delete ${user.getFirstname()} ${user.getLastname()} ?</p>
+    
+      <div class="clearfix">
+      <input type="hidden" value="${user.getId()}" name="id">
+      
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="submit" name="" onclick="document.getElementById('id01').style.display='none'" class="deletebtn">Delete</button>
+      </div>
+    </div>
+  </form>
+</div>
+</c:if>
+
 </div>
 </body>
 </html>

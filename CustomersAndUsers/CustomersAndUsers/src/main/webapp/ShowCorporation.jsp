@@ -10,10 +10,7 @@
 <%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
 response.setHeader("Expires", "0");
-    if(session.getAttribute("user") == null)
-    	response.sendRedirect("UserLogin.jsp");
-    
-    %>
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,36 +20,20 @@ response.setHeader("Expires", "0");
 <title>Corporation Details</title>
 </head>
 <body>
-
-<% 
-String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
-String alert = (request.getAttribute("alert") != null ? (String)request.getAttribute("alert") : "");// a text alert if want to show
-%>
  
  <div class="container">
  
- <% if(!message.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-success'><strong>"
-			+
-			message
-			+
-			"</strong></div>"
-			
-			);
- } %>
-  <% if(!alert.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-danger'>"
-			+
-			alert
-			+
-			"</strong></div>"
-			
-			);
- } %>
+  <c:if test = "${message != null}">
+      <div class='alert alert-success'><strong>  
+      <c:out value="${message}"/>
+      </strong></div>
+</c:if>
+<c:if test = "${alert != null}">
+      <div class='alert alert-warning'><strong>  
+      <c:out value="${alert}"/>
+      </strong></div>
+</c:if>
+ 
  <b>Corporation Details:</b><br>
  <Table class="table table-sm">
 
@@ -61,20 +42,13 @@ String alert = (request.getAttribute("alert") != null ? (String)request.getAttri
 Name: 
 </td>
 <td>
-${corporation.getName()} <small>(<a href="<%= request.getContextPath() %>
-/updateCustomer?
+${corporation.getName()}
+<c:if test = "${domainPermissions.getCustomerDomainUpdate().updateCustomer()}" >
+<small> (<a href="<%= request.getContextPath() %>
+/customerUpdate?
 id=${corporation.getId()}&
-job=updateCorporationName">
-update
-</a>
- | 
-<a href="<%= request.getContextPath() %>
-/deleteCustomer?
-id=${corporation.getId()}&
-job=removeCorporation">
-remove
-</a>
-)</small><br>
+job=updateCorporationName">update</a>)</small><br>
+</c:if>
 </td>
 </tr>
 
@@ -83,13 +57,13 @@ remove
 Sector:
 </td>
 <td>
-${corporation.getSector()} <small>(<a href="<%= request.getContextPath() %>
-/updateCustomer?
+${corporation.getSector()} 
+<c:if test = "${domainPermissions.getCustomerDomainUpdate().updateCustomer()}" >
+<small>(<a href="<%= request.getContextPath() %>
+/customerUpdate?
 id=${corporation.getId()}&
-job=updateCorporationSector">
-update
-</a>
-)</small>
+job=updateCorporationSector">update</a>)</small>
+</c:if>
 </td>
 </tr>
 
@@ -117,9 +91,38 @@ Last Update:
 id=${corporation.getCreated_by().getId()}&
 job=details">
 ${corporation.getUpdated_by().getFirstname()} ${corporation.getUpdated_by().getLastname()}
-</a><small>(${corporation.getLast_update()})</small>
+</a>
+<c:if test = "${corporation.getLast_update() != null}" >
+<small>(${corporation.getLast_update()})</small>
+</c:if>
 </td>
 </tr>
+<c:if test = "${domainPermissions.getCustomerDomainDelete().deleteCustomer()}" >
+<tr>
+<td>
+<button type="button" class="btn btn-sm btn-danger" onclick="document.getElementById('id01').style.display='block'">Delete This Corporation</button>
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+  <form class="modal-content" action="deleteCustomer" method="get">
+    <div class="alert alert-danger">
+      <h5>Delete Corporation</h5>
+      <p>Are you sure you want to delete ${corporation.getName()}?<br>With this process all of the customers under this corporation are going to be removed!</p>
+    
+      <div class="clearfix">
+      <input type="hidden" value="removeCorporation" name="job">
+      <input type="hidden" value="${corporation.getId()}" name="id">
+      
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="submit" name="" onclick="document.getElementById('id01').style.display='none'" class="deletebtn">Delete</button>
+      </div>
+    </div>
+  </form>
+</div>
+</td>
+<td>
+</td>
+</tr>
+</c:if>
 </Table>
 
 <b>Customer List:</b><br>

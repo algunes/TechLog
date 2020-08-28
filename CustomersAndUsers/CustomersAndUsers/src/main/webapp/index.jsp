@@ -21,7 +21,6 @@ response.setHeader("Expires", "0");
 <title>Customer Cards</title>
 </head>
 <body>
-<% Users user = ((Users)request.getSession().getAttribute("user")); %>
 <!-- Navigation -->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
@@ -37,20 +36,19 @@ response.setHeader("Expires", "0");
         <li class="nav-item">
           <a class="nav-link" target="iframe_a" href=".${request.getContextPath()}/home.jsp">Home</a>
         </li>
-        
-        <c:if test = "${user.getDomainPermissions().getCustomerDomain().is_create()}" >
+        <c:if test = "${domainPermissions.getCustomerDomainCreate().createCustomer()}" >
         <li class="nav-item">
           <a class="nav-link" target="iframe_a" href=".${request.getContextPath()}/createCustomer?job=addCustomer">Add Customer</a>
         </li>
         </c:if>
         
-        <c:if test = "${user.getDomainPermissions().getCustomerDomain().is_create()}" >
+        <c:if test = "${domainPermissions.getCustomerDomainCreate().createCustomer()}" >
         <li class="nav-item">
           <a class="nav-link" target="iframe_a" href=".${request.getContextPath()}/createCustomer?job=addCorporation">Add Corporation</a>
         </li>
         </c:if>
         
-        <c:if test = "${user != null}" >
+        <c:if test = "${domainPermissions.getCustomerDomainRead().readCustomer()}" >
         <li class="nav-item">
           <a class="nav-link" target="iframe_a" href=".${request.getContextPath()}/readCustomer?job=getCorporationList" target="iframe_a">Show Customers</a>
         </li>
@@ -62,7 +60,7 @@ response.setHeader("Expires", "0");
         </li>
         </c:if> --%>
         
-        <c:if test = "${user.getDomainPermissions().getUserDomain().is_read()}" >
+        <c:if test = "${domainPermissions.getUserDomainRead().showUserList()}" >
         <li class="nav-item">
           <a class="nav-link" href=".${request.getContextPath()}/readUser?job=showUserList" target="iframe_a">Users</a>
         </li>
@@ -92,7 +90,7 @@ response.setHeader("Expires", "0");
       </li>
         </c:if>
         
-        <c:if test = "${user != null}" >
+        <c:if test = "${domainPermissions.getUserDomainRead().details()}" >
         <li>
 		 <a class="nav-link" target="iframe_a" href=".${request.getContextPath()}/readUser?job=details&id=${user.getId()}">Profile</a>
         </li>

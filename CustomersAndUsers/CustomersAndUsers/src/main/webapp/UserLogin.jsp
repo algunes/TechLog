@@ -1,16 +1,13 @@
-<%@ page language="java" %>
+<%@ page language="java" errorPage="Error.jsp" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
     
-    <%
+<%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
 response.setHeader("Expires", "0");
-    if(session.getAttribute("user") != null)
-    	response.sendRedirect(request.getContextPath());
-    
-    %>
+%>
     
 <!DOCTYPE html>
 <html>
@@ -25,7 +22,8 @@ response.setHeader("Expires", "0");
 <body class="text-center">
 
     <form action="login" method="post" class="form-signin" target = _parent>
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <h1 class="h2 mb-2 font-weight-bold">Techlog Customer Cards</h1>
+      <h2 class="h3 mb-3 font-weight-normal">Please sign in</h2>
 <c:if test = "${message != null}">
       <div class='alert alert-success'><strong>  
       <c:out value="${message}"/>
@@ -42,6 +40,6 @@ response.setHeader("Expires", "0");
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
-  </body>
+</body>
   
 </html>

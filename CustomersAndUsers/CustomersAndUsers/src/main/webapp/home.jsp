@@ -1,4 +1,4 @@
-<%@ page language="java" %>
+<%@ page language="java" errorPage="Error.jsp" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
 <%@ page import="java.util.*"%>
@@ -12,6 +12,7 @@ response.setHeader("Expires", "0");
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
@@ -44,6 +45,7 @@ response.setHeader("Expires", "0");
     </div>
     </div>
     <hr/>
+    
      <div class="container">
      <div class="row">
     <div class="col">
@@ -61,7 +63,6 @@ response.setHeader("Expires", "0");
   </div>
   </div>
  </c:if>
- 
      
 </body>
   

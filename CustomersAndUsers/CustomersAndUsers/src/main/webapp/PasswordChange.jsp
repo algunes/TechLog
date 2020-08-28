@@ -1,14 +1,12 @@
-<%@ page language="java" %>
+<%@ page language="java" errorPage="Error.jsp" %>
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 <%
 response.setHeader("cache-control", "no-cache, no-store, must-revalidate");
 response.setHeader("Expires", "0");
-    if(session.getAttribute("user") == null)
-    	response.sendRedirect("UserLogin.jsp");
-    
-    %>
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,36 +15,22 @@ response.setHeader("Expires", "0");
 <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script><title>Input</title>
 <title>Password Change</title>
 </head>
-<body class="text-center">
+<body>
 
-<% 
-String message = (request.getAttribute("message") != null ? (String)request.getAttribute("message") : "");// a text message if want to show
-String alert = (request.getAttribute("alert") != null ? (String)request.getAttribute("alert") : "");// a text alert if want to show
-%>
+<div class="container">
 
-<% if(!message.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-success'><strong>"
-			+
-			message
-			+
-			"</strong></div>"
-			
-			);
- } %>
-  <% if(!alert.isEmpty()) { 
-	out.println(
-			
-			"<div class='alert alert-danger'>"
-			+
-			alert
-			+
-			"</strong></div>"
-			
-			);
- } %>
-
+<c:if test = "${message != null}">
+      <div class='alert alert-success'><strong>  
+      <c:out value="${message}"/>
+      </strong></div>
+</c:if>
+<c:if test = "${alert != null}">
+      <div class='alert alert-warning'><strong>  
+      <c:out value="${alert}"/>
+      </strong></div>
+</c:if>
+</div>
+<div class="container">
 <form action="updateUser" method="post" oninput='up2.setCustomValidity(up2.value != up.value ? "Passwords do not match." : "")'>
 <input type="hidden" name="job" value="updatePassword" >
 <div class="form-group">
@@ -65,10 +49,9 @@ String alert = (request.getAttribute("alert") != null ? (String)request.getAttri
 <div class="col-sm-10">
 <input class="btn btn-primary" value="Submit" type="submit">
 </div>
-
-
 </div>
 </form>
+</div>
 
 </body>
 </html>

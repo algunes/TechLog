@@ -32,6 +32,11 @@ response.setHeader("Expires", "0");
       <c:out value="${alert}"/>
       </strong></div>
 </c:if>
+<c:if test = "${caption != null}">
+      <div class='alert alert-dark'><strong>  
+      <c:out value="${caption}"/>
+      </strong></div>
+</c:if>
  
 <b>Corporations: </b><br>
 <Table class="table table-sm">
