@@ -54,5 +54,9 @@ public class CorporationPostService implements ICorporationPostService {
 	public List<Corporation> getLastAddedCorporations() {
 		return new CorporationDAO().lastAddedCorporations();
 	}
+	
+	public Long getNumberOfCorporation() {
+		return new CorporationDAO().countCorporation();
+	}
 
 }

@@ -229,5 +229,65 @@ public class CorporationDAO implements ICorporationDao {
 		}
 		return result;
 	}
+	
+	
+	public List<Corporation> paginatedCorporations (Integer first, Integer max) {
+		Session session = null;
+		List<Corporation> result = new ArrayList<>();
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+
+			CriteriaBuilder cb = session.getCriteriaBuilder();
+			CriteriaQuery<Corporation> cr = cb.createQuery(Corporation.class);
+			Root<Corporation> root = cr.from(Corporation.class);
+			
+			cr.orderBy(cb.desc(root.get("corporation_name")));
+			
+			result = session.createQuery(cr).setFirstResult(first).setMaxResults(max).list();
+			
+			session.getTransaction().commit();
+		}
+		catch (HibernateException e) {
+			if(session.getTransaction() != null)
+				session.beginTransaction().rollback();
+			e.printStackTrace();
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return result;
+	}
+	
+	public Long countCorporation() {
+		
+		Session session = null;
+		Long number = null;
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+
+			CriteriaBuilder cb = session.getCriteriaBuilder();
+			CriteriaQuery<Long> cr = cb.createQuery(Long.class);
+			Root<Corporation> root = cr.from(Corporation.class);
+			
+			cr.select(cb.count(root));
+
+			number = session.createQuery(cr).getSingleResult();
+			
+			session.getTransaction().commit();
+		}
+		catch (HibernateException e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return number;
+	}
 
 }

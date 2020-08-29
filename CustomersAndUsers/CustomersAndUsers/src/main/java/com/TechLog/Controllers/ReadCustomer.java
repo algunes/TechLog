@@ -44,7 +44,9 @@ public class ReadCustomer extends HttpServlet {
 		// eager
 		case "getCorporation": {
 			Long id = Long.parseLong(request.getParameter("id"));
+			
 			Corporation corporation = new CorporationPostService().getCorporation(id, true);
+			
 			request.setAttribute("corporation", corporation);
 			request.setAttribute("viewPermissions", viewPermissions);
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
@@ -53,8 +55,11 @@ public class ReadCustomer extends HttpServlet {
 		}
 		// lazy
 		case "getCorporationList": {
-			List<Corporation> corporations = new CorporationPostService().getAllCorporations();
+			CorporationPostService cps = new CorporationPostService();
+			List<Corporation> corporations = cps.getAllCorporations();
+			Long corpNum = cps.getNumberOfCorporation();
 			request.setAttribute("corporations", corporations);
+			request.setAttribute("corpNum", corpNum);
 			request.setAttribute("viewPermissions", viewPermissions);
 			RequestDispatcher rd = request.getRequestDispatcher("CorporationList.jsp");
 			rd.forward(request, response);
