@@ -210,5 +210,36 @@ public class UserDao {
 		}
 		return result;
 	}
+	
+	public List<Users> lastLoginUsers () {
+		Session session = null;
+		List<Users> result = new ArrayList<>();
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+
+			CriteriaBuilder cb = session.getCriteriaBuilder();
+			CriteriaQuery<Users> cr = cb.createQuery(Users.class);
+			Root<Users> root = cr.from(Users.class);
+			
+			cr.select(root).where(cb.isNotNull(root.get("lastLogin")));
+			cr.orderBy(cb.desc(root.get("lastLogin")));
+								 
+			result = session.createQuery(cr).setMaxResults(10).list();
+			
+			session.getTransaction().commit();
+		}
+		catch (HibernateException e) {
+			if(session.getTransaction() != null)
+				session.beginTransaction().rollback();
+			e.printStackTrace();
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return result;
+	}
 
 }

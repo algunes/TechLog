@@ -1,5 +1,6 @@
 package com.TechLog.Services.Customer;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.TechLog.DAO.Customers.CustomerDAO;
@@ -10,6 +11,7 @@ public class CustomerPostService implements ICustomerPostService {
 	@Override
 	public Customer createCustomer(Customer customer) {
 		// Creates and persists a customer from scratch
+		customer.setCreation_date(LocalDateTime.now());
 		return getCustomer(new CustomerDAO().addCustomer(customer), true);
 	}
 
@@ -32,12 +34,19 @@ public class CustomerPostService implements ICustomerPostService {
 	@Override
 	public Customer updateCustomer(Customer customer) {
 		// updates a customer
+		customer.setLast_update(LocalDateTime.now());
 		new CustomerDAO().updateCustomer(customer);
 		return getCustomer(customer.getCustomer_id(), true);
 	}
 	
+	@Override
 	public List<Customer> getLastAddedCustomers() {
 		return new CustomerDAO().lastAddedCustomers();
+	}
+	
+	@Override
+	public List<Customer> getLastUpdatedCustomers() {
+		return new CustomerDAO().lastUpdatedCustomers();
 	}
 
 }

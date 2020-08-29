@@ -28,6 +28,8 @@ public class HibernateUtil {
 				settings.put(Environment.PASS, "Driver8..?");				
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
 				settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
+				settings.put(Environment.JDBC_TIME_ZONE, "UTC");
+				
 				settings.put(Environment.HBM2DDL_AUTO, "update");
 				settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
 				

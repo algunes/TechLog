@@ -1,7 +1,7 @@
 package com.TechLog.Entity.Customers;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import javax.persistence.*;
@@ -76,18 +76,17 @@ public class Customer implements Serializable {
 	private Users updated_by;
 	
 	@Column(name="last_update")
-	private LocalDate last_update;
+	private LocalDateTime last_update;
 	
 	@Column(name="creation_date")
-	private LocalDate creation_date;
+	private LocalDateTime creation_date;
 	
 	public Customer() {
 		super();
 	}
 
 	public Customer(String firstname, String lastname, Corporation corporation, String department,
-			String position, List<String> emails, List<String> telNums, List<String> addresses, Users created_by,
-			Users updated_by, LocalDate last_update, LocalDate creation_date) {
+			String position, List<String> emails, List<String> telNums, List<String> addresses, Users created_by) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -98,9 +97,6 @@ public class Customer implements Serializable {
 		this.telNums = telNums;
 		this.addresses = addresses;
 		this.created_by = created_by;
-		this.updated_by = updated_by;
-		this.last_update = last_update;
-		this.creation_date = creation_date;
 	}
 
 	public Long getCustomer_id() {
@@ -191,19 +187,19 @@ public class Customer implements Serializable {
 		this.updated_by = updated_by;
 	}
 
-	public LocalDate getLast_update() {
+	public LocalDateTime getLast_update() {
 		return last_update;
 	}
 
-	public void setLast_update(LocalDate last_update) {
+	public void setLast_update(LocalDateTime last_update) {
 		this.last_update = last_update;
 	}
 
-	public LocalDate getCreation_date() {
+	public LocalDateTime getCreation_date() {
 		return creation_date;
 	}
 
-	public void setCreation_date(LocalDate creation_date) {
+	public void setCreation_date(LocalDateTime creation_date) {
 		this.creation_date = creation_date;
 	}
 

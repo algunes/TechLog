@@ -13,5 +13,6 @@ public interface ICorporationDao {
 	Corporation updateCorporation(Corporation corporation); // Update
 	void deleteCorporation(Corporation corporation); // Delete
 	Corporation validateCorporationName(String name); // For name originality 
+	List<Corporation> lastAddedCorporations();
 
 }

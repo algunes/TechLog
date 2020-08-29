@@ -1,6 +1,5 @@
 package com.TechLog.Entity.Customers;
 
-import java.time.LocalDate;
 import java.util.*;
 
 import com.TechLog.Entity.Corporations.Corporation;
@@ -66,8 +65,7 @@ public class CustomerBuilder {
 	
 	public Customer build() {
 		return new Customer(firstname, lastname, corporation, department, position,
-				emails, telNums, addresses, created_by, null, 
-				null, LocalDate.now());
+				emails, telNums, addresses, created_by);
 	}
 	
 }

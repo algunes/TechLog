@@ -1,7 +1,6 @@
 package com.TechLog.Entity.Users;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import com.TechLog.Entity.Permissions.DomainPermissions;
 import com.TechLog.Services.Users.UserService;
@@ -79,7 +78,7 @@ public class UserBuilder {
 		Users user = new Users();
 		UserService us = new UserService();
 		UserAuthenticationInfo uai = us.userAuthInfoBuild(userName, password);
-		
+		// username originality test
 		if(uai == null) {
 			return null;
 		}
@@ -96,7 +95,6 @@ public class UserBuilder {
 			user.setTelNumber(telNumber);
 			user.setAddress(address);
 			user.setTotalSales(totalSales);
-			user.setStartDate(LocalDate.now());
 			
 			return us.createUser(user);
 		}

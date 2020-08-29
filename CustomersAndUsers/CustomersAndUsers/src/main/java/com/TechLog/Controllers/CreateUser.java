@@ -13,6 +13,7 @@ import com.TechLog.Entity.Permissions.DomainPermissions;
 import com.TechLog.Entity.Permissions.DomainPermissionsBuilder;
 import com.TechLog.Entity.Users.UserBuilder;
 import com.TechLog.Entity.Users.Users;
+import com.TechLog.Services.Users.UserService;
 
 @WebServlet("/createUser")
 public class CreateUser extends HttpServlet {
@@ -62,6 +63,7 @@ public class CreateUser extends HttpServlet {
 				.setTotalSales(null).setUserName(username).setPassword(password).build();
 		if (user != null) {
 			request.setAttribute("user", user);
+			request.setAttribute("username", new UserService().byteToUsername(user.getUserAuth().getUserName()));
 			request.setAttribute("message", "User created!");
 			RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
 			rd.forward(request, response);

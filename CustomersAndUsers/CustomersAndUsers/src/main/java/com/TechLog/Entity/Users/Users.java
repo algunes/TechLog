@@ -2,7 +2,7 @@ package com.TechLog.Entity.Users;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import javax.persistence.*;
 
@@ -66,10 +66,10 @@ public class Users implements Serializable {
 	private BigDecimal totalSales;
 	
 	@Column(name="last_login")
-	private LocalDate lastLogin;
+	private LocalDateTime lastLogin;
 	
 	@Column(name="start_date")
-	private LocalDate startDate;
+	private LocalDateTime startDate;
 	
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private UserAuthenticationInfo userAuth;
@@ -186,19 +186,19 @@ public class Users implements Serializable {
 		this.totalSales = totalSales;
 	}
 
-	public LocalDate getLastLogin() {
+	public LocalDateTime getLastLogin() {
 		return lastLogin;
 	}
 
-	public void setLastLogin(LocalDate lastLogin) {
+	public void setLastLogin(LocalDateTime lastLogin) {
 		this.lastLogin = lastLogin;
 	}
 
-	public LocalDate getStartDate() {
+	public LocalDateTime getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDate startDate) {
+	public void setStartDate(LocalDateTime startDate) {
 		this.startDate = startDate;
 	}
 	
@@ -217,7 +217,7 @@ public class Users implements Serializable {
 public Users(Long id, String firstname, String lastname, String department, String position, DomainPermissions domainPermissions,
 		List<Customer> created_customers, List<Customer> updated_customers, List<Corporation> created_corporations,
 		List<Corporation> updated_corporations, String email, String telNumber, String address, BigDecimal totalSales,
-		LocalDate lastLogin, LocalDate startDate, UserAuthenticationInfo userAuth) {
+		LocalDateTime lastLogin, LocalDateTime startDate, UserAuthenticationInfo userAuth) {
 	super();
 	this.id = id;
 	this.firstname = firstname;

@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,6 +19,7 @@ import com.TechLog.Entity.Users.Users;
 public class UserService {
 
 	public Users createUser(Users user) {
+		user.setStartDate(LocalDateTime.now());
 		return new UserDao().addUser(user);
 	}
 
@@ -102,7 +103,7 @@ public class UserService {
 		
 		if(uai != null && Arrays.equals(passwordHashing(uai.getSalt(), password), uai.getPassword()) == true) {
 			user = uai.getUser();
-			user.setLastLogin(LocalDate.now());
+			user.setLastLogin(LocalDateTime.now());
 			updateUser(user);
 		}
 		return user;
@@ -178,4 +179,8 @@ public Boolean isUsernameUnique(String username) {
 	return new UserDao().validateUserName(usernameToByte(username)) == null ?
 			true : false;
 	}
+
+public List<Users> getLastLoginUsers() {
+	return new UserDao().lastLoginUsers();
+}
 }

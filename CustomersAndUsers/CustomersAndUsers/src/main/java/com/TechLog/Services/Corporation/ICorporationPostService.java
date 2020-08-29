@@ -12,5 +12,6 @@ public interface ICorporationPostService {
 	List<Corporation> getAllCorporations();
 	Corporation updateCorporation(Corporation corporation);
 	Corporation validateCorporationName(String name);
+	List<Corporation> getLastAddedCorporations();
 
 }

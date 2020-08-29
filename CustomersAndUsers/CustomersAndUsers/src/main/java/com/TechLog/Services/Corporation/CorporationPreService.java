@@ -1,7 +1,5 @@
 package com.TechLog.Services.Corporation;
 
-import java.time.LocalDate;
-
 import com.TechLog.Entity.Corporations.Corporation;
 import com.TechLog.Entity.Corporations.CorporationBuilder;
 import com.TechLog.Entity.Users.Users;
@@ -16,7 +14,6 @@ public class CorporationPreService implements ICorporationPreService {
 				.setSector(sector)
 				.setIsActive(isActive)
 				.setCreated_by(user)
-				.setCreationDate(LocalDate.now())
 				.build();
 		return new CorporationPostService().createCorporation(corporation);
 	}
@@ -33,7 +30,6 @@ public class CorporationPreService implements ICorporationPreService {
 	
 			corporation.setName(newName);
 			corporation.setUpdated_by(user);
-			corporation.setLast_update(LocalDate.now());
 			return cps.updateCorporation(corporation);
 		}
 		else {
@@ -52,7 +48,6 @@ public class CorporationPreService implements ICorporationPreService {
 			
 			corporation.setSector(newSector);
 			corporation.setUpdated_by(user);
-			corporation.setLast_update(LocalDate.now());
 			return cps.updateCorporation(corporation);
 		}
 		else {

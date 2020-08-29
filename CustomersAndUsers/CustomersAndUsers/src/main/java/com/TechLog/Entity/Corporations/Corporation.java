@@ -1,7 +1,7 @@
 package com.TechLog.Entity.Corporations;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import javax.persistence.*;
@@ -51,10 +51,10 @@ public class Corporation implements Serializable {
 	private Users updated_by;
 	
 	@Column(name="last_update")
-	private LocalDate last_update;
+	private LocalDateTime last_update;
 	
 	@Column(name="creation_date")
-	private LocalDate creation_date;
+	private LocalDateTime creation_date;
 	
 	
 	
@@ -62,17 +62,13 @@ public class Corporation implements Serializable {
 		super();
 	}
 
-	public Corporation(String name, String sector, boolean isActive, List<Customer> customers, Users created_by,
-			Users updated_by, LocalDate last_update, LocalDate creation_date) {
+	public Corporation(String name, String sector, boolean isActive, List<Customer> customers, Users created_by) {
 		super();
 		this.name = name;
 		this.sector = sector;
 		this.isActive = isActive;
 		this.customers = customers;
 		this.created_by = created_by;
-		this.updated_by = updated_by;
-		this.last_update = last_update;
-		this.creation_date = creation_date;
 	}
 
 	public void addCustomer(Customer customer) {
@@ -137,19 +133,19 @@ public class Corporation implements Serializable {
 		this.updated_by = updated_by;
 	}
 
-	public LocalDate getLast_update() {
+	public LocalDateTime getLast_update() {
 		return last_update;
 	}
 
-	public void setLast_update(LocalDate last_update) {
+	public void setLast_update(LocalDateTime last_update) {
 		this.last_update = last_update;
 	}
 
-	public LocalDate getCreation_date() {
+	public LocalDateTime getCreation_date() {
 		return creation_date;
 	}
 
-	public void setCreation_date(LocalDate creation_date) {
+	public void setCreation_date(LocalDateTime creation_date) {
 		this.creation_date = creation_date;
 	}
 

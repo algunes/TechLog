@@ -198,5 +198,36 @@ public class CorporationDAO implements ICorporationDao {
 		}
 		return result;
 	}
+	
+	@Override
+	public List<Corporation> lastAddedCorporations () {
+		Session session = null;
+		List<Corporation> result = new ArrayList<>();
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+
+			CriteriaBuilder cb = session.getCriteriaBuilder();
+			CriteriaQuery<Corporation> cr = cb.createQuery(Corporation.class);
+			Root<Corporation> root = cr.from(Corporation.class);
+			
+			cr.orderBy(cb.desc(root.get("creation_date")));
+						 
+			result = session.createQuery(cr).setMaxResults(10).list();
+			
+			session.getTransaction().commit();
+		}
+		catch (HibernateException e) {
+			if(session.getTransaction() != null)
+				session.beginTransaction().rollback();
+			e.printStackTrace();
+		}
+		finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return result;
+	}
 
 }

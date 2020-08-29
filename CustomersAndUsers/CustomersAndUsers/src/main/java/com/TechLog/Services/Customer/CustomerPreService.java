@@ -1,7 +1,5 @@
 package com.TechLog.Services.Customer;
 
-import java.time.LocalDate;
-
 import com.TechLog.Entity.Customers.Customer;
 import com.TechLog.Entity.Customers.CustomerBuilder;
 import com.TechLog.Entity.Users.Users;
@@ -46,7 +44,6 @@ public class CustomerPreService implements ICustomerPreService {
 		if(customer != null && customer.getFirstname().equals(oldName)) {
 			customer.setFirstname(newName);
 			customer.setUpdated_by(user);
-			customer.setLast_update(LocalDate.now());
 			return cps.updateCustomer(customer);
 		}
 		else {
@@ -63,7 +60,6 @@ public class CustomerPreService implements ICustomerPreService {
 		if(customer != null && customer.getLastname().equals(oldName)) {
 			customer.setLastname(newName);
 			customer.setUpdated_by(user);
-			customer.setLast_update(LocalDate.now());
 			return cps.updateCustomer(customer);
 		}
 		else {
@@ -80,7 +76,6 @@ public class CustomerPreService implements ICustomerPreService {
 		if(customer != null && customer.getDepartment().equals(oldDepartment)) {
 			customer.setDepartment(newDepartment);
 			customer.setUpdated_by(user);
-			customer.setLast_update(LocalDate.now());
 			return cps.updateCustomer(customer);
 		}
 		else {
@@ -97,7 +92,6 @@ public class CustomerPreService implements ICustomerPreService {
 		if(customer != null && customer.getPosition().equals(oldPosition)) {
 			customer.setPosition(newPosition);
 			customer.setUpdated_by(user);
-			customer.setLast_update(LocalDate.now());
 			return cps.updateCustomer(customer);
 		}
 		else {
@@ -115,7 +109,6 @@ public class CustomerPreService implements ICustomerPreService {
 			int idx = customer.getEmails().indexOf(oldEmail);
 			customer.getEmails().set(idx, newEmail);
 			customer.setUpdated_by(user);
-			customer.setLast_update(LocalDate.now());
 			return cps.updateCustomer(customer);
 		}
 		else {
@@ -133,7 +126,6 @@ public class CustomerPreService implements ICustomerPreService {
 			int idx = customer.getTelNums().indexOf(oldTelNum);
 			customer.getTelNums().set(idx, newTelNum);
 			customer.setUpdated_by(user);
-			customer.setLast_update(LocalDate.now());
 			return cps.updateCustomer(customer);
 		}
 		else {
@@ -151,7 +143,6 @@ public class CustomerPreService implements ICustomerPreService {
 			int idx = customer.getAddresses().indexOf(oldAddress);
 			customer.getAddresses().set(idx, newAddress);
 			customer.setUpdated_by(user);
-			customer.setLast_update(LocalDate.now());
 			return cps.updateCustomer(customer);
 		}
 		else {
@@ -168,7 +159,6 @@ public class CustomerPreService implements ICustomerPreService {
 		if(customer != null && !customer.getEmails().stream().anyMatch(newEmail::equalsIgnoreCase)) {
 			customer.getEmails().add(newEmail);
 			customer.setUpdated_by(user);
-			customer.setLast_update(LocalDate.now());
 			return cps.updateCustomer(customer);
 		}
 		else {
@@ -185,7 +175,6 @@ public class CustomerPreService implements ICustomerPreService {
 		if(customer != null && !customer.getTelNums().stream().anyMatch(newTelNum::equalsIgnoreCase)) {
 			customer.getTelNums().add(newTelNum);
 			customer.setUpdated_by(user);
-			customer.setLast_update(LocalDate.now());
 			return cps.updateCustomer(customer);
 		}
 		else {
@@ -202,7 +191,6 @@ public class CustomerPreService implements ICustomerPreService {
 		if(customer != null && !customer.getAddresses().stream().anyMatch(newAddress::equalsIgnoreCase)) {
 			customer.getAddresses().add(newAddress);
 			customer.setUpdated_by(user);
-			customer.setLast_update(LocalDate.now());
 			return cps.updateCustomer(customer);
 		}
 		else {
@@ -219,7 +207,6 @@ public class CustomerPreService implements ICustomerPreService {
 		if(customer != null && customer.getEmails().stream().anyMatch(email::equalsIgnoreCase)) {
 			customer.getEmails().remove(email);
 			customer.setUpdated_by(user);
-			customer.setLast_update(LocalDate.now());
 			return cps.updateCustomer(customer);
 		}
 		else {
@@ -236,7 +223,6 @@ public class CustomerPreService implements ICustomerPreService {
 		if (customer != null && customer.getTelNums().stream().anyMatch(telNum::equalsIgnoreCase)) {
 			customer.getTelNums().remove(telNum);
 			customer.setUpdated_by(user);
-			customer.setLast_update(LocalDate.now());
 			return cps.updateCustomer(customer);
 			} 
 		else {
@@ -253,7 +239,6 @@ public class CustomerPreService implements ICustomerPreService {
 		if (customer != null && customer.getAddresses().stream().anyMatch(address::equalsIgnoreCase)) {
 			customer.getAddresses().remove(address);
 			customer.setUpdated_by(user);
-			customer.setLast_update(LocalDate.now());
 			return cps.updateCustomer(customer);
 			} 
 		else {

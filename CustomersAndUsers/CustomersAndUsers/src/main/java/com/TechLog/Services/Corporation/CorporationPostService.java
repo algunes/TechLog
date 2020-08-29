@@ -1,5 +1,6 @@
 package com.TechLog.Services.Corporation;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.TechLog.DAO.Corporations.CorporationDAO;
@@ -10,6 +11,7 @@ public class CorporationPostService implements ICorporationPostService {
 	@Override
 	public Corporation createCorporation(Corporation corporation) {
 		// create a corporation
+		corporation.setCreation_date(LocalDateTime.now());
 		return new CorporationDAO().addCorporation(corporation);
 	}
 
@@ -38,6 +40,7 @@ public class CorporationPostService implements ICorporationPostService {
 	@Override
 	public Corporation updateCorporation(Corporation corporation) {
 		// update a corporation
+		corporation.setLast_update(LocalDateTime.now());
 		return new CorporationDAO().updateCorporation(corporation);
 	}
 
@@ -47,6 +50,9 @@ public class CorporationPostService implements ICorporationPostService {
 		return new CorporationDAO().validateCorporationName(name);
 	}
 	
-	
+	@Override
+	public List<Corporation> getLastAddedCorporations() {
+		return new CorporationDAO().lastAddedCorporations();
+	}
 
 }
