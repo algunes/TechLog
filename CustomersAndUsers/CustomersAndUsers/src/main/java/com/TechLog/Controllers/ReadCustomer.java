@@ -1,6 +1,7 @@
 package com.TechLog.Controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,6 +17,7 @@ import com.TechLog.Entity.Users.Users;
 import com.TechLog.Services.Corporation.CorporationPostService;
 import com.TechLog.Services.Customer.CustomerPostService;
 import com.TechLog.Services.DomainViewService.DomainViewService;
+import com.TechLog.Services.Pagination.Pagination;
 
 @WebServlet("/readCustomer")
 public class ReadCustomer extends HttpServlet {
@@ -56,11 +58,16 @@ public class ReadCustomer extends HttpServlet {
 		// lazy
 		case "getCorporationList": {
 			CorporationPostService cps = new CorporationPostService();
-			List<Corporation> corporations = cps.getAllCorporations();
-			Long corpNum = cps.getNumberOfCorporation();
+
+			Integer first = request.getParameter("first") != null ? 
+					Integer.parseInt(request.getParameter("first")) : 0;
+			Integer max = 10;
+			List<Corporation> corporations = cps.getPaginatedCorporations(first, max);
+			Long numberOfCorporation = cps.getNumberOfCorporation();
+			Pagination pagination = new Pagination(first, max, numberOfCorporation);
+			
+			request.setAttribute("pagination", pagination);
 			request.setAttribute("corporations", corporations);
-			request.setAttribute("corpNum", corpNum);
-			request.setAttribute("viewPermissions", viewPermissions);
 			RequestDispatcher rd = request.getRequestDispatcher("CorporationList.jsp");
 			rd.forward(request, response);
 			break;

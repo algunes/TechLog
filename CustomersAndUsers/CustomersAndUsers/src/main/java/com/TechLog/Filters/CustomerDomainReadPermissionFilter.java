@@ -63,6 +63,12 @@ public class CustomerDomainReadPermissionFilter implements Filter {
 				break;
 			}
 			
+			default : {
+				req.setAttribute("alert", "Bad Request!");
+				RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
+				rd.forward(request, response);
+			}
+			
 			}
 			
 			

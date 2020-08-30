@@ -242,7 +242,7 @@ public class CorporationDAO implements ICorporationDao {
 			CriteriaQuery<Corporation> cr = cb.createQuery(Corporation.class);
 			Root<Corporation> root = cr.from(Corporation.class);
 			
-			cr.orderBy(cb.desc(root.get("corporation_name")));
+			cr.orderBy(cb.asc(root.get("name")));
 			
 			result = session.createQuery(cr).setFirstResult(first).setMaxResults(max).list();
 			

@@ -58,5 +58,9 @@ public class CorporationPostService implements ICorporationPostService {
 	public Long getNumberOfCorporation() {
 		return new CorporationDAO().countCorporation();
 	}
+	
+	public List<Corporation> getPaginatedCorporations(Integer first, Integer max) {
+		return new CorporationDAO().paginatedCorporations(first, max);
+	}
 
 }

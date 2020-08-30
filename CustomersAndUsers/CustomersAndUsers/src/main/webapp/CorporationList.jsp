@@ -1,8 +1,9 @@
 <%@ page language="java" errorPage="Error.jsp" %>
 <%@ page pageEncoding="UTF-8"%>
 <%@ page contentType="text/html"%>
-<%@ page import="com.TechLog.Entity.Corporations.Corporation"%>
-<%@ page import="com.TechLog.Entity.Customers.Customer"%>
+<%@ page import="com.TechLog.Entity.Corporations.Corporation" %>
+<%@ page import="com.TechLog.Entity.Customers.Customer" %>
+<%@ page import="com.TechLog.Services.Pagination.Pagination" %>
 <%@ page import="java.util.*"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
@@ -39,7 +40,6 @@ response.setHeader("Expires", "0");
 </c:if>
  
 <h6><b>Corporations: </b></h6>
-<small>Total Number is: ${corpNum}</small>
 <Table class="table table-sm">
 
 <c:forEach items ="${corporations}" var = "e">
@@ -56,19 +56,28 @@ job=getCorporation">${e.getName()}</a>
 </c:forEach>
 <tr>
 <td>
-<nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
+
+<a class="btn btn-secondary btn-sm
+<c:if test = "${pagination.getPrevIsNotActive()}" >
+disabled
+</c:if>
+" href="<%=request.getContextPath()%>/readCustomer?
+job=getCorporationList&
+first=${pagination.getPrevLink()}" role="button">Prev</a>
+
+<a class="btn btn-secondary btn-sm 
+<c:if test = "${pagination.getNextIsNotActive()}" >
+disabled
+</c:if>
+" 
+href="<%=request.getContextPath()%>/readCustomer?
+job=getCorporationList&
+first=${pagination.getNextLink()}" > Next </a>
+</td>
+</tr>
+<tr>
+<td>
+<small>pages: (${pagination.getCurrentPage()} / ${pagination.getTotalPage()})</small> | <small>total corporations: ${pagination.getNumberOfObjects()}</small>
 </td>
 </tr>
 </Table>
