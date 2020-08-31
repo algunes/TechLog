@@ -3,8 +3,8 @@ package com.TechLog.DAO.Permissions;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import com.TechLog.Entity.Permissions.DomainPermissions;
 import com.TechLog.Hibernate.HibernateUtil;
-import com.TechLog.Test.Permissions.DomainPermissions;
 
 
 public class DomainPermissionsDao {

@@ -33,7 +33,7 @@ public class UserDomainReadPermissionFilter implements Filter {
 		
 		if(job != null) {
 			Users targetUser = id != null ? (Users)new UserService().getUser(id, true) : null;
-			Users masterUser = (Users)req.getSession().getAttribute("user");
+			Users masterUser = (Users)req.getSession(false).getAttribute("user");
 			UserDomainReadPermissionService udrps = targetUser != null 
 					? new UserDomainReadPermissionService(masterUser, targetUser)
 							: new UserDomainReadPermissionService(masterUser, masterUser);

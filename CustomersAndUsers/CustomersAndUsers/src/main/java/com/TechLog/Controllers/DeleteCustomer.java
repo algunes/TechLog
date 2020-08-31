@@ -15,7 +15,6 @@ import com.TechLog.Entity.Users.Users;
 import com.TechLog.Services.Corporation.CorporationPostService;
 import com.TechLog.Services.Customer.CustomerPostService;
 import com.TechLog.Services.Customer.CustomerPreService;
-import com.TechLog.Services.DomainViewService.DomainViewService;
 
 @WebServlet("/deleteCustomer")
 public class DeleteCustomer extends HttpServlet {
@@ -23,9 +22,7 @@ public class DeleteCustomer extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Long id = Long.parseLong(request.getParameter("id"));
-		Users user = (Users)request.getSession(false).getAttribute("user");
 		String job = request.getParameter("job");
-		DomainViewService viewPermissions = new DomainViewService(user, user);
 	
 		switch(job) {
 		
@@ -35,7 +32,6 @@ public class DeleteCustomer extends HttpServlet {
 			if(corporation != null) {
 				new CorporationPostService().removeCorporation(id);
 				request.setAttribute("message", "Corporation deleted!");
-				request.setAttribute("viewPermissions", viewPermissions);
 				RequestDispatcher rd = request.getRequestDispatcher("CorporationList.jsp");
 				rd.forward(request, response);
 			}
@@ -55,7 +51,6 @@ public class DeleteCustomer extends HttpServlet {
 				new CustomerPostService().removeCustomer(id);
 				request.setAttribute("message", "Customer removed!");
 				request.setAttribute("corporation", new CorporationPostService().getCorporation(corporationId, true));
-				request.setAttribute("viewPermissions", viewPermissions);
 				RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
 				rd.forward(request, response);
 			}
@@ -133,10 +128,11 @@ public class DeleteCustomer extends HttpServlet {
 			break;
 		}
 	
-	default : {
-		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-		rd.forward(request, response);
-	}
+		default : {
+			request.setAttribute("alert", "Bad Request");
+			RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
+			rd.forward(request, response);
+		}
 			
 	}
 	}
@@ -147,7 +143,6 @@ public class DeleteCustomer extends HttpServlet {
 		Long id = Long.parseLong(request.getParameter("id"));
 		String job = request.getParameter("job");
 		Users user = (Users)request.getSession(false).getAttribute("user");
-		DomainViewService viewPermissions = new DomainViewService(user, user);
 		
 		switch(job) {
 
@@ -157,14 +152,12 @@ public class DeleteCustomer extends HttpServlet {
 				Customer customer = new CustomerPreService().removeEmail(id, email, user);
 				if(customer != null) {
 					request.setAttribute("customer", customer);
-					request.setAttribute("viewPermissions", viewPermissions);
 					request.setAttribute("message", "Email succesfully removed!");
 					RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 					rd.forward(request, response);
 				}
 				else {
 					request.setAttribute("alert", "Something went wrong! Please check the customer again.");
-					request.setAttribute("viewPermissions", viewPermissions);
 					RequestDispatcher rd = request.getRequestDispatcher("CorporationList.jsp");
 					rd.forward(request, response);
 				}
@@ -178,13 +171,11 @@ public class DeleteCustomer extends HttpServlet {
 				if(customer != null) {
 					request.setAttribute("customer", customer);
 					request.setAttribute("message", "Tel. Num. succesfully removed!");
-					request.setAttribute("viewPermissions", viewPermissions);
 					RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 					rd.forward(request, response);
 				}
 				else {
 					request.setAttribute("alert", "Something went wrong! Please check the customer again.");
-					request.setAttribute("viewPermissions", viewPermissions);
 					RequestDispatcher rd = request.getRequestDispatcher("CorporationList.jsp");
 					rd.forward(request, response);
 				}
@@ -197,18 +188,21 @@ public class DeleteCustomer extends HttpServlet {
 				
 				if(customer != null) {
 					request.setAttribute("customer", customer);
-					request.setAttribute("viewPermissions", viewPermissions);
 					request.setAttribute("message", "Address succesfully removed!");
 					RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 					rd.forward(request, response);
 				}
 				else {
 					request.setAttribute("alert", "Something went wrong! Please check the customer again.");
-					request.setAttribute("viewPermissions", viewPermissions);
 					RequestDispatcher rd = request.getRequestDispatcher("CorporationList.jsp");
 					rd.forward(request, response);
 				}
 				break;
+			}
+			default : {
+				request.setAttribute("alert", "Bad Request");
+				RequestDispatcher rd = request.getRequestDispatcher("Error.jsp");
+				rd.forward(request, response);
 			}
 		
 		}

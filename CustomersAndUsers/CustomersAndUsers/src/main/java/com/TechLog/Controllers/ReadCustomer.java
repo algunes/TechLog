@@ -1,7 +1,6 @@
 package com.TechLog.Controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,10 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.TechLog.Entity.Corporations.Corporation;
 import com.TechLog.Entity.Customers.Customer;
-import com.TechLog.Entity.Users.Users;
 import com.TechLog.Services.Corporation.CorporationPostService;
 import com.TechLog.Services.Customer.CustomerPostService;
-import com.TechLog.Services.DomainViewService.DomainViewService;
 import com.TechLog.Services.Pagination.Pagination;
 
 @WebServlet("/readCustomer")
@@ -25,10 +22,7 @@ public class ReadCustomer extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Users user = (Users)request.getSession(false).getAttribute("user");
 		String job = request.getParameter("job");
-		DomainViewService viewPermissions = new DomainViewService(user, user);
-
 		
 		switch (job) {
 
@@ -37,7 +31,6 @@ public class ReadCustomer extends HttpServlet {
 			Long id = Long.parseLong(request.getParameter("id"));
 			Customer customer = new CustomerPostService().getCustomer(id, true);
 			request.setAttribute("customer", customer);
-			request.setAttribute("viewPermissions", viewPermissions);
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCustomer.jsp");
 			rd.forward(request, response);	
 			break;
@@ -50,7 +43,6 @@ public class ReadCustomer extends HttpServlet {
 			Corporation corporation = new CorporationPostService().getCorporation(id, true);
 			
 			request.setAttribute("corporation", corporation);
-			request.setAttribute("viewPermissions", viewPermissions);
 			RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
 			rd.forward(request, response);
 			break;

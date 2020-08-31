@@ -180,7 +180,9 @@ public Boolean isUsernameUnique(String username) {
 			true : false;
 	}
 
-public List<Users> getLastLoginUsers() {
+public List<Users> getLastLoggedInUsers() {
 	return new UserDao().lastLoginUsers();
 }
+
+
 }

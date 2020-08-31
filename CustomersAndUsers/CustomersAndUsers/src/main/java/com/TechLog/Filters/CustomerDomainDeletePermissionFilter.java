@@ -27,7 +27,7 @@ public class CustomerDomainDeletePermissionFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
 		HttpServletRequest req = (HttpServletRequest)request;
-		Users masterUser = (Users)req.getSession().getAttribute("user");
+		Users masterUser = (Users)req.getSession(false).getAttribute("user");
 		
 		CustomerDomainDeletePermissionService cddps = new CustomerDomainDeletePermissionService(masterUser);
 		if(cddps.deleteCustomer() && req.getParameter("job") != null && req.getParameter("id") != null) {

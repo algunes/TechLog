@@ -42,9 +42,11 @@ public class Customer implements Serializable {
 	private Corporation corporation;
 	
 	@Column(name="department")
+	@Field
 	private String department;
 	
 	@Column(name="position")
+	@Field
 	private String position;
 	
 	@ElementCollection

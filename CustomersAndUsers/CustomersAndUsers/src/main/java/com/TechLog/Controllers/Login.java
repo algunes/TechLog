@@ -20,47 +20,31 @@ public class Login extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-			if (request.getSession().getAttribute("user") == null) {
-				request.setAttribute("message", "Please sign in first!");
-				RequestDispatcher rd = request.getRequestDispatcher("UserLogin.jsp");
-				rd.forward(request, response);
-			}
-			else {
 				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-				rd.forward(request, response);
-			}
-			
+				rd.forward(request, response);			
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		if(request.getSession(true).getAttribute("user") != null) {
-			response.sendRedirect("index.jsp");
-		}
-		
-		else {
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			Users user = new UserService().userLoginValidation(username, password);
 			
-			if(user != null) {
-				
-				HttpSession session = request.getSession(true);
+			if(user != null) {				
+				HttpSession session = request.getSession();
 				session.setMaxInactiveInterval(15*60);
 				session.setAttribute("user", user);
+				session.setAttribute("id", session.getId());
 				session.setAttribute("domainPermissions", new DomainViewService(user, user));
-				
+				request.getServletContext().setAttribute("lastLoggedInUsers", new UserService().getLastLoggedInUsers());
 				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 				rd.forward(request, response);
-			}
-			
-			else {
-				request.setAttribute("alert", "Your Username or Password is invalid!");
-				RequestDispatcher rd = request.getRequestDispatcher("UserLogin.jsp");
-				rd.forward(request, response);	
-			}
 		}
+			else {
+				request.setAttribute("alert", "Invalid username or password!");
+				RequestDispatcher rd = request.getRequestDispatcher("UserLogin.jsp");
+				rd.forward(request, response);
+			}
 	}
 
 }

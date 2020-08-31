@@ -63,13 +63,7 @@
 		<description></description>
 		<filter-class>com.TechLog.Filters.UserDomainDeletePermissionFilter</filter-class>
 	</filter>
-	<filter>
-		<filter-name>CustomerDomainJspAuthFilter</filter-name>
-		<display-name>CustomerDomainJspAuthFilter</display-name>
-		<description></description>
-		<filter-class>com.TechLog.Filters.CustomerDomainJspAuthFilter</filter-class>
-	</filter>
-	
+
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/</url-pattern>
@@ -235,10 +229,9 @@
 		<filter-name>UserDomainDeletePermissionFilter</filter-name>
 		<url-pattern>/UserDomainDeletePermissionFilter</url-pattern>
 	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CustomerDomainJspAuthFilter</filter-name>
-		<url-pattern>/AddCorporation.jsp</url-pattern>
-	</filter-mapping>
+	<listener>
+		<listener-class>com.TechLog.Listeners.ApplicationListener</listener-class>
+	</listener>
 	
 	<servlet>
 		<servlet-name>CreateCustomer</servlet-name>
@@ -275,12 +268,6 @@
 		<servlet-class>com.TechLog.Controllers.DeleteCustomer</servlet-class>
 	</servlet>
 
-	<servlet>
-		<servlet-name>Initialization</servlet-name>
-		<display-name>Initialization</display-name>
-		<description></description>
-		<servlet-class>com.TechLog.Controllers.Initialization</servlet-class>
-	</servlet>
 	<servlet>
 		<servlet-name>Login</servlet-name>
 		<display-name>Login</display-name>
@@ -322,30 +309,21 @@
 		<servlet-name>CreateCustomer</servlet-name>
 		<url-pattern>/CreateCustomer</url-pattern>
 	</servlet-mapping>
-	
 	<servlet-mapping>
 		<servlet-name>ReadCustomer</servlet-name>
 		<url-pattern>/ReadCustomer</url-pattern>
 	</servlet-mapping>
-	
 	<servlet-mapping>
 		<servlet-name>SearchCustomer</servlet-name>
 		<url-pattern>/SearchCustomer</url-pattern>
 	</servlet-mapping>
-	
 	<servlet-mapping>
 		<servlet-name>UpdateCustomer</servlet-name>
 		<url-pattern>/UpdateCustomer</url-pattern>
 	</servlet-mapping>
-	
 	<servlet-mapping>
 		<servlet-name>DeleteCustomer</servlet-name>
 		<url-pattern>/DeleteCustomer</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>Initialization</servlet-name>
-		<url-pattern>/Initialization</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
@@ -380,9 +358,12 @@
     <error-code>500</error-code>
     <location>/Error.jsp</location>
 	</error-page>
-	
 	<error-page>
     <error-code>404</error-code>
+    <location>/Error.jsp</location>
+	</error-page>
+	<error-page>
+    <exception-type>java.lang.Throwable</exception-type>
     <location>/Error.jsp</location>
 	</error-page>
 	

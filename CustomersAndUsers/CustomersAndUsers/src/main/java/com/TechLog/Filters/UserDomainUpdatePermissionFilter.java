@@ -33,7 +33,7 @@ public class UserDomainUpdatePermissionFilter implements Filter {
 		
 		if(id != null && job != null) {
 			Users targetUser = (Users)new UserService().getUser(id, true);
-			Users masterUser = (Users)req.getSession().getAttribute("user");
+			Users masterUser = (Users)req.getSession(false).getAttribute("user");
 			UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(masterUser, targetUser);
 			
 			switch(job) {

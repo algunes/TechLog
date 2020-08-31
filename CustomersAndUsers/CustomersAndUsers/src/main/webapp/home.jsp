@@ -25,20 +25,6 @@ response.setHeader("Expires", "0");
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
 <title>Customer Cards Home</title>
 
-<%
-if(session.getAttribute("user") != null) {
-	List<Customer> lastAddedCustomers = new CustomerPostService().getLastAddedCustomers();
-	List<Customer> lastUpdatedCustomers = new CustomerPostService().getLastUpdatedCustomers();
-	List<Corporation> lastAddedCorporations = new CorporationPostService().getLastAddedCorporations();
-	List<Users> lastLoginUsers = new UserService().getLastLoginUsers();
-	
-	pageContext.setAttribute("lastAddedCorporations", lastAddedCorporations);
-	pageContext.setAttribute("lastAddedCustomers", lastAddedCustomers);
-	pageContext.setAttribute("lastUpdatedCustomers", lastUpdatedCustomers);
-	pageContext.setAttribute("lastLoginUsers", lastLoginUsers);
-}
-%>
-
 </head>
  <c:if test = "${message != null}" >
  <c:out value = "${message}" />
@@ -56,7 +42,7 @@ if(session.getAttribute("user") != null) {
       <div class="card-body row no-gutters align-items-center">
         <form class="card-body row no-gutters align-items-center" action="searchCustomer" method="post">
         <div class="col">
-              <input class="form-control form-control-lg form-control-borderless" type="search" name="keyword" placeholder="Search customers or corporations">
+              <input class="form-control form-control-lg form-control-borderless" type="search" name="keyword" required placeholder="Search customers or corporations">
         </div>
         <!--end of col-->
         <div class="col-auto">
@@ -128,9 +114,9 @@ if(session.getAttribute("user") != null) {
       </table>
     </div>
     <div class="col">
-    <h6>Last Signed in users:</h6>
+    <h6>Last Signed in Users:</h6>
     <table class="table table-sm">
-      <c:forEach items="${lastLoginUsers}" var="us"> 
+      <c:forEach items="${lastLoggedInUsers}" var="us"> 
 		<tr>
 		<td>
       <a href="<%=request.getContextPath()%>

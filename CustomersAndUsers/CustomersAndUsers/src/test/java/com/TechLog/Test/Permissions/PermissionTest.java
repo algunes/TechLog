@@ -7,6 +7,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import com.TechLog.DAO.Initialization.PermissionDao;
+import com.TechLog.Entity.Permissions.CustomerDomainPermission;
+import com.TechLog.Entity.Permissions.DomainPermissions;
+import com.TechLog.Entity.Permissions.DomainPermissionsBuilder;
+import com.TechLog.Entity.Permissions.Permission;
+import com.TechLog.Entity.Permissions.ProductDomainPermission;
+import com.TechLog.Entity.Users.Users;
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PermissionTest {
 	
@@ -25,7 +33,7 @@ class PermissionTest {
 		
 		pd = new ProductDomainPermission();
 				
-		d = new DomainPermissionsBuilder()
+		d = new DomainPermissionsBuilder().
 				.setCustomerDomain(cd)
 				.setProductDomain(pd)
 				.build();

@@ -36,7 +36,6 @@ response.setHeader("Expires", "0");
       <c:out value="${caption}"/>
       </strong></div>
 </c:if>
-
 <b>Customers: </b><br>
 <Table class="table table-sm">
 
@@ -53,7 +52,40 @@ ${e.getFirstname()} ${e.getLastname()}</a>
 </tr>
 </c:forEach>
 
+<c:if test="${pagination.getNumberOfObjects() == 0}" >
+<c:out value="no entries found!">ho ho</c:out>
+</c:if>
+
+<tr>
+<td>
+
+<form action="searchCustomer" method="post" >
+
+<button type="submit" class="btn btn-secondary btn-sm" 
+name="first" value="${pagination.getPrevLink()}" 
+<c:if test = "${pagination.getPrevIsNotActive()}" >
+disabled
+</c:if>
+>Prev</button>
+
+<button type="submit" class="btn btn-secondary btn-sm" 
+name="first" value="${pagination.getNextLink()}" 
+<c:if test = "${pagination.getNextIsNotActive()}" >
+disabled
+</c:if>
+>Next</button>
+<input type="hidden" name="keyword" value="${keyword}" />
+</form>
+</td>
+</tr>
+<tr>
+<td>
+<small>pages: (${pagination.getCurrentPage()} / ${pagination.getTotalPage()})</small> | <small>total results: ${pagination.getNumberOfObjects()}</small>
+</td>
+</tr>
+
 </Table>
+
 </div>
 </body>
 </html>

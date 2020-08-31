@@ -28,7 +28,7 @@ public class UserDomainCreatePermissionFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
 		HttpServletRequest req = (HttpServletRequest)request;
-		Users user = (Users)req.getSession().getAttribute("user");
+		Users user = (Users)req.getSession(false).getAttribute("user");
 		UserDomainCreatePermissionService udcps = new UserDomainCreatePermissionService(user);
 		
 		if(udcps.createUser()) {

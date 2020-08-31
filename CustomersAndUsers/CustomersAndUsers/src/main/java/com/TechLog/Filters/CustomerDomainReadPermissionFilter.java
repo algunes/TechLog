@@ -26,7 +26,7 @@ public class CustomerDomainReadPermissionFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
 		HttpServletRequest req = (HttpServletRequest)request;
-		Users masterUser = (Users)req.getSession().getAttribute("user");
+		Users masterUser = (Users)req.getSession(false).getAttribute("user");
 		
 		CustomerDomainReadPermissionService cdrps = new CustomerDomainReadPermissionService(masterUser);
 		if(cdrps.readCustomer() && req.getParameter("job") != null) {
