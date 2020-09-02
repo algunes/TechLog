@@ -143,7 +143,7 @@ public class CustomerDAO implements ICustomerDao {
 			cr.orderBy(cb.desc(root.get("creation_date")));
 						 
 			result = (session.createQuery(cr).getResultList().isEmpty() ? 
-					null : session.createQuery(cr).setMaxResults(10).list());
+					null : session.createQuery(cr).setMaxResults(6).list());
 			
 			session.getTransaction().commit();
 		}
@@ -175,7 +175,7 @@ public class CustomerDAO implements ICustomerDao {
 			cr.select(root).where(cb.isNotNull(root.get("last_update")));
 			cr.orderBy(cb.desc(root.get("last_update")));
 								 
-			result = session.createQuery(cr).setMaxResults(10).list();
+			result = session.createQuery(cr).setMaxResults(6).list();
 			
 			session.getTransaction().commit();
 		}

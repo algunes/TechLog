@@ -8,6 +8,7 @@ import java.security.spec.KeySpec;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -128,6 +129,26 @@ public class UserService {
 			e.printStackTrace();
 		}
 		return hash;	
+	}
+	
+	public String randomPasswordGenerator() {
+		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.?-,!";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        
+        while (salt.length() < 8) {
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        return salt.toString();
+	}
+	
+	public String passwordReset(Long id) {
+		String randomPassword = randomPasswordGenerator();
+		Users user = new UserDao().fetchUser(id);
+		user.getUserAuth().setPassword(passwordHashing(user.getUserAuth().getSalt(), randomPassword));
+		updateUser(user);
+		return randomPassword;
 	}
 	
 	public byte[] usernameToByte(String username) {

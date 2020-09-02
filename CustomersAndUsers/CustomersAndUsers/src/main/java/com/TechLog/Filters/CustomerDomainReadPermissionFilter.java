@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 import com.TechLog.Entity.Users.Users;
-import com.Techlog.Services.CustomerPermissions.CustomerDomainReadPermissionService;
+import com.TechLog.Services.CustomerPermissions.CustomerDomainReadPermissionService;
 
 @WebFilter(urlPatterns = {"/readCustomer", "/ReadCustomer"})
 public class CustomerDomainReadPermissionFilter implements Filter {

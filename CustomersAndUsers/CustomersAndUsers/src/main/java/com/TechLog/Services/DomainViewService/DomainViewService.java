@@ -1,14 +1,14 @@
 package com.TechLog.Services.DomainViewService;
 
 import com.TechLog.Entity.Users.Users;
+import com.TechLog.Services.CustomerPermissions.CustomerDomainCreatePermissionService;
+import com.TechLog.Services.CustomerPermissions.CustomerDomainDeletePermissionService;
+import com.TechLog.Services.CustomerPermissions.CustomerDomainReadPermissionService;
+import com.TechLog.Services.CustomerPermissions.CustomerDomainUpdatePermissionService;
 import com.TechLog.Services.UserPermissions.UserDomainCreatePermissionService;
 import com.TechLog.Services.UserPermissions.UserDomainDeletePermissionService;
 import com.TechLog.Services.UserPermissions.UserDomainReadPermissionService;
 import com.TechLog.Services.UserPermissions.UserDomainUpdatePermissionService;
-import com.Techlog.Services.CustomerPermissions.CustomerDomainCreatePermissionService;
-import com.Techlog.Services.CustomerPermissions.CustomerDomainDeletePermissionService;
-import com.Techlog.Services.CustomerPermissions.CustomerDomainReadPermissionService;
-import com.Techlog.Services.CustomerPermissions.CustomerDomainUpdatePermissionService;
 
 public class DomainViewService {
 	

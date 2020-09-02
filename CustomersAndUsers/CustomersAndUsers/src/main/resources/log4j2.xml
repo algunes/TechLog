@@ -1,30 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
-<Configuration monitorInterval="60">
+<Configuration status="warn" name="cards"  monitorInterval="60">
     <Properties>
         <Property name="log-path">PropertiesConfiguration</Property>
     </Properties>
+
     <Appenders>
-        <Console name="Console-Appender" target="SYSTEM_OUT">
-            <PatternLayout>
-                <pattern>
-                    [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
-                </pattern>>
-            </PatternLayout>
-        </Console>
-    </Appenders>
+    <File name="errors" fileName="/--your file path -- /cardsLog.log">
+    <PatternLayout>
+      <pattern>
+           [%-5level] %d{dd-MM-yyyy HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+      </pattern>
+      </PatternLayout>
+    </File>
+  </Appenders>
+
     <Loggers>
-        <Logger name="org.hibernate.SQL" level="debug" additivity="false">
-            <AppenderRef ref="Console-Appender"/>
+        <Logger name="org.hibernate" level="warn" additivity="false">
+            <AppenderRef ref="errors"/>
         </Logger>
-        <Logger name="org.hibernate.type.descriptor.sql" level="debug" additivity="false">
-            <AppenderRef ref="Console-Appender"/>
+        <Logger name="com.mysql" level="warn" additivity="false">
+            <AppenderRef ref="errors"/>
         </Logger>
-        <Logger name="org.javax.persistence" level="debug" additivity="false">
-            <AppenderRef ref="Console-Appender"/>
+        <Logger name="com.TechLog" level="info" additivity="false">
+            <AppenderRef ref="errors"/>
         </Logger>
-        <Root level="info">
-            <AppenderRef ref="Console-Appender"/>
+        <Logger name="javax.servlet" level="warn" additivity="false">
+            <AppenderRef ref="errors"/>
+        </Logger>
+        <Logger name="org.apache" level="warn" additivity="false">
+            <AppenderRef ref="errors"/>
+        </Logger>
+        <Logger name="org.javax.persistence" level="warn" additivity="false">
+            <AppenderRef ref="errors"/>
+        </Logger>
+        <Root level="debug">
+            <AppenderRef ref="errors"/>
         </Root>
     </Loggers>
+
 </Configuration>

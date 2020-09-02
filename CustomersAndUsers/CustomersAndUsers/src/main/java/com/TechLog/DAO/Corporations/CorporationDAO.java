@@ -213,7 +213,7 @@ public class CorporationDAO implements ICorporationDao {
 			
 			cr.orderBy(cb.desc(root.get("creation_date")));
 						 
-			result = session.createQuery(cr).setMaxResults(10).list();
+			result = session.createQuery(cr).setMaxResults(6).list();
 			
 			session.getTransaction().commit();
 		}

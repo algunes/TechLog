@@ -80,6 +80,12 @@ class UserDomainUpdatePermissionServiceTest {
 		targetUser.setDomainPermissions(dpFalse);
 	}
 	
+	// --> updateUsername()
+			// --> Users can update their username 
+			// --> The users who had update permission can update other user's usernames, except admin's
+			// --> admin can update all usernames with or without update permission
+			// --> admin can't change its username
+	
 	@Test
 	@DisplayName("updateUsername() --> User with 'update permission' (SelfUpdate)")
 	void updateUserNameTest1() {
@@ -126,31 +132,39 @@ class UserDomainUpdatePermissionServiceTest {
 	@DisplayName("updateUsername() --> Admin without 'update permission' (SelfUpdate)")
 	void updateUserNameTest7() {
 		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(adminUser2, adminUser2);
-		assertTrue(udups.updateUsername());
+		assertFalse(udups.updateUsername());
 	}
 	
 	@Test
 	@DisplayName("updateUsername() --> Admin with 'update permission' (SelfUpdate)")
 	void updateUserNameTest8() {
 		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(adminUser, adminUser);
-		assertTrue(udups.updateUsername());
+		assertFalse(udups.updateUsername());
+	}
+	
+	@Test
+	@DisplayName("updateUsername() --> Admin without 'update permission' (SelfUpdate)")
+	void updateUserNameTest9() {
+		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(adminUser2, adminUser2);
+		assertFalse(udups.updateUsername());
 	}
 	
 	@Test
 	@DisplayName("updateUsername() --> Admin with 'update permission' updating another user")
-	void updateUserNameTest9() {
+	void updateUserNameTest10() {
 		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(adminUser, targetUser);
 		assertTrue(udups.updateUsername());
 	}
 	
 	@Test
 	@DisplayName("updateUsername() --> Admin without 'update permission' updating another user")
-	void updateUserNameTest10() {
+	void updateUserNameTest11() {
 		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(adminUser2, targetUser);
 		assertTrue(udups.updateUsername());
 	}
 	
 	// --> updatePassword()
+			// --> No user can update other user's password
 	
 	@Test
 	@DisplayName("updatePassword() --> User with 'update permission' updating another user")
@@ -222,7 +236,82 @@ class UserDomainUpdatePermissionServiceTest {
 		assertTrue(udups.updatePassword());
 	}
 	
+	// --> resetPassword()
+			// --> Admin user can reset all passwords, except itself
+	
+	@Test
+	@DisplayName("resetPassword() --> User with 'update permission' resetting password of another user")
+	void resetpassword1() {
+		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(masterUser, targetUser);
+		assertFalse(udups.resetPassword());
+	}
+	
+	@Test
+	@DisplayName("resetPassword() --> User with 'update permission' resetting password of admin")
+	void resetpassword2() {
+		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(masterUser, adminUser);
+		assertFalse(udups.resetPassword());
+	}
+	
+	@Test
+	@DisplayName("resetPassword() --> User with 'update permission' resetting its own password")
+	void resetpassword3() {
+		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(masterUser, masterUser);
+		assertFalse(udups.resetPassword());
+	}
+	
+	@Test
+	@DisplayName("resetPassword() --> User without 'update permission' resetting password of another user")
+	void resetpassword4() {
+		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(masterUser2, targetUser);
+		assertFalse(udups.resetPassword());
+	}
+	
+	@Test
+	@DisplayName("resetPassword() --> User without 'update permission' resetting password of admin")
+	void resetpassword5() {
+		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(masterUser2, adminUser);
+		assertFalse(udups.resetPassword());
+	}
+	
+	@Test
+	@DisplayName("resetPassword() --> User without 'update permission' resetting its own password")
+	void resetpassword6() {
+		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(masterUser2, masterUser2);
+		assertFalse(udups.resetPassword());
+	}
+	
+	@Test
+	@DisplayName("resetPassword() --> Admin without 'update permission' resetting password of another user")
+	void resetpassword7() {
+		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(adminUser2, targetUser);
+		assertTrue(udups.resetPassword());
+	}
+	
+	@Test
+	@DisplayName("resetPassword() --> Admin with 'update permission' resetting password of another user")
+	void resetpassword8() {
+		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(adminUser, targetUser);
+		assertTrue(udups.resetPassword());
+	}
+	
+	@Test
+	@DisplayName("resetPassword() --> Admin without 'update permission' resetting its own password")
+	void resetpassword9() {
+		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(adminUser2, adminUser2);
+		assertFalse(udups.resetPassword());
+	}
+	
+	@Test
+	@DisplayName("resetPassword() --> Admin without 'update permission' resetting its own password")
+	void resetpassword10() {
+		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(adminUser2, adminUser2);
+		assertFalse(udups.resetPassword());
+	}
+	
 	// --> updateFirstname()
+			// --> Only the users who have update permission can update firstnames, except admin's
+			// --> admin can update all Firstnames with or without update permission
 	
 	@Test
 	@DisplayName("updateFirstname() --> User with 'update permission' updating another user")
@@ -291,6 +380,10 @@ class UserDomainUpdatePermissionServiceTest {
 
 	
 	// --> updatePermissions()
+			// --> No user can update their own permissions
+			// --> Only the users who have update permission can update other's permissions
+			// --> No user can update admin's permissions.
+			// --> Admin can update all users permissions
 	
 	@Test
 	@DisplayName("updatePermissions() --> User with 'update permission' updating another user")
@@ -351,17 +444,20 @@ class UserDomainUpdatePermissionServiceTest {
 	@DisplayName("updatePermissions() --> Admin with 'update permission' (SelfUpdate")
 	void updatePermissions9() {
 		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(adminUser, adminUser);
-		assertTrue(udups.updatePermissions());
+		assertFalse(udups.updatePermissions());
 	}
 	
 	@Test
 	@DisplayName("updatePermissions() --> Admin without 'update permission' (SelfUpdate")
 	void updatePermissions10() {
 		UserDomainUpdatePermissionService udups = new UserDomainUpdatePermissionService(adminUser2, adminUser2);
-		assertTrue(udups.updatePermissions());
+		assertFalse(udups.updatePermissions());
 	}
 	
 	// --> updateEmail()
+			// --> Users can update their own email
+			// --> Users who have update permission can change other's email, except admin's
+			// --> Admin can update its own and user's email
 	
 	@Test
 	@DisplayName("updateEmail() --> User with 'update permission' updating another user")

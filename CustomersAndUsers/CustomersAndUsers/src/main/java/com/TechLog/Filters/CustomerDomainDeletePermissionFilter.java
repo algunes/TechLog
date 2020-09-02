@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 import com.TechLog.Entity.Users.Users;
-import com.Techlog.Services.CustomerPermissions.CustomerDomainDeletePermissionService;
+import com.TechLog.Services.CustomerPermissions.CustomerDomainDeletePermissionService;
 
 @WebFilter(urlPatterns = {"/deleteCustomer", "/DeleteCustomer"})
 public class CustomerDomainDeletePermissionFilter implements Filter {

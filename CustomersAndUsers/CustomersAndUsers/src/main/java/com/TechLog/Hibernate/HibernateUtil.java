@@ -1,6 +1,9 @@
 package com.TechLog.Hibernate;
 
 import java.util.*;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
@@ -11,6 +14,7 @@ import org.hibernate.cfg.Environment;
 public class HibernateUtil {
 	private static StandardServiceRegistry standardServiceRegistry;
 	private static SessionFactory sessionFactory;
+	private static Logger log = LogManager.getLogger(HibernateUtil.class);
 
 	static {
 
@@ -23,9 +27,9 @@ public class HibernateUtil {
 				Map<Object, Object> settings = new HashMap<>();
 				
 				// DB Configuration
-				settings.put(Environment.URL, "jdbc:mysql://localhost:3306/techlog");
-				settings.put(Environment.USER, "root");
-				settings.put(Environment.PASS, "Driver8..?");				
+				settings.put(Environment.URL, "jdbc:mysql://localhost:3306/--mysql database name--");
+				settings.put(Environment.USER, "--mysql username--");
+				settings.put(Environment.PASS, "--mysql password--");				
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
 				settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
 				settings.put(Environment.JDBC_TIME_ZONE, "UTC");
@@ -42,7 +46,7 @@ public class HibernateUtil {
 			    // Search Configuration 
 			    settings.put("hibernate.search.lucene_version", "latest");
 				settings.put("hibernate.search.default.directory_provider", "filesystem");
-	            settings.put("hibernate.search.default.indexBase", "/home/aliyar/eclipse-workspace/GitProjects/techlog/CustomersAndUsers/CustomersAndUsers/luceneindexes");
+	            settings.put("hibernate.search.default.indexBase", " --- file path for index folder --- ");
 	            settings.put("hibernate.search.default.indexwriter.infostream", true);
 				
 				registryBuilder.applySettings(settings);
@@ -66,6 +70,7 @@ public class HibernateUtil {
 			}
 
 			catch (Exception e) {
+				log.error(e.getMessage());
 				e.printStackTrace();
 				if (standardServiceRegistry != null) {
 					StandardServiceRegistryBuilder.destroy(standardServiceRegistry);

@@ -27,7 +27,7 @@ public class SearchCustomer extends HttpServlet {
 
 		String keyword = request.getParameter("keyword");
 		
-		Pattern regex = Pattern.compile("[^A-Za-z0-9ğüşöçİĞÜŞÖÇ]");
+		Pattern regex = Pattern.compile("[^A-Za-z0-9ğüşöçİĞÜŞÖÇ@+.-_]");
 		Matcher matcher = regex.matcher(keyword);
 		
 		if(matcher.find()) {

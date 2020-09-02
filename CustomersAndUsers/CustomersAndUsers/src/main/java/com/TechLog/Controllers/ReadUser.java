@@ -50,7 +50,6 @@ public class ReadUser extends HttpServlet {
 			Users user = new UserService().getUser(id, true);
 			List<Corporation> corporations = user.getCreated_corporations();
 			
-			
 			request.setAttribute("corporations", corporations);
 			request.setAttribute("caption", "Corporations which created by " + user.getFirstname() + " " + user.getLastname());
 			

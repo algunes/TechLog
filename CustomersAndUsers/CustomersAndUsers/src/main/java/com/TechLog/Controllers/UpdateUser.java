@@ -158,7 +158,20 @@ public class UpdateUser extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("PasswordChange.jsp");
 			rd.forward(request, response);
 			break;
-		}		
+		}
+		
+		case "resetPassword" : {
+			
+			UserService us = new UserService();
+			String newPassword = us.passwordReset(id);
+			Users user = us.getUser(id, true);
+			
+			request.setAttribute("user", user);
+			request.setAttribute("message", "User password reset to: " + newPassword);
+			RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
+			rd.forward(request, response);
+			break;
+		}
 		}
 	}
 
@@ -166,7 +179,7 @@ public class UpdateUser extends HttpServlet {
 		
 		job = request.getParameter("job") != null ? request.getParameter("job") : "";
 		Long id = Long.parseLong(request.getParameter("id"));
-
+		UserService us = new UserService();
 
 		switch(job) {
 		
@@ -176,6 +189,7 @@ public class UpdateUser extends HttpServlet {
 			Users user = new UserService().updateFirstname(id, userFirstname);
 			request.setAttribute("message", "User firstname updated to '" + userFirstname + "' !");
 			request.setAttribute("user", user);
+			request.setAttribute("username", us.byteToUsername(user.getUserAuth().getUserName()));
 			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
 			rd.forward(request, response);
@@ -190,6 +204,7 @@ public class UpdateUser extends HttpServlet {
 					
 			request.setAttribute("message", "User lastname updated to '" + userLastname + "' !");
 			request.setAttribute("user", user);
+			request.setAttribute("username", us.byteToUsername(user.getUserAuth().getUserName()));
 			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
 			rd.forward(request, response);
@@ -204,6 +219,7 @@ public class UpdateUser extends HttpServlet {
 						
 			request.setAttribute("message", "User department updated to '" + userDepartment + "' !");
 			request.setAttribute("user", user);
+			request.setAttribute("username", us.byteToUsername(user.getUserAuth().getUserName()));
 			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
 			rd.forward(request, response);
@@ -218,7 +234,8 @@ public class UpdateUser extends HttpServlet {
 						
 			request.setAttribute("message", "User position updated to '" + userPosition + "' !");
 			request.setAttribute("user", user);
-			
+			request.setAttribute("username", us.byteToUsername(user.getUserAuth().getUserName()));
+
 			RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
 			rd.forward(request, response);
 			break;	
@@ -247,7 +264,7 @@ public class UpdateUser extends HttpServlet {
 			Boolean sdUpdate = Boolean.parseBoolean(request.getParameter("stockDomainUpdate"));
 			Boolean sdDelete = Boolean.parseBoolean(request.getParameter("stockDomainDelete"));
 			
-			Users user = new UserService().getUser(id, true);
+			Users user = us.getUser(id, true);
 			
 			UserPermissionsService ups = new UserPermissionsService();
 			ups.updateCustomerDomainPermission(user, cdCreate, cdRead, cdUpdate, cdDelete);
@@ -257,7 +274,8 @@ public class UpdateUser extends HttpServlet {
 			
 			request.setAttribute("message", "User permissions Updated!");
 			request.setAttribute("user", user);
-			
+			request.setAttribute("username", us.byteToUsername(user.getUserAuth().getUserName()));
+
 			RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
 			rd.forward(request, response);
 			break;	
@@ -266,12 +284,12 @@ public class UpdateUser extends HttpServlet {
 		
 		case "updateEmail" : {
 			String userEmail = request.getParameter("output");
-			
-			Users user = new UserService().updateEmail(id, userEmail);
+			Users user = us.updateEmail(id, userEmail);
 						
 			request.setAttribute("message", "User email updated to '" + userEmail + "' !");
 			request.setAttribute("user", user);
-			
+			request.setAttribute("username", us.byteToUsername(user.getUserAuth().getUserName()));
+
 			RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
 			rd.forward(request, response);
 			break;	
@@ -280,12 +298,12 @@ public class UpdateUser extends HttpServlet {
 		
 		case "updateTelNumber" : {
 			String userTelNumber = request.getParameter("output");
-			
-			Users user = new UserService().updateTelNumber(id, userTelNumber);
+			Users user = us.updateTelNumber(id, userTelNumber);
 						
 			request.setAttribute("message", "User tel. number updated to '" + userTelNumber + "' !");
 			request.setAttribute("user", user);
-			
+			request.setAttribute("username", us.byteToUsername(user.getUserAuth().getUserName()));
+
 			RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
 			rd.forward(request, response);
 			break;	
@@ -294,11 +312,11 @@ public class UpdateUser extends HttpServlet {
 		
 		case "updateAddress" : {
 			String userAddress = request.getParameter("output");
-		
-			Users user = new UserService().updateAddress(id, userAddress);
+			Users user = us.updateAddress(id, userAddress);
 						
 			request.setAttribute("message", "User address updated to '" + userAddress + "' !");
 			request.setAttribute("user", user);
+			request.setAttribute("username", us.byteToUsername(user.getUserAuth().getUserName()));
 			
 			RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
 			rd.forward(request, response);
@@ -308,18 +326,19 @@ public class UpdateUser extends HttpServlet {
 		
 		case "updateUsername" : {
 			String username = request.getParameter("output");
-			
-			Users user = new UserService().updateUsername(id, username);
-			if(user != null) {		
+			Users user = us.getUser(id, true);
+			if(us.updateUsername(id, username) != null) {		
 				request.setAttribute("message", "Username updated to '" + username + "' !");
 				request.setAttribute("user", user);
+				request.setAttribute("username", us.byteToUsername(user.getUserAuth().getUserName()));
 				
 				RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
 				rd.forward(request, response);
 			}
 			else {
 				request.setAttribute("alert", "This username is used by someone else!");
-				request.setAttribute("user", new UserService().getUser(id, true));
+				request.setAttribute("user", user);
+				request.setAttribute("username", us.byteToUsername(user.getUserAuth().getUserName()));
 				
 				RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
 				rd.forward(request, response);
@@ -332,7 +351,6 @@ public class UpdateUser extends HttpServlet {
 			String oldPassword = request.getParameter("oldPassword");
 			String newPassword = request.getParameter("up");
 			
-			UserService us = new UserService();
 			Users user = us.updatePassword(id, oldPassword, newPassword);
 			if(user == null) {
 				request.setAttribute("user", user);
@@ -343,6 +361,7 @@ public class UpdateUser extends HttpServlet {
 			else {
 				request.setAttribute("message", "Password changed!");
 				request.setAttribute("user", user);
+				request.setAttribute("username", us.byteToUsername(user.getUserAuth().getUserName()));
 				
 				RequestDispatcher rd = request.getRequestDispatcher("ShowUser.jsp");
 				rd.forward(request, response);

@@ -148,6 +148,17 @@ public class UserDomainUpdatePermissionFilter implements Filter {
 				}
 				break;
 			}
+			case "resetPassword" : {
+				if(udups.resetPassword()) {
+					chain.doFilter(request, response);
+				}
+				else {
+					req.setAttribute("alert", "You have no permission to reset the password!");
+					RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");
+					rd.forward(request, response);
+				}
+				break;
+			}
 			default : {
 				req.setAttribute("alert", "Bad Request!");
 				RequestDispatcher rd = req.getRequestDispatcher("Error.jsp");

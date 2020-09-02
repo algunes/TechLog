@@ -1,7 +1,6 @@
 package com.TechLog.Listeners;
 
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -14,12 +13,13 @@ import com.TechLog.Entity.Permissions.DomainPermissions;
 import com.TechLog.Entity.Permissions.DomainPermissionsBuilder;
 import com.TechLog.Entity.Permissions.Permission;
 import com.TechLog.Entity.Users.UserBuilder;
+import com.TechLog.Services.Corporation.CorporationPostService;
+import com.TechLog.Services.Customer.CustomerPostService;
+import com.TechLog.Services.Users.UserService;
 
 
 @WebListener
 public class ApplicationListener implements ServletContextListener {
-
-	private ServletContext sc = null;
 	
 	private Logger log = LogManager.getLogger(ApplicationListener.class);
 	
@@ -33,40 +33,61 @@ public class ApplicationListener implements ServletContextListener {
     	    } catch (Exception e) {
     	      log.error("contextDestroy Error!", e);
     	    }
-    	    this.sc = null;
     	    log.info("webapp stopped");
     }
 
     public void contextInitialized(ServletContextEvent sce)  { 
-    	this.sc = sce.getServletContext();
     	
     	try {
 
     		log.info("webapp started");
     		
-    		new PermissionDao().addPermission(new Permission());
+    		sce.getServletContext().setAttribute("lastUpdatedCustomers", 
+    				new CustomerPostService().getLastUpdatedCustomers());
     		
-    		log.info(" 1/3 Permission initialized");
+    		sce.getServletContext().setAttribute("lastAddedCustomers", 
+    				new CustomerPostService().getLastAddedCustomers());
     		
-    		DomainPermissions dp = new DomainPermissionsBuilder()
-    		.setCustomerDomain(true, true, true, true)
-    		.setUserDomain(true, true, true, true)
-    		.setProductDomain(true, true, true, true)
-    		.setStockDomain(true, true, true, true)
-    		.build();
+    		sce.getServletContext().setAttribute("lastAddedCorporations", 
+    				new CorporationPostService().getLastAddedCorporations());
     		
-    		log.info("2/3 DomainPermission initialized");
+    		sce.getServletContext().setAttribute("lastLoggedInUsers", 
+    				new UserService().getLastLoggedInUsers());
     		
-    		new UserBuilder()
-    		.setUserName("admin")
-    		.setPassword("1234")
-    		.setFirstname("Aliyar")
-    		.setLastname("Güneş")
-    		.setDomainPermissions(dp)
-    		.build();
+    		PermissionDao pdao = new PermissionDao();
     		
-    		log.info("3/3 Admin User Initialized");
-    		log.info("Everything is OK! Now you can login to the app!");
+    		if(pdao.fetchUser(1L) == null) {
+    			Permission p = new Permission();
+        		log.info("False responsed Permission object instantiated!");
+        		
+        		PermissionDao pd = new PermissionDao();
+        		pd.addPermission(p);
+        		log.info("False responsed Permission object persisted!");
+    		}
+    		
+    		if(new UserService().isUsernameUnique("admin")) {
+    			
+    			DomainPermissions dp = new DomainPermissionsBuilder()
+    		    		.setCustomerDomain(true, true, true, true)
+    		    		.setUserDomain(true, true, true, true)
+    		    		.setProductDomain(true, true, true, true)
+    		    		.setStockDomain(true, true, true, true)
+    		    		.build();
+    		    		log.info("Admin User's DomainPermissions object instantiated!");
+    		    		
+    		    		new UserBuilder()
+    		    		.setUserName("admin")
+    		    		.setPassword("1234")
+    		    		.setFirstname("Aliyar")
+    		    		.setLastname("Güneş")
+    		    		.setDomainPermissions(dp)
+    		    		.build();
+    		    		log.info("Admin User and Its DomainPermissions Persisted!");
+
+    			
+    		}
+    		
+    		log.info("--> Everything is OK! Now you can login with admin user role!");
 
     	    } catch (Exception e) {
     	      log.error("Initialization Error!", e);

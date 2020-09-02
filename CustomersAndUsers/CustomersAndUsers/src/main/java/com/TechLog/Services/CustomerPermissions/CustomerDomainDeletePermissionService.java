@@ -1,4 +1,4 @@
-package com.Techlog.Services.CustomerPermissions;
+package com.TechLog.Services.CustomerPermissions;
 
 import com.TechLog.Entity.Users.Users;
 import com.TechLog.Services.Users.UserService;

@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 import com.TechLog.Entity.Users.Users;
-import com.Techlog.Services.CustomerPermissions.CustomerDomainUpdatePermissionService;
+import com.TechLog.Services.CustomerPermissions.CustomerDomainUpdatePermissionService;
 
 @WebFilter(urlPatterns = {"/customerUpdate", "/UpdateCustomer"})
 public class CustomerDomainUpdatePermissionFilter implements Filter {

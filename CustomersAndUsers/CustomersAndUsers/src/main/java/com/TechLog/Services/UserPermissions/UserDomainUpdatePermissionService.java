@@ -25,11 +25,15 @@ public class UserDomainUpdatePermissionService {
 		// --> Users can update their username 
 		// --> The users who had update permission can update other user's usernames, except admin's
 		// --> admin can update all usernames with or without update permission
+		// --> admin can't change its username
 		
-		if(masterUserIsUpdatingSelf || masterUserIsAdmin) {
+		if(!masterUserIsAdmin && masterUserHasUpdate && !targetUserIsAdmin) {
 			return true;
 		}
-		else if(masterUserHasUpdate && !targetUserIsAdmin) {
+		else if(masterUserIsAdmin && !masterUserIsUpdatingSelf) {
+			return true;
+		}
+		else if(!masterUserIsAdmin && masterUserIsUpdatingSelf) {
 			return true;
 		}
 		else {
@@ -40,6 +44,11 @@ public class UserDomainUpdatePermissionService {
 	public Boolean updatePassword() {
 		// --> No user can update other user's password
 		return masterUserIsUpdatingSelf ? true : false;
+	}
+	
+	public Boolean resetPassword() {
+		// --> Admin user can reset all passwords, except itself
+		return masterUserIsAdmin && !masterUserIsUpdatingSelf ? true : false;
 	}
 	
 	public Boolean updateFirstname() {
@@ -64,15 +73,15 @@ public class UserDomainUpdatePermissionService {
 	}
 	
 	public Boolean updatePermissions() {
-		// --> No user can update their own permissions, except top level admin. 
+		// --> No user can update their own permissions
 		// --> Only the users who have update permission can update other's permissions
-		// --> No user can update top level admin's permissions.
-		// --> Even if admin turn to false the update, she/he can continue to reach her/his own permissions field.
+		// --> No user can update admin's permissions.
+		// --> Admin can update all users permissions
 		
 		if(masterUserHasUpdate && !masterUserIsUpdatingSelf && !targetUserIsAdmin) {
 			return true;
 		}
-		else if(masterUserIsAdmin) {
+		else if(masterUserIsAdmin && !masterUserIsUpdatingSelf) {
 			return true;
 		}
 		else {

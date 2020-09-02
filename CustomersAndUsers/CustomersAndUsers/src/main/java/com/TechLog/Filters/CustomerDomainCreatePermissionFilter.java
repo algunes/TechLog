@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 import com.TechLog.Entity.Users.Users;
-import com.Techlog.Services.CustomerPermissions.CustomerDomainCreatePermissionService;
+import com.TechLog.Services.CustomerPermissions.CustomerDomainCreatePermissionService;
 
 @WebFilter(urlPatterns = {"/createCustomer", "/CreateCustomer"})
 public class CustomerDomainCreatePermissionFilter implements Filter {

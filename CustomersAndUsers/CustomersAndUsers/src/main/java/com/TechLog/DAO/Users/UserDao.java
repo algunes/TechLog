@@ -225,7 +225,7 @@ public class UserDao {
 			cr.select(root).where(cb.isNotNull(root.get("lastLogin")));
 			cr.orderBy(cb.desc(root.get("lastLogin")));
 								 
-			result = session.createQuery(cr).setMaxResults(10).list();
+			result = session.createQuery(cr).setMaxResults(6).list();
 			
 			session.getTransaction().commit();
 		}

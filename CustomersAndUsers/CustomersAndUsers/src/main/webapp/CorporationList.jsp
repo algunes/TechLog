@@ -54,6 +54,9 @@ job=getCorporation">${e.getName()}</a>
 </td>
 </tr>
 </c:forEach>
+
+<c:if test="${pagination != null}" >
+
 <tr>
 <td>
 
@@ -80,6 +83,9 @@ first=${pagination.getNextLink()}" > Next </a>
 <small>pages: (${pagination.getCurrentPage()} / ${pagination.getTotalPage()})</small> | <small>total corporations: ${pagination.getNumberOfObjects()}</small>
 </td>
 </tr>
+
+</c:if>
+
 </Table>
 	
 </div>

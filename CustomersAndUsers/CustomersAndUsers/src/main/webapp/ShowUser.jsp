@@ -69,13 +69,20 @@ job=updateUsername">edit</a>)</small>
 <a href="<%= request.getContextPath() %>
 /updateUser?
 id=${user.getId()}&
-job=updatePassword">Change Password </a><br>
-</td>
-<td>
+job=updatePassword">Change Password </a>
 </td>
 </tr>
 </c:if>
-
+<c:if test = "${dvs.getUserDomainUpdate().resetPassword()}" >
+<tr>
+<td>
+<a href="<%= request.getContextPath() %>
+/updateUser?
+id=${user.getId()}&
+job=resetPassword">Reset Password </a>
+</td>
+</tr>
+</c:if>
 
 <tr>
 <td>

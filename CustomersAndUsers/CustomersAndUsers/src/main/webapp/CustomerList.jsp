@@ -52,14 +52,16 @@ ${e.getFirstname()} ${e.getLastname()}</a>
 </tr>
 </c:forEach>
 
+<c:if test="${pagination != null}" >
+
 <c:if test="${pagination.getNumberOfObjects() == 0}" >
-<c:out value="no entries found!">ho ho</c:out>
+<c:out value="no entries found!"></c:out>
 </c:if>
 
 <tr>
 <td>
 
-<form action="searchCustomer" method="post" >
+<form action="${formAction}" method="post" >
 
 <button type="submit" class="btn btn-secondary btn-sm" 
 name="first" value="${pagination.getPrevLink()}" 
@@ -83,6 +85,8 @@ disabled
 <small>pages: (${pagination.getCurrentPage()} / ${pagination.getTotalPage()})</small> | <small>total results: ${pagination.getNumberOfObjects()}</small>
 </td>
 </tr>
+
+</c:if>
 
 </Table>
 
