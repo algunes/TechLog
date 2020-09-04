@@ -25,6 +25,7 @@ public class DeleteUser extends HttpServlet {
 		
 		request.setAttribute("users", us.getAllUsersList());
 		request.setAttribute("message", user.getFirstname() + " " + user.getLastname() + " removed!");
+		request.getServletContext().setAttribute("lastLoggedInUsers", new UserService().getLastLoggedInUsers());
 		
 		RequestDispatcher rd = request.getRequestDispatcher("UserList.jsp");
 		rd.forward(request, response);

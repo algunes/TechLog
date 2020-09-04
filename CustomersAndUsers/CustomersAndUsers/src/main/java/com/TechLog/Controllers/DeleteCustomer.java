@@ -32,7 +32,10 @@ public class DeleteCustomer extends HttpServlet {
 			if(corporation != null) {
 				new CorporationPostService().removeCorporation(id);
 				request.setAttribute("message", "Corporation deleted!");
-				RequestDispatcher rd = request.getRequestDispatcher("CorporationList.jsp");
+    			request.getServletContext().setAttribute("lastAddedCorporations", new CorporationPostService().getLastAddedCorporations());
+    			request.getServletContext().setAttribute("lastAddedCustomers", new CustomerPostService().getLastAddedCustomers());
+
+    			RequestDispatcher rd = request.getRequestDispatcher("/readCustomer?job=getCorporationList");
 				rd.forward(request, response);
 			}
 			else {
@@ -51,6 +54,8 @@ public class DeleteCustomer extends HttpServlet {
 				new CustomerPostService().removeCustomer(id);
 				request.setAttribute("message", "Customer removed!");
 				request.setAttribute("corporation", new CorporationPostService().getCorporation(corporationId, true));
+    			request.getServletContext().setAttribute("lastAddedCustomers", new CustomerPostService().getLastAddedCustomers());
+
 				RequestDispatcher rd = request.getRequestDispatcher("ShowCorporation.jsp");
 				rd.forward(request, response);
 			}
