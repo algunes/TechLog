@@ -88,7 +88,7 @@ Last Update:
 <td>
 <a href="<%= request.getContextPath() %>
 /readUser?
-id=${corporation.getCreated_by().getId()}&
+id=${corporation.getUpdated_by().getId()}&
 job=details">
 ${corporation.getUpdated_by().getFirstname()} ${corporation.getUpdated_by().getLastname()}
 </a>

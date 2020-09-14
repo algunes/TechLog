@@ -1,5 +1,8 @@
 package com.TechLog.Services.Search;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.lucene.search.Query;
 import org.hibernate.Transaction;
 import org.hibernate.search.FullTextSession;
@@ -49,6 +52,24 @@ public class SearchService {
 
 		return sdto;
 
+	}
+	
+	public Boolean searchInputFilter(String keyword) {
+
+		keyword = keyword.replaceAll("\\s+", " ");
+
+		// can't start except these
+		Pattern firstCharPattern = Pattern.compile("\\A[A-Za-z0-9ğüşöçıİĞÜŞÖÇ+]");
+		Matcher firstCharMatcher = firstCharPattern.matcher(keyword);
+
+		// rest of the keyword can consist of these (\\w means all alphanumericals)
+		Pattern validPattern = Pattern.compile("[^\\w @üÜşŞğĞöÖçÇıİ.+-]");
+		Matcher validMatcher = validPattern.matcher(keyword);
+
+		Boolean firstCharTest = firstCharMatcher.find();
+		Boolean validTest = validMatcher.find();
+		
+		return firstCharTest && !validTest && keyword.length()>2;
 	}
 
 }

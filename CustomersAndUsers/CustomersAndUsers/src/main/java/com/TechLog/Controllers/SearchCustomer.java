@@ -1,8 +1,6 @@
 package com.TechLog.Controllers;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,11 +25,10 @@ public class SearchCustomer extends HttpServlet {
 
 		String keyword = request.getParameter("keyword");
 		
-		Pattern regex = Pattern.compile("[^A-Za-z0-9ğüşöçİĞÜŞÖÇ@+.-_]");
-		Matcher matcher = regex.matcher(keyword);
+		SearchService searchService = new SearchService();
 		
-		if(matcher.find()) {
-			request.setAttribute("alert", keyword + " - Your keyword contains invalid characters, please use only alphanumericals!");
+		if(!searchService.searchInputFilter(keyword)) {
+			request.setAttribute("alert", keyword + " - Your keyword contains invalid characters or it is too short, please use only alphanumericals!");
 			RequestDispatcher rd = request.getRequestDispatcher("CustomerList.jsp"); 
 			rd.forward(request, response);
 		}
@@ -39,7 +36,7 @@ public class SearchCustomer extends HttpServlet {
 			Integer first = request.getParameter("first") != null ? 
 					Integer.parseInt(request.getParameter("first")) : 0;
 			Integer max = 10;
-			SearchDTO sdto = new SearchService().searchByCustomerName(keyword, first, max);
+			SearchDTO sdto = searchService.searchByCustomerName(keyword, first, max);
 			Pagination pagination = new Pagination(first, max, sdto.getNumberOfResult().longValue());
 			
 			request.setAttribute("pagination", pagination);
